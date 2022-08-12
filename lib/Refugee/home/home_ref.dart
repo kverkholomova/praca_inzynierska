@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wol_pro_1/Refugee/applications/all_applications.dart';
 
 import 'package:wol_pro_1/models/users_all.dart';
-import 'package:wol_pro_1/screens/option.dart';
+import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/services/database.dart';
 import 'package:provider/provider.dart';

@@ -6,7 +6,7 @@ import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
 import '../../cash/screen_with_applications.dart';
 import '../../services/auth.dart';
 import '../../shared/loading.dart';
-import '../../screens/option.dart';
+import '../../screens/intro_screen/option.dart';
 import '../new_screen_with_applications.dart';
 
 

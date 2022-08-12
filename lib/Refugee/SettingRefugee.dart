@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wol_pro_1/Refugee/home/home_ref.dart';
 import 'package:wol_pro_1/Refugee/pageWithChats.dart';
-import 'package:wol_pro_1/screens/option.dart';
+import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
 import 'package:wol_pro_1/cash/screen_with_applications.dart';

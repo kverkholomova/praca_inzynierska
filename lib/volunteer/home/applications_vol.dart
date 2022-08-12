@@ -8,7 +8,7 @@ import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
 import 'package:wol_pro_1/volunteer/authenticate/register_volunteer_1.dart';
 import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
 
-import '../../screens/option.dart';
+import '../../screens/intro_screen/option.dart';
 
 String card_title_accepted='';
 String card_category_accepted='';

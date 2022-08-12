@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wol_pro_1/screens/wrapper.dart';
-import '../shared/loading.dart';
+import '../../shared/loading.dart';
 
 
 var optionRefugee=true;
@@ -24,15 +24,17 @@ class _OptionChooseState extends State<OptionChoose> {
 
   bool selected = true;
   Timer? timer;
+  double levelOpacity = 0.9;
 
   late FirebaseMessaging messaging;
   @override
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(Duration(seconds: 20),(timer){
+    timer = Timer.periodic(Duration(seconds: 2),(timer){
       setState(() {
         selected = !selected;
+        levelOpacity = 0.3;
       });
     });
     messaging = FirebaseMessaging.instance;
@@ -46,7 +48,7 @@ class _OptionChooseState extends State<OptionChoose> {
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
       body: Container(
-        color: Color.fromRGBO(237, 233, 253, 8),
+        color: Color.fromRGBO(233, 242, 253, 8),
         child: Stack(
           children: [
             // Padding(
@@ -58,28 +60,41 @@ class _OptionChooseState extends State<OptionChoose> {
             //         child: SvgPicture.asset('assets/logo-02.svg')),
             //   ),
             // ),
-
-
             Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.35),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child:
-                  SvgPicture.asset('assets/logo-01.svg'),
+                  // child:
+                  // AnimatedOpacity(
+                  //     opacity: levelOpacity,
+                  //     duration: Duration(seconds: 2),
+                  //     onEnd: (){
+                  //       setState(() {
+                  //         levelOpacity =0.9;
+                  //       });
+                  //     },
+                  //     child: Shimmer.fromColors(
+                  //             period: Duration(seconds: 5),
+                  //             baseColor: Colors.black,
+                  //             highlightColor: Colors.white,
+                          child: SvgPicture.asset('assets/logo.svg')
+                      // )
+                  // ),
 
                 ),
               ),
             ),
 
             Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.4),
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Shimmer.fromColors(
+                  period: Duration(seconds: 5),
                   baseColor: Colors.black,
-                  highlightColor: Colors.white,
+                  highlightColor: Color.fromRGBO(233, 242, 253, 8),
                   child: Text("Get ready now",
                   style: GoogleFonts.raleway(
                     fontSize: 25,
@@ -128,7 +143,7 @@ class StartButton extends StatelessWidget {
         width: double.infinity,
         height: 65,
         decoration: BoxDecoration(
-            color: const Color.fromRGBO(118, 86, 236, 64),
+            color: const Color.fromRGBO(0, 70, 117, 99),
           borderRadius: BorderRadius.circular(24)
         ),
         child: TextButton(

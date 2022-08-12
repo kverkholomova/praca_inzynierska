@@ -8,7 +8,7 @@ import 'package:wol_pro_1/shared/constants.dart';
 
 import '../../services/auth.dart';
 import '../../shared/loading.dart';
-import '../../screens/option.dart';
+import '../../screens/intro_screen/option.dart';
 
 
 //
