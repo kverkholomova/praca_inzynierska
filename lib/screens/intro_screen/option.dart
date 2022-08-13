@@ -141,16 +141,16 @@ class StartButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         width: double.infinity,
-        height: 65,
+        height: 63,
         decoration: BoxDecoration(
-            color: const Color.fromRGBO(1, 90, 146, 15),
+            color: const Color.fromRGBO(2, 62, 99, 20),
           borderRadius: BorderRadius.circular(24)
         ),
         child: TextButton(
 
         child: Text(buttonName,
           style: GoogleFonts.raleway(
-            fontSize: 22,
+            fontSize: 23,
             color: Colors.white,
           ),
         ),
