@@ -90,51 +90,76 @@ class _SignInVolState extends State<SignInVol> {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         children: <Widget>[
-                          CustomTextFormField(),
-                          SizedBox(
-                            height: 55,
-                            child: TextFormField(
-                              obscureText: true,
-                              decoration: textInputDecoration.copyWith(
-                                  hintText: 'Password'),
-                              validator: (val) => val!.length < 6
-                                  ? 'Enter a password 6+ chars long'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() => password = val);
-                              },
-                            ),
+                          CustomTextFormField(customHintText: 'Email'),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.05),
+                            child:
+                                CustomTextFormField(customHintText: 'Password'),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  Container(
-                    height: 55,
-                    width: 275,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: MaterialButton(
-                        color: Color.fromRGBO(49, 72, 103, 0.8),
-                        child: Text(
-                          'Sign In',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() => loading = true);
-                            dynamic result = await _auth
-                                .signInWithEmailAndPasswordVol(email, password);
-                            if (result == null) {
-                              setState(() {
-                                loading = false;
-                                error =
-                                    'Could not sign in with those credentials';
-                              });
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      width: double.infinity,
+                      height: 63,
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(2, 62, 99, 20),
+                          borderRadius: BorderRadius.circular(24)),
+                      child: TextButton(
+                          child: Text(
+                            "Sign In",
+                            style: GoogleFonts.raleway(
+                              fontSize: 23,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() => loading = true);
+                              dynamic result =
+                                  await _auth.signInWithEmailAndPasswordVol(
+                                      email, password);
+                              if (result == null) {
+                                setState(() {
+                                  loading = false;
+                                  error =
+                                      'Could not sign in with those credentials';
+                                });
+                              }
                             }
-                          }
-                        }),
+                          }),
+                    ),
                   ),
+                  // Container(
+                  //   height: 55,
+                  //   width: 275,
+                  //   decoration:
+                  //       BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  //   child: MaterialButton(
+                  //       color: Color.fromRGBO(49, 72, 103, 0.8),
+                  //       child: Text(
+                  //         'Sign In',
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  //       onPressed: () async {
+                  //         if (_formKey.currentState!.validate()) {
+                  //           setState(() => loading = true);
+                  //           dynamic result = await _auth
+                  //               .signInWithEmailAndPasswordVol(email, password);
+                  //           if (result == null) {
+                  //             setState(() {
+                  //               loading = false;
+                  //               error =
+                  //                   'Could not sign in with those credentials';
+                  //             });
+                  //           }
+                  //         }
+                  //       }),
+                  // ),
                   const SizedBox(height: 12.0),
                   Text(
                     error,
@@ -147,42 +172,81 @@ class _SignInVolState extends State<SignInVol> {
   }
 }
 
+class CustomButton extends StatelessWidget {
+  final String buttonName;
+
+  const CustomButton({Key? key, required this.buttonName}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        width: double.infinity,
+        height: 63,
+        decoration: BoxDecoration(
+            color: const Color.fromRGBO(2, 62, 99, 20),
+            borderRadius: BorderRadius.circular(24)),
+        child: TextButton(
+          child: Text(
+            buttonName,
+            style: GoogleFonts.raleway(
+              fontSize: 23,
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () async {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => const Wrapper()));
+          },
+        ),
+      ),
+    );
+  }
+}
+
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
-    Key? key,
-  }) : super(key: key);
+  final String customHintText;
+
+  const CustomTextFormField({Key? key, required this.customHintText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 63,
-      child: TextFormField(
-        decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24.0),
-              borderSide: BorderSide(
-                color: Color.fromRGBO(2, 62, 99, 20),
+      child: Material(
+        elevation: 5,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.0),
+            side: BorderSide(color: Colors.white, width: 0)),
+        child: TextFormField(
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24.0),
+                borderSide: BorderSide(
+                  color: Color.fromRGBO(2, 62, 99, 20),
+                ),
               ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24.0),
-              borderSide: BorderSide(
-                color: Colors.white,
-                width: 0,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24.0),
+                borderSide: BorderSide(
+                  color: Colors.white,
+                  width: 0,
+                ),
               ),
-            ),
-            filled: true,
-            fillColor: Colors.white,
-            hintStyle: GoogleFonts.raleway(
-              fontSize: 18,
-              color: Colors.black.withOpacity(0.5),
-            ),
-            hintText: 'Email'),
-        validator: (val) =>
-            val!.isEmpty ? 'Enter an email' : null,
-        onChanged: (val) {
-          // setState(() => email = val);
-        },
+              filled: true,
+              fillColor: Colors.white,
+              hintStyle: GoogleFonts.raleway(
+                fontSize: 18,
+                color: Colors.black.withOpacity(0.5),
+              ),
+              hintText: customHintText),
+          validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+          onChanged: (val) {
+            // setState(() => email = val);
+          },
+        ),
       ),
     );
   }
