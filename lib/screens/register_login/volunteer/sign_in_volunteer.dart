@@ -11,7 +11,7 @@ String user_name = '';
 String phone_number = '';
 String pesel = '';
 bool isVisible = false;
-double paddingHeightShadow = 0.045;
+double paddingHeightShadow = 0.048;
 
 class SignInVol extends StatefulWidget {
   final Function toggleView;

@@ -1,7 +1,8 @@
 import 'package:wol_pro_1/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wol_pro_1/services/database.dart';
-import '../screens/authenticate/register_login/volunteer/sign_in_volunteer.dart';
+
+import '../screens/register_login/volunteer/sign_in_volunteer.dart';
 
 class AuthService {
 
