@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Refugee/authenticate/register_refugee_1.dart';
-import '../Refugee/authenticate/sign_in_refugee.dart';
+
+import 'package:wol_pro_1/screens/authenticate/volunteer/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/refugee/sign_in_refugee.dart';
 import '../screens/intro_screen/option.dart';
 import '../screens/register_login/volunteer/sign_in_volunteer.dart';
 
@@ -12,7 +13,6 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-
 
   bool showSignInRef = true;
   void toggleView(){
@@ -35,10 +35,10 @@ class _AuthenticateState extends State<Authenticate> {
 
     else {
       if(optionRefugee){
-        return RegisterRef1(toggleView:  toggleView);
+        return SignInRef(toggleView:  toggleView);
       }
       else if(!optionRefugee){
-        return SignInVol(toggleView:  toggleView);
+        return RegisterVol1(toggleView:  toggleView);
       }
     return const OptionChoose();
     }
