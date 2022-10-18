@@ -53,7 +53,7 @@ class _SettingsFormState extends State<SettingsForm> {
                 },
               ),
               //slider
-              RaisedButton(
+              MaterialButton(
                   color: Colors.pink[400],
                   child: const Text(
                     'Update',

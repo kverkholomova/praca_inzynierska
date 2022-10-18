@@ -35,7 +35,7 @@ class _SignInRefState extends State<SignInRef> {
         elevation: 0.0,
         title: const Text('Sign in'),
         actions: <Widget>[
-          FlatButton.icon(
+          ElevatedButton.icon(
             icon: const Icon(Icons.person),
             label: const Text('Register'),
             onPressed: () => widget.toggleView(),
@@ -72,7 +72,7 @@ class _SignInRefState extends State<SignInRef> {
                 padding: const EdgeInsets.only(top: 30),
                 child: SizedBox(
                   height: 55,width: 275,
-                  child: RaisedButton(
+                  child: MaterialButton(
                       color: Color.fromRGBO(49, 72, 103, 0.8),
                       child: const Text(
                         'Sign In',

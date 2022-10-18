@@ -134,9 +134,9 @@ class _HomeRefState extends State<HomeRef> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20)
                       ),
-                      child: RaisedButton.icon(
+                      child: ElevatedButton.icon(
                         icon: const Icon(Icons.note),
-                        color: const Color.fromRGBO(137, 102, 120, 0.8),
+                        // color: const Color.fromRGBO(137, 102, 120, 0.8),
                         label: const Text('My applications', style: (TextStyle(color: Colors.white, fontSize: 15)),),
                         onPressed: () {
                           print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");

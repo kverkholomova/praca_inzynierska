@@ -6,8 +6,8 @@ import 'package:wol_pro_1/shared/application.dart';
 
 import '../Refugee/authenticate/register_refugee.dart';
 import '../volunteer/applications/page_of_application_vol.dart';
-import '../volunteer/authenticate/register_volunteer.dart';
-import '../volunteer/authenticate/register_volunteer_1.dart';
+import '../screens/authenticate/volunteer/register_volunteer.dart';
+import '../screens/authenticate/volunteer/register_volunteer_1.dart';
 import '../cash/register_form.dart';
 
 // String userID = '';

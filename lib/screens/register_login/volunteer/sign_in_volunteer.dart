@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/shared/loading.dart';
-import 'package:wol_pro_1/volunteer/authenticate/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/authenticate/volunteer/register_volunteer_1.dart';
 
 import '../../../shared/constants.dart';
 import '../../../cash/screen_with_applications.dart';

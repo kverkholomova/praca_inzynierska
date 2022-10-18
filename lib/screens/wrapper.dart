@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
-import 'package:wol_pro_1/screens/authenticate/authenticate.dart';
+import 'package:wol_pro_1/widgets/authenticate.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 
 import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
