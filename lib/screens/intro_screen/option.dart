@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/wrapper.dart';
 import '../../shared/loading.dart';
 
@@ -25,8 +26,8 @@ class _OptionChooseState extends State<OptionChoose> {
   bool selected = true;
   Timer? timer;
   double levelOpacity = 0.9;
-
   late FirebaseMessaging messaging;
+
   @override
   void initState() {
     super.initState();
@@ -111,24 +112,17 @@ class StartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: padding,
       child: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.085,
-        decoration: BoxDecoration(
-            color: const Color.fromRGBO(2, 62, 99, 20),
-          borderRadius: BorderRadius.circular(24)
-        ),
+        decoration: buttonDecoration,
         child: TextButton(
 
         child: Text(buttonName,
-          style: GoogleFonts.raleway(
-            fontSize: 22,
-            color: Colors.white,
-          ),
+          style: textButtonStyle,
         ),
         onPressed: () async{
-
           optionRefugee=optionRef;
           Navigator.push(context, MaterialPageRoute(builder: (context) => const Wrapper()));
         },

@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wol_pro_1/app.dart';
 
 import 'package:wol_pro_1/main.dart';
 

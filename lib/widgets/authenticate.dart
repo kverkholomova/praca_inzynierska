@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:wol_pro_1/screens/authenticate/volunteer/register_volunteer_1.dart';
-
-import 'package:wol_pro_1/screens/register_login/volunteer/sign_in_volunteer.dart';
-
 import '../Refugee/authenticate/register_refugee_1.dart';
 import '../Refugee/authenticate/sign_in_refugee.dart';
+import '../screens/authenticate/register_login/volunteer/sign_in_volunteer.dart';
 import '../screens/intro_screen/option.dart';
-
 
 class Authenticate extends StatefulWidget {
   const Authenticate({Key? key}) : super(key: key);
@@ -43,7 +38,7 @@ class _AuthenticateState extends State<Authenticate> {
         return RegisterRef1(toggleView:  toggleView);
       }
       else if(!optionRefugee){
-        return RegisterVol1(toggleView:  toggleView);
+        return SignInVol(toggleView:  toggleView);
       }
     return const OptionChoose();
     }
