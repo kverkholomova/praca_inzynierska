@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/shared/loading.dart';
 
 import '../../../../widgets/text_form_field.dart';
 
-TextEditingController controllerTextField = TextEditingController();
+TextEditingController controllerTextFieldEmailVol = TextEditingController();
+TextEditingController controllerTextFieldPasswordVol = TextEditingController();
 List<String> chosenCategory = [];
 String userName = '';
 String phoneNumber = '';
@@ -35,107 +37,93 @@ class _SignInVolState extends State<SignInVol> {
   Widget build(BuildContext context) {
     return loading
         ? Loading()
-        : Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: padding,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 140),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Welcome back!",
-                              style: GoogleFonts.raleway(
-                                fontSize: 35,
-                                color: Colors.black,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 7),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Sign in to continue",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ),
-                        ],
+        : WillPopScope(
+      onWillPop: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OptionChoose()),
+        );
+        return true;
+      },
+          child: SafeArea(
+            child: Scaffold(
+                resizeToAvoidBottomInset: true,
+                backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
+                appBar: AppBar(
+                  title: Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.1),
+                    child: Text(
+                      "Volunteer",
+                      style: GoogleFonts.sairaStencilOne(
+                        fontSize: 25,
+                        color: Colors.black.withOpacity(0.7),
+
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Visibility(
-                        visible: isVisible,
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            error,
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 12.0),
+                  ),
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  leading: IconButton(
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OptionChoose()),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back_ios_new_rounded, color: blueColor,)),
+                ),
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: padding,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 100),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Welcome back!",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 35,
+                                    color: Colors.black,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 7),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Sign in to continue",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                    Stack(
-                      children: [
-                        // Column(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Material(
-                        //       elevation: 5,
-                        //       shadowColor: Colors.black45,
-                        //       borderRadius: BorderRadius.circular(24),
-                        //       child: TextFormField(
-                        //         decoration: InputDecoration(
-                        //           enabledBorder: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(24.0),
-                        //             borderSide: const BorderSide(
-                        //               color: Colors.white,
-                        //               width: 0,
-                        //             ),
-                        //           ),
-                        //           filled: true,
-                        //           fillColor: Colors.white,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //         SizedBox(height:
-                        //         MediaQuery.of(context).size.height * 0.06,),
-                        //         Material(
-                        //           elevation: 5,
-                        //           shadowColor: Colors.black45,
-                        //           borderRadius: BorderRadius.circular(24),
-                        //           child: TextFormField(
-                        //             decoration: InputDecoration(
-                        //               enabledBorder: OutlineInputBorder(
-                        //                 borderRadius: BorderRadius.circular(24.0),
-                        //                 borderSide: const BorderSide(
-                        //                   color: Colors.white,
-                        //                   width: 0,
-                        //                 ),
-                        //               ),
-                        //               filled: true,
-                        //               fillColor: Colors.white,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //
-                        //
-                        //   ],
-                        // ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Visibility(
+                            visible: isVisible,
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                error,
+                                style: const TextStyle(
+                                    color: Colors.red, fontSize: 12.0),
+                              ),
+                            ),
+                          ),
+                        ),
                         Form(
                           key: _formKey,
                           child: Column(
@@ -172,84 +160,90 @@ class _SignInVolState extends State<SignInVol> {
                             ],
                           ),
                         ),
+                        // Center(
+                        //   child: CustomButton(buttonName: 'Refugee'),
+                        // ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: !errorEmpty
+                              ?MediaQuery.of(context).size.height * 0.055
+                          : MediaQuery.of(context).size.height * 0.02),
+                          child: Container(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.height * 0.085,
+                            decoration: buttonDecoration,
+                            child: TextButton(
+                                child: Text(
+                                  "Sign In",
+                                  style: textButtonStyle,
+                                ),
+                                onPressed: () async {
+                                  if (controllerTextFieldEmailVol.text.isEmpty) {
+                                    setState(() {
+                                      errorEmpty = true;
+                                      print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+                                      print(errorEmpty);
+                                    });
+                                  }
+                                  if (controllerTextFieldPasswordVol.text.isEmpty) {
+                                    setState(() {
+                                      errorEmpty = true;
+                                      print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+                                      print(errorEmpty);
+                                    });
+                                  }
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() => loading = true);
+                                    dynamic result =
+                                        await _auth.signInWithEmailAndPasswordVol(
+                                            email, password);
+
+                                    if (result == null) {
+                                      setState(() {
+                                        errorEmpty = true;
+                                        isVisible = true;
+                                        loading = false;
+                                        error =
+                                            'Could not sign in with those credentials';
+                                      });
+                                    }
+                                  }
+                                }),
+                          ),
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  widget.toggleView();
+                                },
+                                child: Text(
+                                  "Sign up",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                )),
+                            TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Forgot password",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                )),
+                          ],
+                        ),
                       ],
                     ),
-                    // Center(
-                    //   child: CustomButton(buttonName: 'Refugee'),
-                    // ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: !errorEmpty
-                          ?MediaQuery.of(context).size.height * 0.055
-                      : MediaQuery.of(context).size.height * 0.02),
-                      child: Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.085,
-                        decoration: buttonDecoration,
-                        child: TextButton(
-                            child: Text(
-                              "Sign In",
-                              style: textButtonStyle,
-                            ),
-                            onPressed: () async {
-                              if (controllerTextField.text.isEmpty) {
-                                setState(() {
-                                  errorEmpty = true;
-                                  print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-                                  print(errorEmpty);
-                                });
-                              }
-                              ;
-                              if (_formKey.currentState!.validate()) {
-                                setState(() => loading = true);
-                                dynamic result =
-                                    await _auth.signInWithEmailAndPasswordVol(
-                                        email, password);
-
-                                if (result == null) {
-                                  setState(() {
-                                    errorEmpty = true;
-                                    isVisible = true;
-                                    loading = false;
-                                    error =
-                                        'Could not sign in with those credentials';
-                                  });
-                                }
-                              }
-                            }),
-                      ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              widget.toggleView();
-                            },
-                            child: Text(
-                              "Sign up",
-                              style: GoogleFonts.raleway(
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                            )),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Forgot password",
-                              style: GoogleFonts.raleway(
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                            )),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          );
+          ),
+        );
   }
 }
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wol_pro_1/screens/intro_screen/option.dart';
+import 'package:wol_pro_1/screens/register_login/refugee/sign_in_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/sign_in_volunteer.dart';
 
 bool errorEmpty = false;
-
 
 class CustomTextFormField extends StatefulWidget {
   final String customHintText;
@@ -18,7 +19,6 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-
   bool passwordVisible = false;
 
   @override
@@ -30,10 +30,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      // height: MediaQuery.of(context).size.height * 0.085,
-      TextFormField(
-        controller: controllerTextField,
+    return TextFormField(
+        controller: widget.customHintText == "Email"
+            ?optionRefugee
+            ?controllerTextFieldEmailRef
+            :controllerTextFieldEmailVol
+            :optionRefugee
+            ?controllerTextFieldPasswordRef
+            :controllerTextFieldPasswordVol,
         obscureText: widget.hide ==true?true:false,
         decoration: InputDecoration(
             focusedErrorBorder: OutlineInputBorder(

@@ -13,3 +13,4 @@ TextStyle textButtonStyle = GoogleFonts.raleway(
   color: Colors.white,
 );
 
+Color blueColor = Color.fromRGBO(2, 62, 99, 20);

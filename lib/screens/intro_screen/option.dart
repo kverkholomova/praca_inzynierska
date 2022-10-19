@@ -118,7 +118,6 @@ class StartButton extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.085,
         decoration: buttonDecoration,
         child: TextButton(
-
         child: Text(buttonName,
           style: textButtonStyle,
         ),
