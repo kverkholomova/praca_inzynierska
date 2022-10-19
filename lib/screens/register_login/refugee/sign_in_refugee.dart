@@ -36,7 +36,7 @@ class _SignInRefState extends State<SignInRef> {
       onWillPop: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OptionChoose()),
+          MaterialPageRoute(builder: (context) => const OptionChoose()),
         );
         return true;
       },
@@ -62,7 +62,7 @@ class _SignInRefState extends State<SignInRef> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => OptionChoose()),
+                    MaterialPageRoute(builder: (context) => const OptionChoose()),
                   );
                 },
                 icon: Icon(Icons.arrow_back_ios_new_rounded, color: blueColor,)),
@@ -176,15 +176,11 @@ class _SignInRefState extends State<SignInRef> {
                             if (controllerTextFieldEmailRef.text.isEmpty) {
                               setState(() {
                                 errorEmpty = true;
-                                print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-                                print(errorEmpty);
                               });
                             }
                             if (controllerTextFieldPasswordRef.text.isEmpty) {
                               setState(() {
                                 errorEmpty = true;
-                                print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-                                print(errorEmpty);
                               });
                             }
                             if (_formKey.currentState!.validate()) {
