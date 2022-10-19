@@ -28,7 +28,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return SizedBox(
       // height: MediaQuery.of(context).size.height * 0.085,
       child: TextFormField(
-        obscureText: !passwordVisible,
+        obscureText: widget.hide ==true?true:false,
         decoration: InputDecoration(
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24.0),

@@ -43,10 +43,10 @@ class _SignInVolState extends State<SignInVol> {
             body: SingleChildScrollView(
               child: Padding(
                 padding: padding,
-                child: Stack(
+                child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 150),
+                      padding: const EdgeInsets.symmetric(vertical: 140),
                       child: Column(
                         children: [
                           Align(
@@ -78,86 +78,94 @@ class _SignInVolState extends State<SignInVol> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.52),
-                      child: SizedBox(
-                        height:
-                        MediaQuery.of(context).size.height * 0.22,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Material(
-                              elevation: 5,
-                              shadowColor: Colors.black45,
-                              borderRadius: BorderRadius.circular(24),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    borderSide: const BorderSide(
-                                      color: Colors.white,
-                                      width: 0,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                            // SizedBox(height:
-                            // MediaQuery.of(context).size.height * 0.06,),
-                            Material(
-                              elevation: 5,
-                              shadowColor: Colors.black45,
-                              borderRadius: BorderRadius.circular(24),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    borderSide: const BorderSide(
-                                      color: Colors.white,
-                                      width: 0,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
+                      padding: const EdgeInsets.all(8.0),
+                      child: Visibility(
+                        visible: isVisible,
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            error,
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 12.0),
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.52),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
+                    Stack(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.135,
-                                child: const CustomTextFormField(
-                                  customHintText: 'Email',
-                                  customErrorText: 'Enter an email',
-                                  hide: false,
-                                )),
-                            const CustomTextFormField(
-                              customHintText: 'Password',
-                              customErrorText: 'Enter a password',
-                              hide: true,
+                            Material(
+                              color: Colors.pinkAccent,
+                              elevation: 5,
+                              shadowColor: Colors.black45,
+                              borderRadius: BorderRadius.circular(24),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 0,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height:
+                            MediaQuery.of(context).size.height * 0.06,),
+                            Material(
+                              elevation: 5,
+                              shadowColor: Colors.black45,
+                              borderRadius: BorderRadius.circular(24),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24.0),
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 0,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.135,
+                                  child: const CustomTextFormField(
+                                    customHintText: 'Email',
+                                    customErrorText: 'Enter an email',
+                                    hide: false,
+                                  )),
+                              const CustomTextFormField(
+                                customHintText: 'Password',
+                                customErrorText: 'Enter a password',
+                                hide: true,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
                     ),
                     // Center(
                     //   child: CustomButton(buttonName: 'Refugee'),
                     // ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.795),
+                          top: MediaQuery.of(context).size.height * 0.05),
                       child: Container(
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height * 0.085,
@@ -186,49 +194,31 @@ class _SignInVolState extends State<SignInVol> {
                       ),
                     ),
 
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.48),
-                      child: Visibility(
-                        visible: isVisible,
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            error,
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 12.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.87),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                widget.toggleView();
-                              },
-                              child: Text(
-                                "Sign up",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                ),
-                              )),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "Forgot password",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                ),
-                              )),
-                        ],
-                      ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              widget.toggleView();
+                            },
+                            child: Text(
+                              "Sign up",
+                              style: GoogleFonts.raleway(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
+                            )),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Forgot password",
+                              style: GoogleFonts.raleway(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
+                            )),
+                      ],
                     ),
                   ],
                 ),

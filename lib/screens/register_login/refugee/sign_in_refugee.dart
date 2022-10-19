@@ -173,19 +173,7 @@ class _SignInRefState extends State<SignInRef> {
                 ),
               ),
 
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.48),
-                child: Visibility(
-                  visible: isVisible,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      error,
-                      style: const TextStyle(color: Colors.red, fontSize: 12.0),
-                    ),
-                  ),),
-              ),
+
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.87),
