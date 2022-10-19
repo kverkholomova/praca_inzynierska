@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/sign_in_volunteer.dart';
+
+bool errorEmpty = false;
+
 
 class CustomTextFormField extends StatefulWidget {
   final String customHintText;
@@ -16,6 +20,7 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   bool passwordVisible = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -25,31 +30,32 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return
       // height: MediaQuery.of(context).size.height * 0.085,
-      child: TextFormField(
+      TextFormField(
+        controller: controllerTextField,
         obscureText: widget.hide ==true?true:false,
         decoration: InputDecoration(
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24.0),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.red,
                 width: 1.5,
               ),
             ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.red,
               width: 1.5,
             ),
           ),
-          errorStyle: TextStyle(
+          errorStyle: const TextStyle(
             color: Colors.red
           ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24.0),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Color.fromRGBO(2, 62, 99, 20),
                 width: 1.5,
               ),
@@ -57,7 +63,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24.0),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.white,
                 width: 0,
               ),
@@ -75,7 +81,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               passwordVisible
                   ? Icons.visibility
                   : Icons.visibility_off,
-              color: Color.fromRGBO(2, 62, 99, 20),
+              color: const Color.fromRGBO(2, 62, 99, 20),
             ),
             onPressed: () {
               // Update the state i.e. toogle the state of passwordVisible variable
@@ -85,11 +91,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             },
           ):null,
         ),
-        validator: (val) => val!.isEmpty ? widget.customErrorText : null,
+        validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
         // onChanged: (val) {
         //   // setState(() => email = val);
         // },
-      ),
-    );
+
+      );
   }
 }

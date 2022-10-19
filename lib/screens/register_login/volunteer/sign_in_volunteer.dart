@@ -6,6 +6,7 @@ import 'package:wol_pro_1/shared/loading.dart';
 
 import '../../../../widgets/text_form_field.dart';
 
+TextEditingController controllerTextField = TextEditingController();
 List<String> chosenCategory = [];
 String userName = '';
 String phoneNumber = '';
@@ -23,15 +24,12 @@ class SignInVol extends StatefulWidget {
 }
 
 class _SignInVolState extends State<SignInVol> {
-
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
   String email = '';
   String password = '';
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,71 +91,87 @@ class _SignInVolState extends State<SignInVol> {
                     ),
                     Stack(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Material(
-                              color: Colors.pinkAccent,
-                              elevation: 5,
-                              shadowColor: Colors.black45,
-                              borderRadius: BorderRadius.circular(24),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    borderSide: const BorderSide(
-                                      color: Colors.white,
-                                      width: 0,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height:
-                            MediaQuery.of(context).size.height * 0.06,),
-                            Material(
-                              elevation: 5,
-                              shadowColor: Colors.black45,
-                              borderRadius: BorderRadius.circular(24),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    borderSide: const BorderSide(
-                                      color: Colors.white,
-                                      width: 0,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Material(
+                        //       elevation: 5,
+                        //       shadowColor: Colors.black45,
+                        //       borderRadius: BorderRadius.circular(24),
+                        //       child: TextFormField(
+                        //         decoration: InputDecoration(
+                        //           enabledBorder: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.circular(24.0),
+                        //             borderSide: const BorderSide(
+                        //               color: Colors.white,
+                        //               width: 0,
+                        //             ),
+                        //           ),
+                        //           filled: true,
+                        //           fillColor: Colors.white,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //         SizedBox(height:
+                        //         MediaQuery.of(context).size.height * 0.06,),
+                        //         Material(
+                        //           elevation: 5,
+                        //           shadowColor: Colors.black45,
+                        //           borderRadius: BorderRadius.circular(24),
+                        //           child: TextFormField(
+                        //             decoration: InputDecoration(
+                        //               enabledBorder: OutlineInputBorder(
+                        //                 borderRadius: BorderRadius.circular(24.0),
+                        //                 borderSide: const BorderSide(
+                        //                   color: Colors.white,
+                        //                   width: 0,
+                        //                 ),
+                        //               ),
+                        //               filled: true,
+                        //               fillColor: Colors.white,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //
+                        //
+                        //   ],
+                        // ),
                         Form(
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.135,
-                                  child: const CustomTextFormField(
-                                    customHintText: 'Email',
-                                    customErrorText: 'Enter an email',
-                                    hide: false,
-                                  )),
-                              const CustomTextFormField(
-                                customHintText: 'Password',
-                                customErrorText: 'Enter a password',
-                                hide: true,
+                              Card(
+                                color: Colors.transparent,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
+                                    )),
+                                elevation: errorEmpty==true? 0:5,
+                                child: const CustomTextFormField(
+                                  customHintText: 'Email',
+                                  customErrorText: 'Enter an email',
+                                  hide: false,
+                                ),
+                              ),
+                          SizedBox(height: !errorEmpty
+                                  ?MediaQuery.of(context).size.height * 0.035
+                              :MediaQuery.of(context).size.height * 0.015,),
+                              Card(
+                                color: Colors.transparent,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
+                                    )),
+                                elevation: errorEmpty==true? 0:5,
+                                child: const CustomTextFormField(
+                                  customHintText: 'Password',
+                                  customErrorText: 'Enter a password',
+                                  hide: true,
+                                ),
                               ),
                             ],
                           ),
                         ),
-
                       ],
                     ),
                     // Center(
@@ -165,7 +179,9 @@ class _SignInVolState extends State<SignInVol> {
                     // ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.05),
+                          top: !errorEmpty
+                          ?MediaQuery.of(context).size.height * 0.055
+                      : MediaQuery.of(context).size.height * 0.02),
                       child: Container(
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height * 0.085,
@@ -176,13 +192,23 @@ class _SignInVolState extends State<SignInVol> {
                               style: textButtonStyle,
                             ),
                             onPressed: () async {
+                              if (controllerTextField.text.isEmpty) {
+                                setState(() {
+                                  errorEmpty = true;
+                                  print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+                                  print(errorEmpty);
+                                });
+                              }
+                              ;
                               if (_formKey.currentState!.validate()) {
                                 setState(() => loading = true);
                                 dynamic result =
                                     await _auth.signInWithEmailAndPasswordVol(
                                         email, password);
+
                                 if (result == null) {
                                   setState(() {
+                                    errorEmpty = true;
                                     isVisible = true;
                                     loading = false;
                                     error =
@@ -193,7 +219,6 @@ class _SignInVolState extends State<SignInVol> {
                             }),
                       ),
                     ),
-
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
