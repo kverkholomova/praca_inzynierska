@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wol_pro_1/screens/authenticate/volunteer/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/sign_in_refugee.dart';
 import '../screens/intro_screen/option.dart';
 import '../screens/register_login/volunteer/sign_in_volunteer.dart';

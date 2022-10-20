@@ -10,6 +10,7 @@ import '../../../../widgets/text_form_field.dart';
 TextEditingController controllerTextFieldEmailRef = TextEditingController();
 TextEditingController controllerTextFieldPasswordRef = TextEditingController();
 bool isVisibleRef = false;
+bool errorEmptyRef = false;
 
 class SignInRef extends StatefulWidget {
   final Function toggleView;
@@ -34,6 +35,9 @@ class _SignInRefState extends State<SignInRef> {
         ? Loading()
         : WillPopScope(
       onWillPop: () async {
+        controllerTextFieldEmailRef.clear();
+        controllerTextFieldPasswordRef.clear();
+        errorEmptyRef = false;
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const OptionChoose()),
@@ -60,6 +64,9 @@ class _SignInRefState extends State<SignInRef> {
             backgroundColor: Colors.transparent,
             leading: IconButton(
                 onPressed: (){
+                  controllerTextFieldEmailRef.clear();
+                  controllerTextFieldPasswordRef.clear();
+                  errorEmptyRef = false;
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const OptionChoose()),
@@ -129,7 +136,7 @@ class _SignInRefState extends State<SignInRef> {
                               borderRadius: BorderRadius.all(
                                 Radius.circular(24),
                               )),
-                          elevation: errorEmpty==true? 0:5,
+                          elevation: errorEmptyRef==true? 0:5,
                           child: const CustomTextFormField(
                             customHintText: 'Email',
                             customErrorText: 'Enter an email',
@@ -145,7 +152,7 @@ class _SignInRefState extends State<SignInRef> {
                               borderRadius: BorderRadius.all(
                                 Radius.circular(24),
                               )),
-                          elevation: errorEmpty==true? 0:5,
+                          elevation: errorEmptyRef==true? 0:5,
                           child: const CustomTextFormField(
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
@@ -186,7 +193,7 @@ class _SignInRefState extends State<SignInRef> {
                             if (_formKey.currentState!.validate()) {
                               setState(() => loading = true);
                               dynamic result =
-                              await _auth.signInWithEmailAndPasswordVol(
+                              await _auth.signInWithEmailAndPasswordRef(
                                   email, password);
 
                               if (result == null) {

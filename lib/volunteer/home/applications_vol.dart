@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/cash/screen_with_applications.dart';
 import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
-import 'package:wol_pro_1/screens/authenticate/volunteer/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
 
 import '../../screens/intro_screen/option.dart';
