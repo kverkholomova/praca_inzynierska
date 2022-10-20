@@ -9,12 +9,10 @@ import '../../../../widgets/text_form_field.dart';
 
 TextEditingController controllerTextFieldEmailVol = TextEditingController();
 TextEditingController controllerTextFieldPasswordVol = TextEditingController();
-List<String> chosenCategory = [];
-String userName = '';
-String phoneNumber = '';
-String pesel = '';
 bool isVisible = false;
 double paddingHeightShadow = 0.048;
+String emailVolLog = '';
+String passwordVolLog = '';
 
 class SignInVol extends StatefulWidget {
   final Function toggleView;
@@ -30,8 +28,7 @@ class _SignInVolState extends State<SignInVol> {
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
-  String email = '';
-  String password = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +125,7 @@ class _SignInVolState extends State<SignInVol> {
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              Card(
+                              Material(
                                 color: Colors.transparent,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
@@ -144,7 +141,7 @@ class _SignInVolState extends State<SignInVol> {
                           SizedBox(height: !errorEmpty
                                   ?MediaQuery.of(context).size.height * 0.02
                               :MediaQuery.of(context).size.height * 0.015,),
-                              Card(
+                              Material(
                                 color: Colors.transparent,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
@@ -170,7 +167,7 @@ class _SignInVolState extends State<SignInVol> {
                           : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.085,
+                            height: MediaQuery.of(context).size.height * 0.075,
                             decoration: buttonDecoration,
                             child: TextButton(
                                 child: Text(
@@ -194,7 +191,7 @@ class _SignInVolState extends State<SignInVol> {
                                     setState(() => loading = true);
                                     dynamic result =
                                         await _auth.signInWithEmailAndPasswordVol(
-                                            email, password);
+                                            emailVolLog, passwordVolLog);
 
                                     if (result == null) {
                                       setState(() {

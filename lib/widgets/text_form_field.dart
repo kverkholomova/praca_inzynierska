@@ -103,9 +103,24 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ):null,
         ),
         validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
-        // onChanged: (val) {
-        //   // setState(() => email = val);
-        // },
+        onChanged: (val) {
+          setState(() {
+            if( widget.customHintText == "Email"){
+              if(optionRefugee){
+                emailRefLog = val;
+              } else {
+                emailVolLog = val;
+              }
+            } else if(widget.customHintText == "Password"){
+              if(optionRefugee){
+                passwordRefLog = val;
+              } else {
+                passwordVolLog = val;
+              }
+            }
+          });
+          // setState(() => email = val);
+        },
 
       );
   }
@@ -122,10 +137,10 @@ class CustomTextFormFieldRegister extends StatefulWidget {
   final String customErrorText;
   bool hide;
   // final Function() setData;
-  String setData;
 
 
-  CustomTextFormFieldRegister({Key? key, required this.customHintText, required this.customErrorText, required this.hide, required this.setData})
+
+  CustomTextFormFieldRegister({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
       : super(key: key);
 
   @override
@@ -220,8 +235,25 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
       validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
         setState(() {
-          widget.setData = val;
+         if(widget.customHintText=="Name"){
+           userName = val;
+           print("Name: $userName");
+           print(val);
+         } else if( widget.customHintText == "Phone number"){
+           phoneNumber = val;
+           print(phoneNumber);
+           print(val);
+         } else if( widget.customHintText == "Email"){
+           emailRegisterVol = val;
+           print(emailRegisterVol);
+           print(val);
+         } else if(widget.customHintText == "Password"){
+           passwordRegisterVol = val;
+           print(passwordRegisterVol);
+           print(val);
+         }
         });
+
       },
     );
   }

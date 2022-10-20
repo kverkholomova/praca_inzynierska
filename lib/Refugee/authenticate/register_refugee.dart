@@ -144,7 +144,7 @@ class _RegisterRefState extends State<RegisterRef> {
 
                           if(_formKey.currentState!.validate()){
                             setState(() => loading = true);
-                            dynamic result = await _auth.registerWithEmailAndPasswordRef(email, password, user_name_ref, phone_number_ref, pesel_ref);
+                            dynamic result = await _auth.registerWithEmailAndPasswordRef(email, password, user_name_ref, phone_number_ref);
                             if(result == null) {
                               setState(() {
                                 loading = false;

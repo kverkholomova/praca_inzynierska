@@ -11,6 +11,8 @@ TextEditingController controllerTextFieldEmailRef = TextEditingController();
 TextEditingController controllerTextFieldPasswordRef = TextEditingController();
 bool isVisibleRef = false;
 bool errorEmptyRef = false;
+String emailRefLog = '';
+String passwordRefLog = '';
 
 class SignInRef extends StatefulWidget {
   final Function toggleView;
@@ -26,8 +28,7 @@ class _SignInRefState extends State<SignInRef> {
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
-  String email = '';
-  String password = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +131,7 @@ class _SignInRefState extends State<SignInRef> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        Card(
+                        Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -146,7 +147,7 @@ class _SignInRefState extends State<SignInRef> {
                         SizedBox(height: !errorEmptyRef
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
-                        Card(
+                        Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -172,7 +173,7 @@ class _SignInRefState extends State<SignInRef> {
                             : MediaQuery.of(context).size.height * 0.02),
                     child: Container(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.085,
+                      height: MediaQuery.of(context).size.height * 0.075,
                       decoration: buttonDecoration,
                       child: TextButton(
                           child: Text(
@@ -194,7 +195,7 @@ class _SignInRefState extends State<SignInRef> {
                               setState(() => loading = true);
                               dynamic result =
                               await _auth.signInWithEmailAndPasswordRef(
-                                  email, password);
+                                  emailRefLog, passwordRefLog);
 
                               if (result == null) {
                                 setState(() {

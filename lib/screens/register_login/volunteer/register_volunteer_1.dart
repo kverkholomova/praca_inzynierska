@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/sign_in_volunteer.dart';
 import 'package:wol_pro_1/widgets/text_form_field.dart';
 
 import '../../../constants.dart';
@@ -9,7 +8,9 @@ import '../../../services/auth.dart';
 import '../../../shared/loading.dart';
 import '../../intro_screen/option.dart';
 
-
+List<String> chosenCategory = [];
+String userName = '';
+String phoneNumber = '';
 TextEditingController controllerTextFieldNameVol = TextEditingController();
 TextEditingController controllerTextFieldPhoneNumberVol = TextEditingController();
 TextEditingController controllerTextFieldEmailVolRegistration = TextEditingController();
@@ -18,7 +19,7 @@ class RegisterVol1 extends StatefulWidget {
 
 
   final Function toggleView;
-  RegisterVol1({ required this.toggleView });
+  const RegisterVol1({Key? key,  required this.toggleView }) : super(key: key);
 
   @override
   _RegisterVol1State createState() => _RegisterVol1State();
@@ -49,7 +50,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OptionChoose()),
+          MaterialPageRoute(builder: (context) => const OptionChoose()),
         );
         return true;
       },
@@ -141,7 +142,6 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customHintText: 'Name',
                             customErrorText: 'Enter your name',
                             hide: false,
-                            setData: userName,
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
@@ -158,7 +158,6 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customHintText: 'Phone number',
                             customErrorText: 'Enter your phone number',
                             hide: false,
-                            setData: phoneNumber,
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
@@ -175,7 +174,6 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customHintText: 'Email',
                             customErrorText: 'Enter your email',
                             hide: false,
-                            setData: emailRegisterVol,
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
@@ -184,7 +182,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         Material(
 
                           color: Colors.transparent,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(24),
                               )),
@@ -193,8 +191,6 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
                             hide: false,
-                            setData: passwordRegisterVol,
-
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
@@ -437,7 +433,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
 
                         Text(
                           error,
-                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                          style: const TextStyle(color: Colors.red, fontSize: 14.0),
                         )
                       ],
                     ),
