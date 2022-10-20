@@ -130,7 +130,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             ],
                           ),
                         ),
-                        Card(
+                        Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -147,7 +147,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.005,),
-                        Card(
+                        Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -164,7 +164,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.005,),
-                        Card(
+                        Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -181,7 +181,8 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.005,),
-                        Card(
+                        Material(
+
                           color: Colors.transparent,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -193,15 +194,16 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customErrorText: 'Enter a password',
                             hide: false,
                             setData: passwordRegisterVol,
+
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
-                            ?MediaQuery.of(context).size.height * 0.03
+                            ?MediaQuery.of(context).size.height * 0.075
                             :MediaQuery.of(context).size.height * 0.005,),
 
                         Container(
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.085,
+                          height: MediaQuery.of(context).size.height * 0.075,
                           decoration: buttonDecoration,
                           child: TextButton(
                               child: Text(

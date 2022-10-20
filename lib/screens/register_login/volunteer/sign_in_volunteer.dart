@@ -79,7 +79,7 @@ class _SignInVolState extends State<SignInVol> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 100),
+                          padding: const EdgeInsets.symmetric(vertical: 85),
                           child: Column(
                             children: [
                               Align(
@@ -135,14 +135,14 @@ class _SignInVolState extends State<SignInVol> {
                                       Radius.circular(24),
                                     )),
                                 elevation: errorEmpty==true? 0:5,
-                                child: const CustomTextFormField(
+                                child: CustomTextFormField(
                                   customHintText: 'Email',
                                   customErrorText: 'Enter an email',
                                   hide: false,
                                 ),
                               ),
                           SizedBox(height: !errorEmpty
-                                  ?MediaQuery.of(context).size.height * 0.035
+                                  ?MediaQuery.of(context).size.height * 0.02
                               :MediaQuery.of(context).size.height * 0.015,),
                               Card(
                                 color: Colors.transparent,
@@ -151,7 +151,7 @@ class _SignInVolState extends State<SignInVol> {
                                       Radius.circular(24),
                                     )),
                                 elevation: errorEmpty==true? 0:5,
-                                child: const CustomTextFormField(
+                                child: CustomTextFormField(
                                   customHintText: 'Password',
                                   customErrorText: 'Enter a password',
                                   hide: true,
@@ -166,7 +166,7 @@ class _SignInVolState extends State<SignInVol> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: !errorEmpty
-                              ?MediaQuery.of(context).size.height * 0.055
+                              ?MediaQuery.of(context).size.height * 0.16
                           : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,

@@ -10,9 +10,9 @@ bool errorEmpty = false;
 class CustomTextFormField extends StatefulWidget {
   final String customHintText;
   final String customErrorText;
-  final bool hide;
+  bool hide;
 
-  const CustomTextFormField({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
+  CustomTextFormField({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
       : super(key: key);
 
   @override
@@ -60,8 +60,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(24.0),
-              borderSide: const BorderSide(
-                color: Color.fromRGBO(2, 62, 99, 20),
+              borderSide: BorderSide(
+                color: Colors.black.withOpacity(0.7),
                 width: 1.5,
               ),
             ),
@@ -79,8 +79,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               fontSize: 16,
               color: Colors.black.withOpacity(0.5),
             ),
-            hintText: widget.customHintText,
-          suffixIcon: widget.hide==true?IconButton(
+          labelText: widget.customHintText,
+          labelStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: Colors.black.withOpacity(0.7),
+          ),
+            // hintText: widget.customHintText,
+          suffixIcon: widget.customHintText=="Password"?IconButton(
             icon: Icon(
               // Based on passwordVisible state choose the icon
               passwordVisible
@@ -91,6 +96,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             onPressed: () {
               // Update the state i.e. toogle the state of passwordVisible variable
               setState(() {
+                widget.hide = passwordVisible;
                 passwordVisible = !passwordVisible;
               });
             },
@@ -110,12 +116,14 @@ String emailRegisterVol = '';
 String passwordRegisterVol = '';
 bool errorEmptyRegister = false;
 
+
 class CustomTextFormFieldRegister extends StatefulWidget {
   final String customHintText;
   final String customErrorText;
-  final bool hide;
+  bool hide;
   // final Function() setData;
   String setData;
+
 
   CustomTextFormFieldRegister({Key? key, required this.customHintText, required this.customErrorText, required this.hide, required this.setData})
       : super(key: key);
@@ -167,12 +175,17 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24.0),
-          borderSide: const BorderSide(
-            color: Color.fromRGBO(2, 62, 99, 20),
+          borderSide: BorderSide(
+            color: Colors.black.withOpacity(0.7),
+            // color: Color.fromRGBO(2, 62, 99, 20),
             width: 1.5,
           ),
         ),
-
+        labelText: widget.customHintText,
+        labelStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.7),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24.0),
           borderSide: const BorderSide(
@@ -182,12 +195,12 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
         ),
         filled: true,
         fillColor: Colors.white,
-        hintStyle: GoogleFonts.raleway(
-          fontSize: 16,
-          color: Colors.black.withOpacity(0.5),
-        ),
-        hintText: widget.customHintText,
-        suffixIcon: widget.hide==true?IconButton(
+        // hintStyle: GoogleFonts.raleway(
+        //   fontSize: 16,
+        //   color: Colors.black.withOpacity(0.5),
+        // ),
+        // hintText: widget.customHintText,
+        suffixIcon: widget.customHintText=="Password"?IconButton(
           icon: Icon(
             // Based on passwordVisible state choose the icon
             passwordVisible
@@ -198,6 +211,7 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
           onPressed: () {
             // Update the state i.e. toogle the state of passwordVisible variable
             setState(() {
+              widget.hide = passwordVisible;
               passwordVisible = !passwordVisible;
             });
           },
@@ -205,9 +219,10 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
       ),
       validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
-        setState(() => widget.setData = val);
+        setState(() {
+          widget.setData = val;
+        });
       },
-
     );
   }
 }

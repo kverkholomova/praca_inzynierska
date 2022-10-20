@@ -80,7 +80,7 @@ class _SignInRefState extends State<SignInRef> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 100),
+                    padding: const EdgeInsets.symmetric(vertical: 85),
                     child: Column(
                       children: [
 
@@ -137,14 +137,14 @@ class _SignInRefState extends State<SignInRef> {
                                 Radius.circular(24),
                               )),
                           elevation: errorEmptyRef==true? 0:5,
-                          child: const CustomTextFormField(
+                          child: CustomTextFormField(
                             customHintText: 'Email',
                             customErrorText: 'Enter an email',
                             hide: false,
                           ),
                         ),
-                        SizedBox(height: !errorEmpty
-                            ?MediaQuery.of(context).size.height * 0.035
+                        SizedBox(height: !errorEmptyRef
+                            ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
                         Card(
                           color: Colors.transparent,
@@ -153,7 +153,7 @@ class _SignInRefState extends State<SignInRef> {
                                 Radius.circular(24),
                               )),
                           elevation: errorEmptyRef==true? 0:5,
-                          child: const CustomTextFormField(
+                          child: CustomTextFormField(
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
                             hide: true,
@@ -167,8 +167,8 @@ class _SignInRefState extends State<SignInRef> {
                   // ),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: !errorEmpty
-                            ?MediaQuery.of(context).size.height * 0.055
+                        top: !errorEmptyRef
+                            ?MediaQuery.of(context).size.height * 0.16
                             : MediaQuery.of(context).size.height * 0.02),
                     child: Container(
                       width: double.infinity,
@@ -182,12 +182,12 @@ class _SignInRefState extends State<SignInRef> {
                           onPressed: () async {
                             if (controllerTextFieldEmailRef.text.isEmpty) {
                               setState(() {
-                                errorEmpty = true;
+                                errorEmptyRef = true;
                               });
                             }
                             if (controllerTextFieldPasswordRef.text.isEmpty) {
                               setState(() {
-                                errorEmpty = true;
+                                errorEmptyRef = true;
                               });
                             }
                             if (_formKey.currentState!.validate()) {
@@ -198,7 +198,7 @@ class _SignInRefState extends State<SignInRef> {
 
                               if (result == null) {
                                 setState(() {
-                                  errorEmpty = true;
+                                  errorEmptyRef = true;
                                   isVisibleRef = true;
                                   loading = false;
                                   error =
