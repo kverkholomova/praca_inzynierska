@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wol_pro_1/models/user.dart';
 import 'package:wol_pro_1/models/users_all.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 
 class DatabaseService{
 
@@ -9,7 +10,7 @@ class DatabaseService{
     //collection reference
     final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
-    Future updateUserData(String name, String role, String user_name, String phone, List<String> chosen_category, id_vol) async{
+    Future updateUserData(String name, String role, String user_name, String phone, List<String> chosen_category, id_vol, double rate) async{
       return await userCollection.doc(uid).set({
         'name': name,
         'role': role,
@@ -17,6 +18,7 @@ class DatabaseService{
         'phone_number': phone,
         'category': chosen_category,
         'id_vol': id_vol,
+        'rate': volunteerRate,
 
 
 

@@ -9,6 +9,7 @@ import '../../../shared/loading.dart';
 import '../../../volunteer/home/settings_home_vol.dart';
 import '../../intro_screen/option.dart';
 
+double volunteerRate = 5;
 List<String> chosenCategoryList = [];
 String userName = '';
 String phoneNumber = '';

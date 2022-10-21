@@ -604,22 +604,25 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   ),
                 ),
                 floatingActionButton: Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.82,),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.835,),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: StreamBuilder(
                         stream: FirebaseFirestore.instance
                             .collection('users')
-                            .where('id_vol',
-                                isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                            .where('id_vol', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                             .snapshots(),
                         builder:
                             (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           return ListView.builder(
+
                               itemCount: !streamSnapshot.hasData
                                   ? 1
                                   : streamSnapshot.data?.docs.length,
                               itemBuilder: (ctx, index) {
+                                print("PPPPPPPPPPPPP");
+                                print(streamSnapshot
+                                    .data?.docs[index].id);
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 30),
                                   child: Container(
@@ -634,7 +637,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                         ),
                                         onPressed: () async {
                                           FirebaseFirestore.instance
-                                              .collection('applications')
+                                              .collection('users')
                                               .doc(streamSnapshot
                                                   .data?.docs[index].id)
                                               .update({
