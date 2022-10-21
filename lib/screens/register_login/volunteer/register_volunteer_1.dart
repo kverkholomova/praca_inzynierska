@@ -9,7 +9,7 @@ import '../../../shared/loading.dart';
 import '../../../volunteer/home/settings_home_vol.dart';
 import '../../intro_screen/option.dart';
 
-List<String> chosenCategory = [];
+List<String> chosenCategoryList = [];
 String userName = '';
 String phoneNumber = '';
 TextEditingController controllerTextFieldNameVol = TextEditingController();

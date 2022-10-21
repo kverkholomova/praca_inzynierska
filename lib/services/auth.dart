@@ -78,7 +78,7 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategory, user.uid);
+      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategoryList, user.uid);
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());

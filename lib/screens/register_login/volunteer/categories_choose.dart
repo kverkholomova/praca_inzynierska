@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 
 import '../../../constants.dart';
 import '../../../shared/loading.dart';
@@ -218,191 +221,46 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                     //
                                     //     }),
 
-                                    buildCategory(context, "Accommodation",Icons.house, false),
-                                    SizedBox(
-                                      height:
-                                      MediaQuery.of(context).size.height *
-                                          0.012,
-                                    ),
-                                    // buildCategory(context, "Accommodation",Icons.house),
+                                    buildCategory(
+                                        context, "Accommodation", Icons.house),
                                     SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.012,
                                     ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.085,
-                                      child: Material(
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                          Radius.circular(24),
-                                        )),
-                                        color: Colors.white,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.05,
-                                                right: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.04,
-                                              ),
-                                              child: const Icon(
-                                                Icons
-                                                    .emoji_transportation_rounded,
-                                                size: 35,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Transfer",
-                                              style: GoogleFonts.raleway(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                    buildCategory(
+                                      context,
+                                      "Transfer",
+                                      Icons.emoji_transportation_rounded,
                                     ),
                                     SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.012,
                                     ),
+                                    buildCategory(context, "Animal assistance",
+                                        Icons.pets_rounded),
+
                                     SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.085,
-                                      child: Material(
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                          Radius.circular(24),
-                                        )),
-                                        color: Colors.white,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.05,
-                                                right: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.04,
-                                              ),
-                                              child: const Icon(
-                                                Icons.pets_rounded,
-                                                size: 35,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Animal assistance",
-                                              style: GoogleFonts.raleway(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                              0.012,
+                                    ),
+                                    buildCategory(
+                                      context,
+                                      "Grocery assistance",
+                                      Icons.local_grocery_store_rounded,
                                     ),
                                     SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.012,
                                     ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.085,
-                                      child: Material(
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                          Radius.circular(24),
-                                        )),
-                                        color: Colors.white,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.05,
-                                                right: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.04,
-                                              ),
-                                              child: const Icon(
-                                                Icons
-                                                    .local_grocery_store_rounded,
-                                                size: 35,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Grocery assistance",
-                                              style: GoogleFonts.raleway(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.012,
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.085,
-                                      child: Material(
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                          Radius.circular(24),
-                                        )),
-                                        color: Colors.white,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.05,
-                                                right: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.04,
-                                              ),
-                                              child: const Icon(
-                                                Icons.sign_language_rounded,
-                                                size: 35,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Language assistance",
-                                              style: GoogleFonts.raleway(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    buildCategory(
+                                        context,
+                                        "Language assistance",
+                                        Icons.sign_language_rounded),
+
                                     // SizedBox(
                                     //   height: MediaQuery.of(context).size.height *
                                     //       0.012,
@@ -746,61 +604,52 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   ),
                 ),
                 floatingActionButton: Padding(
-                  padding: const EdgeInsets.only(left: 30),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.82,),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      decoration: buttonDecoration,
-                      child: TextButton(
-                          child: Text(
-                            "Next",
-                            style: textButtonStyle,
-                          ),
-                          onPressed: () async {
-                            // if (controllerTextFieldNameVol.text.isEmpty) {
-                            //   setState(() {
-                            //     errorEmptyRegister = true;
-                            //   });
-                            // }
-                            // if (controllerTextFieldPhoneNumberVol.text.isEmpty) {
-                            //   setState(() {
-                            //     errorEmptyRegister = true;
-                            //   });
-                            // }
-                            // if (controllerTextFieldEmailVolRegistration.text.isEmpty) {
-                            //   setState(() {
-                            //     errorEmptyRegister = true;
-                            //   });
-                            // }
-                            // if (controllerTextFieldPasswordVolRegistration.text.isEmpty) {
-                            //   setState(() {
-                            //     errorEmptyRegister = true;
-                            //   });
-                            // }
-                            // if (_formKey.currentState!.validate()) {
-                            //   setState(() => loading = true);
-                            //   dynamic result =
-                            //   await _auth.registerWithEmailAndPasswordVol(
-                            //       emailRegisterVol, passwordRegisterVol);
-                            //
-                            //   if (result == null) {
-                            //     setState(() {
-                            //       errorEmptyRegister = false;
-                            //       loading = false;
-                            //       error =
-                            //       'Could not sign in with those credentials';
-                            //     });
-                            //   }
-                            // }
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SettingsHomeVol()));
-                          }),
-                    ),
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id_vol',
+                                isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                          return ListView.builder(
+                              itemCount: !streamSnapshot.hasData
+                                  ? 1
+                                  : streamSnapshot.data?.docs.length,
+                              itemBuilder: (ctx, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 30),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
+                                    decoration: buttonDecoration,
+                                    child: TextButton(
+                                        child: Text(
+                                          "Next",
+                                          style: textButtonStyle,
+                                        ),
+                                        onPressed: () async {
+                                          FirebaseFirestore.instance
+                                              .collection('applications')
+                                              .doc(streamSnapshot
+                                                  .data?.docs[index].id)
+                                              .update({
+                                            "category": chosenCategoryList
+                                          });
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SettingsHomeVol()));
+                                        }),
+                                  ),
+                                );
+                              });
+                        }),
                   ),
                 ),
               ),
@@ -808,44 +657,55 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     );
   }
 
-  GestureDetector buildCategory(BuildContext context, String text, IconData icon, bool parameter) {
+  GestureDetector buildCategory(
+      BuildContext context, String text, IconData icon) {
     return GestureDetector(
       onTap: () {
         setState(() {
+          if (chosenCategoryList.contains(text)) {
+            chosenCategoryList.remove(text);
+          } else {
+            chosenCategoryList.add(text);
+          }
+          print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+          print(chosenCategoryList);
         });
       },
       child: AnimatedContainer(
-          height: MediaQuery.of(context).size.height * 0.085,
-          duration: Duration(milliseconds: 500),
-          decoration: BoxDecoration(
-            color: parameter ? blueColor : Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(24),
-            ),
+        height: MediaQuery.of(context).size.height * 0.085,
+        duration: Duration(milliseconds: 500),
+        decoration: BoxDecoration(
+          color: chosenCategoryList.contains(text) ? blueColor : Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(24),
           ),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  right: MediaQuery.of(context).size.width * 0.04,
-                ),
-                child: Icon(
-                  icon,
-                  size: 35,
-                  color: parameter ? Colors.white : Colors.black,
-                ),
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.05,
+                right: MediaQuery.of(context).size.width * 0.04,
               ),
-              Text(
-                text,
-                style: GoogleFonts.raleway(
-                  fontSize: 18,
-                  color: parameter ? Colors.white : Colors.black,
-                ),
-              )
-            ],
-          ),
-
+              child: Icon(
+                icon,
+                size: 35,
+                color: chosenCategoryList.contains(text)
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            ),
+            Text(
+              text,
+              style: GoogleFonts.raleway(
+                fontSize: 18,
+                color: chosenCategoryList.contains(text)
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

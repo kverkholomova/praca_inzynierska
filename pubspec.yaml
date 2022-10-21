@@ -94,6 +94,7 @@ flutter:
   assets:
     - assets/logo.svg
     - assets/logo-02.svg
+    - assets/user.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

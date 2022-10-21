@@ -241,9 +241,18 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
                                           child: Column(
                                             children: [
 
-                                              // Image(image: image),
+                                              Container(
+                                                height:MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                              0.5,
+
+                                                  child: Image(image: AssetImage("assets/user.png"),)),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 15),
+                                                padding: EdgeInsets.only(top: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                    0.05),
                                                 child: Align(
                                                   alignment: Alignment.topCenter,
                                                   child: Text(
