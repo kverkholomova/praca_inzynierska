@@ -24,6 +24,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
+  bool chosen = false;
 
   // text field state
 
@@ -72,7 +73,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                       )),
                 ),
                 body: Padding(
-                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.12),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.12),
                   child: SingleChildScrollView(
                     dragStartBehavior: DragStartBehavior.down,
                     scrollDirection: Axis.vertical,
@@ -85,8 +87,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 45),
+                                  padding: EdgeInsets.symmetric(vertical: 45),
                                   child: Column(
                                     children: [
                                       Align(
@@ -209,305 +210,285 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 //
                                 //   ],
                                 // ),
-                                  Column(
-                                    children: [
-                                      // AnimatedButton(
-                                      //      text: "Accommodation",
-                                      //     onPress: (){
-                                      //
-                                      //     }),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.085,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                            Radius.circular(24),
-                                          )),
-                                          color: Colors.white,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.05,
-                                                  right: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.04,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.house,
-                                                  size: 35,
-                                                ),
+                                Column(
+                                  children: [
+                                    // AnimatedButton(
+                                    //      text: "Accommodation",
+                                    //     onPress: (){
+                                    //
+                                    //     }),
+
+                                    buildCategory(context, "Accommodation",Icons.house, false),
+                                    SizedBox(
+                                      height:
+                                      MediaQuery.of(context).size.height *
+                                          0.012,
+                                    ),
+                                    // buildCategory(context, "Accommodation",Icons.house),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.012,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.085,
+                                      child: Material(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                          Radius.circular(24),
+                                        )),
+                                        color: Colors.white,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.05,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.04,
                                               ),
-                                              Text(
-                                                "Accommodation",
-                                                style: GoogleFonts.raleway(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                              child: const Icon(
+                                                Icons
+                                                    .emoji_transportation_rounded,
+                                                size: 35,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Transfer",
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.012,
-                                      ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.085,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(24),
-                                              )),
-                                          color: Colors.white,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.05,
-                                                  right: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.04,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.emoji_transportation_rounded,
-                                                  size: 35,
-                                                ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.012,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.085,
+                                      child: Material(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                          Radius.circular(24),
+                                        )),
+                                        color: Colors.white,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.05,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.04,
                                               ),
-                                              Text(
-                                                "Transfer",
-                                                style: GoogleFonts.raleway(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                              child: const Icon(
+                                                Icons.pets_rounded,
+                                                size: 35,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Animal assistance",
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.012,
-                                      ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.085,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(24),
-                                              )),
-                                          color: Colors.white,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.05,
-                                                  right: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.04,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.pets_rounded,
-                                                  size: 35,
-                                                ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.012,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.085,
+                                      child: Material(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                          Radius.circular(24),
+                                        )),
+                                        color: Colors.white,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.05,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.04,
                                               ),
-                                              Text(
-                                                "Animal assistance",
-                                                style: GoogleFonts.raleway(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                              child: const Icon(
+                                                Icons
+                                                    .local_grocery_store_rounded,
+                                                size: 35,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Grocery assistance",
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.012,
-                                      ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.085,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(24),
-                                              )),
-                                          color: Colors.white,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.05,
-                                                  right: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.04,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.local_grocery_store_rounded,
-                                                  size: 35,
-                                                ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.012,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.085,
+                                      child: Material(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                          Radius.circular(24),
+                                        )),
+                                        color: Colors.white,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.05,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.04,
                                               ),
-                                              Text(
-                                                "Grocery assistance",
-                                                style: GoogleFonts.raleway(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                              child: const Icon(
+                                                Icons.sign_language_rounded,
+                                                size: 35,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Language assistance",
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.012,
-                                      ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            0.085,
-                                        child: Material(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(24),
-                                              )),
-                                          color: Colors.white,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.05,
-                                                  right: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.04,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.sign_language_rounded,
-                                                  size: 35,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Language assistance",
-                                                style: GoogleFonts.raleway(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      // SizedBox(
-                                      //   height: MediaQuery.of(context).size.height *
-                                      //       0.012,
-                                      // ),
-                                      // SizedBox(
-                                      //   height: MediaQuery.of(context).size.height *
-                                      //       0.085,
-                                      //   child: Material(
-                                      //     shape: const RoundedRectangleBorder(
-                                      //         borderRadius: BorderRadius.all(
-                                      //           Radius.circular(24),
-                                      //         )),
-                                      //     color: Colors.white,
-                                      //     child: Row(
-                                      //       children: [
-                                      //         Padding(
-                                      //           padding: EdgeInsets.only(
-                                      //             left: MediaQuery.of(context)
-                                      //                 .size
-                                      //                 .width *
-                                      //                 0.05,
-                                      //             right: MediaQuery.of(context)
-                                      //                 .size
-                                      //                 .width *
-                                      //                 0.04,
-                                      //           ),
-                                      //           child: const Icon(
-                                      //             Icons.pets_rounded,
-                                      //             size: 35,
-                                      //           ),
-                                      //         ),
-                                      //         Text(
-                                      //           "Animal assistance",
-                                      //           style: GoogleFonts.raleway(
-                                      //             fontSize: 18,
-                                      //             color: Colors.black,
-                                      //           ),
-                                      //         )
-                                      //       ],
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      // SizedBox(
-                                      //   height: MediaQuery.of(context).size.height *
-                                      //       0.012,
-                                      // ),
-                                      // SizedBox(
-                                      //   height: MediaQuery.of(context).size.height *
-                                      //       0.085,
-                                      //   child: Material(
-                                      //     shape: const RoundedRectangleBorder(
-                                      //         borderRadius: BorderRadius.all(
-                                      //           Radius.circular(24),
-                                      //         )),
-                                      //     color: Colors.white,
-                                      //     child: Row(
-                                      //       children: [
-                                      //         Padding(
-                                      //           padding: EdgeInsets.only(
-                                      //             left: MediaQuery.of(context)
-                                      //                 .size
-                                      //                 .width *
-                                      //                 0.05,
-                                      //             right: MediaQuery.of(context)
-                                      //                 .size
-                                      //                 .width *
-                                      //                 0.04,
-                                      //           ),
-                                      //           child: const Icon(
-                                      //             Icons.pets_rounded,
-                                      //             size: 35,
-                                      //           ),
-                                      //         ),
-                                      //         Text(
-                                      //           "Animal assistance",
-                                      //           style: GoogleFonts.raleway(
-                                      //             fontSize: 18,
-                                      //             color: Colors.black,
-                                      //           ),
-                                      //         )
-                                      //       ],
-                                      //     ),
-                                      //   ),
-                                      // )
-                                    ],
-                                  ),
+                                    ),
+                                    // SizedBox(
+                                    //   height: MediaQuery.of(context).size.height *
+                                    //       0.012,
+                                    // ),
+                                    // SizedBox(
+                                    //   height: MediaQuery.of(context).size.height *
+                                    //       0.085,
+                                    //   child: Material(
+                                    //     shape: const RoundedRectangleBorder(
+                                    //         borderRadius: BorderRadius.all(
+                                    //           Radius.circular(24),
+                                    //         )),
+                                    //     color: Colors.white,
+                                    //     child: Row(
+                                    //       children: [
+                                    //         Padding(
+                                    //           padding: EdgeInsets.only(
+                                    //             left: MediaQuery.of(context)
+                                    //                 .size
+                                    //                 .width *
+                                    //                 0.05,
+                                    //             right: MediaQuery.of(context)
+                                    //                 .size
+                                    //                 .width *
+                                    //                 0.04,
+                                    //           ),
+                                    //           child: const Icon(
+                                    //             Icons.pets_rounded,
+                                    //             size: 35,
+                                    //           ),
+                                    //         ),
+                                    //         Text(
+                                    //           "Animal assistance",
+                                    //           style: GoogleFonts.raleway(
+                                    //             fontSize: 18,
+                                    //             color: Colors.black,
+                                    //           ),
+                                    //         )
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // SizedBox(
+                                    //   height: MediaQuery.of(context).size.height *
+                                    //       0.012,
+                                    // ),
+                                    // SizedBox(
+                                    //   height: MediaQuery.of(context).size.height *
+                                    //       0.085,
+                                    //   child: Material(
+                                    //     shape: const RoundedRectangleBorder(
+                                    //         borderRadius: BorderRadius.all(
+                                    //           Radius.circular(24),
+                                    //         )),
+                                    //     color: Colors.white,
+                                    //     child: Row(
+                                    //       children: [
+                                    //         Padding(
+                                    //           padding: EdgeInsets.only(
+                                    //             left: MediaQuery.of(context)
+                                    //                 .size
+                                    //                 .width *
+                                    //                 0.05,
+                                    //             right: MediaQuery.of(context)
+                                    //                 .size
+                                    //                 .width *
+                                    //                 0.04,
+                                    //           ),
+                                    //           child: const Icon(
+                                    //             Icons.pets_rounded,
+                                    //             size: 35,
+                                    //           ),
+                                    //         ),
+                                    //         Text(
+                                    //           "Animal assistance",
+                                    //           style: GoogleFonts.raleway(
+                                    //             fontSize: 18,
+                                    //             color: Colors.black,
+                                    //           ),
+                                    //         )
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // )
+                                  ],
+                                ),
                                 // Slidable(
                                 //   // Specify a key if the Slidable is dismissible.
                                 //   key: const ValueKey(0),
@@ -569,7 +550,6 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 //   // component is not dragged.
                                 //   child: const ListTile(title: Text('Slide me')),
                                 // ),
-
 
                                 // Align(
                                 //   alignment: Alignment.topCenter,
@@ -771,8 +751,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       width: double.infinity,
-                      height:
-                      MediaQuery.of(context).size.height * 0.075,
+                      height: MediaQuery.of(context).size.height * 0.075,
                       decoration: buttonDecoration,
                       child: TextButton(
                           child: Text(
@@ -819,13 +798,55 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                    const SettingsHomeVol()));
+                                        const SettingsHomeVol()));
                           }),
                     ),
                   ),
                 ),
               ),
             ),
+    );
+  }
+
+  GestureDetector buildCategory(BuildContext context, String text, IconData icon, bool parameter) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+        });
+      },
+      child: AnimatedContainer(
+          height: MediaQuery.of(context).size.height * 0.085,
+          duration: Duration(milliseconds: 500),
+          decoration: BoxDecoration(
+            color: parameter ? blueColor : Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
+            ),
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.04,
+                ),
+                child: Icon(
+                  icon,
+                  size: 35,
+                  color: parameter ? Colors.white : Colors.black,
+                ),
+              ),
+              Text(
+                text,
+                style: GoogleFonts.raleway(
+                  fontSize: 18,
+                  color: parameter ? Colors.white : Colors.black,
+                ),
+              )
+            ],
+          ),
+
+      ),
     );
   }
 }

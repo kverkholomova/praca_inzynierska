@@ -63,6 +63,7 @@ dependencies:
   animations: ^2.0.3
   shimmer: ^2.0.0
   flutter_slidable: ^2.0.0
+  flutter_custom_clippers: ^2.0.0
 
 
 
