@@ -241,7 +241,7 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
                                           child: Column(
                                             children: [
 
-                                              Image(image: image),
+                                              // Image(image: image),
                                               Padding(
                                                 padding: const EdgeInsets.only(left: 15),
                                                 child: Align(
