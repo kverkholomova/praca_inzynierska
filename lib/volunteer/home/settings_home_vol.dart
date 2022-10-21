@@ -11,7 +11,6 @@ import 'package:wol_pro_1/Refugee/applications/all_applications.dart';
 import 'package:wol_pro_1/Refugee/applications/application_info.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/volunteer/chat/chatPage.dart';
-import 'package:wol_pro_1/cash/screen_with_applications.dart';
 import 'package:wol_pro_1/volunteer/chat/message.dart';
 import 'package:wol_pro_1/volunteer/home/applications_vol.dart';
 

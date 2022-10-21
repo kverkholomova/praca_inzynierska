@@ -6,6 +6,7 @@ import 'package:wol_pro_1/widgets/text_form_field.dart';
 import '../../../constants.dart';
 import '../../../services/auth.dart';
 import '../../../shared/loading.dart';
+import '../../../volunteer/home/settings_home_vol.dart';
 import '../../intro_screen/option.dart';
 
 List<String> chosenCategory = [];
@@ -99,7 +100,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                       children: <Widget>[
 
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 55),
+                          padding: const EdgeInsets.symmetric(vertical: 45),
                           child: Column(
                             children: [
 
@@ -131,6 +132,13 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             ],
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            error,
+                            style: const TextStyle(color: Colors.red, fontSize: 14.0),
+                          ),
+                        ),
                         Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
@@ -146,7 +154,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
-                            :MediaQuery.of(context).size.height * 0.005,),
+                            :MediaQuery.of(context).size.height * 0.015,),
                         Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
@@ -162,7 +170,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
-                            :MediaQuery.of(context).size.height * 0.005,),
+                            :MediaQuery.of(context).size.height * 0.015,),
                         Material(
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
@@ -178,7 +186,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
-                            :MediaQuery.of(context).size.height * 0.005,),
+                            :MediaQuery.of(context).size.height * 0.015,),
                         Material(
 
                           color: Colors.transparent,
@@ -190,12 +198,12 @@ class _RegisterVol1State extends State<RegisterVol1> {
                           child: CustomTextFormFieldRegister(
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
-                            hide: false,
+                            hide: true,
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.075
-                            :MediaQuery.of(context).size.height * 0.005,),
+                            :MediaQuery.of(context).size.height * 0.015,),
 
                         Container(
                           width: double.infinity,
@@ -235,13 +243,15 @@ class _RegisterVol1State extends State<RegisterVol1> {
 
                                   if (result == null) {
                                     setState(() {
-                                      errorEmpty = true;
+                                      errorEmptyRegister = false;
                                       loading = false;
                                       error =
                                       'Could not sign in with those credentials';
                                     });
                                   }
                                 }
+                                // Navigator.push(context,
+                                //     MaterialPageRoute(builder: (context) => SettingsHomeVol()));
                               }),
                         ),
                         Align(
@@ -431,10 +441,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         //   ),
                         // ),
 
-                        Text(
-                          error,
-                          style: const TextStyle(color: Colors.red, fontSize: 14.0),
-                        )
+
                       ],
                     ),
                   ),

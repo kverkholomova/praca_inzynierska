@@ -9,7 +9,6 @@ import 'package:wol_pro_1/Refugee/pageWithChats.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
-import 'package:wol_pro_1/cash/screen_with_applications.dart';
 
 import '../../service/local_push_notifications.dart';
 import '../volunteer/pageWithChatsVol.dart';

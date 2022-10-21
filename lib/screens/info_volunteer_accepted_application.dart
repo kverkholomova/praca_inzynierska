@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wol_pro_1/Refugee/applications/application_info.dart';
-import 'package:wol_pro_1/cash/screen_with_applications.dart';
 import 'package:wol_pro_1/volunteer/home/applications_vol.dart';
 
 
