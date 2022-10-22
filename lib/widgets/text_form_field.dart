@@ -237,20 +237,12 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
         setState(() {
          if(widget.customHintText=="Name"){
            userName = val;
-           print("Name: $userName");
-           print(val);
          } else if( widget.customHintText == "Phone number"){
            phoneNumber = val;
-           print(phoneNumber);
-           print(val);
          } else if( widget.customHintText == "Email"){
            emailRegisterVol = val;
-           print(emailRegisterVol);
-           print(val);
          } else if(widget.customHintText == "Password"){
            passwordRegisterVol = val;
-           print(passwordRegisterVol);
-           print(val);
          }
         });
 

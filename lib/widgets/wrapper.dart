@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
+import 'package:wol_pro_1/screens/main_screen.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/categories_choose.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 import 'package:wol_pro_1/widgets/authenticate.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 
@@ -22,7 +24,7 @@ class Wrapper extends StatelessWidget {
       return SettingsHomeRef();
     }else if(!optionRefugee){
       // return SettingsHomeVol();
-      return ChooseCategory();
+      return registrationVol?ChooseCategory():MainScreen();
 
     }
     else{

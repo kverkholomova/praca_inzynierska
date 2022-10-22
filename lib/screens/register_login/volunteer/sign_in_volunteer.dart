@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/shared/loading.dart';
 
@@ -76,7 +77,7 @@ class _SignInVolState extends State<SignInVol> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 85),
+                          padding: const EdgeInsets.symmetric(vertical: 80),
                           child: Column(
                             children: [
                               Align(
@@ -163,7 +164,7 @@ class _SignInVolState extends State<SignInVol> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: !errorEmpty
-                              ?MediaQuery.of(context).size.height * 0.16
+                              ?MediaQuery.of(context).size.height * 0.14
                           : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,
@@ -175,6 +176,7 @@ class _SignInVolState extends State<SignInVol> {
                                   style: textButtonStyle,
                                 ),
                                 onPressed: () async {
+                                  registrationVol = false;
                                   if (controllerTextFieldEmailVol.text.isEmpty) {
                                     setState(() {
                                       errorEmpty = true;

@@ -9,6 +9,8 @@ import '../../../shared/loading.dart';
 import '../../../volunteer/home/settings_home_vol.dart';
 import '../../intro_screen/option.dart';
 
+int volunteerAge = 0;
+bool registrationVol = false;
 double volunteerRate = 5;
 List<String> chosenCategoryList = [];
 String userName = '';
@@ -101,7 +103,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                       children: <Widget>[
 
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 45),
+                          padding: const EdgeInsets.symmetric(vertical: 30),
                           child: Column(
                             children: [
 
@@ -203,7 +205,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
-                            ?MediaQuery.of(context).size.height * 0.075
+                            ?MediaQuery.of(context).size.height * 0.070
                             :MediaQuery.of(context).size.height * 0.015,),
 
                         Container(
@@ -216,6 +218,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                                 style: textButtonStyle,
                               ),
                               onPressed: () async {
+                                registrationVol = true;
                                 if (controllerTextFieldNameVol.text.isEmpty) {
                                   setState(() {
                                     errorEmptyRegister = true;

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
 
@@ -90,7 +89,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 45),
+                                  padding: const EdgeInsets.symmetric(vertical: 45),
                                   child: Column(
                                     children: [
                                       Align(
@@ -586,7 +585,6 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 //     radius: 25,
                                 //     backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
                                 //     child: IconButton(onPressed: (){
-                                //       print("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
                                 //       print(userName);
                                 //       print(phoneNumber);
                                 //       print(pesel);
@@ -620,9 +618,6 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ? 1
                                   : streamSnapshot.data?.docs.length,
                               itemBuilder: (ctx, index) {
-                                print("PPPPPPPPPPPPP");
-                                print(streamSnapshot
-                                    .data?.docs[index].id);
                                 return Padding(
                                   padding: const EdgeInsets.only(left: 30),
                                   child: Container(
@@ -670,16 +665,14 @@ class _ChooseCategoryState extends State<ChooseCategory> {
           } else {
             chosenCategoryList.add(text);
           }
-          print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-          print(chosenCategoryList);
         });
       },
       child: AnimatedContainer(
         height: MediaQuery.of(context).size.height * 0.085,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
           color: chosenCategoryList.contains(text) ? blueColor : Colors.white,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(24),
           ),
         ),
