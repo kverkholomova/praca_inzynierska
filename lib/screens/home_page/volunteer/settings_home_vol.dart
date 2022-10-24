@@ -19,9 +19,10 @@ import '../../../volunteer/chat/pageWithChatsVol.dart';
 import '../../../volunteer/new_screen_with_applications.dart';
 import '../../../volunteer/settings_vol_info.dart';
 
+List categories_volunteer = [];
 String? currentId_set = '';
 String? current_name_Vol = '';
-List categories_user_Register=[];
+List categories_user_Register = [];
 String? token_vol;
 final FirebaseFirestore _db = FirebaseFirestore.instance;
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -33,10 +34,7 @@ class SettingsHomeVol extends StatefulWidget {
   State<SettingsHomeVol> createState() => _SettingsHomeVolState();
 }
 
-
 class _SettingsHomeVolState extends State<SettingsHomeVol> {
-
-
   // final Stream<int> _bids = (() {
   //   late final StreamController<int> controller;
   //   controller = StreamController<int>(
@@ -78,7 +76,8 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
   //
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
-    print("------???---------RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+    print(
+        "------???---------RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
     print(token_v);
     FirebaseFirestore.instance
         .collection('users')
@@ -104,9 +103,8 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
 
   final AuthService _auth = AuthService();
 
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -194,7 +192,6 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
           // ),
           body: Stack(
             children: [
-
               ClipPath(
                 clipper: OvalBottomBorderClipper(),
                 child: Container(
@@ -207,184 +204,306 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
                       ),
                     ],
                   ),
-
                   height: MediaQuery.of(context).size.height * 0.53,
                   child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 50),
-                        child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('users')
-                              .where('id_vol', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                              .snapshots(),
-
-                          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                            return ListView.builder(
-                                itemCount: !streamSnapshot.hasData? 1: streamSnapshot.data?.docs.length,
-                                itemBuilder: (ctx, index) {
-                                  token_vol = streamSnapshot.data?.docs[index]['token_vol'];
-                                  current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
-                                  if (streamSnapshot.hasData){
-                                    switch (streamSnapshot.connectionState){
-                                      case ConnectionState.waiting:
-                                        return  Column(
-                                            children: const [
-                                              SizedBox(
-                                                width: 60,
-                                                height: 60,
-                                                child: CircularProgressIndicator(),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(top: 16),
-                                                child: Text('Awaiting data...'),
-                                              )
-                                            ]
-                                        );
-                                      case ConnectionState.active:
-                                        return Padding(
-                                          padding: const EdgeInsets.only(top: 20),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height:MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                              0.5,
-                                                  child: const Image(image: AssetImage("assets/user.png"),)),
-                                              Align(
-                                                alignment: Alignment.topCenter,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                        streamSnapshot.data?.docs[index]['user_name'] ,
-                                                        style: GoogleFonts.raleway(
-                                                          fontSize: 24,
-                                                          color: Colors.white,
-                                                        )
-                                                    ),
-                                                    IconButton(
-                                                      icon: const Icon(Icons.edit, color: Colors.white,),
-                                                      onPressed: (){
-                                                        print("K");
-                                                      },),
-                                                  ],
-                                                ),
-                                              ),
-
-                                              Padding(
-                                                padding: EdgeInsets.only(top: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                    0.02),
-                                                child: Align(
-                                                  alignment: Alignment.topCenter,
-                                                  child: Text(
-                                                      "${streamSnapshot.data?.docs[index]['age']==0?"Please add your age":streamSnapshot.data?.docs[index]['age']}",
-                                                      style: GoogleFonts.raleway(
-                                                        fontSize: 16,
-                                                        color: Colors.white,
-                                                      )
-                                                  ),
-                                                ),
-                                              ),
-
-                                              Padding(
-                                                padding: EdgeInsets.only(top: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                    0.05),
-                                                child: Align(
-                                                  alignment: Alignment.topCenter,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      streamSnapshot.data?.docs[index]['ranking']>=1
-                                                          ?const Icon(Icons.star, color: Colors.white, size: 30,)
-                                                          :streamSnapshot.data?.docs[index]['ranking']==0.5
-                                                          ?const Icon(Icons.star_half, color: Colors.white,size: 30,)
-                                                          :const Icon(Icons.star_border, color: Colors.white,size: 30,),
-                                                      streamSnapshot.data?.docs[index]['ranking']>=2
-                                                          ?const Icon(Icons.star_rate, color: Colors.white,size: 30,)
-                                                          :streamSnapshot.data?.docs[index]['ranking']==1.5
-                                                          ?const Icon(Icons.star_half, color: Colors.white,size: 30,)
-                                                          :const Icon(Icons.star_border, color: Colors.white,size: 30,),
-                                                      streamSnapshot.data?.docs[index]['ranking']>=3
-                                                          ?const Icon(Icons.star_rate, color: Colors.white,size: 30,)
-                                                          :streamSnapshot.data?.docs[index]['ranking']==2.5
-                                                          ?const Icon(Icons.star_half, color: Colors.white,size: 30,)
-                                                          :const Icon(Icons.star_border, color: Colors.white,size: 30,),
-                                                      streamSnapshot.data?.docs[index]['ranking']>=4
-                                                          ?const Icon(Icons.star_rate, color: Colors.white,size: 30,)
-                                                          :streamSnapshot.data?.docs[index]['ranking']==3.5
-                                                          ?const Icon(Icons.star_half, color: Colors.white,size: 30,)
-                                                          :const Icon(Icons.star_border, color: Colors.white,size: 30,),
-                                                      streamSnapshot.data?.docs[index]['ranking']>=5
-                                                          ?const Icon(Icons.star_rate, color: Colors.white,size: 30,)
-                                                          :streamSnapshot.data?.docs[index]['ranking']==4.5
-                                                          ?const Icon(Icons.star_half, color: Colors.white,size: 30,)
-                                                          :const Icon(Icons.star_border, color: Colors.white,size: 30,),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-
-                                              // Padding(
-                                              //   padding: const EdgeInsets.only(top: 15),
-                                              //   child: Row(
-                                              //     children: [
-                                              //       IconButton(onPressed: () {
-                                              //         print("Phone");
-                                              //       }, icon: Icon(Icons.phone)),
-                                              //       Align(
-                                              //         alignment: Alignment.topLeft,
-                                              //         child: Text(
-                                              //           streamSnapshot.data?.docs[index]['phone_number'],
-                                              //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
-                                              //       ),
-                                              //     ],
-                                              //   ),
-                                              // ),
-
-
-
-                                              // Text(
-                                              //   streamSnapshot.data?.docs[index]['date'],
-                                              //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
-
-                                              const SizedBox(height: 250,),
-
-                                            ],
-                                          ),
-                                        );}}
-                                  else{
-
-                                  }
-                                  return Center(
-                                    child: Padding(padding: const EdgeInsets.only(top: 100),
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('id_vol',
+                              isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        return ListView.builder(
+                            itemCount: !streamSnapshot.hasData
+                                ? 1
+                                : streamSnapshot.data?.docs.length,
+                            itemBuilder: (ctx, index) {
+                              token_vol =
+                                  streamSnapshot.data?.docs[index]['token_vol'];
+                              current_name_Vol =
+                                  streamSnapshot.data?.docs[index]['user_name'];
+                              if (streamSnapshot.hasData) {
+                                switch (streamSnapshot.connectionState) {
+                                  case ConnectionState.waiting:
+                                    return Column(children: const [
+                                      SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 16),
+                                        child: Text('Awaiting data...'),
+                                      )
+                                    ]);
+                                  case ConnectionState.active:
+                                    categories_volunteer.add(streamSnapshot
+                                        .data?.docs[index]['category']);
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Column(
-                                        children: const [
-                                          SpinKitChasingDots(
-                                            color: Colors.brown,
-                                            size: 50.0,
-                                          ),
+                                        children: [
+                                          Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              child: const Image(
+                                                image: AssetImage(
+                                                    "assets/user.png"),
+                                              )),
                                           Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                                "Waiting...",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+                                            alignment: Alignment.topCenter,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    streamSnapshot
+                                                            .data?.docs[index]
+                                                        ['user_name'],
+                                                    style: GoogleFonts.raleway(
+                                                      fontSize: 24,
+                                                      color: Colors.white,
+                                                    )),
+                                                IconButton(
+                                                  icon: const Icon(
+                                                    Icons.edit,
+                                                    color: Colors.white,
+                                                  ),
+                                                  onPressed: () {
+                                                    print("K");
+                                                  },
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Padding(padding: EdgeInsets.only(top: 20),)
+
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.02),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Text(
+                                                  "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                                                  style: GoogleFonts.raleway(
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  )),
+                                            ),
+                                          ),
+
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.05),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  streamSnapshot.data
+                                                                  ?.docs[index]
+                                                              ['ranking'] >=
+                                                          1
+                                                      ? const Icon(
+                                                          Icons.star,
+                                                          color: Colors.white,
+                                                          size: 30,
+                                                        )
+                                                      : streamSnapshot.data
+                                                                          ?.docs[
+                                                                      index]
+                                                                  ['ranking'] ==
+                                                              0.5
+                                                          ? const Icon(
+                                                              Icons.star_half,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.star_border,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            ),
+                                                  streamSnapshot.data
+                                                                  ?.docs[index]
+                                                              ['ranking'] >=
+                                                          2
+                                                      ? const Icon(
+                                                          Icons.star_rate,
+                                                          color: Colors.white,
+                                                          size: 30,
+                                                        )
+                                                      : streamSnapshot.data
+                                                                          ?.docs[
+                                                                      index]
+                                                                  ['ranking'] ==
+                                                              1.5
+                                                          ? const Icon(
+                                                              Icons.star_half,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.star_border,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            ),
+                                                  streamSnapshot.data
+                                                                  ?.docs[index]
+                                                              ['ranking'] >=
+                                                          3
+                                                      ? const Icon(
+                                                          Icons.star_rate,
+                                                          color: Colors.white,
+                                                          size: 30,
+                                                        )
+                                                      : streamSnapshot.data
+                                                                          ?.docs[
+                                                                      index]
+                                                                  ['ranking'] ==
+                                                              2.5
+                                                          ? const Icon(
+                                                              Icons.star_half,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.star_border,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            ),
+                                                  streamSnapshot.data
+                                                                  ?.docs[index]
+                                                              ['ranking'] >=
+                                                          4
+                                                      ? const Icon(
+                                                          Icons.star_rate,
+                                                          color: Colors.white,
+                                                          size: 30,
+                                                        )
+                                                      : streamSnapshot.data
+                                                                          ?.docs[
+                                                                      index]
+                                                                  ['ranking'] ==
+                                                              3.5
+                                                          ? const Icon(
+                                                              Icons.star_half,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.star_border,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            ),
+                                                  streamSnapshot.data
+                                                                  ?.docs[index]
+                                                              ['ranking'] >=
+                                                          5
+                                                      ? const Icon(
+                                                          Icons.star_rate,
+                                                          color: Colors.white,
+                                                          size: 30,
+                                                        )
+                                                      : streamSnapshot.data
+                                                                          ?.docs[
+                                                                      index]
+                                                                  ['ranking'] ==
+                                                              4.5
+                                                          ? const Icon(
+                                                              Icons.star_half,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.star_border,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30,
+                                                            ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Padding(
+                                          //   padding: const EdgeInsets.only(top: 15),
+                                          //   child: Row(
+                                          //     children: [
+                                          //       IconButton(onPressed: () {
+                                          //         print("Phone");
+                                          //       }, icon: Icon(Icons.phone)),
+                                          //       Align(
+                                          //         alignment: Alignment.topLeft,
+                                          //         child: Text(
+                                          //           streamSnapshot.data?.docs[index]['phone_number'],
+                                          //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
+
+                                          // Text(
+                                          //   streamSnapshot.data?.docs[index]['date'],
+                                          //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
+
+                                          const SizedBox(
+                                            height: 250,
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                  );
-                                });
-                          },
-                        ),
-                      )),
+                                    );
+                                }
+                              } else {}
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 100),
+                                  child: Column(
+                                    children: const [
+                                      SpinKitChasingDots(
+                                        color: Colors.brown,
+                                        size: 50.0,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text("Waiting...",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 24,
+                                              color: Colors.black,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 20),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                    ),
+                  )),
                 ),
               ),
               // IconButton(
@@ -572,75 +691,104 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
               //   },
               // ),
               Padding(
-                padding: EdgeInsets.only(top:  MediaQuery.of(context).size.height * 0.55),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.55),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('users')
-                          .where('id_vol', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                          .where('id_vol',
+                              isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                           .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                        return ListView.builder(
-                            itemCount: !streamSnapshot.hasData
-                                ? 1
-                                : streamSnapshot.data?.docs.length,
-                            itemBuilder: (ctx, index) {
-                              return Container(
-                                width: double.infinity,
-                                height: MediaQuery.of(context).size.height *
-                                    0.075,
-                                decoration: buttonDecoration,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    height: MediaQuery.of(context).size.height * 0.085,
-                                    duration: const Duration(milliseconds: 500),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(24),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context).size.width * 0.05,
-                                            right: MediaQuery.of(context).size.width * 0.04,
-                                          ),
-                                          child: Icon(
-                                            Icons.pets_rounded,
-                                            size: 35,
-                                            color: Colors.black,
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        if (streamSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (streamSnapshot.connectionState ==
+                            ConnectionState.done) {
+                          return Text('done');
+                        } else if (streamSnapshot.hasError) {
+                          return Text('Error!');
+                        } else {
+                          categories_volunteer
+                              .add(streamSnapshot.data?.docs[0]["category"]);
+                          return ListView.builder(
+                              itemCount: categories_volunteer[0].length,
+                              itemBuilder: (ctx, index) {
+                                return Padding(
+                                  padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.012),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
+                                    decoration: buttonDecoration,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {});
+                                      },
+                                      child: AnimatedContainer(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.085,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(24),
                                           ),
                                         ),
-                                        Text(
-                                          streamSnapshot.data?.docs[index]["category"][0],
-                                          style: GoogleFonts.raleway(
-                                            fontSize: 18,
-                                            color:  Colors.black,
-                                          ),
-                                        )
-                                      ],
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.05,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.04,
+                                              ),
+                                              child: Icon(
+                                                Icons.pets_rounded,
+                                                size: 35,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              categories_volunteer[0][index],
+                                              // streamSnapshot.data?.docs[index]
+                                              //     ["category"][index],
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            // SizedBox(
+                                            //   height:
+                                            //   MediaQuery.of(context).size.height *
+                                            //       0.05,
+                                            // ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-
-                            });
+                                );
+                                // }
+                                // );
+                                // return CircularProgressIndicator();
+                              });
+                        }
                       }),
                 ),
               )
             ],
           ),
-
-
         ),
       ),
     );
