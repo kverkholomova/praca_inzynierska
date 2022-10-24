@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:wol_pro_1/map.dart';
 import 'package:wol_pro_1/volunteer/chat/pageWithChatsVol.dart';
 import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
 import 'package:wol_pro_1/volunteer/new_screen_with_applications.dart';
@@ -32,11 +33,11 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      ListofChatroomsVol(),
-      ApplicationsOfVolunteer(),
-      SettingsHomeVol(),
-      Text("Maps"),
-      Categories(),
+      const ListofChatroomsVol(),
+      const ApplicationsOfVolunteer(),
+      const SettingsHomeVol(),
+      const HomeMap(),
+      const Categories(),
 
     ];
   }
@@ -44,72 +45,72 @@ class _MainScreenState extends State<MainScreen> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        inactiveIcon: Icon(Icons.message_rounded,size: 24,),
-        icon: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
+        inactiveIcon: const Icon(Icons.message_rounded,size: 24,),
+        icon: const Padding(
+          padding: EdgeInsets.only(bottom: 5),
           child: Icon(Icons.message_rounded,size: 28,),
         ),
         title: ("Messages"),
         textStyle: GoogleFonts.raleway(
-          fontSize: 12,
+          fontSize: 11,
           color: Colors.white,
         ),
         activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: Icon(Icons.folder_special_rounded, size: 24,),
-        icon: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
+        inactiveIcon: const Icon(Icons.folder_special_rounded, size: 24,),
+        icon: const Padding(
+          padding: EdgeInsets.only(bottom: 5),
           child: Icon(Icons.folder_special_rounded, size: 28,),
         ),
         title: ("Accepted"),
         textStyle: GoogleFonts.raleway(
-          fontSize: 12,
+          fontSize: 11,
           color: Colors.white,
         ),
         activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: Icon(Icons.home, size: 24,),
+        inactiveIcon: const Icon(Icons.home, size: 24,),
         activeColorSecondary: Colors.white,
-        icon: Icon(Icons.home, size: 30,),
+        icon: const Icon(Icons.home, size: 30,),
         title: ("Home"),
         textStyle: GoogleFonts.raleway(
-          fontSize: 12,
+          fontSize: 11,
           color: Colors.white,
         ),
         activeColorPrimary: blueColor.withOpacity(1),
-        inactiveColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon:  Icon(Icons.map, size: 24,),
-        icon: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
+        inactiveIcon:  const Icon(Icons.map, size: 24,),
+        icon: const Padding(
+          padding: EdgeInsets.only(bottom: 5),
           child: Icon(Icons.map, size: 28,),
         ),
         title: ("Map"),
         textStyle: GoogleFonts.raleway(
-          fontSize: 12,
+          fontSize: 11,
           color: Colors.white,
         ),
         activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: Icon(Icons.note_alt_rounded, size: 24,),
-        icon: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.note_alt_rounded, size: 28,),
+        inactiveIcon: const Icon(Icons.note_alt_rounded, size: 24,),
+        icon: const Padding(
+          padding: EdgeInsets.only(bottom: 5),
+          child: Icon(Icons.note_alt_rounded, size: 28),
         ),
         title: ("Applications"),
         textStyle: GoogleFonts.raleway(
-          fontSize: 12,
+          fontSize: 11,
           color: Colors.white,
         ),
         activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
     ];
   }
@@ -153,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
         hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(
           boxShadow: <BoxShadow>[
-            BoxShadow(
+            const BoxShadow(
               color: Colors.black,
               blurRadius: 5,
             ),
@@ -163,11 +164,11 @@ class _MainScreenState extends State<MainScreen> {
         ),
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties( // Navigation Bar's items animation properties.
+        itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
     ),
-    screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
+    screenTransitionAnimation: const ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
     animateTabTransition: true,
     curve: Curves.ease,
     duration: Duration(milliseconds: 200),

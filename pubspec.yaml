@@ -66,6 +66,17 @@ dependencies:
   flutter_custom_clippers: ^2.0.0
   flutter_tabler_icons: ^1.1.1
   persistent_bottom_nav_bar: ^5.0.2
+  google_maps_flutter: ^2.2.1
+  location: ^4.4.0
+  syncfusion_flutter_maps: ^20.3.50
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  permission_handler: ^10.2.0
+  google_maps_routes: ^1.1.2
+  flutter_polyline_points: ^1.0.0
+  haversine_distance: ^1.2.1
+  maps_toolkit: ^2.0.1
+  custom_info_window: ^1.0.1
 
 
 
