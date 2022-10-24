@@ -13,13 +13,14 @@ import '../volunteer/home/applications_vol.dart';
 import 'intro_screen/option.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
-
+  MainScreen({Key? key}) : super(key: key);
+  String id = "homepage";
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   int _selectedIndex = 2;
   PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
 
