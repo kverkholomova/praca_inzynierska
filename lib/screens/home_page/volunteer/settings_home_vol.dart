@@ -12,12 +12,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 
-import '../../constants.dart';
-import '../../service/local_push_notifications.dart';
-import '../../services/auth.dart';
-import '../chat/pageWithChatsVol.dart';
-import '../new_screen_with_applications.dart';
-import '../settings_vol_info.dart';
+import '../../../constants.dart';
+import '../../../service/local_push_notifications.dart';
+import '../../../services/auth.dart';
+import '../../../volunteer/chat/pageWithChatsVol.dart';
+import '../../../volunteer/new_screen_with_applications.dart';
+import '../../../volunteer/settings_vol_info.dart';
 
 String? currentId_set = '';
 String? current_name_Vol = '';
@@ -571,7 +571,72 @@ class _SettingsHomeVolState extends State<SettingsHomeVol> {
               //         });
               //   },
               // ),
+              Padding(
+                padding: EdgeInsets.only(top:  MediaQuery.of(context).size.height * 0.55),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('id_vol', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        return ListView.builder(
+                            itemCount: !streamSnapshot.hasData
+                                ? 1
+                                : streamSnapshot.data?.docs.length,
+                            itemBuilder: (ctx, index) {
+                              return Container(
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.height *
+                                    0.075,
+                                decoration: buttonDecoration,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
 
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    height: MediaQuery.of(context).size.height * 0.085,
+                                    duration: const Duration(milliseconds: 500),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(24),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context).size.width * 0.05,
+                                            right: MediaQuery.of(context).size.width * 0.04,
+                                          ),
+                                          child: Icon(
+                                            Icons.pets_rounded,
+                                            size: 35,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Text(
+                                          streamSnapshot.data?.docs[index]["category"][0],
+                                          style: GoogleFonts.raleway(
+                                            fontSize: 18,
+                                            color:  Colors.black,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+
+                            });
+                      }),
+                ),
+              )
             ],
           ),
 

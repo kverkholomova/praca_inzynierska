@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
-import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
+import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
 import '../../service/local_push_notifications.dart';
 

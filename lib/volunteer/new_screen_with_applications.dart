@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
-import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
+import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
 

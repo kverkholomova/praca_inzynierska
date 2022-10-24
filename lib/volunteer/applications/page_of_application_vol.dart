@@ -13,7 +13,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/volunteer/home/applications_vol.dart';
-import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
+import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import 'package:http/http.dart' as http;
 import '../../service/local_push_notifications.dart';
 import '../new_screen_with_applications.dart';

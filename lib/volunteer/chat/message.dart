@@ -5,7 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/shared/loading.dart';
 import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
 
-import '../home/settings_home_vol.dart';
+import '../../screens/home_page/volunteer/settings_home_vol.dart';
 
 String? last_message= '';
 final ScrollController _scrollControllerVOL = ScrollController();

@@ -7,7 +7,7 @@ import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.
 import 'package:wol_pro_1/widgets/authenticate.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 
-import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
+import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import '../models/user.dart';
 
 

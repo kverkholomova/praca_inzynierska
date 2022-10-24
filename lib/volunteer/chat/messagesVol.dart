@@ -5,7 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/Refugee/pageWithChats.dart';
 import 'package:wol_pro_1/volunteer/chat/pageWithChatsVol.dart';
 
-import '../home/settings_home_vol.dart';
+import '../../screens/home_page/volunteer/settings_home_vol.dart';
 ScrollController _scrollControllerVol_ = ScrollController() ;
 
 String color = "blue";

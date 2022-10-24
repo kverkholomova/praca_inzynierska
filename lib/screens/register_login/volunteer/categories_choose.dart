@@ -7,7 +7,7 @@ import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.
 
 import '../../../constants.dart';
 import '../../../shared/loading.dart';
-import '../../../volunteer/home/settings_home_vol.dart';
+import '../../home_page/volunteer/settings_home_vol.dart';
 import '../../intro_screen/option.dart';
 
 String chosenCategory = '';

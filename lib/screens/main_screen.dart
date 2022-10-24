@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/map.dart';
 import 'package:wol_pro_1/volunteer/chat/pageWithChatsVol.dart';
-import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
+import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import 'package:wol_pro_1/volunteer/new_screen_with_applications.dart';
 
 import '../constants.dart';
