@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 
 import 'package:flutter/material.dart';
+import 'package:wol_pro_1/constants.dart';
 
 import 'models/map_style.dart';
 
@@ -82,7 +84,7 @@ class _HomeMapState extends State<HomeMap> {
         padding:
         EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.0),
         child: FloatingActionButton(
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: blueColor,
           child: const Icon(
             Icons.location_searching,
             color: Colors.white,
@@ -103,7 +105,7 @@ class _HomeMapState extends State<HomeMap> {
       markers.add(Marker(
           markerId: const MarkerId('Home'),
           icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueGreen,
+            BitmapDescriptor.hueAzure,
           ),
           position: LatLng(_currentPosition?.latitude ?? 0.0,
               _currentPosition?.longitude ?? 0.0)));
@@ -171,22 +173,35 @@ class _HomeMapState extends State<HomeMap> {
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
             leading: const Icon(Icons.maps_home_work_outlined),
-            title: Text(name),
-            subtitle: Text(address),
+            title: Text(name, style: GoogleFonts.raleway(
+              fontSize: 18,
+              color: Colors.black,
+            ),),
+            subtitle: Text(address,style: GoogleFonts.raleway(
+              fontSize: 13,
+              color: Colors.black45,)
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 80, bottom: 20.0),
           child: Align(
               alignment: Alignment.topLeft,
-              child: Text("Work hours: $workHours")),
+              child: Text("Work hours: $workHours", style: GoogleFonts.raleway(
+    fontSize: 15,
+    color: Colors.black,
+    ),)),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-                minimumSize: const Size.fromHeight(50),
+                primary: blueColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(24),
+                    )),
+                minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.075),
                 // NEW
               ),
               onPressed: () async {
@@ -195,7 +210,7 @@ class _HomeMapState extends State<HomeMap> {
                 _customInfoWindowController.addInfoWindow!(
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
+                      color: blueColor,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     width: double.infinity,
@@ -207,10 +222,10 @@ class _HomeMapState extends State<HomeMap> {
                         child: Text(
                           ("Total Distance: ${distance.toStringAsFixed(2)} KM"),
                           softWrap: true,
-                          style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                          style: GoogleFonts.raleway(
+                            fontSize: 22,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -221,9 +236,9 @@ class _HomeMapState extends State<HomeMap> {
                   Navigator.pop(context);
                 });
               },
-              child: const Text(
+              child: Text(
                 "Directions",
-                style: TextStyle(fontSize: 14),
+                style: textButtonStyle,
               )),
         )
       ],
@@ -279,7 +294,7 @@ class _HomeMapState extends State<HomeMap> {
     PolylineId id = const PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
-      color: Colors.deepPurpleAccent,
+      color: blueColor,
       points: polylineCoordinates,
       width: 5,
     );
@@ -320,7 +335,7 @@ class _HomeMapState extends State<HomeMap> {
         const LatLng(54.468683, 17.028140),
         "Regionalne Centrum Wolontariatu",
         "aleja Henryka Sienkiewicza 6, 76-200 Słupsk",
-        "images/1.jpg",
+        "assets/images/1.jpg",
         "9:00 - 15:00",
         const PointLatLng(54.468683, 17.028140)));
 
@@ -328,7 +343,7 @@ class _HomeMapState extends State<HomeMap> {
         const LatLng(54.452438, 17.041785),
         "Pomeranian Academy in Slupsk",
         "Krzysztofa Arciszewskiego, 76-200 Słupsk",
-        "images/2.jpg",
+        "assets/images/2.jpg",
         "9:00 - 15:00",
         const PointLatLng(54.452438, 17.041785)));
 
@@ -336,7 +351,7 @@ class _HomeMapState extends State<HomeMap> {
         const LatLng(54.451206, 17.023427),
         "Municipal Family Assistance Center",
         "Słoneczna 15D, 76-200 Słupsk",
-        "images/3.jpg",
+        "assets/images/3.jpg",
         "9:00 - 15:00",
         const PointLatLng(54.451206, 17.023427)));
 
@@ -344,7 +359,7 @@ class _HomeMapState extends State<HomeMap> {
         const LatLng(54.458005, 17.028482),
         "Zespół Szkół Technicznych",
         "Karola Szymanowskiego 5, 76-200 Słupsk",
-        "images/4.jpg",
+        "assets/images/4.jpg",
         "9:00 - 15:00",
         const PointLatLng(54.458005, 17.028482)));
 
@@ -363,7 +378,9 @@ class _HomeMapState extends State<HomeMap> {
           // title: "Regionalne Centrum Wolontariatu",
           // snippet: "aleja Henryka Sienkiewicza 6, 76-200 Słupsk",
         ),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueBlue
+        ),
         onTap: () {
           showModalBottomSheet(
               isScrollControlled: true,

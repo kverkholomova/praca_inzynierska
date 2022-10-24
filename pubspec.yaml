@@ -108,6 +108,10 @@ flutter:
     - assets/logo.svg
     - assets/logo-02.svg
     - assets/user.png
+    - assets/images/1.jpg
+    - assets/images/2.jpg
+    - assets/images/3.jpg
+    - assets/images/4.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

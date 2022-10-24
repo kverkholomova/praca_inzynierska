@@ -613,7 +613,6 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                         builder:
                             (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           return ListView.builder(
-
                               itemCount: !streamSnapshot.hasData
                                   ? 1
                                   : streamSnapshot.data?.docs.length,
