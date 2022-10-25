@@ -14,3 +14,18 @@ TextStyle textButtonStyle = GoogleFonts.raleway(
 );
 
 Color blueColor = const Color.fromRGBO(2, 62, 99, 20);
+
+Color background = const Color.fromRGBO(233, 242, 253, 8);
+
+BoxDecoration categoryDecoration = BoxDecoration(
+
+  color: Colors.white,
+  borderRadius: const BorderRadius.all(
+    Radius.circular(24),
+  ),
+);
+
+TextStyle textCategoryStyle = GoogleFonts.raleway(
+  fontSize: 18,
+  color: Colors.black,
+);

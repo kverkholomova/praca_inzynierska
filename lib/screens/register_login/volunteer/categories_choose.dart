@@ -602,7 +602,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   ),
                 ),
                 floatingActionButton: Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.835,),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.75,),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: StreamBuilder(
@@ -641,7 +641,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const SettingsHomeVol()));
+                                                      const HomeVol()));
                                         }),
                                   ),
                                 );
@@ -667,7 +667,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         });
       },
       child: AnimatedContainer(
-        height: MediaQuery.of(context).size.height * 0.085,
+        height: MediaQuery.of(context).size.height * 0.075,
         duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
           color: chosenCategoryList.contains(text) ? blueColor : Colors.white,
@@ -684,7 +684,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
               ),
               child: Icon(
                 icon,
-                size: 35,
+                size: 30,
                 color: chosenCategoryList.contains(text)
                     ? Colors.white
                     : Colors.black,

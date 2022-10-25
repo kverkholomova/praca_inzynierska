@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +50,48 @@ class _HomeMapState extends State<HomeMap> {
     return Scaffold(
       body: Stack(
         children: [
+          // ClipPath(
+          //   clipper: OvalBottomBorderClipper(),
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       color: blueColor,
+          //       boxShadow: const <BoxShadow>[
+          //         BoxShadow(
+          //           color: Colors.black,
+          //           blurRadius: 5,
+          //         ),
+          //       ],
+          //     ),
+          //     height: MediaQuery.of(context).size.height * 0.15,
+          //     child: Padding(
+          //       padding: const EdgeInsets.symmetric(vertical: 20),
+          //       child: Align(
+          //           alignment: Alignment.center,
+          //           child: Column(
+          //             children: [
+          //               Text(
+          //                 "Volunteer centers",
+          //                 style:  GoogleFonts.raleway(
+          //                   fontSize: 24,
+          //                   color: Colors.white,
+          //                 ),
+          //               ),
+          //
+          //               Padding(
+          //                 padding: const EdgeInsets.all(5.0),
+          //                 child: Text(
+          //                   "Find the nearest volunteer center",
+          //                   style: GoogleFonts.raleway(
+          //                     fontSize: 16,
+          //                     color: Colors.white,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ],
+          //           )),
+          //     ),
+          //   ),
+          // ),
           GoogleMap(
             mapToolbarEnabled: false,
             myLocationButtonEnabled: false,
@@ -80,22 +123,18 @@ class _HomeMapState extends State<HomeMap> {
           ),
         ],
       ),
-      floatingActionButton: Padding(
-        padding:
-        EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.0),
-        child: FloatingActionButton(
-          backgroundColor: blueColor,
-          child: const Icon(
-            Icons.location_searching,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            setState(() {
-              _getCurrentLocation();
-              checkCurrentPosition();
-            });
-          },
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: blueColor,
+        child: const Icon(
+          Icons.location_searching,
+          color: Colors.white,
         ),
+        onPressed: () {
+          setState(() {
+            _getCurrentLocation();
+            checkCurrentPosition();
+          });
+        },
       ),
     );
   }

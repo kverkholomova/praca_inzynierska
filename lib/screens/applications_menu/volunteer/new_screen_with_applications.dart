@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
+
+import '../../../constants.dart';
+import 'chosen_category_applications.dart';
 
 String category_chosen_button ='';
 String? card_title_vol='';
@@ -16,12 +21,13 @@ String userID_vol ='';
 
 List<String> categories_list_all = [
   "Your categories",
-  "Accomodation",
+  "Accommodation",
   "Transfer",
-  "Assistance with animals",
-  "Clothes",
+  "Animal assistance",
+  "Grocery assistance",
   "Assistance with children",
-  "Free lawyer",
+  "Language assistance",
+  "Law consult",
   "Medical assistance",
   "Other"];
 
@@ -53,407 +59,412 @@ class CategoriesState extends State<Categories> {
       onWillPop: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SettingsHomeVol()),
+          MaterialPageRoute(builder: (context) => HomeVol()),
         );
         return true;
       },
-      child: DefaultTabController(
-
-        length: categories_list_all.length,
-        child: Scaffold(
-
-          appBar: AppBar(
-                centerTitle: false,
-                title: const Text('Home'),
-                  backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
-                  elevation: 0.0,
-                  leading: IconButton(
-                    icon: const Icon(Icons.arrow_back,color: Colors.white,),
-                    onPressed: () async {
-                      // await _auth.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingsHomeVol()),
-                      );
-                    },
-                  ),
-                  // actions: <Widget>[
-                  //   IconButton(
-                  //     icon: const Icon(Icons.settings,color: Colors.white,),
-                  //     //label: const Text('logout',style: TextStyle(color: Colors.white),),
-                  //     onPressed: () async {
-                  //       //await _auth.signOut();
-                  //       // chosen_category_settings = [];
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(builder: (context) => SettingsVol()),
-                  //       );
-                  //     },
-                  //   ),
-                  //
-                  //   IconButton(
-                  //     icon: const Icon(Icons.person,color: Colors.white,),
-                  //     //label: const Text('logout',style: TextStyle(color: Colors.white),),
-                  //     onPressed: () async {
-                  //       //await _auth.signOut();
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(builder: (context) => ApplicationsOfVolunteer()),
-                  //       );
-                  //     },
-                  //   ),
-                  //
-                  // ],
-          ),
-                  body: SingleChildScrollView(
-
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Center(
-                            child: Container(
-                              width: 300,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              child: MaterialButton(
-                                color: const Color.fromRGBO(137, 102, 120, 0.8),
-                                child: Text(categories_list_all[0], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                                onPressed: () {
-
-                                  // category_chosen_button = categories_list_all[0];
-                                  // print(categories_list_all[7]);
-                                  print(categories_list_all.length);
-                                  print("PPPPPPPPPPPPPPPPPPPPPPPP____________________WWWWWWWWWWWWWWWWWWWWWWW");
-                                  print(categories_user_Register);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
-                                },
-                              ),
+      child: Scaffold(
+        backgroundColor: background,
+        // appBar: AppBar(
+        //       centerTitle: false,
+        //       title: const Text('Home'),
+        //         backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
+        //         elevation: 0.0,
+        //         leading: IconButton(
+        //           icon: const Icon(Icons.arrow_back,color: Colors.white,),
+        //           onPressed: () async {
+        //             // await _auth.signOut();
+        //             Navigator.push(
+        //               context,
+        //               MaterialPageRoute(builder: (context) => SettingsHomeVol()),
+        //             );
+        //           },
+        //         ),
+        //         // actions: <Widget>[
+        //         //   IconButton(
+        //         //     icon: const Icon(Icons.settings,color: Colors.white,),
+        //         //     //label: const Text('logout',style: TextStyle(color: Colors.white),),
+        //         //     onPressed: () async {
+        //         //       //await _auth.signOut();
+        //         //       // chosen_category_settings = [];
+        //         //       Navigator.push(
+        //         //         context,
+        //         //         MaterialPageRoute(builder: (context) => SettingsVol()),
+        //         //       );
+        //         //     },
+        //         //   ),
+        //         //
+        //         //   IconButton(
+        //         //     icon: const Icon(Icons.person,color: Colors.white,),
+        //         //     //label: const Text('logout',style: TextStyle(color: Colors.white),),
+        //         //     onPressed: () async {
+        //         //       //await _auth.signOut();
+        //         //       Navigator.push(
+        //         //         context,
+        //         //         MaterialPageRoute(builder: (context) => ApplicationsOfVolunteer()),
+        //         //       );
+        //         //     },
+        //         //   ),
+        //         //
+        //         // ],
+        // ),
+                body: Stack(
+                  children: [
+                    ClipPath(
+                      clipper: OvalBottomBorderClipper(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: blueColor,
+                          boxShadow: const <BoxShadow>[
+                            BoxShadow(
+                              color: Colors.black,
+                              blurRadius: 5,
                             ),
+                          ],
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Align(
+                            alignment: Alignment.center,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "All applications",
+                                    style:  GoogleFonts.raleway(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                      "Choose application",
+                                      style: GoogleFonts.raleway(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.17,
+                      bottom: MediaQuery.of(context).size.height * 0.04
+                      ),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Column(
+                            children: [
+                              CategoryWidget(text: categories_list_all[0],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[1],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[2],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[3],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[4],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[5],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[6],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[7],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[8],),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              CategoryWidget(text: categories_list_all[9],),
+
+
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[1], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[1];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[2], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[2];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[3], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[3];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[4], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[4];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[5], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[5];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[6], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[6];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[7], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[7];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                      // Padding(
+                      //     padding: const EdgeInsets.only(top: 10),
+                      //     child: Center(
+                      //       child: Container(
+                      //         width: 300,
+                      //         height: 60,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(20)
+                      //         ),
+                      //         child: MaterialButton(
+                      //           color: const Color.fromRGBO(137, 102, 120, 0.8),
+                      //           child: Text(categories_list_all[8], style: (TextStyle(color: Colors.white, fontSize: 15)),),
+                      //           onPressed: () {
+                      //
+                      //             category_chosen_button = categories_list_all[8];
+                      //             Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      // ),
+                            ],
                           ),
                         ),
-
-
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[1], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[1];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[2], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[2];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[3], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[3];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[4], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[4];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[5], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[5];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[6], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[6];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[7], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[7];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Container(
-                        width: 300,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: MaterialButton(
-                          color: const Color.fromRGBO(137, 102, 120, 0.8),
-                          child: Text(categories_list_all[8], style: (TextStyle(color: Colors.white, fontSize: 15)),),
-                          onPressed: () {
-
-                            category_chosen_button = categories_list_all[8];
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                      ],
-                    ),
-                  ),
-        ),
+                  ],
+                ),
       ),
     );
   }
 }
 
-String? id_card = '';
-class ChosenCategory extends StatefulWidget{
-  const ChosenCategory({Key? key}) : super(key: key);
+class CategoryWidget extends StatelessWidget {
+  final String text;
+  CategoryWidget({
+    Key? key, required this.text
+  }) : super(key: key);
+
   @override
-  State createState() => new ChosenCategoryState();
-}
-
-class ChosenCategoryState extends State<ChosenCategory> {
-
-  final AuthService _auth_ = AuthService();
-  @override
-
-  void initState() {
-
-  }
   Widget build(BuildContext context) {
-    print(userID_vol);
-    return WillPopScope(
-        onWillPop: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Categories()),
-          );
-          return true;
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: false,
-            title: const Text('Home'),
-            backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
-            elevation: 0.0,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back,color: Colors.white,),
-              onPressed: () {
-                // await _auth_.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Categories()),
-                );
-              },
+    return GestureDetector(
+      onTap: () {
+        // category_chosen_button = categories_list_all[0];
+        // print(categories_list_all[7]);
+        print(categories_list_all.length);
+        print("PPPPPPPPPPPPPPPPPPPPPPPP____________________WWWWWWWWWWWWWWWWWWWWWWW");
+        print(categories_user_Register);
+        if (text == categories_list_all[0]){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
+        }
+        else {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+        }
+
+      },
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.075,
+            decoration: categoryDecoration,
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    right: MediaQuery.of(context).size.width * 0.04,
+                  ),
+                  child: Icon(
+                      text==categories_list_all[3]
+                          ?Icons.pets_rounded
+                          :text==categories_list_all[4]
+                          ?Icons.local_grocery_store_outlined
+                          :text==categories_list_all[2]
+                          ?Icons.emoji_transportation_rounded
+                          :text==categories_list_all[1]
+                          ?Icons.house
+                          :text==categories_list_all[6]
+                          ?Icons.sign_language_rounded
+                          :text==categories_list_all[5]
+                          ?Icons.child_care_outlined
+                          :text==categories_list_all[7]
+                          ?Icons.menu_book
+                          :text==categories_list_all[8]
+                          ?Icons.medical_information_outlined
+                          :text==categories_list_all[0]
+                          ?Icons.check_box
+                          :Icons.new_label_sharp,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(text, style: textCategoryStyle,),
+              ],
             ),
-            // actions: <Widget>[
-            //   IconButton(
-            //     icon: const Icon(Icons.settings,color: Colors.white,),
-            //     //label: const Text('logout',style: TextStyle(color: Colors.white),),
-            //     onPressed: () async {
-            //       //await _auth.signOut();
-            //       // chosen_category_settings = [];
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => SettingsVol()),
-            //       );
-            //     },
-            //   ),
-            //
-            //   IconButton(
-            //     icon: const Icon(Icons.person,color: Colors.white,),
-            //     //label: const Text('logout',style: TextStyle(color: Colors.white),),
-            //     onPressed: () async {
-            //       //await _auth.signOut();
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => ApplicationsOfVolunteer()),
-            //       );
-            //     },
-            //   ),
-            //
-            // ],
           ),
-          body: StreamBuilder(
-          stream:   FirebaseFirestore.instance
-              .collection('applications')
-              .where("category", isEqualTo: category_chosen_button)
-
-          //.where("volunteer_pref", arrayContainsAny: volunteer_preferencies)
-          //.where("category", arrayContainsAny: ['Accomodation', 'Transfer', 'Assistance with animals'])
-              .where("status", isEqualTo: 'Sent to volunteer')
-
-          //.where("category", whereIn: ['Accomodation','Transfer','Assistance with animals'])
-          //.where("category", arrayContainsAny: ['Accomodation','Transfer','Assistance with animals'])
-              .snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
-            return Container(
-              width: 450,
-              height: double.infinity,
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: streamSnapshot.data?.docs.length,
-                  itemBuilder: (ctx, index) => Column(
-                    children: [
-                      MaterialButton(
-                        onPressed: () {
-
-                          setState(() {
-                            // FirebaseFirestore.instance
-                            //     .collection('applications')
-                            //     .doc(streamSnapshot.data?.docs[index].id)
-                            //     .update({"Id": streamSnapshot.data?.docs[index].id});
-                            //
-                            // id_card = streamSnapshot.data?.docs[index].id;
-                            card_title_vol=streamSnapshot.data?.docs[index]['title'];
-                            card_category_vol=streamSnapshot.data?.docs[index]['category'];
-                            card_comment_vol=streamSnapshot.data?.docs[index]['comment'];
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PageOfApplication()),
-                            );
-                            // print("print ${streamSnapshot.data?.docs[index][id]}");
-                          });
-
-                        },
-                        child: Card(
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    streamSnapshot.data?.docs[index]['title'] as String,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                      streamSnapshot.data?.docs[index]['category'] as String,
-                                      style: TextStyle(color: Colors.grey)),
-                                  Text(streamSnapshot.data?.docs[index]['comment'] as String),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-            );
-          },
-        ),
-        ));
+        );
   }
 }
+
+
 
 // class YourCategory extends StatefulWidget{
 //   const YourCategory({Key? key}) : super(key: key);
