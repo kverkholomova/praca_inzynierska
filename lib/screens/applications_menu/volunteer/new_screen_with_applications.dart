@@ -436,7 +436,7 @@ class CategoryWidget extends StatelessWidget {
                       text==categories_list_all[3]
                           ?Icons.pets_rounded
                           :text==categories_list_all[4]
-                          ?Icons.local_grocery_store_outlined
+                          ?Icons.local_grocery_store
                           :text==categories_list_all[2]
                           ?Icons.emoji_transportation_rounded
                           :text==categories_list_all[1]

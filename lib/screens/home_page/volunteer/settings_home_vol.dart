@@ -432,7 +432,7 @@ class _HomeVolState extends State<HomeVol> {
                                             categories_volunteer[0][index]==categories_list_all[3]
                                                 ?Icons.pets_rounded
                                                 :categories_volunteer[0][index]==categories_list_all[4]
-                                                ?Icons.local_grocery_store_outlined
+                                                ?Icons.local_grocery_store
                                                 :categories_volunteer[0][index]==categories_list_all[2]
                                                 ?Icons.emoji_transportation_rounded
                                                 :categories_volunteer[0][index]==categories_list_all[1]
