@@ -382,7 +382,7 @@ class _HomeVolState extends State<HomeVol> {
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.55),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: padding,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('users')
@@ -457,7 +457,7 @@ class _HomeVolState extends State<HomeVol> {
                                           // streamSnapshot.data?.docs[index]
                                           //     ["category"][index],
                                           style: GoogleFonts.raleway(
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -493,7 +493,7 @@ class _HomeVolState extends State<HomeVol> {
                     icon: Icon(Icons.add, color: Colors.black, size: 30,),
                     label: Text("Add new preferences",
                     style: GoogleFonts.raleway(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.black,
                     ),
                     ),
