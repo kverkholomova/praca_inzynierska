@@ -26,6 +26,6 @@ BoxDecoration categoryDecoration = BoxDecoration(
 );
 
 TextStyle textCategoryStyle = GoogleFonts.raleway(
-  fontSize: 18,
+  fontSize: 16,
   color: Colors.black,
 );

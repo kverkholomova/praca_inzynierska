@@ -81,7 +81,7 @@ class _SignInRefState extends State<SignInRef> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 85),
+                    padding: const EdgeInsets.symmetric(vertical: 65),
                     child: Column(
                       children: [
 

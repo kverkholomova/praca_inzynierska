@@ -11,7 +11,7 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:wol_pro_1/constants.dart';
 
-import 'models/map_style.dart';
+import '../../../../models/map_style.dart';
 
 const LatLng _center = LatLng(54.4641, 17.0287);
 bool isVisible = false;

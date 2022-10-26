@@ -13,10 +13,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/screens/my_applications/applications_vol.dart';
-import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import 'package:http/http.dart' as http;
+
+import '../../screens/menu/volunteer/home_page/settings_home_vol.dart';
 import '../../service/local_push_notifications.dart';
-import '../../screens/applications_menu/volunteer/new_screen_with_applications.dart';
+import '../../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 
 String date = '';
 

@@ -3,12 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
-import '../../../constants.dart';
-import '../../../shared/loading.dart';
-import '../../home_page/volunteer/settings_home_vol.dart';
-import '../../intro_screen/option.dart';
+import '../../../../constants.dart';
+import '../../../../shared/loading.dart';
+import '../../../intro_screen/option.dart';
+import '../../../menu/volunteer/home_page/settings_home_vol.dart';
 
 String chosenCategory = '';
 

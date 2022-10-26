@@ -7,10 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
-import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 import '../intro_screen/option.dart';
+import '../menu/volunteer/home_page/settings_home_vol.dart';
 
 String card_title_accepted='';
 String card_category_accepted='';

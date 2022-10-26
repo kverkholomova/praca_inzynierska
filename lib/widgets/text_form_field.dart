@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
+import 'package:wol_pro_1/screens/register_login/refugee/register_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/sign_in_refugee.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/sign_in_volunteer.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 
 bool errorEmpty = false;
 
@@ -129,6 +130,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
 String emailRegisterVol = '';
 String passwordRegisterVol = '';
+String emailRegisterRef = '';
+String passwordRegisterRef = '';
 bool errorEmptyRegister = false;
 
 
@@ -244,6 +247,125 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
          } else if(widget.customHintText == "Password"){
            passwordRegisterVol = val;
          }
+        });
+
+      },
+    );
+  }
+}
+
+class CustomTextFormFieldRegisterRef extends StatefulWidget {
+  final String customHintText;
+  final String customErrorText;
+  bool hide;
+  // final Function() setData;
+
+
+
+  CustomTextFormFieldRegisterRef({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
+      : super(key: key);
+
+  @override
+  State<CustomTextFormFieldRegisterRef> createState() => _CustomTextFormFieldRegisterRefState();
+}
+
+class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegisterRef> {
+  bool passwordVisible = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passwordVisible = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.customHintText == "Name"
+          ?controllerTextFieldNameRef
+          : widget.customHintText == "Phone number"
+          ?controllerTextFieldPhoneNumberRef
+          : widget.customHintText == "Email"
+          ?controllerTextFieldEmailRefRegistration
+          :widget.customHintText == "Password"
+          ?controllerTextFieldPasswordRefRegistration
+          :null,
+      obscureText: widget.hide ==true?true:false,
+      decoration: InputDecoration(
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.0),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.0),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        errorStyle: const TextStyle(
+            color: Colors.red
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.0),
+          borderSide: BorderSide(
+            color: Colors.black.withOpacity(0.7),
+            // color: Color.fromRGBO(2, 62, 99, 20),
+            width: 1.5,
+          ),
+        ),
+        labelText: widget.customHintText,
+        labelStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.7),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.0),
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 0,
+          ),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        // hintStyle: GoogleFonts.raleway(
+        //   fontSize: 16,
+        //   color: Colors.black.withOpacity(0.5),
+        // ),
+        // hintText: widget.customHintText,
+        suffixIcon: widget.customHintText=="Password"?IconButton(
+          icon: Icon(
+            // Based on passwordVisible state choose the icon
+            passwordVisible
+                ? Icons.visibility
+                : Icons.visibility_off,
+            color: const Color.fromRGBO(2, 62, 99, 20),
+          ),
+          onPressed: () {
+            // Update the state i.e. toogle the state of passwordVisible variable
+            setState(() {
+              widget.hide = passwordVisible;
+              passwordVisible = !passwordVisible;
+            });
+          },
+        ):null,
+      ),
+      validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
+      onChanged: (val) {
+        setState(() {
+          if(widget.customHintText=="Name"){
+            userNameRef = val;
+          } else if( widget.customHintText == "Phone number"){
+            phoneNumberRef = val;
+          } else if( widget.customHintText == "Email"){
+            emailRegisterRef = val;
+          } else if(widget.customHintText == "Password"){
+            passwordRegisterRef = val;
+          }
         });
 
       },

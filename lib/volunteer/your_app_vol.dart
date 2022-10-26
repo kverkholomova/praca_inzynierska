@@ -6,10 +6,10 @@ import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/screens/my_applications/applications_vol.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
-import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import 'package:wol_pro_1/volunteer/settings_vol_info.dart';
 
-import '../screens/applications_menu/volunteer/new_screen_with_applications.dart';
+import '../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
+import '../screens/menu/volunteer/home_page/settings_home_vol.dart';
 
 
 String card_title='';

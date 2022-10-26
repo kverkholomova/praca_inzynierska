@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/main_screen.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/widgets/wrapper.dart';
 
@@ -46,10 +46,10 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         home: OptionChoose(),
         debugShowCheckedModeBanner: false,
-        initialRoute: FirebaseAuth.instance.currentUser == null ? Wrapper().id : MainScreen().id,
+        initialRoute: FirebaseAuth.instance.currentUser == null ? "OptionChoose()" : MainScreen().id,
         routes: {
           MainScreen().id: (context) =>MainScreen(),
-          Wrapper().id: (context) => Wrapper(),
+          "OptionChoose()": (context) => OptionChoose(),
         },
       ),
     );

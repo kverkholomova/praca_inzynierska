@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/Refugee/pageWithChats.dart';
-import 'package:wol_pro_1/screens/messages/volunteer/pageWithChatsVol.dart';
 
-import '../../screens/home_page/volunteer/settings_home_vol.dart';
+import '../../screens/menu/volunteer/home_page/settings_home_vol.dart';
+import '../../screens/menu/volunteer/messages/volunteer/pageWithChatsVol.dart';
 ScrollController _scrollControllerVol_ = ScrollController() ;
 
 String color = "blue";

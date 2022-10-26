@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
-import '../../../volunteer/applications/page_of_application_vol.dart';
-import '../../../volunteer/your_app_vol.dart';
+import '../../../../volunteer/applications/page_of_application_vol.dart';
 import 'new_screen_with_applications.dart';
+
 
 String? id_card = '';
 class ChosenCategory extends StatefulWidget{

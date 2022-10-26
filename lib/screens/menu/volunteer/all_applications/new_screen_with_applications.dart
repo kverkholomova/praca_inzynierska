@@ -6,11 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
-import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
+import '../home_page/settings_home_vol.dart';
 import 'chosen_category_applications.dart';
 
 String category_chosen_button ='';
@@ -158,7 +158,7 @@ class CategoriesState extends State<Categories> {
                       ),
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: padding,
                           child: Column(
                             children: [
                               CategoryWidget(text: categories_list_all[0],),
@@ -410,9 +410,7 @@ class CategoryWidget extends StatelessWidget {
       onTap: () {
         // category_chosen_button = categories_list_all[0];
         // print(categories_list_all[7]);
-        print(categories_list_all.length);
-        print("PPPPPPPPPPPPPPPPPPPPPPPP____________________WWWWWWWWWWWWWWWWWWWWWWW");
-        print(categories_user_Register);
+
         if (text == categories_list_all[0]){
           Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
         }

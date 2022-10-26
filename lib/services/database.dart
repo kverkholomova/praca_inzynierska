@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wol_pro_1/models/user.dart';
 import 'package:wol_pro_1/models/users_all.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 class DatabaseService{
 

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/widgets/text_form_field.dart';
 
-import '../../../constants.dart';
-import '../../../services/auth.dart';
-import '../../../shared/loading.dart';
-import '../../home_page/volunteer/settings_home_vol.dart';
-import '../../intro_screen/option.dart';
+import '../../../../constants.dart';
+import '../../../../services/auth.dart';
+import '../../../../shared/loading.dart';
+import '../../../intro_screen/option.dart';
 
 int volunteerAge = 0;
 bool registrationVol = false;

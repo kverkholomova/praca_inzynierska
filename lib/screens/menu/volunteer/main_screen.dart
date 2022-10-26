@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/map.dart';
-import 'package:wol_pro_1/screens/messages/volunteer/pageWithChatsVol.dart';
-import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
-import 'package:wol_pro_1/screens/applications_menu/volunteer/new_screen_with_applications.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/maps/map.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 
-import '../constants.dart';
-import 'my_applications/applications_vol.dart';
-import 'intro_screen/option.dart';
+import '../../../constants.dart';
+import '../../my_applications/applications_vol.dart';
+import '../../intro_screen/option.dart';
+import 'home_page/settings_home_vol.dart';
+import 'messages/volunteer/pageWithChatsVol.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);

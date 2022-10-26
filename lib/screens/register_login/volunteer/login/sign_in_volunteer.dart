@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/shared/loading.dart';
 
-import '../../../../widgets/text_form_field.dart';
+import '../../../../../widgets/text_form_field.dart';
 
 TextEditingController controllerTextFieldEmailVol = TextEditingController();
 TextEditingController controllerTextFieldPasswordVol = TextEditingController();
@@ -77,7 +77,7 @@ class _SignInVolState extends State<SignInVol> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 80),
+                          padding: const EdgeInsets.symmetric(vertical: 65),
                           child: Column(
                             children: [
                               Align(

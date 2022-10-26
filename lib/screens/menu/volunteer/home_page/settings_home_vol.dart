@@ -11,14 +11,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/categories_choose.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
 
-import '../../../constants.dart';
-import '../../../service/local_push_notifications.dart';
-import '../../../services/auth.dart';
-import '../../messages/volunteer/pageWithChatsVol.dart';
-import '../../applications_menu/volunteer/new_screen_with_applications.dart';
-import '../../../volunteer/settings_vol_info.dart';
+import '../../../../constants.dart';
+import '../../../../service/local_push_notifications.dart';
+import '../../../../services/auth.dart';
+import '../../../../volunteer/settings_vol_info.dart';
+import '../all_applications/new_screen_with_applications.dart';
+
 
 List categories_volunteer = [];
 String? currentId_set = '';

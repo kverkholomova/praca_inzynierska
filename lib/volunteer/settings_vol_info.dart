@@ -8,12 +8,14 @@ import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/screens/home_page/volunteer/settings_home_vol.dart';
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
 import '../../service/local_push_notifications.dart';
 
-import '../screens/applications_menu/volunteer/new_screen_with_applications.dart';
-import '../screens/register_login/volunteer/register_volunteer_1.dart';
+import '../app.dart';
+import '../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
+import '../screens/menu/volunteer/home_page/settings_home_vol.dart';
+import '../screens/register_login/volunteer/register/register_volunteer_1.dart';
+import '../services/auth.dart';
 
 String current_name_Vol = '';
 List<String> chosen_category_settings = [];
@@ -55,6 +57,7 @@ class _SettingsVolState extends State<SettingsVol> {
       LocalNotificationService.display(event);
     });
   }
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -576,7 +579,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                 height: MediaQuery.of(context).size.height *
                                     0.075,
                                 child: TextFormField(
-                                  controller: TextEditingController(text: streamSnapshot.data?.docs[index]['age']),
+                                  controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
                                   decoration: InputDecoration(
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
@@ -761,12 +764,12 @@ class _SettingsVolState extends State<SettingsVol> {
                                           ),
                                         ),
                                         onPressed: () async {
-
+                                          await _auth.signOut();
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                  const HomeVol()));
+                                                  const MyApp()));
                                         }),
                                   ),
                                 ),
