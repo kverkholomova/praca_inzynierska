@@ -10,7 +10,7 @@ import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
 
 import '../../../../constants.dart';
-import '../home_page/settings_home_vol.dart';
+import '../home_page/home_vol.dart';
 import 'chosen_category_applications.dart';
 
 String category_chosen_button ='';

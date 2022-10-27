@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -130,6 +131,8 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   @override
   Widget build(BuildContext context) {
+    print("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+    print(FirebaseAuth.instance.currentUser?.uid);
     return WillPopScope(
         onWillPop: () async {
           Navigator.push(

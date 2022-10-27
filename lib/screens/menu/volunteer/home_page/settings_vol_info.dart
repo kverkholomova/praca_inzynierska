@@ -2,26 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/volunteer/your_app_vol.dart';
-import '../../service/local_push_notifications.dart';
+import 'package:wol_pro_1/widgets/datepicker.dart';
+import '../../../../../service/local_push_notifications.dart';
 
-import '../app.dart';
-import '../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
-import '../screens/menu/volunteer/home_page/settings_home_vol.dart';
-import '../screens/register_login/volunteer/register/register_volunteer_1.dart';
-import '../services/auth.dart';
+import '../../../../app.dart';
+import '../all_applications/new_screen_with_applications.dart';
+import 'home_vol.dart';
+import '../../../register_login/volunteer/register/register_volunteer_1.dart';
+import '../../../../services/auth.dart';
 
-String current_name_Vol = '';
-List<String> chosen_category_settings = [];
-String? token_vol;
-final FirebaseFirestore _db = FirebaseFirestore.instance;
-final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+String currentNameVol = '';
+// List<String> chosen_category_settings = [];
+String? tokenVol;
+final FirebaseFirestore db = FirebaseFirestore.instance;
+final FirebaseMessaging fcm = FirebaseMessaging.instance;
 
 class SettingsVol extends StatefulWidget {
   const SettingsVol({Key? key}) : super(key: key);
@@ -103,7 +101,7 @@ class _SettingsVolState extends State<SettingsVol> {
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 50, top: 20),
-                                child: Container(
+                                child: SizedBox(
                                     height: MediaQuery.of(context)
                                         .size
                                         .width *
@@ -501,7 +499,7 @@ class _SettingsVolState extends State<SettingsVol> {
           Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.37,
-                bottom: MediaQuery.of(context).size.height * 0.05),
+                bottom: MediaQuery.of(context).size.height * 0.04),
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -524,7 +522,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                 height: MediaQuery.of(context).size.height *
                                     0.075,
                                 child: TextFormField(
-                                  controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
+                                  // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                   decoration: InputDecoration(
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
@@ -546,7 +544,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
                                       borderSide: BorderSide(
-                                        color: Colors.black.withOpacity(0.7),
+                                        color: blueColor,
                                         // color: Color.fromRGBO(2, 62, 99, 20),
                                         width: 1.5,
                                       ),
@@ -562,13 +560,186 @@ class _SettingsVolState extends State<SettingsVol> {
                                     filled: true,
                                     fillColor: Colors.white,
 
-                                    // labelText: "Name",
-                                    // labelStyle: GoogleFonts.raleway(
-                                    //   fontSize: 16,
-                                    //   color: Colors.black.withOpacity(0.7),
-                                    // ),
+                                    hintText: streamSnapshot.data?.docs[index]['user_name'],
+                                    hintStyle: GoogleFonts.raleway(
+                                      fontSize: 16,
+                                      color: Colors.black.withOpacity(0.7),
+                                    ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height *
+                                    0.012,
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
+                                    width: MediaQuery.of(context).size.height *
+                                        0.13,
+                                    child: TextFormField(
+                                      onTap: (){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => DatePicker()),
+                                        );
+                                      },
+                                      // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                                      decoration: InputDecoration(
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        errorStyle: const TextStyle(
+                                            color: Colors.red
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: BorderSide(
+                                            color: blueColor,
+                                            // color: Color.fromRGBO(2, 62, 99, 20),
+                                            width: 1.5,
+                                          ),
+                                        ),
+
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: const BorderSide(
+                                            color: Colors.white,
+                                            width: 0,
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintText: "${DateTime.now().day}",
+                                        labelStyle: GoogleFonts.raleway(
+                                          fontSize: 16,
+                                          color: Colors.black.withOpacity(0.7),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                                    child: SizedBox(
+                                      width:MediaQuery.of(context).size.height *
+                                    0.13,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.075,
+
+                                      child: TextFormField(
+                                        // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                                        decoration: InputDecoration(
+                                          focusedErrorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderSide: const BorderSide(
+                                              color: Colors.red,
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderSide: const BorderSide(
+                                              color: Colors.red,
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                          errorStyle: const TextStyle(
+                                              color: Colors.red
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderSide: BorderSide(
+                                              color: blueColor,
+                                              // color: Color.fromRGBO(2, 62, 99, 20),
+                                              width: 1.5,
+                                            ),
+                                          ),
+
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderSide: const BorderSide(
+                                              color: Colors.white,
+                                              width: 0,
+                                            ),
+                                          ),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          hintText: "${DateTime.now().month}",
+                                          labelStyle: GoogleFonts.raleway(
+                                            fontSize: 16,
+                                            color: Colors.black.withOpacity(0.7),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:MediaQuery.of(context).size.height *
+                                        0.15,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
+
+                                    child: TextFormField(
+                                      // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                                      decoration: InputDecoration(
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: const BorderSide(
+                                            color: Colors.red,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        errorStyle: const TextStyle(
+                                            color: Colors.red
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: BorderSide(
+                                            color: blueColor,
+                                            // color: Color.fromRGBO(2, 62, 99, 20),
+                                            width: 1.5,
+                                          ),
+                                        ),
+
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderSide: const BorderSide(
+                                            color: Colors.white,
+                                            width: 0,
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintText: "${DateTime.now().year}",
+                                        labelStyle: GoogleFonts.raleway(
+                                          fontSize: 16,
+                                          color: Colors.black.withOpacity(0.7),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height:
@@ -579,7 +750,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                 height: MediaQuery.of(context).size.height *
                                     0.075,
                                 child: TextFormField(
-                                  controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                                  // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                   decoration: InputDecoration(
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
@@ -601,7 +772,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
                                       borderSide: BorderSide(
-                                        color: Colors.black.withOpacity(0.7),
+                                        color: blueColor,
                                         // color: Color.fromRGBO(2, 62, 99, 20),
                                         width: 1.5,
                                       ),
@@ -616,65 +787,11 @@ class _SettingsVolState extends State<SettingsVol> {
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    // hintText: "Age",
-                                    // labelStyle: GoogleFonts.raleway(
-                                    //   fontSize: 16,
-                                    //   color: Colors.black.withOpacity(0.7),
-                                    // ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height *
-                                    0.012,
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.075,
-                                child: TextFormField(
-                                  controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
-                                  decoration: InputDecoration(
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
-                                        width: 1.5,
-                                      ),
+                                    hintText: streamSnapshot.data?.docs[index]['phone_number'],
+                                    labelStyle: GoogleFonts.raleway(
+                                      fontSize: 16,
+                                      color: Colors.black.withOpacity(0.7),
                                     ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
-                                        width: 1.5,
-                                      ),
-                                    ),
-                                    errorStyle: const TextStyle(
-                                        color: Colors.red
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: BorderSide(
-                                        color: Colors.black.withOpacity(0.7),
-                                        // color: Color.fromRGBO(2, 62, 99, 20),
-                                        width: 1.5,
-                                      ),
-                                    ),
-
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.white,
-                                        width: 0,
-                                      ),
-                                    ),
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    // hintText: "Age",
-                                    // labelStyle: GoogleFonts.raleway(
-                                    //   fontSize: 16,
-                                    //   color: Colors.black.withOpacity(0.7),
-                                    // ),
                                   ),
                                 ),
                               ),

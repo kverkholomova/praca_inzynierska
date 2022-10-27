@@ -6,9 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 import '../../../../constants.dart';
-import '../../../../shared/loading.dart';
+import '../../../../widgets/loading.dart';
 import '../../../intro_screen/option.dart';
-import '../../../menu/volunteer/home_page/settings_home_vol.dart';
+import '../../../menu/volunteer/home_page/home_vol.dart';
 
 String chosenCategory = '';
 

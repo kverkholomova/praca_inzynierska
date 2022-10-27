@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:wol_pro_1/shared/loading.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
 
-import '../../screens/menu/volunteer/home_page/settings_home_vol.dart';
+import '../../screens/menu/volunteer/home_page/home_vol.dart';
 
 
 String? last_message= '';
@@ -20,7 +20,7 @@ class messages extends StatefulWidget {
 bool loading = true;
 
 double myMessageLeft(String name_receiver){
-  if (name_receiver == current_name_Vol){
+  if (name_receiver == currentNameVol){
     return 50;
   }
   else{
@@ -29,7 +29,7 @@ double myMessageLeft(String name_receiver){
 }
 
 double myMessageRight(String name_receiver){
-  if (name_receiver == current_name_Vol){
+  if (name_receiver == currentNameVol){
     return 3;
   }
   else{
@@ -89,7 +89,7 @@ class _messagesState extends State<messages> {
                     children: [
                       Container(
                   decoration: new BoxDecoration(
-                      color: snapshot.data?.docs[index]["name"] == current_name_Vol ? Colors.blue[100]:Colors.purple[100],
+                      color: snapshot.data?.docs[index]["name"] == currentNameVol ? Colors.blue[100]:Colors.purple[100],
                   borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
 
@@ -150,7 +150,7 @@ class _SelectedChatroomState extends State<SelectedChatroom> {
         {
           'message': message_v.text.trim(),
           'time': DateTime.now(),
-          'name': current_name_Vol,
+          'name': currentNameVol,
           'id_message': "null"
 
         }
@@ -175,7 +175,7 @@ class _SelectedChatroomState extends State<SelectedChatroom> {
             Container(
               height: MediaQuery.of(context).size.height * 0.91,
               child: messages(
-                name: current_name_Vol,
+                name: currentNameVol,
               ),
             ),
             Padding(

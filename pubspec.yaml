@@ -77,6 +77,7 @@ dependencies:
   haversine_distance: ^1.2.1
   maps_toolkit: ^2.0.1
   custom_info_window: ^1.0.1
+  syncfusion_flutter_calendar: ^20.3.47
 
 
 

@@ -6,10 +6,10 @@ import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/screens/my_applications/applications_vol.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
-import 'package:wol_pro_1/volunteer/settings_vol_info.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings_vol_info.dart';
 
 import '../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
-import '../screens/menu/volunteer/home_page/settings_home_vol.dart';
+import '../screens/menu/volunteer/home_page/home_vol.dart';
 
 
 String card_title='';
@@ -141,7 +141,7 @@ class YourCategoriesState extends State<YourCategories> {
               child: StreamBuilder(
                 stream:  applications
                     .where("status", isEqualTo: 'Sent to volunteer')
-                    .where("category", whereIn: categories_user_Register)
+                    .where("category", whereIn: categoriesUserRegister)
 
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {

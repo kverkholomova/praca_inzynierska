@@ -15,7 +15,7 @@ import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/screens/my_applications/applications_vol.dart';
 import 'package:http/http.dart' as http;
 
-import '../../screens/menu/volunteer/home_page/settings_home_vol.dart';
+import '../../screens/menu/volunteer/home_page/home_vol.dart';
 import '../../service/local_push_notifications.dart';
 import '../../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 
@@ -267,7 +267,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                         .doc(streamSnapshot.data?.docs[index].id).update({"token_vol": token_vol});
                                     FirebaseFirestore.instance
                                         .collection('applications')
-                                        .doc(streamSnapshot.data?.docs[index].id).update({"volunteer_name": current_name_Vol});
+                                        .doc(streamSnapshot.data?.docs[index].id).update({"volunteer_name": currentNameVol});
 
                                     FirebaseFirestore.instance
                                         .collection('applications')

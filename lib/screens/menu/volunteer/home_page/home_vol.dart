@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -15,18 +13,17 @@ import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_c
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
-import '../../../../services/auth.dart';
-import '../../../../volunteer/settings_vol_info.dart';
+import 'settings_vol_info.dart';
 import '../all_applications/new_screen_with_applications.dart';
 
 
-List categories_volunteer = [];
-String? currentId_set = '';
-String? current_name_Vol = '';
-List categories_user_Register = [];
+List categoriesVolunteer = [];
+// String? currentId_set = '';
+String? currentNameVol = '';
+List categoriesUserRegister = [];
 String? token_vol;
-final FirebaseFirestore _db = FirebaseFirestore.instance;
-final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+// final FirebaseFirestore _db = FirebaseFirestore.instance;
+// final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
 class HomeVol extends StatefulWidget {
   const HomeVol({Key? key}) : super(key: key);
@@ -102,7 +99,7 @@ class _HomeVolState extends State<HomeVol> {
     });
   }
 
-  final AuthService _auth = AuthService();
+  // final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -400,10 +397,12 @@ class _HomeVolState extends State<HomeVol> {
                         } else if (streamSnapshot.hasError) {
                           return Text('Error!');
                         } else {
-                          categories_volunteer
+                          categoriesVolunteer
                               .add(streamSnapshot.data?.docs[0]["category"]);
+                          print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+                          print(categoriesVolunteer[0][0]);
                           return ListView.builder(
-                              itemCount: categories_volunteer[0].length,
+                              itemCount: categoriesVolunteer[0].length,
                               itemBuilder: (ctx, index) {
                                 return Padding(
                                   padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.012),
@@ -429,23 +428,23 @@ class _HomeVolState extends State<HomeVol> {
                                                 0.04,
                                           ),
                                           child: Icon(
-                                            categories_volunteer[0][index]==categories_list_all[3]
+                                            categoriesVolunteer[0][index]==categories_list_all[3]
                                                 ?Icons.pets_rounded
-                                                :categories_volunteer[0][index]==categories_list_all[4]
+                                                :categoriesVolunteer[0][index]==categories_list_all[4]
                                                 ?Icons.local_grocery_store
-                                                :categories_volunteer[0][index]==categories_list_all[2]
+                                                :categoriesVolunteer[0][index]==categories_list_all[2]
                                                 ?Icons.emoji_transportation_rounded
-                                                :categories_volunteer[0][index]==categories_list_all[1]
+                                                :categoriesVolunteer[0][index]==categories_list_all[1]
                                                 ?Icons.house
-                                                :categories_volunteer[0][index]==categories_list_all[6]
+                                                :categoriesVolunteer[0][index]==categories_list_all[6]
                                                 ?Icons.sign_language_rounded
-                                                :categories_volunteer[0][index]==categories_list_all[5]
+                                                :categoriesVolunteer[0][index]==categories_list_all[5]
                                                 ?Icons.child_care_outlined
-                                                :categories_volunteer[0][index]==categories_list_all[7]
+                                                :categoriesVolunteer[0][index]==categories_list_all[7]
                                                 ?Icons.menu_book
-                                                :categories_volunteer[0][index]==categories_list_all[8]
+                                                :categoriesVolunteer[0][index]==categories_list_all[8]
                                                 ?Icons.medical_information_outlined
-                                                :categories_volunteer[0][index]==categories_list_all[0]
+                                                :categoriesVolunteer[0][index]==categories_list_all[0]
                                                 ?Icons.check_box
                                                 :Icons.new_label_sharp,
                                             size: 30,
@@ -453,7 +452,7 @@ class _HomeVolState extends State<HomeVol> {
                                           ),
                                         ),
                                         Text(
-                                          categories_volunteer[0][index],
+                                          categoriesVolunteer[0][index],
                                           // streamSnapshot.data?.docs[index]
                                           //     ["category"][index],
                                           style: GoogleFonts.raleway(
@@ -526,18 +525,20 @@ class _HomeVolState extends State<HomeVol> {
                           builder: (context,
                               AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                             return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
                                 itemCount: !streamSnapshot.hasData
                                     ? 1
                                     : streamSnapshot.data?.docs.length,
                                 itemBuilder: (ctx, index) {
                                   token_vol =
                                   streamSnapshot.data?.docs[index]['token_vol'];
-                                  current_name_Vol =
+                                  currentNameVol =
                                   streamSnapshot.data?.docs[index]['user_name'];
                                   if (streamSnapshot.hasData) {
                                     switch (streamSnapshot.connectionState) {
                                       case ConnectionState.waiting:
-                                        return Column(children: const [
+                                        return Column(
+                                            children: const [
                                           SizedBox(
                                             width: 60,
                                             height: 60,
@@ -549,7 +550,7 @@ class _HomeVolState extends State<HomeVol> {
                                           )
                                         ]);
                                       case ConnectionState.active:
-                                        categories_volunteer.add(streamSnapshot
+                                        categoriesVolunteer.add(streamSnapshot
                                             .data?.docs[index]['category']);
                                         return Padding(
                                           padding: const EdgeInsets.only(top: 20),

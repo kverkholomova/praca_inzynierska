@@ -5,7 +5,7 @@ import 'package:wol_pro_1/widgets/text_form_field.dart';
 
 import '../../../../constants.dart';
 import '../../../../services/auth.dart';
-import '../../../../shared/loading.dart';
+import '../../../widgets/loading.dart';
 import '../../intro_screen/option.dart';
 
 bool registrationRef = false;

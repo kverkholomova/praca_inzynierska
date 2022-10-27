@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/Refugee/pageWithChats.dart';
 
-import '../../screens/menu/volunteer/home_page/settings_home_vol.dart';
+import '../../screens/menu/volunteer/home_page/home_vol.dart';
 import '../../screens/menu/volunteer/messages/volunteer/pageWithChatsVol.dart';
 ScrollController _scrollControllerVol_ = ScrollController() ;
 
@@ -21,7 +21,7 @@ class messages_Vol extends StatefulWidget {
 bool loading = true;
 
 double myMessageLeftVol(String name_receiver){
-  if (name_receiver == current_name_Vol){
+  if (name_receiver == currentNameVol){
     return 40;
   }
   else{
@@ -30,7 +30,7 @@ double myMessageLeftVol(String name_receiver){
 }
 
 double myMessageRightVol(String name_receiver){
-  if (name_receiver == current_name_Vol){
+  if (name_receiver == currentNameVol){
     return 5;
   }
   else{
@@ -106,7 +106,7 @@ class _messages_VolState extends State<messages_Vol> {
                       children: [
                         Container(
                           decoration: new BoxDecoration(
-                              color: snapshot.data?.docs[index]["name"] == current_name_Vol ? Colors.blue[100]:Colors.purple[100],
+                              color: snapshot.data?.docs[index]["name"] == currentNameVol ? Colors.blue[100]:Colors.purple[100],
                               borderRadius: BorderRadius.all(Radius.circular(10))
                           ),
                           // width: 300,
@@ -174,7 +174,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
         {
           'message': message.text.trim(),
           'time': DateTime.now(),
-          'name': current_name_Vol,
+          'name': currentNameVol,
           'id_message': "null"
         }
     );
@@ -196,7 +196,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.91,
                 child: messages_Vol(
-                  name: current_name_Vol,
+                  name: currentNameVol,
                 ),
               ),
               Padding(

@@ -10,7 +10,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_wit
 import '../../../constants.dart';
 import '../../my_applications/applications_vol.dart';
 import '../../intro_screen/option.dart';
-import 'home_page/settings_home_vol.dart';
+import 'home_page/home_vol.dart';
 import 'messages/volunteer/pageWithChatsVol.dart';
 
 class MainScreen extends StatefulWidget {
@@ -185,7 +185,7 @@ class _MainScreenState extends State<MainScreen> {
 // import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-// import 'package:wol_pro_1/volunteer/home/settings_home_vol.dart';
+// import 'package:wol_pro_1/volunteer/home/home_vol.dart';
 //
 // import '../constants.dart';
 // import 'intro_screen/option.dart';

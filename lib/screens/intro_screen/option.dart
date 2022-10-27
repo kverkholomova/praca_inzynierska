@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/widgets/wrapper.dart';
-import '../../shared/loading.dart';
+import '../../widgets/loading.dart';
 
 
 var optionRefugee=true;

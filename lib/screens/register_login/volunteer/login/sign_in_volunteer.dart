@@ -4,7 +4,7 @@ import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/auth.dart';
-import 'package:wol_pro_1/shared/loading.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../../widgets/text_form_field.dart';
 

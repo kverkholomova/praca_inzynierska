@@ -10,7 +10,7 @@ import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 import '../intro_screen/option.dart';
-import '../menu/volunteer/home_page/settings_home_vol.dart';
+import '../menu/volunteer/home_page/home_vol.dart';
 
 String card_title_accepted='';
 String card_category_accepted='';
