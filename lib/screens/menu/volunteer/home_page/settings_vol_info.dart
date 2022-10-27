@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../service/local_push_notifications.dart';
@@ -15,6 +16,8 @@ import 'home_vol.dart';
 import '../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../services/auth.dart';
 
+String dateOfBirth =
+    DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
 String currentNameVol = '';
 // List<String> chosen_category_settings = [];
 String? tokenVol;
@@ -55,12 +58,26 @@ class _SettingsVolState extends State<SettingsVol> {
       LocalNotificationService.display(event);
     });
   }
+
   final AuthService _auth = AuthService();
+
+  String changedName = '';
+  int changedAge = 0;
+  String changedPhone = '';
+  List changedCategories = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: IconButton(
+        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 30, color: background,),
+        onPressed: (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomeVol()));
+        },
+      ),
       // appBar: AppBar(
       //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
       //   elevation: 0.0,
@@ -100,22 +117,18 @@ class _SettingsVolState extends State<SettingsVol> {
                             height: MediaQuery.of(context).size.height * 0.35,
                             child: Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(bottom: 50, top: 20),
+                                padding:
+                                    const EdgeInsets.only(bottom: 50, top: 20),
                                 child: SizedBox(
-                                    height: MediaQuery.of(context)
-                                        .size
-                                        .width *
-                                        0.5,
+                                    height:
+                                        MediaQuery.of(context).size.width * 0.5,
                                     child: const Image(
-                                      image: AssetImage(
-                                          "assets/user.png"),
+                                      image: AssetImage("assets/user.png"),
                                     )),
                               ),
                             ),
                           ),
                         ),
-
-
 
                         // Text(
                         //   streamSnapshot.data?.docs[index]['phone_number'],
@@ -126,92 +139,90 @@ class _SettingsVolState extends State<SettingsVol> {
                         //   textAlign: TextAlign.left,
                         // ),
 
-
-
-                            // SizedBox(
-                            //   height: MediaQuery.of(context).size.height *
-                            //       0.012,
-                            // ),
-                            // SizedBox(
-                            //   height: MediaQuery.of(context).size.height *
-                            //       0.085,
-                            //   child: Material(
-                            //     shape: const RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.all(
-                            //           Radius.circular(24),
-                            //         )),
-                            //     color: Colors.white,
-                            //     child: Row(
-                            //       children: [
-                            //         Padding(
-                            //           padding: EdgeInsets.only(
-                            //             left: MediaQuery.of(context)
-                            //                 .size
-                            //                 .width *
-                            //                 0.05,
-                            //             right: MediaQuery.of(context)
-                            //                 .size
-                            //                 .width *
-                            //                 0.04,
-                            //           ),
-                            //           child: const Icon(
-                            //             Icons.pets_rounded,
-                            //             size: 35,
-                            //           ),
-                            //         ),
-                            //         Text(
-                            //           "Animal assistance",
-                            //           style: GoogleFonts.raleway(
-                            //             fontSize: 18,
-                            //             color: Colors.black,
-                            //           ),
-                            //         )
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: MediaQuery.of(context).size.height *
-                            //       0.012,
-                            // ),
-                            // SizedBox(
-                            //   height: MediaQuery.of(context).size.height *
-                            //       0.085,
-                            //   child: Material(
-                            //     shape: const RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.all(
-                            //           Radius.circular(24),
-                            //         )),
-                            //     color: Colors.white,
-                            //     child: Row(
-                            //       children: [
-                            //         Padding(
-                            //           padding: EdgeInsets.only(
-                            //             left: MediaQuery.of(context)
-                            //                 .size
-                            //                 .width *
-                            //                 0.05,
-                            //             right: MediaQuery.of(context)
-                            //                 .size
-                            //                 .width *
-                            //                 0.04,
-                            //           ),
-                            //           child: const Icon(
-                            //             Icons.pets_rounded,
-                            //             size: 35,
-                            //           ),
-                            //         ),
-                            //         Text(
-                            //           "Animal assistance",
-                            //           style: GoogleFonts.raleway(
-                            //             fontSize: 18,
-                            //             color: Colors.black,
-                            //           ),
-                            //         )
-                            //       ],
-                            //     ),
-                            //   ),
-                            // )
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height *
+                        //       0.012,
+                        // ),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height *
+                        //       0.085,
+                        //   child: Material(
+                        //     shape: const RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.all(
+                        //           Radius.circular(24),
+                        //         )),
+                        //     color: Colors.white,
+                        //     child: Row(
+                        //       children: [
+                        //         Padding(
+                        //           padding: EdgeInsets.only(
+                        //             left: MediaQuery.of(context)
+                        //                 .size
+                        //                 .width *
+                        //                 0.05,
+                        //             right: MediaQuery.of(context)
+                        //                 .size
+                        //                 .width *
+                        //                 0.04,
+                        //           ),
+                        //           child: const Icon(
+                        //             Icons.pets_rounded,
+                        //             size: 35,
+                        //           ),
+                        //         ),
+                        //         Text(
+                        //           "Animal assistance",
+                        //           style: GoogleFonts.raleway(
+                        //             fontSize: 18,
+                        //             color: Colors.black,
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height *
+                        //       0.012,
+                        // ),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height *
+                        //       0.085,
+                        //   child: Material(
+                        //     shape: const RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.all(
+                        //           Radius.circular(24),
+                        //         )),
+                        //     color: Colors.white,
+                        //     child: Row(
+                        //       children: [
+                        //         Padding(
+                        //           padding: EdgeInsets.only(
+                        //             left: MediaQuery.of(context)
+                        //                 .size
+                        //                 .width *
+                        //                 0.05,
+                        //             right: MediaQuery.of(context)
+                        //                 .size
+                        //                 .width *
+                        //                 0.04,
+                        //           ),
+                        //           child: const Icon(
+                        //             Icons.pets_rounded,
+                        //             size: 35,
+                        //           ),
+                        //         ),
+                        //         Text(
+                        //           "Animal assistance",
+                        //           style: GoogleFonts.raleway(
+                        //             fontSize: 18,
+                        //             color: Colors.black,
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
 
                         // Padding(
                         //   padding: const EdgeInsets.only(left: 30),
@@ -504,7 +515,7 @@ class _SettingsVolState extends State<SettingsVol> {
               stream: FirebaseFirestore.instance
                   .collection('users')
                   .where('id_vol',
-                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                 return ListView.builder(
@@ -518,10 +529,29 @@ class _SettingsVolState extends State<SettingsVol> {
                           padding: padding,
                           child: Column(
                             children: [
+                              Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  bottom:
+                                  MediaQuery.of(context).size.height * 0.005,
+                                ),
+                                child: Text(
+                                  "Your name",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.075,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
+                                  onChanged: (val){
+                                    changedName = val;
+                                  },
                                   // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                   decoration: InputDecoration(
                                     focusedErrorBorder: OutlineInputBorder(
@@ -538,9 +568,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: 1.5,
                                       ),
                                     ),
-                                    errorStyle: const TextStyle(
-                                        color: Colors.red
-                                    ),
+                                    errorStyle:
+                                        const TextStyle(color: Colors.red),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
                                       borderSide: BorderSide(
@@ -549,7 +578,258 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: 1.5,
                                       ),
                                     ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.white,
+                                        width: 0,
+                                      ),
+                                    ),
 
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    hintText: streamSnapshot.data?.docs[index]
+                                        ['user_name'],
+                                    hintStyle: GoogleFonts.raleway(
+                                      fontSize: 16,
+                                      color: Colors.black.withOpacity(0.7),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // SizedBox(
+                              //   height:
+                              //       MediaQuery.of(context).size.height * 0.012,
+                              // ),
+                              // Row(
+                              //   children: [
+                              //     SizedBox(
+                              //       height: MediaQuery.of(context).size.height *
+                              //           0.075,
+                              //       width: MediaQuery.of(context).size.height *
+                              //           0.13,
+                              //       child: TextFormField(
+                              //         onTap: (){
+                              //           Navigator.push(
+                              //             context,
+                              //             MaterialPageRoute(builder: (context) => DatePicker()),
+                              //           );
+                              //         },
+                              //         // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                              //         decoration: InputDecoration(
+                              //           focusedErrorBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: const BorderSide(
+                              //               color: Colors.red,
+                              //               width: 1.5,
+                              //             ),
+                              //           ),
+                              //           errorBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: const BorderSide(
+                              //               color: Colors.red,
+                              //               width: 1.5,
+                              //             ),
+                              //           ),
+                              //           errorStyle: const TextStyle(
+                              //               color: Colors.red
+                              //           ),
+                              //           focusedBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: BorderSide(
+                              //               color: blueColor,
+                              //               // color: Color.fromRGBO(2, 62, 99, 20),
+                              //               width: 1.5,
+                              //             ),
+                              //           ),
+                              //
+                              //           enabledBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: const BorderSide(
+                              //               color: Colors.white,
+                              //               width: 0,
+                              //             ),
+                              //           ),
+                              //           filled: true,
+                              //           fillColor: Colors.white,
+                              //           hintText: "${DateTime.now().day}",
+                              //           labelStyle: GoogleFonts.raleway(
+                              //             fontSize: 16,
+                              //             color: Colors.black.withOpacity(0.7),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Padding(
+                              //       padding: const EdgeInsets.symmetric(horizontal: 5),
+                              //       child: SizedBox(
+                              //         width:MediaQuery.of(context).size.height *
+                              //       0.13,
+                              //         height: MediaQuery.of(context).size.height *
+                              //             0.075,
+                              //
+                              //         child: TextFormField(
+                              //           // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                              //           decoration: InputDecoration(
+                              //             focusedErrorBorder: OutlineInputBorder(
+                              //               borderRadius: BorderRadius.circular(24.0),
+                              //               borderSide: const BorderSide(
+                              //                 color: Colors.red,
+                              //                 width: 1.5,
+                              //               ),
+                              //             ),
+                              //             errorBorder: OutlineInputBorder(
+                              //               borderRadius: BorderRadius.circular(24.0),
+                              //               borderSide: const BorderSide(
+                              //                 color: Colors.red,
+                              //                 width: 1.5,
+                              //               ),
+                              //             ),
+                              //             errorStyle: const TextStyle(
+                              //                 color: Colors.red
+                              //             ),
+                              //             focusedBorder: OutlineInputBorder(
+                              //               borderRadius: BorderRadius.circular(24.0),
+                              //               borderSide: BorderSide(
+                              //                 color: blueColor,
+                              //                 // color: Color.fromRGBO(2, 62, 99, 20),
+                              //                 width: 1.5,
+                              //               ),
+                              //             ),
+                              //
+                              //             enabledBorder: OutlineInputBorder(
+                              //               borderRadius: BorderRadius.circular(24.0),
+                              //               borderSide: const BorderSide(
+                              //                 color: Colors.white,
+                              //                 width: 0,
+                              //               ),
+                              //             ),
+                              //             filled: true,
+                              //             fillColor: Colors.white,
+                              //             hintText: "${DateTime.now().month}",
+                              //             labelStyle: GoogleFonts.raleway(
+                              //               fontSize: 16,
+                              //               color: Colors.black.withOpacity(0.7),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     SizedBox(
+                              //       width:MediaQuery.of(context).size.height *
+                              //           0.15,
+                              //       height: MediaQuery.of(context).size.height *
+                              //           0.075,
+                              //
+                              //       child: TextFormField(
+                              //         // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
+                              //         decoration: InputDecoration(
+                              //           focusedErrorBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: const BorderSide(
+                              //               color: Colors.red,
+                              //               width: 1.5,
+                              //             ),
+                              //           ),
+                              //           errorBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: const BorderSide(
+                              //               color: Colors.red,
+                              //               width: 1.5,
+                              //             ),
+                              //           ),
+                              //           errorStyle: const TextStyle(
+                              //               color: Colors.red
+                              //           ),
+                              //           focusedBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: BorderSide(
+                              //               color: blueColor,
+                              //               // color: Color.fromRGBO(2, 62, 99, 20),
+                              //               width: 1.5,
+                              //             ),
+                              //           ),
+                              //
+                              //           enabledBorder: OutlineInputBorder(
+                              //             borderRadius: BorderRadius.circular(24.0),
+                              //             borderSide: const BorderSide(
+                              //               color: Colors.white,
+                              //               width: 0,
+                              //             ),
+                              //           ),
+                              //           filled: true,
+                              //           fillColor: Colors.white,
+                              //           hintText: "${DateTime.now().year}",
+                              //           labelStyle: GoogleFonts.raleway(
+                              //             fontSize: 16,
+                              //             color: Colors.black.withOpacity(0.7),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.015,
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom:
+                                    MediaQuery.of(context).size.height * 0.005,
+                                  ),
+                                  child: Text(
+                                    "Your date of birth",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.075,
+                                child: TextFormField(
+                                  onChanged: (val){
+
+                                  },
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DatePicker()),
+                                    );
+                                  },
+                                  // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
+                                  decoration: InputDecoration(
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.red,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.red,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    errorStyle:
+                                        const TextStyle(color: Colors.red),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: BorderSide(
+                                        color: blueColor,
+                                        // color: Color.fromRGBO(2, 62, 99, 20),
+                                        width: 1.5,
+                                      ),
+                                    ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
                                       borderSide: const BorderSide(
@@ -559,10 +839,9 @@ class _SettingsVolState extends State<SettingsVol> {
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
-
-                                    hintText: streamSnapshot.data?.docs[index]['user_name'],
-                                    hintStyle: GoogleFonts.raleway(
-                                      fontSize: 16,
+                                    hintText: dateOfBirth,
+                                    labelStyle: GoogleFonts.raleway(
+                                      fontSize: 14,
                                       color: Colors.black.withOpacity(0.7),
                                     ),
                                   ),
@@ -570,185 +849,27 @@ class _SettingsVolState extends State<SettingsVol> {
                               ),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height *
-                                    0.012,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.075,
-                                    width: MediaQuery.of(context).size.height *
-                                        0.13,
-                                    child: TextFormField(
-                                      onTap: (){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => DatePicker()),
-                                        );
-                                      },
-                                      // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
-                                      decoration: InputDecoration(
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: const BorderSide(
-                                            color: Colors.red,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: const BorderSide(
-                                            color: Colors.red,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        errorStyle: const TextStyle(
-                                            color: Colors.red
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: BorderSide(
-                                            color: blueColor,
-                                            // color: Color.fromRGBO(2, 62, 99, 20),
-                                            width: 1.5,
-                                          ),
-                                        ),
-
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: const BorderSide(
-                                            color: Colors.white,
-                                            width: 0,
-                                          ),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintText: "${DateTime.now().day}",
-                                        labelStyle: GoogleFonts.raleway(
-                                          fontSize: 16,
-                                          color: Colors.black.withOpacity(0.7),
-                                        ),
-                                      ),
-                                    ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom:
+                                    MediaQuery.of(context).size.height * 0.005,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                                    child: SizedBox(
-                                      width:MediaQuery.of(context).size.height *
-                                    0.13,
-                                      height: MediaQuery.of(context).size.height *
-                                          0.075,
-
-                                      child: TextFormField(
-                                        // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
-                                        decoration: InputDecoration(
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 1.5,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
-                                            borderSide: const BorderSide(
-                                              color: Colors.red,
-                                              width: 1.5,
-                                            ),
-                                          ),
-                                          errorStyle: const TextStyle(
-                                              color: Colors.red
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
-                                            borderSide: BorderSide(
-                                              color: blueColor,
-                                              // color: Color.fromRGBO(2, 62, 99, 20),
-                                              width: 1.5,
-                                            ),
-                                          ),
-
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
-                                            borderSide: const BorderSide(
-                                              color: Colors.white,
-                                              width: 0,
-                                            ),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          hintText: "${DateTime.now().month}",
-                                          labelStyle: GoogleFonts.raleway(
-                                            fontSize: 16,
-                                            color: Colors.black.withOpacity(0.7),
-                                          ),
-                                        ),
+                                  child: Text(
+                                      "Your phone number",
+                                      style: GoogleFonts.raleway(
+                                        fontSize: 12,
+                                        color: Colors.black,
                                       ),
-                                    ),
                                   ),
-                                  SizedBox(
-                                    width:MediaQuery.of(context).size.height *
-                                        0.15,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.075,
-
-                                    child: TextFormField(
-                                      // controller: TextEditingController(text: "${streamSnapshot.data?.docs[index]['age']}"),
-                                      decoration: InputDecoration(
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: const BorderSide(
-                                            color: Colors.red,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: const BorderSide(
-                                            color: Colors.red,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        errorStyle: const TextStyle(
-                                            color: Colors.red
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: BorderSide(
-                                            color: blueColor,
-                                            // color: Color.fromRGBO(2, 62, 99, 20),
-                                            width: 1.5,
-                                          ),
-                                        ),
-
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
-                                          borderSide: const BorderSide(
-                                            color: Colors.white,
-                                            width: 0,
-                                          ),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintText: "${DateTime.now().year}",
-                                        labelStyle: GoogleFonts.raleway(
-                                          fontSize: 16,
-                                          color: Colors.black.withOpacity(0.7),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height *
-                                    0.012,
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.075,
+                                    MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
                                   // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                   decoration: InputDecoration(
@@ -766,9 +887,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: 1.5,
                                       ),
                                     ),
-                                    errorStyle: const TextStyle(
-                                        color: Colors.red
-                                    ),
+                                    errorStyle:
+                                        const TextStyle(color: Colors.red),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
                                       borderSide: BorderSide(
@@ -777,7 +897,6 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: 1.5,
                                       ),
                                     ),
-
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
                                       borderSide: const BorderSide(
@@ -787,23 +906,22 @@ class _SettingsVolState extends State<SettingsVol> {
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: streamSnapshot.data?.docs[index]['phone_number'],
+                                    hintText: streamSnapshot.data?.docs[index]
+                                        ['phone_number'],
                                     labelStyle: GoogleFonts.raleway(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.black.withOpacity(0.7),
                                     ),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: MediaQuery.of(context)
-                                    .size
-                                    .height *
-                                    0.02,
-                                bottom: MediaQuery.of(context)
-                                    .size
-                                    .height *
-                                    0.02,),
+                                padding: EdgeInsets.only(
+                                  top:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                  bottom:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
                                 child: Text(
                                     "Choose categories which are the best suitable for you",
                                     style: GoogleFonts.raleway(
@@ -815,53 +933,50 @@ class _SettingsVolState extends State<SettingsVol> {
                                   Icons.pets_rounded),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(context, categories_list_all[4],
                                   Icons.local_grocery_store),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(context, categories_list_all[2],
                                   Icons.emoji_transportation_rounded),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(
                                   context, categories_list_all[1], Icons.house),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(context, categories_list_all[6],
                                   Icons.sign_language_rounded),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(context, categories_list_all[5],
                                   Icons.child_care_outlined),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(context, categories_list_all[7],
                                   Icons.menu_book),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategory(context, categories_list_all[8],
                                   Icons.medical_information_outlined),
-                              Divider(
-                                  color: Colors.black
-                              ),
+                              Divider(color: Colors.black),
                               SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height * 0.01
-                              ),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Center(
@@ -871,7 +986,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                         0.075,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(24)),
+                                        borderRadius:
+                                            BorderRadius.circular(24)),
                                     child: TextButton(
                                         child: Text(
                                           "Sign Out",
@@ -886,46 +1002,44 @@ class _SettingsVolState extends State<SettingsVol> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                  const MyApp()));
+                                                      const MyApp()));
                                         }),
                                   ),
                                 ),
-
                               ),
                               SizedBox(
                                 height:
-                                MediaQuery.of(context).size.height * 0.015,
+                                    MediaQuery.of(context).size.height * 0.015,
                               ),
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Center(
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: MediaQuery.of(context).size.height *
-                                                    0.075,
-                                                decoration: buttonDecoration,
-                                                child: TextButton(
-                                                    child: Text(
-                                                      "Done",
-                                                      style: textButtonStyle,
-                                                    ),
-                                                    onPressed: () async {
-                                                      FirebaseFirestore.instance
-                                                          .collection('users')
-                                                          .doc(streamSnapshot
-                                                          .data?.docs[index].id)
-                                                          .update({
-                                                        "category": chosenCategoryList
-                                                      });
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                              const HomeVol()));
-                                                    }),
-                                              ),
-                                            ),
-
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.075,
+                                    decoration: buttonDecoration,
+                                    child: TextButton(
+                                        child: Text(
+                                          "Done",
+                                          style: textButtonStyle,
+                                        ),
+                                        onPressed: () async {
+                                          FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(streamSnapshot
+                                                  .data?.docs[index].id)
+                                              .update({
+                                            "category": chosenCategoryList
+                                          });
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const HomeVol()));
+                                        }),
+                                  ),
+                                ),
                               ),
                             ],
                           ),

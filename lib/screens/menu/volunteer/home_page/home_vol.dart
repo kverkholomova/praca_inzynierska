@@ -560,7 +560,7 @@ class _HomeVolState extends State<HomeVol> {
                                                   height: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                      0.5,
+                                                      0.4,
                                                   child: const Image(
                                                     image: AssetImage(
                                                         "assets/user.png"),
@@ -614,7 +614,7 @@ class _HomeVolState extends State<HomeVol> {
                                                     top: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                        0.05),
+                                                        0.02),
                                                 child: Align(
                                                   alignment: Alignment.topCenter,
                                                   child: Row(
@@ -625,131 +625,176 @@ class _HomeVolState extends State<HomeVol> {
                                                           ?.docs[index]
                                                       ['ranking'] >=
                                                           1
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star,
                                                         color: Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
                                                           : streamSnapshot.data
                                                           ?.docs[
                                                       index]
                                                       ['ranking'] ==
                                                           0.5
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_half,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
-                                                          : const Icon(
+                                                          : Icon(
                                                         Icons.star_border,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       ),
                                                       streamSnapshot.data
                                                           ?.docs[index]
                                                       ['ranking'] >=
                                                           2
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_rate,
                                                         color: Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
                                                           : streamSnapshot.data
                                                           ?.docs[
                                                       index]
                                                       ['ranking'] ==
                                                           1.5
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_half,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
-                                                          : const Icon(
+                                                          : Icon(
                                                         Icons.star_border,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       ),
                                                       streamSnapshot.data
                                                           ?.docs[index]
                                                       ['ranking'] >=
                                                           3
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_rate,
                                                         color: Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
                                                           : streamSnapshot.data
                                                           ?.docs[
                                                       index]
                                                       ['ranking'] ==
                                                           2.5
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_half,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
-                                                          : const Icon(
+                                                          : Icon(
                                                         Icons.star_border,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       ),
                                                       streamSnapshot.data
                                                           ?.docs[index]
                                                       ['ranking'] >=
                                                           4
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_rate,
                                                         color: Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
                                                           : streamSnapshot.data
                                                           ?.docs[
                                                       index]
                                                       ['ranking'] ==
                                                           3.5
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_half,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
-                                                          : const Icon(
+                                                          : Icon(
                                                         Icons.star_border,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       ),
                                                       streamSnapshot.data
                                                           ?.docs[index]
                                                       ['ranking'] >=
                                                           5
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_rate,
                                                         color: Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
                                                           : streamSnapshot.data
                                                           ?.docs[
                                                       index]
                                                       ['ranking'] ==
                                                           4.5
-                                                          ? const Icon(
+                                                          ? Icon(
                                                         Icons.star_half,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       )
-                                                          : const Icon(
+                                                          : Icon(
                                                         Icons.star_border,
                                                         color:
                                                         Colors.white,
-                                                        size: 30,
+                                                        size: MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                            0.06,
                                                       ),
                                                     ],
                                                   ),
