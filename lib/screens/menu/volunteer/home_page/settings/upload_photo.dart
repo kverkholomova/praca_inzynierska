@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -24,22 +26,63 @@ class ImageUploads extends StatefulWidget {
 
 class _ImageUploadsState extends State<ImageUploads> {
 
-  PlatformFile? pickedFile;
-  Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles();
-    if(result!=null) {
-      void setState() {
-        pickedFile = result.files.first;
-      }
-    }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectFile();
   }
 
-  Future uploadFile() async {
-    final path = 'files/${pickedFile!.name}';
-    final file = File(pickedFile!.path!);
+  PlatformFile? file;
+  // Uint8List? fileBytes;
+  Future selectFile() async {
 
-    final ref = FirebaseStorage.instance.ref().child(path);
-    ref.putFile(file);
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      setState(() async {
+        file = result.files.first;
+        // fileBytes = file!.bytes;
+        // await FirebaseStorage.instance.ref('uploads/${file!.name}').putData(fileBytes!);
+      });
+
+      print(file);
+      print(file!.name);
+      print(file!.bytes);
+      print(file!.size);
+      print(file!.extension);
+      print(file!.path);
+    } else {
+      // User canceled the picker
+    }
+    // final result = await FilePicker.platform.pickFiles(
+    //     withReadStream: true,
+    // );
+    // if(result!=null) return;
+    //  setState() {
+    //     pickedFile = result!.files.first;
+    //   }
+    //   print("BBBBBBBBBBBBBBBBBBBBBBBBBBB");
+    //  print(pickedFile);
+    }
+
+
+  Future uploadFile() async {
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      Uint8List? fileBytes = result.files.first.bytes;
+      String fileName = result.files.first.name;
+
+      // Upload file
+      await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes!);
+    }
+    // final path = 'files/${file!.name}';
+    // final file = File(file!.path!);
+    //
+    // final ref = FirebaseStorage.instance.ref().child(path);
+    // ref.putFile(file);
   }
 
 
@@ -98,14 +141,15 @@ class _ImageUploadsState extends State<ImageUploads> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          pickedFile!= null?
+          file!= null?
             Expanded(
                 child: Container(
               color: background,
               child:
               // Text(pickedFile!.path!)
               Image.file(
-                File(pickedFile!.path!),
+                File(file!.path!),
+                // File(pickedFile!.path!),
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -114,13 +158,10 @@ class _ImageUploadsState extends State<ImageUploads> {
               child: Container(
                   color: background,
                   child: Text("Null image")
-                // Image.file(
-                //   File(pickedFile!.path!),
-                //   width: double.infinity,
-                //   fit: BoxFit.cover,
-                // ),
               )),
-        ElevatedButton(onPressed: selectFile, child: Text("Select file")),
+        ElevatedButton(onPressed: () {
+          selectFile();
+        }, child: Text("Select file")),
     ElevatedButton(onPressed: uploadFile, child: Text("Upload file")),
     ],
     ),
