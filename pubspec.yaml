@@ -78,6 +78,8 @@ dependencies:
   maps_toolkit: ^2.0.1
   custom_info_window: ^1.0.1
   syncfusion_flutter_calendar: ^20.3.47
+  path: ^1.8.2
+  file_picker: ^5.2.2
 
 
 

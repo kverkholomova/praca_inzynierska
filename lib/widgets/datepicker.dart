@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings_vol_info.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 int currentAgeVolunteer = 0;
 List month = [
@@ -67,7 +67,11 @@ class _DatePickerState extends State<DatePicker> {
               // - DateFormat('yyyy').format(details.date!);
         }
         else if(bDate==currentDate){
-
+          if(int.parse(DateFormat('dd').format(DateTime.now())) > int.parse(DateFormat('dd').format(details.date!))){
+            currentAgeVolunteer = int.parse(DateFormat('yyyy').format(DateTime.now())) - int.parse(DateFormat('yyyy').format(details.date!));
+          } else{
+            currentAgeVolunteer = int.parse(DateFormat('yyyy').format(DateTime.now())) - int.parse(DateFormat('yyyy').format(details.date!))-1;
+          }
         }
 
       dateOfBirth = text;

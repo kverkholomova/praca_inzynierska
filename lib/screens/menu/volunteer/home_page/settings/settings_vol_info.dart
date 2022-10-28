@@ -7,18 +7,21 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
-import '../../../../../service/local_push_notifications.dart';
+import '../../../../../../service/local_push_notifications.dart';
 
-import '../../../../app.dart';
-import '../all_applications/new_screen_with_applications.dart';
-import 'home_vol.dart';
-import '../../../register_login/volunteer/register/register_volunteer_1.dart';
-import '../../../../services/auth.dart';
+import '../../../../../app.dart';
+import '../../all_applications/new_screen_with_applications.dart';
+import '../home_vol.dart';
+import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
+import '../../../../../services/auth.dart';
 
 String dateOfBirth =
     DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
-String currentNameVol = '';
+// String currentNameVol = '';
+// String currentPhoneNumber = '';
+// List currentCategories = [];
 // List<String> chosen_category_settings = [];
 String? tokenVol;
 final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -122,8 +125,14 @@ class _SettingsVolState extends State<SettingsVol> {
                                 child: SizedBox(
                                     height:
                                         MediaQuery.of(context).size.width * 0.5,
-                                    child: const Image(
-                                      image: AssetImage("assets/user.png"),
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => ImageUploads()));
+                    },
+                                      child: const Image(
+                                        image: AssetImage("assets/user.png"),
+                                      ),
                                     )),
                               ),
                             ),
@@ -795,7 +804,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
                                   onChanged: (val){
-
+                                    changedAge = currentAgeVolunteer;
                                   },
                                   onTap: () {
                                     Navigator.push(
@@ -871,6 +880,9 @@ class _SettingsVolState extends State<SettingsVol> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
+                                  onChanged: (val){
+                                    changedPhone = val;
+                                  },
                                   // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                   decoration: InputDecoration(
                                     focusedErrorBorder: OutlineInputBorder(
@@ -1030,7 +1042,10 @@ class _SettingsVolState extends State<SettingsVol> {
                                               .doc(streamSnapshot
                                                   .data?.docs[index].id)
                                               .update({
-                                            "category": chosenCategoryList
+                                            "category": changedCategories,
+                                            "user_name": changedName,
+                                            "age":changedAge,
+                                            "phone_number": changedPhone
                                           });
                                           Navigator.push(
                                               context,
@@ -1224,10 +1239,10 @@ class _SettingsVolState extends State<SettingsVol> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (chosenCategoryList.contains(text)) {
-            chosenCategoryList.remove(text);
+          if (changedCategories.contains(text)) {
+            changedCategories.remove(text);
           } else {
-            chosenCategoryList.add(text);
+            changedCategories.add(text);
           }
         });
       },

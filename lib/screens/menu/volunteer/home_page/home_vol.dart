@@ -13,7 +13,7 @@ import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_c
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
-import 'settings_vol_info.dart';
+import 'settings/settings_vol_info.dart';
 import '../all_applications/new_screen_with_applications.dart';
 
 
