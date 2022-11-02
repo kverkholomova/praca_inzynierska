@@ -393,6 +393,7 @@ class _HomeVolState extends State<HomeVol> {
               //         });
               //   },
               // ),
+
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.55),
@@ -495,6 +496,7 @@ class _HomeVolState extends State<HomeVol> {
                       }),
                 ),
               ),
+
               Padding(
                 padding: EdgeInsets.only(
                 top: MediaQuery.of(context)
@@ -890,6 +892,18 @@ class _HomeVolState extends State<HomeVol> {
                           },
                         ),
                       )),
+                ),
+              ),
+              Padding(
+                padding: padding,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context)
+                          .size
+                          .height *
+                          0.5,
+                  ),
+                  child: Text("Preferencies", style: textCategoryStyle,),
                 ),
               ),
             ],

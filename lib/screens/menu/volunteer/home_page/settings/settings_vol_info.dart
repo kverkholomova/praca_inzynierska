@@ -78,8 +78,12 @@ class _SettingsVolState extends State<SettingsVol> {
       backgroundColor: background,
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 30, color: background,),
-        onPressed: (){
+        icon: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          size: 30,
+          color: background,
+        ),
+        onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HomeVol()));
         },
@@ -105,7 +109,8 @@ class _SettingsVolState extends State<SettingsVol> {
                     // categories_user = streamSnapshot.data?.docs[index]['category'];
                     // token_vol = streamSnapshot.data?.docs[index]['token'];
                     // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
-                    print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    print(
+                        "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     print(url_image.toString());
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -131,17 +136,23 @@ class _SettingsVolState extends State<SettingsVol> {
                                     height:
                                         MediaQuery.of(context).size.width * 0.5,
                                     child: GestureDetector(
-                                      onTap: (){
-                                        currentStreamSnapshot = streamSnapshot
-                                            .data?.docs[index].id;
-                                        Navigator.push(context,
-                                            MaterialPageRoute(builder: (context) => ImageUploads()));
-                    },
-                                      child: url_image==null?Image(
-                                        image:AssetImage("assets/user.png")
-                                      ): CircleAvatar(
-                                          radius: 80.0,
-                    backgroundImage: NetworkImage(url_image.toString())),
+                                      onTap: () {
+                                        currentStreamSnapshot =
+                                            streamSnapshot.data?.docs[index].id;
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ImageUploads()));
+                                      },
+                                      child: url_image == null
+                                          ? Image(
+                                              image:
+                                                  AssetImage("assets/user.png"))
+                                          : CircleAvatar(
+                                              radius: 80.0,
+                                              backgroundImage: NetworkImage(
+                                                  url_image.toString())),
                                     )),
                               ),
                             ),
@@ -548,26 +559,26 @@ class _SettingsVolState extends State<SettingsVol> {
                           child: Column(
                             children: [
                               Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.005,
-                                ),
-                                child: Text(
-                                  "Your name",
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 12,
-                                    color: Colors.black,
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.005,
+                                  ),
+                                  child: Text(
+                                    "Your name",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
-                                  onChanged: (val){
+                                  onChanged: (val) {
                                     changedName = val;
                                   },
                                   // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
@@ -603,7 +614,6 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: 0,
                                       ),
                                     ),
-
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: streamSnapshot.data?.docs[index]
@@ -796,8 +806,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                 alignment: Alignment.topLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(
-                                    bottom:
-                                    MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.005,
                                   ),
                                   child: Text(
                                     "Your date of birth",
@@ -812,7 +822,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
-                                  onChanged: (val){
+                                  onChanged: (val) {
                                     changedAge = currentAgeVolunteer;
                                   },
                                   onTap: () {
@@ -873,15 +883,15 @@ class _SettingsVolState extends State<SettingsVol> {
                                 alignment: Alignment.topLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(
-                                    bottom:
-                                    MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.005,
                                   ),
                                   child: Text(
-                                      "Your phone number",
-                                      style: GoogleFonts.raleway(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
+                                    "Your phone number",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -889,7 +899,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.075,
                                 child: TextFormField(
-                                  onChanged: (val){
+                                  onChanged: (val) {
                                     changedPhone = val;
                                   },
                                   // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
@@ -1051,10 +1061,14 @@ class _SettingsVolState extends State<SettingsVol> {
                                               .doc(streamSnapshot
                                                   .data?.docs[index].id)
                                               .update({
-                                            "category": changedCategories,
-                                            "user_name": changedName,
-                                            "age":changedAge,
-                                            "phone_number": changedPhone
+                                            "category": changedCategories!=[]?changedCategories:streamSnapshot
+                                                .data?.docs[index]['category'],
+                                            "user_name": changedName!=""?changedName:streamSnapshot
+                                                .data?.docs[index]['user_name'],
+                                            "age": changedAge!=0?changedAge:streamSnapshot
+                                                .data?.docs[index]['age'],
+                                            "phone_number": changedPhone!=""?changedPhone:streamSnapshot
+                                                .data?.docs[index]['phone_number']
                                           });
                                           Navigator.push(
                                               context,
