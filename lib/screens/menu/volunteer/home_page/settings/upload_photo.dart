@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'dart:io';
@@ -11,9 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../../../../../constants.dart';
 
+
+String? url_image;
+String image_url_volunteer='';
 firebase_storage.FirebaseStorage storage =
     firebase_storage.FirebaseStorage.instance;
 
@@ -26,6 +32,7 @@ class ImageUploads extends StatefulWidget {
 
 class _ImageUploadsState extends State<ImageUploads> {
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -37,10 +44,10 @@ class _ImageUploadsState extends State<ImageUploads> {
   // Uint8List? fileBytes;
   Future selectFile() async {
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: false);
 
     if (result != null) {
-      setState(() async {
+      setState(() {
         file = result.files.first;
         // fileBytes = file!.bytes;
         // await FirebaseStorage.instance.ref('uploads/${file!.name}').putData(fileBytes!);
@@ -48,7 +55,7 @@ class _ImageUploadsState extends State<ImageUploads> {
 
       print(file);
       print(file!.name);
-      print(file!.bytes);
+      print(file!.readStream);
       print(file!.size);
       print(file!.extension);
       print(file!.path);
@@ -66,18 +73,41 @@ class _ImageUploadsState extends State<ImageUploads> {
     //  print(pickedFile);
     }
 
-
+// PlatformFile? pickedFile;
   Future uploadFile() async {
+    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+    //
+    // if (result != null) {
+    //   Uint8List? fileBytes = result.files.first.bytes;
+    //   String fileName = result.files.first.name;
+    //
+    //   // Upload file/
+    //   await FirebaseStorage.instance.ref('uploads/$fileName').putData(result.files.single.bytes!);
+    // }
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    final path = 'user_pictures/${file!.name}';
+    final currentFile = File(file!.path!);
 
-    if (result != null) {
-      Uint8List? fileBytes = result.files.first.bytes;
-      String fileName = result.files.first.name;
+    final ref = FirebaseStorage.instance.ref().child(path);
+    ref.putFile(currentFile);
 
-      // Upload file
-      await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes!);
-    }
+    FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(currentStreamSnapshot)
+                    .update({
+                  "image": file!.name
+                });
+    image_url_volunteer = file!.name;
+
+    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+    //
+    // if (result != null) {
+    //   Uint8List? fileBytes = result.files.first.bytes;
+    //   String fileName = result.files.first.name;
+    //
+    //   // Upload file
+    //   await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes!);
+    // }
     // final path = 'files/${file!.name}';
     // final file = File(file!.path!);
     //
@@ -85,7 +115,21 @@ class _ImageUploadsState extends State<ImageUploads> {
     // ref.putFile(file);
   }
 
+  loadImage() async{
 
+    //select the image url
+    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(image_url_volunteer);
+
+    //get image url from firebase storage
+    var url = await ref.getDownloadURL();
+
+    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    print(url);
+    // put the URL in the state, so that the UI gets rerendered
+    setState(() {
+      url_image = url;
+    });
+  }
 
   // firebase_storage.FirebaseStorage storage =
   //     firebase_storage.FirebaseStorage.instance;
@@ -138,33 +182,76 @@ class _ImageUploadsState extends State<ImageUploads> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          file!= null?
-            Expanded(
+          // floatingActionButton: StreamBuilder(
+          //   stream: FirebaseFirestore.instance
+          //       .collection('users')
+          //       .where('id_vol',
+          //       isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          //       .snapshots(),
+          //   builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          //     return ListView.builder(
+          //         itemCount: streamSnapshot.data?.docs.length,
+          //         itemBuilder: (ctx, index) {
+          //           // categories_user = streamSnapshot.data?.docs[index]['category'];
+          //           // token_vol = streamSnapshot.data?.docs[index]['token'];
+          //           // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
+          //           return ElevatedButton(onPressed: () async {
+          //             image_url_volunteer = file!.name;
+          //             Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/${FirebaseAuth.instance.currentUser!.uid}").child(image_url_volunteer);
+          //             var urlCurrent = await ref.getDownloadURL();
+          //             setState(() {
+          //               url = urlCurrent;
+          //             });
+          //             FirebaseFirestore.instance
+          //                 .collection('users')
+          //                 .doc(streamSnapshot
+          //                 .data?.docs[index].id)
+          //                 .update({
+          //               "image": file!.name
+          //             });
+          //           }, child: Text("Done"));
+          //         });
+          //   },
+          // ),
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            file!= null?
+              Expanded(
+                  child: Container(
+                color: background,
+                child:
+                // Text(pickedFile!.path!)
+                Image.file(
+                  File(file!.path!),
+                  // File(pickedFile!.path!),
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ))
+            :Expanded(
                 child: Container(
-              color: background,
-              child:
-              // Text(pickedFile!.path!)
-              Image.file(
-                File(file!.path!),
-                // File(pickedFile!.path!),
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ))
-          :Expanded(
-              child: Container(
-                  color: background,
-                  child: Text("Null image")
-              )),
-        ElevatedButton(onPressed: () {
-          selectFile();
-        }, child: Text("Select file")),
+                    color: background,
+                )),
+          ElevatedButton(onPressed: () {
+            selectFile();
+          }, child: Text("Select file")),
     ElevatedButton(onPressed: uploadFile, child: Text("Upload file")),
+            ElevatedButton(onPressed: (){
+              loadImage();
+              Future.delayed(const Duration(milliseconds: 500), () {
+                print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
+                print(url_image);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const SettingsVol()));
+              });
+
+            }, child: Text("Done")),
     ],
     ),
+        ),
     ),);
 
       // Column(
@@ -209,42 +296,42 @@ class _ImageUploadsState extends State<ImageUploads> {
 
   }
 
-  void showPicker(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Scaffold(
-              body: Column(
-                children: [
-                  ElevatedButton(onPressed: selectFile, child: Text("Select file")),
-                  ElevatedButton(onPressed: uploadFile, child: Text("Select file")),
-                ],
-              ),
-            ),
-
-            // Container(
-            //   child: new Wrap(
-            //     children: <Widget>[
-            //       new ListTile(
-            //           leading: new Icon(Icons.photo_library),
-            //           title: new Text('Gallery'),
-            //           onTap: () {
-            //             imgFromGallery();
-            //             Navigator.of(context).pop();
-            //           }),
-            //       new ListTile(
-            //         leading: new Icon(Icons.photo_camera),
-            //         title: new Text('Camera'),
-            //         onTap: () {
-            //           imgFromCamera();
-            //           Navigator.of(context).pop();
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
-          );
-        });
-  }
+  // void showPicker(context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (BuildContext bc) {
+  //         return SafeArea(
+  //           child: Scaffold(
+  //             body: Column(
+  //               children: [
+  //                 ElevatedButton(onPressed: selectFile, child: Text("Select file")),
+  //                 ElevatedButton(onPressed: uploadFile, child: Text("Select file")),
+  //               ],
+  //             ),
+  //           ),
+  //
+  //           // Container(
+  //           //   child: new Wrap(
+  //           //     children: <Widget>[
+  //           //       new ListTile(
+  //           //           leading: new Icon(Icons.photo_library),
+  //           //           title: new Text('Gallery'),
+  //           //           onTap: () {
+  //           //             imgFromGallery();
+  //           //             Navigator.of(context).pop();
+  //           //           }),
+  //           //       new ListTile(
+  //           //         leading: new Icon(Icons.photo_camera),
+  //           //         title: new Text('Camera'),
+  //           //         onTap: () {
+  //           //           imgFromCamera();
+  //           //           Navigator.of(context).pop();
+  //           //         },
+  //           //       ),
+  //           //     ],
+  //           //   ),
+  //           // ),
+  //         );
+  //       });
+  // }
 }

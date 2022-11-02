@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
 
 import '../../../../constants.dart';
@@ -72,6 +74,22 @@ class _HomeVolState extends State<HomeVol> {
 
   // String token = '';
   //
+
+  loadImage(String image_url) async{
+
+    //select the image url
+    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
+
+    //get image url from firebase storage
+    var url = await ref.getDownloadURL();
+
+    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    print(url);
+    // put the URL in the state, so that the UI gets rerendered
+    setState(() {
+      url_image = url;
+    });
+  }
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
     print(
@@ -512,7 +530,7 @@ class _HomeVolState extends State<HomeVol> {
                       ),
                     ],
                   ),
-                  height: MediaQuery.of(context).size.height * 0.53,
+                  height: MediaQuery.of(context).size.height * 0.47,
                   child: Center(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 50),
@@ -561,10 +579,12 @@ class _HomeVolState extends State<HomeVol> {
                                                       .size
                                                       .width *
                                                       0.4,
-                                                  child: const Image(
-                                                    image: AssetImage(
-                                                        "assets/user.png"),
-                                                  )),
+                                                  child: url_image==null?Image(
+                                                      image:AssetImage("assets/user.png")
+                                                  ): CircleAvatar(
+                                                      radius: 80.0,
+                                                      backgroundImage: NetworkImage(url_image.toString())),
+                                                  ),
                                               Align(
                                                 alignment: Alignment.topCenter,
                                                 child: Row(
@@ -585,7 +605,18 @@ class _HomeVolState extends State<HomeVol> {
                                                         color: Colors.white,
                                                       ),
                                                       onPressed: () {
-                                                        Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsVol()));
+                                                        loadImage(streamSnapshot
+                                                            .data?.docs[index]
+                                                        ['image']);
+                                                        Future.delayed(const Duration(milliseconds: 500), ()
+                                                        {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (
+                                                                      context) =>
+                                                                      SettingsVol()));
+                                                        });
                                                       },
                                                     ),
                                                   ],

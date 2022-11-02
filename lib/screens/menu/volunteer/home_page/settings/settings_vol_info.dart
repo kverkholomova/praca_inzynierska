@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
@@ -17,6 +19,7 @@ import '../home_vol.dart';
 import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../../services/auth.dart';
 
+var currentStreamSnapshot;
 String dateOfBirth =
     DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
 // String currentNameVol = '';
@@ -102,6 +105,8 @@ class _SettingsVolState extends State<SettingsVol> {
                     // categories_user = streamSnapshot.data?.docs[index]['category'];
                     // token_vol = streamSnapshot.data?.docs[index]['token'];
                     // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
+                    print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    print(url_image.toString());
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -127,12 +132,16 @@ class _SettingsVolState extends State<SettingsVol> {
                                         MediaQuery.of(context).size.width * 0.5,
                                     child: GestureDetector(
                                       onTap: (){
+                                        currentStreamSnapshot = streamSnapshot
+                                            .data?.docs[index].id;
                                         Navigator.push(context,
                                             MaterialPageRoute(builder: (context) => ImageUploads()));
                     },
-                                      child: const Image(
-                                        image: AssetImage("assets/user.png"),
-                                      ),
+                                      child: url_image==null?Image(
+                                        image:AssetImage("assets/user.png")
+                                      ): CircleAvatar(
+                                          radius: 80.0,
+                    backgroundImage: NetworkImage(url_image.toString())),
                                     )),
                               ),
                             ),
