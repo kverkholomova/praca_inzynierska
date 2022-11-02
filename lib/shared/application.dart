@@ -6,8 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/Refugee/applications/all_applications.dart';
-import 'package:wol_pro_1/Refugee/home/home_ref.dart';
+import 'package:wol_pro_1/to_delete/home_ref.dart';
 import 'package:wol_pro_1/services/auth.dart';
+import '../screens/menu/refugee/home_page/home_ref.dart';
 import 'constants.dart';
 
 

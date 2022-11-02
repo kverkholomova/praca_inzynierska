@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/maps/map.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 
@@ -22,7 +23,7 @@ class MainScreenRefugee extends StatefulWidget {
 class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   int _selectedIndex = 2;
-  PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
+  PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 1);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -32,31 +33,31 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   List<Widget> _buildScreens() {
     return [
-      Text("Chats"),
+      // Text("Chats"),
       Text("My applications"),
-      Text("Home Page"),
+      HomeRef(),
       const HomeMap(),
-      const Categories(),
+      // const Categories(),
 
     ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(Icons.message_rounded,size: 24,),
-        icon: const Padding(
-          padding: EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.message_rounded,size: 28,),
-        ),
-        title: ("Messages"),
-        textStyle: GoogleFonts.raleway(
-          fontSize: 11,
-          color: Colors.white,
-        ),
-        activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
-      ),
+      // PersistentBottomNavBarItem(
+      //   inactiveIcon: const Icon(Icons.message_rounded,size: 24,),
+      //   icon: const Padding(
+      //     padding: EdgeInsets.only(bottom: 5),
+      //     child: Icon(Icons.message_rounded,size: 28,),
+      //   ),
+      //   title: ("Messages"),
+      //   textStyle: GoogleFonts.raleway(
+      //     fontSize: 11,
+      //     color: Colors.white,
+      //   ),
+      //   activeColorPrimary: Colors.white,
+      //   inactiveColorPrimary: Colors.white.withOpacity(0.5),
+      // ),
       PersistentBottomNavBarItem(
         inactiveIcon: const Icon(Icons.folder_special_rounded, size: 24,),
         icon: const Padding(
@@ -97,20 +98,20 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
-      PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(Icons.note_alt_rounded, size: 24,),
-        icon: const Padding(
-          padding: EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.note_alt_rounded, size: 28),
-        ),
-        title: ("Applications"),
-        textStyle: GoogleFonts.raleway(
-          fontSize: 11,
-          color: Colors.white,
-        ),
-        activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
-      ),
+      // PersistentBottomNavBarItem(
+      //   inactiveIcon: const Icon(Icons.note_add_rounded, size: 24,),
+      //   icon: const Padding(
+      //     padding: EdgeInsets.only(bottom: 5),
+      //     child: Icon(Icons.note_add_rounded, size: 28),
+      //   ),
+      //   title: ("Add app"),
+      //   textStyle: GoogleFonts.raleway(
+      //     fontSize: 11,
+      //     color: Colors.white,
+      //   ),
+      //   activeColorPrimary: Colors.white,
+      //   inactiveColorPrimary: Colors.white.withOpacity(0.5),
+      // ),
     ];
   }
   // static const List<Widget> _widgetOptions = <Widget>[
@@ -131,7 +132,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   @override
   Widget build(BuildContext context) {
-    print("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+    print("Refugee");
     print(FirebaseAuth.instance.currentUser?.uid);
     return WillPopScope(
         onWillPop: () async {

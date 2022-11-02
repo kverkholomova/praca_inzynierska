@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wol_pro_1/Refugee/home/home_ref.dart';
+import 'package:wol_pro_1/to_delete/home_ref.dart';
 import 'package:wol_pro_1/Refugee/pageWithChats.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
@@ -182,8 +182,8 @@ class _SettingsHomeRefState extends State<SettingsHomeRef> {
                                   onPressed: () {
                                     current_name_Ref =
                                     streamSnapshot.data?.docs[index]['user_name'];
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => const HomeRef()));
+                                    // Navigator.push(context, MaterialPageRoute(
+                                    //     builder: (context) => const HomeRef()));
                                   },
                                 ),
                               ),

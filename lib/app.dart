@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         initialRoute: FirebaseAuth.instance.currentUser == null ? "OptionChoose()" : MainScreen().id,
         routes: {
-          MainScreen().id: (context) => _isLoading?Loading():MainScreen(),
+          MainScreen().id: (context) => _isLoading?Loading():Wrapper(),
           "OptionChoose()": (context) => OptionChoose(),
         },
       ),

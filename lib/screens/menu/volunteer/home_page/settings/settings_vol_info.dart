@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
@@ -1033,7 +1034,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const MyApp()));
+                                                      const OptionChoose()));
                                         }),
                                   ),
                                 ),
