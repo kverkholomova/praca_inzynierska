@@ -415,8 +415,8 @@ class _HomeVolState extends State<HomeVol> {
                 ClipPath(
                   clipper: OvalBottomBorderClipper(),
                   child: AnimatedContainer(
-                    height: scrolled? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.height * 0.47,
-                    duration: Duration(milliseconds: 100),
+                    height: scrolled? MediaQuery.of(context).size.height * 0.3: MediaQuery.of(context).size.height * 0.47,
+                    duration: Duration(milliseconds: 10000000),
                     decoration: BoxDecoration(
                       color: blueColor,
                     ),
@@ -576,41 +576,51 @@ class _HomeVolState extends State<HomeVol> {
                                           categoriesVolunteer.add(streamSnapshot
                                               .data?.docs[index]['category']);
                                           return scrolled
-                                              ?Row(
-                                                children: [
-                                                  Container(
+                                              ?Padding(
+                                            padding: EdgeInsets.only( top: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.2,),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
                                             height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                    0.2,
+                                                      .size
+                                                      .width *
+                                                      0.3,
                                             child: url_image==null?Image(
-                                                    image:AssetImage("assets/user.png")
+                                                      image:AssetImage("assets/user.png")
                                             ): CircleAvatar(
-                                                    radius: 60.0,
-                                                    backgroundImage: NetworkImage(url_image.toString())),
+                                                      radius: 60.0,
+                                                      backgroundImage: NetworkImage(url_image.toString())),
                                           ),
-                                                  Column(
-                                                    children: [
-                                                      Text(
-                                                          streamSnapshot
-                                                              .data?.docs[index]
-                                                          ['user_name'],
-                                                          style: GoogleFonts.raleway(
-                                                            fontSize: 22,
-                                                            color: Colors.white,
-                                                          )),
-                                                      Align(
-                                                        alignment: Alignment.topLeft,
-                                                        child: Text(
-                                                            "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
-                                                            style: GoogleFonts.raleway(
-                                                              fontSize: 18,
-                                                              color: Colors.white,
-                                                            )),
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                              streamSnapshot
+                                                                  .data?.docs[index]
+                                                              ['user_name'],
+                                                              style: GoogleFonts.raleway(
+                                                                fontSize: 24,
+                                                                color: Colors.white,
+                                                              )),
+                                                          Align(
+                                                            alignment: Alignment.topLeft,
+                                                            child: Text(
+                                                                "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                                                                style: GoogleFonts.raleway(
+                                                                  fontSize: 18,
+                                                                  color: Colors.white,
+                                                                )),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                    ),
+                                                  ],
+                                                ),
                                               )
                                               :Padding(
                                             padding: const EdgeInsets
