@@ -104,10 +104,12 @@ class _HomeVolState extends State<HomeVol> {
     print(token_v);
   }
 
+  bool scrolled = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    scrollController.addListener(scrollListener);
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {});
     storeNotificationToken();
@@ -117,7 +119,20 @@ class _HomeVolState extends State<HomeVol> {
     });
   }
 
-  // final AuthService _auth = AuthService();
+  scrollListener() {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      setState(() {
+        scrolled = true;
+      });
+    }
+    if (scrollController.offset <= scrollController.position.minScrollExtent &&
+        !scrollController.position.outOfRange) {
+      setState(() {
+        scrolled = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -399,18 +414,133 @@ class _HomeVolState extends State<HomeVol> {
                 // ),
                 ClipPath(
                   clipper: OvalBottomBorderClipper(),
-                  child: Container(
+                  child: AnimatedContainer(
+                    height: scrolled? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.height * 0.47,
+                    duration: Duration(milliseconds: 100),
                     decoration: BoxDecoration(
                       color: blueColor,
-                      boxShadow: const <BoxShadow>[
-                        BoxShadow(
-                          color: Colors.black,
-                          blurRadius: 5,
-                        ),
-                      ],
                     ),
-                    height: MediaQuery.of(context).size.height * 0.47,
-                    child: Center(
+
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: blueColor,
+                  //     boxShadow: const <BoxShadow>[
+                  //       BoxShadow(
+                  //         color: Colors.black,
+                  //         blurRadius: 5,
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   height: MediaQuery.of(context).size.height * 0.47,
+                    child:
+                    // scrolled
+                    //     ?
+                    // Align(
+                    //   alignment: Alignment.topLeft,
+                    //     child: StreamBuilder(
+                    //       stream: FirebaseFirestore.instance
+                    //           .collection('users')
+                    //           .where('id_vol',
+                    //           isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                    //           .snapshots(),
+                    //       builder: (context,
+                    //           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    //         return SizedBox(
+                    //           height: 200,
+                    //           width: 200,
+                    //           child: ListView.builder(
+                    //               physics: NeverScrollableScrollPhysics(),
+                    //               shrinkWrap: true,
+                    //               itemCount: !streamSnapshot.hasData
+                    //                   ? 1
+                    //                   : streamSnapshot.data?.docs.length,
+                    //               itemBuilder: (ctx, index) {
+                    //                 token_vol =
+                    //                 streamSnapshot.data?.docs[index]['token_vol'];
+                    //                 currentNameVol =
+                    //                 streamSnapshot.data?.docs[index]['user_name'];
+                    //                 if (streamSnapshot.hasData) {
+                    //                   switch (streamSnapshot.connectionState) {
+                    //                     case ConnectionState.waiting:
+                    //                       return SizedBox(
+                    //                               width: 60,
+                    //                               height: 60,
+                    //                               child: CircularProgressIndicator(),
+                    //                             );
+                    //
+                    //                     case ConnectionState.active:
+                    //                       categoriesVolunteer.add(streamSnapshot
+                    //                           .data?.docs[index]['category']);
+                    //                       return Row(
+                    //
+                    //                         children: [
+                    //                           Container(
+                    //                             height: MediaQuery.of(context)
+                    //                                 .size
+                    //                                 .width *
+                    //                                 0.04,
+                    //                             child: url_image==null?Image(
+                    //                                 image:AssetImage("assets/user.png")
+                    //                             ): CircleAvatar(
+                    //                                 radius: 30.0,
+                    //                                 backgroundImage: NetworkImage(url_image.toString())),
+                    //                           ),
+                    //                           ListTile(
+                    //                             title: Text(
+                    //                                   streamSnapshot
+                    //                                       .data?.docs[index]
+                    //                                   ['user_name'],
+                    //                                   style: GoogleFonts.raleway(
+                    //                                     fontSize: 24,
+                    //                                     color: Colors.white,
+                    //                                   )),
+                    //                             subtitle: Text(
+                    //                                 "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                    //                                 style: GoogleFonts.raleway(
+                    //                                   fontSize: 16,
+                    //                                   color: Colors.white,
+                    //                                 )),
+                    //                           ),
+                    //
+                    //                           // Padding(
+                    //                           //   padding: const EdgeInsets.only(top: 15),
+                    //                           //   child: Row(
+                    //                           //     children: [
+                    //                           //       IconButton(onPressed: () {
+                    //                           //         print("Phone");
+                    //                           //       }, icon: Icon(Icons.phone)),
+                    //                           //       Align(
+                    //                           //         alignment: Alignment.topLeft,
+                    //                           //         child: Text(
+                    //                           //           streamSnapshot.data?.docs[index]['phone_number'],
+                    //                           //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
+                    //                           //       ),
+                    //                           //     ],
+                    //                           //   ),
+                    //                           // ),
+                    //
+                    //                           // Text(
+                    //                           //   streamSnapshot.data?.docs[index]['date'],
+                    //                           //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
+                    //
+                    //                         ],
+                    //                       );
+                    //                   }
+                    //                 } else {}
+                    //                 return Center(
+                    //                   child: SpinKitChasingDots(
+                    //                     color: Colors.brown,
+                    //                     size: 50.0,
+                    //                   ),
+                    //                 );
+                    //               }),
+                    //         );
+                    //       },
+                    //     ))
+                    //
+                    // :
+
+                    Center(
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 50),
                           child: StreamBuilder(
@@ -422,6 +552,7 @@ class _HomeVolState extends State<HomeVol> {
                             builder: (context,
                                 AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                               return ListView.builder(
+                                shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: !streamSnapshot.hasData
                                       ? 1
@@ -434,23 +565,56 @@ class _HomeVolState extends State<HomeVol> {
                                     if (streamSnapshot.hasData) {
                                       switch (streamSnapshot.connectionState) {
                                         case ConnectionState.waiting:
-                                          return Column(
-                                              children: const [
+                                          return
                                                 SizedBox(
                                                   width: 60,
                                                   height: 60,
-                                                  child: CircularProgressIndicator(),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(top: 16),
-                                                  child: Text('Awaiting data...'),
-                                                )
-                                              ]);
+                                                  child: Loading(),
+                                                );
+
                                         case ConnectionState.active:
                                           categoriesVolunteer.add(streamSnapshot
                                               .data?.docs[index]['category']);
-                                          return Padding(
-                                            padding: const EdgeInsets.only(top: 20),
+                                          return scrolled
+                                              ?Row(
+                                                children: [
+                                                  Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                    0.2,
+                                            child: url_image==null?Image(
+                                                    image:AssetImage("assets/user.png")
+                                            ): CircleAvatar(
+                                                    radius: 60.0,
+                                                    backgroundImage: NetworkImage(url_image.toString())),
+                                          ),
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                          streamSnapshot
+                                                              .data?.docs[index]
+                                                          ['user_name'],
+                                                          style: GoogleFonts.raleway(
+                                                            fontSize: 22,
+                                                            color: Colors.white,
+                                                          )),
+                                                      Align(
+                                                        alignment: Alignment.topLeft,
+                                                        child: Text(
+                                                            "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                                                            style: GoogleFonts.raleway(
+                                                              fontSize: 18,
+                                                              color: Colors.white,
+                                                            )),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              )
+                                              :Padding(
+                                            padding: const EdgeInsets
+                                                .only(top: 20),
                                             child: Column(
                                               children: [
                                                 Container(
@@ -787,7 +951,7 @@ class _HomeVolState extends State<HomeVol> {
                   ),
                 ),
                 SizedBox(
-                  height: 130,
+                  height: 300,
                   child: Column(
                     children: [
                       Expanded(
