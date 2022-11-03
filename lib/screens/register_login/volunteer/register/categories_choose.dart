@@ -637,6 +637,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                               .update({
                                             "category": chosenCategoryList
                                           });
+                                          categoriesVolunteer
+                                              .add(chosenCategoryList);
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(

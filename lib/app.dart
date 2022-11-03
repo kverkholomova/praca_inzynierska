@@ -14,6 +14,8 @@ import 'package:wol_pro_1/widgets/wrapper.dart';
 
 import 'models/user.dart';
 
+
+bool isVolunteer = true;
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -50,14 +52,32 @@ class _MyAppState extends State<MyApp> {
 
   void initState() {
     super.initState();
-    user = FirebaseAuth.instance.authStateChanges().listen((user) {
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
       if (user == null) {
         print('User is currently signed out!');
       } else {
         print('User is signed in!');
         loadImage();
+        DocumentSnapshot variable = await FirebaseFirestore.instance.
+        collection('users').
+        doc(FirebaseAuth.instance.currentUser!.uid).
+        get();
 
-        Future.delayed(Duration(seconds: 2), () {
+        var currentRole = variable['role'];
+        setState(() {
+          if(currentRole=='1'){
+            optionRefugee = false;
+            print(11111111111111);
+            print(currentRole);
+            print(optionRefugee);
+          } else{
+            optionRefugee = true;
+            print(22222222222222);
+            print(currentRole);
+            print(optionRefugee);
+          }
+        });
+        Future.delayed(Duration(seconds: 5), () {
           setState(() {
             _isLoading = false;
             print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
@@ -81,13 +101,13 @@ class _MyAppState extends State<MyApp> {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: OptionChoose(),
+        home: FirebaseAuth.instance.currentUser == null ? OptionChoose():Wrapper(),
         debugShowCheckedModeBanner: false,
-        initialRoute: FirebaseAuth.instance.currentUser == null ? "OptionChoose()" : MainScreen().id,
-        routes: {
-          MainScreen().id: (context) => _isLoading?Loading():Wrapper(),
-          "OptionChoose()": (context) => OptionChoose(),
-        },
+        // initialRoute: FirebaseAuth.instance.currentUser == null ? "option" : "main",
+        // routes: {
+        //   "main": (context) => _isLoading ? Loading() : Wrapper(),
+        //   "option": (context) => OptionChoose(),
+        // },
       ),
     );
   }
