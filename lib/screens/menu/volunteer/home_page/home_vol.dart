@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,6 +15,7 @@ import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
+import '../../../register_login/volunteer/register/register_volunteer_1.dart';
 import 'settings/settings_vol_info.dart';
 import '../all_applications/new_screen_with_applications.dart';
 
@@ -415,7 +415,7 @@ class _HomeVolState extends State<HomeVol> {
                 ClipPath(
                   clipper: OvalBottomBorderClipper(),
                   child: AnimatedContainer(
-                    height: scrolled? MediaQuery.of(context).size.height * 0.3: MediaQuery.of(context).size.height * 0.47,
+                    height: scrolled? MediaQuery.of(context).size.height * 0.3: MediaQuery.of(context).size.height * 0.43,
                     duration: Duration(milliseconds: 10000000),
                     decoration: BoxDecoration(
                       color: blueColor,
@@ -542,7 +542,7 @@ class _HomeVolState extends State<HomeVol> {
 
                     Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 50),
+                          padding: const EdgeInsets.only(bottom: 20),
                           child: StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
@@ -573,8 +573,8 @@ class _HomeVolState extends State<HomeVol> {
                                                 );
 
                                         case ConnectionState.active:
-                                          categoriesVolunteer.add(streamSnapshot
-                                              .data?.docs[index]['category']);
+                                          // categoriesVolunteer.add(streamSnapshot
+                                          //     .data?.docs[index]['category']);
                                           return scrolled
                                               ?Padding(
                                             padding: EdgeInsets.only( top: MediaQuery.of(context)
@@ -596,7 +596,6 @@ class _HomeVolState extends State<HomeVol> {
                                           ),
                                                     Align(
                                                       alignment: Alignment.topLeft,
-
                                                       child: Column(
                                                         children: [
                                                           Text(
@@ -961,7 +960,23 @@ class _HomeVolState extends State<HomeVol> {
                   ),
                 ),
                 SizedBox(
-                  height: 300,
+                  height: categoriesVolunteer.length==1
+                      ?60
+                      :categoriesVolunteer.length==2
+                      ?120
+                      :categoriesVolunteer.length==3
+                      ?180
+                      :categoriesVolunteer.length==4
+                      ?230
+                      :categoriesVolunteer.length==5
+                      ?290
+                      :categoriesVolunteer.length==6
+                      ?350
+                      :categoriesVolunteer.length==7
+                      ?410
+                      :categoriesVolunteer.length==8
+                      ?470
+                      :550,
                   child: Column(
                     children: [
                       Expanded(
@@ -982,77 +997,82 @@ class _HomeVolState extends State<HomeVol> {
                               } else if (streamSnapshot.hasError) {
                                 return Text('Error!');
                               } else {
-                                categoriesVolunteer
-                                    .add(streamSnapshot.data?.docs[0]["category"]);
+
                                 return ListView.builder(
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
-                                    itemCount: categoriesVolunteer[0].length,
+                                    itemCount: categoriesVolunteer.length,
                                     itemBuilder: (ctx, index) {
-                                      return Padding(
-                                        padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
-                                        child: Padding(
-                                          padding: padding,
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.of(context).size.height *
-                                                0.075,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                                borderRadius: BorderRadius.circular(24)
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.05,
-                                                    right: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.04,
+                                      return Column(
+                                        children: [
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(context).size.height *
+                                                0.012,
+                                          ),
+                                          Padding(
+                                            padding: padding,
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: MediaQuery.of(context).size.height *
+                                                  0.075,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(24)
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                      left: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05,
+                                                      right: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.04,
+                                                    ),
+                                                    child: Icon(
+                                                      categoriesVolunteer[index]==categories_list_all[3]
+                                                          ?Icons.pets_rounded
+                                                          :categoriesVolunteer[index]==categories_list_all[4]
+                                                          ?Icons.local_grocery_store
+                                                          :categoriesVolunteer[index]==categories_list_all[2]
+                                                          ?Icons.emoji_transportation_rounded
+                                                          :categoriesVolunteer[index]==categories_list_all[1]
+                                                          ?Icons.house
+                                                          :categoriesVolunteer[index]==categories_list_all[6]
+                                                          ?Icons.sign_language_rounded
+                                                          :categoriesVolunteer[index]==categories_list_all[5]
+                                                          ?Icons.child_care_outlined
+                                                          :categoriesVolunteer[index]==categories_list_all[7]
+                                                          ?Icons.menu_book
+                                                          :categoriesVolunteer[index]==categories_list_all[8]
+                                                          ?Icons.medical_information_outlined
+                                                          :categoriesVolunteer[index]==categories_list_all[0]
+                                                          ?Icons.check_box
+                                                          :Icons.new_label_sharp,
+                                                      size: 30,
+                                                      color: Colors.black,
+                                                    ),
                                                   ),
-                                                  child: Icon(
-                                                    categoriesVolunteer[0][index]==categories_list_all[3]
-                                                        ?Icons.pets_rounded
-                                                        :categoriesVolunteer[0][index]==categories_list_all[4]
-                                                        ?Icons.local_grocery_store
-                                                        :categoriesVolunteer[0][index]==categories_list_all[2]
-                                                        ?Icons.emoji_transportation_rounded
-                                                        :categoriesVolunteer[0][index]==categories_list_all[1]
-                                                        ?Icons.house
-                                                        :categoriesVolunteer[0][index]==categories_list_all[6]
-                                                        ?Icons.sign_language_rounded
-                                                        :categoriesVolunteer[0][index]==categories_list_all[5]
-                                                        ?Icons.child_care_outlined
-                                                        :categoriesVolunteer[0][index]==categories_list_all[7]
-                                                        ?Icons.menu_book
-                                                        :categoriesVolunteer[0][index]==categories_list_all[8]
-                                                        ?Icons.medical_information_outlined
-                                                        :categoriesVolunteer[0][index]==categories_list_all[0]
-                                                        ?Icons.check_box
-                                                        :Icons.new_label_sharp,
-                                                    size: 30,
-                                                    color: Colors.black,
+                                                  Text(
+                                                    categoriesVolunteer[index],
+                                                    // streamSnapshot.data?.docs[index]
+                                                    //     ["category"][index],
+                                                    style: textCategoryStyle,
                                                   ),
-                                                ),
-                                                Text(
-                                                  categoriesVolunteer[0][index],
-                                                  // streamSnapshot.data?.docs[index]
-                                                  //     ["category"][index],
-                                                  style: textCategoryStyle,
-                                                ),
-                                                // SizedBox(
-                                                //   height:
-                                                //   MediaQuery.of(context).size.height *
-                                                //       0.05,
-                                                // ),
-                                              ],
+                                                  // SizedBox(
+                                                  //   height:
+                                                  //   MediaQuery.of(context).size.height *
+                                                  //       0.05,
+                                                  // ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       );
                                       // }
                                       // );
@@ -1070,6 +1090,7 @@ class _HomeVolState extends State<HomeVol> {
                   child: TextButton.icon(
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
+                      chosenCategoryList = [];
                     },
                     icon: Icon(Icons.add, color: Colors.black, size: 30,),
                     label: Text("Add new preferences",
@@ -1081,6 +1102,23 @@ class _HomeVolState extends State<HomeVol> {
                   ),
                 ),
 
+                SizedBox(
+                  height:
+                  categoriesVolunteer.length==1
+                  ?MediaQuery.of(context).size.height *
+                      0.012
+                  :categoriesVolunteer.length==2
+                      ?MediaQuery.of(context).size.height *
+                      0.012
+                      :categoriesVolunteer.length==3
+                      ?MediaQuery.of(context).size.height *
+                      0.015
+                      :categoriesVolunteer.length==4
+                      ?MediaQuery.of(context).size.height *
+                      0.025
+                  :MediaQuery.of(context).size.height *
+                      0.012,
+                ),
 
               ],
             ),

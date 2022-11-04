@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/home_vol.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/services/auth.dart';
@@ -64,6 +65,15 @@ class _MyAppState extends State<MyApp> {
         get();
 
         var currentRole = variable['role'];
+        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+        print(variable["category"]);
+        var cList = variable["category"];
+        cList.forEach((element) {
+          categoriesVolunteer.add(element);
+        });
+        // categoriesVolunteer
+        //     .add(variable["category"][0]);
+        print(categoriesVolunteer);
         setState(() {
           if(currentRole=='1'){
             optionRefugee = false;
