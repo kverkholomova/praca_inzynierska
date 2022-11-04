@@ -191,6 +191,18 @@ class _ImageUploadsState extends State<ImageUploads> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
+            color: blueColor,
+          ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SettingsVol()));
+          },
+        ),
         backgroundColor: background,
         // floatingActionButton: StreamBuilder(
         //   stream: FirebaseFirestore.instance

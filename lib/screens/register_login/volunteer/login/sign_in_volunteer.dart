@@ -77,7 +77,7 @@ class _SignInVolState extends State<SignInVol> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 65),
+                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.06),
                           child: Column(
                             children: [
                               Align(
@@ -164,7 +164,7 @@ class _SignInVolState extends State<SignInVol> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: !errorEmpty
-                              ?MediaQuery.of(context).size.height * 0.14
+                              ?MediaQuery.of(context).size.height * 0.12
                           : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,
