@@ -9,7 +9,7 @@ BoxDecoration buttonDecoration = BoxDecoration(
 );
 
 TextStyle textButtonStyle = GoogleFonts.raleway(
-  fontSize: 20,
+  fontSize: 18,
   color: blueColor,
 );
 

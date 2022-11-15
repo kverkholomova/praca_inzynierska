@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 import '../../../../constants.dart';
@@ -11,7 +12,6 @@ import '../../../intro_screen/option.dart';
 import '../../../menu/volunteer/all_applications/new_screen_with_applications.dart';
 import '../../../menu/volunteer/home_page/home_vol.dart';
 
-String chosenCategory = '';
 
 class ChooseCategory extends StatefulWidget {
   const ChooseCategory({
@@ -33,7 +33,6 @@ class _ChooseCategoryState extends State<ChooseCategory> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -43,7 +42,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         return true;
       },
       child: loading
-          ? Loading()
+          ? const Loading()
           : SafeArea(
               child: Scaffold(
                 resizeToAvoidBottomInset: true,
@@ -117,18 +116,15 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 7),
-                                      child: Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          "where you would help.",
-                                          style: GoogleFonts.raleway(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                          ),
-                                          textAlign: TextAlign.left,
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "where you would help.",
+                                        style: GoogleFonts.raleway(
+                                          fontSize: 14,
+                                          color: Colors.black,
                                         ),
+                                        textAlign: TextAlign.left,
                                       ),
                                     ),
                                   ],
@@ -314,25 +310,51 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                                           "Done",
                                                           style: textButtonStyle,
                                                         ),
-                                                        onPressed: () async {
-                                                          FirebaseFirestore.instance
-                                                              .collection('users')
-                                                              .doc(streamSnapshot
-                                                              .data?.docs[index].id)
-                                                              .update({
-                                                            "category": chosenCategoryList
-                                                          });
-                                                          categoriesVolunteer =
-                                                              chosenCategoryList;
-                                                          Future.delayed(Duration(seconds: 2),
-                                                                  () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                        const HomeVol()));
-                                                              });
-                                                        }),
+                                                        onPressed: () {
+                                                          // print("PPPPPPPPPPPPPPPPPPPPPPPPPP");
+                                                          // // print(chosenCategoryListChanges[0]);
+                                                          // print(chosenCategoryListChanges);
+                                                          // print(chosenCategoryListChanges.isEmpty);
+                                                          // print(chosenCategoryListChanges!="New one");
+
+                                                          if (chosenCategoryListChanges.isEmpty){
+                                                            dialogBuilderEmpty(context);
+                                                          } else {
+                                                            dialogBuilder(context);
+                                                          }
+                                                          // if(chosenCategoryList==[]){
+                                                          //   dialogBuilder(context);
+                                                          // }
+                                                          // else if(chosenCategoryList!=[]){
+                                                          // FirebaseFirestore.instance
+                                                          //     .collection('users')
+                                                          //     .doc(streamSnapshot
+                                                          //     .data?.docs[index].id)
+                                                          //     .update({
+                                                          //   "category": chosenCategoryList
+                                                          // });
+                                                          // categoriesVolunteer =
+                                                          //     chosenCategoryList;
+                                                          // }
+                                                          // Future.delayed(Duration(seconds: 1),
+                                                          //         () {
+                                                          //   if(chosenCategoryList == []){
+                                                          //     dialogBuilder(context);
+                                                          //     print("IIIIIIIIIIIIII");
+                                                          //   }
+                                                          //   else {
+                                                          //     print("SSSSSSSSSSSSSSS");
+                                                          //     print(chosenCategoryList);
+                                                          //     Navigator.push(
+                                                          //         context,
+                                                          //         MaterialPageRoute(
+                                                          //             builder: (
+                                                          //                 context) =>
+                                                          //             const HomeVol()));
+                                                          //   }
+                                                          //     });
+                                                        }
+                                                        ),
                                                   );
                                                 });
                                           }),
@@ -740,15 +762,346 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     );
   }
 
+  String listTileBuilder(){
+    String listTile = '';
+    for(int i = 0;i<chosenCategoryListChanges.length;i++){
+      if(chosenCategoryListChanges.length==1){
+        listTile += chosenCategoryListChanges[i];
+      } else {
+        if (chosenCategoryListChanges.length-1==i){
+          listTile += chosenCategoryListChanges[i];
+        } else {
+          listTile += "${chosenCategoryListChanges[i]}\n";
+        }
+
+      }
+
+  }
+  return listTile;
+  }
+
+  Future<void> dialogBuilderEmpty(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          title: const Text('Choose your categories'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content: const Text("You haven't chosen any category, please supply any category"
+              ' or leave your previous preferences'),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            color: blueColor,
+          ),
+          actions: <Widget>[
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Center(
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height *
+                      0.075,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.circular(24)),
+                  child: TextButton(
+                      child: Text(
+                        'Choose category',
+                        style: textButtonStyle,
+                      ),
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                      }),
+                ),
+              ),
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Choose category'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Center(
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height *
+                      0.075,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.circular(24)),
+                  child: TextButton(
+                      child: Text(
+                        'Leave previous choice',
+                        style: textButtonStyle,
+                      ),
+                      onPressed: () async {
+                        Future.delayed(Duration(seconds: 1),
+                                    () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (
+                                            context) =>
+                                        const HomeVol()));
+                                });
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => MainScreen()),
+                          // if(chosenCategoryList==[]){
+                          //   dialogBuilder(context);
+                          // }
+                          // else if(chosenCategoryList!=[]){
+                          // FirebaseFirestore.instance
+                          //     .collection('users')
+                          //     .doc(streamSnapshot
+                          //     .data?.docs[index].id)
+                          //     .update({
+                          //   "category": chosenCategoryList
+                          // });
+                          // categoriesVolunteer =
+                          //     chosenCategoryList;
+                          // }
+                          // Future.delayed(Duration(seconds: 1),
+                          //         () {
+                          //   if(chosenCategoryList == []){
+                          //     dialogBuilder(context);
+                          //     print("IIIIIIIIIIIIII");
+                          //   }
+                          //   else {
+                          //     print("SSSSSSSSSSSSSSS");
+                          //     print(chosenCategoryList);
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (
+                          //                 context) =>
+                          //             const HomeVol()));
+                          //   }
+                          //     });
+                        // );
+                      }),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Leave my categories'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const HomeVol()),
+            //     );
+            //   },
+            // ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<String?> dialogBuilder(BuildContext context) {
+    return showDialog<String?>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          title: const Text('Verify your choice'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content:  Text("You chose categories that refer to:\n\n${listTileBuilder()}\n"),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            color: blueColor,
+          ),
+          actions: [
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Text(listTileBuilder()),
+            // ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Center(
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height *
+                      0.075,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.circular(24)),
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('id_vol',
+                          isEqualTo:
+                          FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        return ListView.builder(
+                            itemCount: !streamSnapshot.hasData
+                                ? 1
+                                : streamSnapshot.data?.docs.length,
+                            itemBuilder: (ctx, index) {
+                          return TextButton(
+                              child: Text(
+                                'Change my choice',
+                                style: textButtonStyle,
+                              ),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                              });
+                        }
+                      );
+                    }
+                  ),
+                ),
+              ),
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Choose category'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Center(
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height *
+                      0.075,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.circular(24)),
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('id_vol',
+                          isEqualTo:
+                          FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        return ListView.builder(
+                            itemCount: !streamSnapshot.hasData
+                                ? 1
+                                : streamSnapshot.data?.docs.length,
+                            itemBuilder: (ctx, index) {
+                          return TextButton(
+                              child: Text(
+                                'Save my changes',
+                                style: textButtonStyle,
+                              ),
+                              onPressed: () async {
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(builder: (context) => const HomeVol()),);
+
+                                  // if(chosenCategoryList==[]){
+                                  //   dialogBuilder(context);
+                                  // }
+                                  // else if(chosenCategoryList!=[]){
+                                  FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(streamSnapshot
+                                      .data?.docs[index].id)
+                                      .update({
+                                    "category": chosenCategoryListChanges
+                                  });
+                                  categoriesVolunteer =
+                                      chosenCategoryListChanges;
+                                  // }
+                                  Future.delayed(Duration(seconds: 1),
+                                          () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (
+                                                  context) => MainScreen()));
+
+                                      });
+
+                              });
+                        }
+                      );
+                    }
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Leave my categories'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const HomeVol()),
+            //     );
+            //   },
+            // ),
+          ],
+        );
+      },
+    );
+  }
+
   GestureDetector buildCategory(
       BuildContext context, String text, IconData icon) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (chosenCategoryList.contains(text)) {
-            chosenCategoryList.remove(text);
+          if (chosenCategoryListChanges.contains(text)) {
+            chosenCategoryListChanges.remove(text);
           } else {
-            chosenCategoryList.add(text);
+            chosenCategoryListChanges.add(text);
           }
         });
       },
@@ -756,7 +1109,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         height: MediaQuery.of(context).size.height * 0.075,
         duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
-          color: chosenCategoryList.contains(text) ? blueColor : Colors.white,
+          color: chosenCategoryListChanges.contains(text) ? blueColor : Colors.white,
           borderRadius: const BorderRadius.all(
             Radius.circular(24),
           ),
@@ -771,7 +1124,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
               child: Icon(
                 icon,
                 size: 30,
-                color: chosenCategoryList.contains(text)
+                color: chosenCategoryListChanges.contains(text)
                     ? Colors.white
                     : Colors.black,
               ),
@@ -780,7 +1133,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
               text,
               style: GoogleFonts.raleway(
                 fontSize: 15,
-                color: chosenCategoryList.contains(text)
+                color: chosenCategoryListChanges.contains(text)
                     ? Colors.white
                     : Colors.black,
               ),

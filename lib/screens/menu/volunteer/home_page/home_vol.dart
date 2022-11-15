@@ -1090,7 +1090,7 @@ class _HomeVolState extends State<HomeVol> {
                   child: TextButton.icon(
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
-                      chosenCategoryList = [];
+                      chosenCategoryListChanges = [];
                     },
                     icon: Icon(Icons.add, color: Colors.black, size: 30,),
                     label: Text("Add new preferences",

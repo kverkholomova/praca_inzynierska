@@ -92,7 +92,7 @@ class _SettingsVolState extends State<SettingsVol> {
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height *
-                0.37,
+                0.27,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -118,11 +118,11 @@ class _SettingsVolState extends State<SettingsVol> {
                               ),
                             ],
                           ),
-                          height: MediaQuery.of(context).size.height * 0.35,
+                          height: MediaQuery.of(context).size.height * 0.25,
                           child: Center(
                             child: Padding(
                               padding:
-                                  const EdgeInsets.only(bottom: 50, top: 20),
+                                  const EdgeInsets.only(bottom: 30, top: 10),
                               child: SizedBox(
                                   height:
                                       MediaQuery.of(context).size.width * 0.5,
@@ -137,13 +137,38 @@ class _SettingsVolState extends State<SettingsVol> {
                                                   ImageUploads()));
                                     },
                                     child: url_image == null
-                                        ? Image(
-                                            image:
-                                                AssetImage("assets/user.png"))
-                                        : CircleAvatar(
-                                            radius: 80.0,
-                                            backgroundImage: NetworkImage(
-                                                url_image.toString())),
+                                        ? Stack(
+                                          children: [
+                                            Image(
+                                              image:
+                                                  AssetImage("assets/user.png")),
+                                            IconButton(
+                                                onPressed: (){
+
+                                                },
+                                                icon: CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  radius: 10,
+                                                    child: Icon(Icons.add, color: blueColor,)))
+                                        ])
+                                        : Stack(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 70.0,
+                                              backgroundImage: NetworkImage(
+                                                  url_image.toString())),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context).size.height * 0.125,
+                                              left: MediaQuery.of(context).size.width * 0.3,
+                                              ),
+                                              child: IconButton(
+                                                  onPressed: (){
+
+                                                  },
+                                                  icon: Icon(Icons.add_circle, color: background, size: 35,)),
+                                            ),
+                                        ]),
                                   )),
                             ),
                           ),
@@ -155,7 +180,7 @@ class _SettingsVolState extends State<SettingsVol> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height *
-                0.45,
+                0.55,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -807,7 +832,7 @@ class _SettingsVolState extends State<SettingsVol> {
         height: MediaQuery.of(context).size.height * 0.075,
         duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
-          color: chosenCategoryList.contains(text) ? blueColor : Colors.white,
+          color: chosenCategoryListChanges.contains(text) ? blueColor : Colors.white,
           borderRadius: const BorderRadius.all(
             Radius.circular(24),
           ),
@@ -822,7 +847,7 @@ class _SettingsVolState extends State<SettingsVol> {
               child: Icon(
                 icon,
                 size: 27,
-                color: chosenCategoryList.contains(text)
+                color: chosenCategoryListChanges.contains(text)
                     ? Colors.white
                     : Colors.black,
               ),
@@ -831,7 +856,7 @@ class _SettingsVolState extends State<SettingsVol> {
               text,
               style: GoogleFonts.raleway(
                 fontSize: 14,
-                color: chosenCategoryList.contains(text)
+                color: chosenCategoryListChanges.contains(text)
                     ? Colors.white
                     : Colors.black,
               ),

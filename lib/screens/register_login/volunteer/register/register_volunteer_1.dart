@@ -11,7 +11,7 @@ import '../../../intro_screen/option.dart';
 int volunteerAge = 0;
 bool registrationVol = false;
 double volunteerRate = 5;
-List<String> chosenCategoryList = [];
+List<String> chosenCategoryListChanges = [];
 String userName = '';
 String phoneNumber = '';
 TextEditingController controllerTextFieldNameVol = TextEditingController();
