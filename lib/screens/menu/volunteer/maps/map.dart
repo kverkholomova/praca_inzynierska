@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +13,7 @@ import 'package:wol_pro_1/constants.dart';
 import '../../../../utils/map_style.dart';
 
 const LatLng _center = LatLng(54.4641, 17.0287);
-bool isVisible = false;
+
 
 class HomeMap extends StatefulWidget {
   const HomeMap({Key? key}) : super(key: key);
@@ -26,7 +25,7 @@ class HomeMap extends StatefulWidget {
 class _HomeMapState extends State<HomeMap> {
   final CustomInfoWindowController _customInfoWindowController =
   CustomInfoWindowController();
-
+  bool isVisible = false;
   PolylinePoints polylinePoints = PolylinePoints();
   Map<PolylineId, Polyline> polylines = {};
   LatLng? startLocation;

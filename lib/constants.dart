@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 20);
 
 BoxDecoration buttonDecoration = BoxDecoration(
-    color: const Color.fromRGBO(2, 62, 99, 20),
+    color: Colors.white,
     borderRadius: BorderRadius.circular(24)
 );
 
 TextStyle textButtonStyle = GoogleFonts.raleway(
-  fontSize: 22,
-  color: Colors.white,
+  fontSize: 20,
+  color: blueColor,
 );
 
 Color blueColor = const Color.fromRGBO(2, 62, 99, 20);
@@ -26,6 +26,16 @@ BoxDecoration categoryDecoration = BoxDecoration(
 );
 
 TextStyle textCategoryStyle = GoogleFonts.raleway(
-  fontSize: 15,
+  fontSize: 14,
   color: Colors.black,
+);
+
+TextStyle textLabelSeparated = GoogleFonts.raleway(
+  fontSize: 14,
+  color: Colors.black,
+);
+
+TextStyle hintStyleText = GoogleFonts.raleway(
+  fontSize: 14,
+  color: Colors.black.withOpacity(0.5),
 );

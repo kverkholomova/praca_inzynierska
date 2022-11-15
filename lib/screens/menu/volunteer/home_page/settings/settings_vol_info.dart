@@ -183,10 +183,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                   child: Text(
                                     "Your name",
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 12,
-                                      color: Colors.black,
-                                    ),
+                                    style: textLabelSeparated,
                                   ),
                                 ),
                               ),
@@ -234,10 +231,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     fillColor: Colors.white,
                                     hintText: streamSnapshot.data?.docs[index]
                                     ['user_name'],
-                                    hintStyle: GoogleFonts.raleway(
-                                      fontSize: 16,
-                                      color: Colors.black.withOpacity(0.7),
-                                    ),
+                                    hintStyle: hintStyleText,
                                   ),
                                 ),
                               ),
@@ -427,10 +421,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                   child: Text(
                                     "Your date of birth",
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 12,
-                                      color: Colors.black,
-                                    ),
+                                    style: textLabelSeparated,
                                   ),
                                 ),
                               ),
@@ -483,11 +474,12 @@ class _SettingsVolState extends State<SettingsVol> {
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: dateOfBirth,
-                                    labelStyle: GoogleFonts.raleway(
-                                      fontSize: 14,
-                                      color: Colors.black.withOpacity(0.7),
-                                    ),
+                                    hintText: dateOfBirth==DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString()?"Please supply data":dateOfBirth,
+                                    hintStyle: hintStyleText,
+                                    // labelStyle: GoogleFonts.raleway(
+                                    //   fontSize: 16,
+                                    //   color: Colors.black.withOpacity(0.7),
+                                    // ),
                                   ),
                                 ),
                               ),
@@ -504,10 +496,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                   child: Text(
                                     "Your phone number",
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 12,
-                                      color: Colors.black,
-                                    ),
+                                    style: textLabelSeparated,
                                   ),
                                 ),
                               ),
@@ -555,26 +544,23 @@ class _SettingsVolState extends State<SettingsVol> {
                                     fillColor: Colors.white,
                                     hintText: streamSnapshot.data?.docs[index]
                                     ['phone_number'],
-                                    labelStyle: GoogleFonts.raleway(
-                                      fontSize: 14,
-                                      color: Colors.black.withOpacity(0.7),
-                                    ),
+                                    hintStyle: hintStyleText
+                                    // labelStyle: GoogleFonts.raleway(
+                                    //   fontSize: 14,
+                                    //   color: Colors.black.withOpacity(0.7),
+                                    // ),
                                   ),
                                 ),
                               ),
+                              Divider(color: blueColor),
                               Padding(
                                 padding: EdgeInsets.only(
-                                  top:
-                                  MediaQuery.of(context).size.height * 0.02,
                                   bottom:
                                   MediaQuery.of(context).size.height * 0.02,
                                 ),
                                 child: Text(
                                     "Choose categories which are the best suitable for you",
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                    )),
+                                    style: textLabelSeparated),
                               ),
                               buildCategorySettings(context, categories_list_all[3],
                                   Icons.pets_rounded),
@@ -620,7 +606,7 @@ class _SettingsVolState extends State<SettingsVol> {
                               ),
                               buildCategorySettings(context, categories_list_all[8],
                                   Icons.medical_information_outlined),
-                              Divider(color: Colors.black),
+                              Divider(color: blueColor),
                               SizedBox(
                                   height: MediaQuery.of(context).size.height *
                                       0.01),
@@ -638,10 +624,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     child: TextButton(
                                         child: Text(
                                           "Sign Out",
-                                          style: GoogleFonts.raleway(
-                                            fontSize: 22,
-                                            color: blueColor,
-                                          ),
+                                          style: textButtonStyle,
                                         ),
                                         onPressed: () async {
                                           await _auth.signOut();
@@ -668,7 +651,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     decoration: buttonDecoration,
                                     child: TextButton(
                                         child: Text(
-                                          "Done",
+                                          "Save changes",
                                           style: textButtonStyle,
                                         ),
                                         onPressed: () async {
@@ -695,10 +678,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height:
-                                MediaQuery.of(context).size.height * 0.05,
-                              ),
+
                             ],
                           ),
                         ),
@@ -841,7 +821,7 @@ class _SettingsVolState extends State<SettingsVol> {
               ),
               child: Icon(
                 icon,
-                size: 30,
+                size: 27,
                 color: chosenCategoryList.contains(text)
                     ? Colors.white
                     : Colors.black,
@@ -850,7 +830,7 @@ class _SettingsVolState extends State<SettingsVol> {
             Text(
               text,
               style: GoogleFonts.raleway(
-                fontSize: 16,
+                fontSize: 14,
                 color: chosenCategoryList.contains(text)
                     ? Colors.white
                     : Colors.black,

@@ -684,7 +684,7 @@ class _HomeVolState extends State<HomeVol> {
                                                   child: Align(
                                                     alignment: Alignment.topCenter,
                                                     child: Text(
-                                                        "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                                                        "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Your profile isn't completed" : streamSnapshot.data?.docs[index]['age']}",
                                                         style: GoogleFonts.raleway(
                                                           fontSize: 16,
                                                           color: Colors.white,

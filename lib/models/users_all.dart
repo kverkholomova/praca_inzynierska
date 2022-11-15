@@ -5,5 +5,4 @@ class AllUsers{
 
   AllUsers({required this.name,required this.role});
 
-
 }
