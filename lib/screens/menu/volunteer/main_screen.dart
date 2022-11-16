@@ -143,6 +143,7 @@ class _MainScreenState extends State<MainScreen> {
         child: SafeArea(
             child: PersistentTabView(
         context,
+
         controller: controllerTabBottom,
         screens: _buildScreens(),
         items: _navBarsItems(),
