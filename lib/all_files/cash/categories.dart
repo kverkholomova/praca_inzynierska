@@ -1,7 +1,7 @@
 /**import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:wol_pro_1/page_of_application_vol.dart';
-import 'package:wol_pro_1/shared/application.dart';
+import 'package:wol_pro_1/shared/create_application.dart';
 
 
 //String card_title='';

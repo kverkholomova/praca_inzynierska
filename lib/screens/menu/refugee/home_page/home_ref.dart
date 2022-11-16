@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
+import 'package:wol_pro_1/screens/menu/refugee/create_application.dart';
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
@@ -88,7 +89,8 @@ class _HomeRefState extends State<HomeRef> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: background,
-          body: Stack(
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               ClipPath(
                 clipper: OvalBottomBorderClipper(),
@@ -460,6 +462,27 @@ class _HomeRefState extends State<HomeRef> {
                           },
                         ),
                       )),
+                ),
+              ),
+              SizedBox(
+                height:
+                MediaQuery.of(context).size.height *
+                    0.012,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: TextButton.icon(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Application()));
+
+                  },
+                  icon: Icon(Icons.add, color: Colors.black, size: 30,),
+                  label: Text("Add new application",
+                    style: GoogleFonts.raleway(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ),
             ],

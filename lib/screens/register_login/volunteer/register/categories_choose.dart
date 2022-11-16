@@ -7,6 +7,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 import '../../../../constants.dart';
+import '../../../../models/categories.dart';
 import '../../../../widgets/loading.dart';
 import '../../../intro_screen/option.dart';
 import '../../../menu/volunteer/all_applications/new_screen_with_applications.dart';
@@ -212,7 +213,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                 children: [
 
                                   buildCategory(
-                                      context, categories_list_all[1], Icons.house),
+                                      context, categoriesListAll[1], Icons.house),
                                   SizedBox(
                                     height:
                                         MediaQuery.of(context).size.height *
@@ -220,7 +221,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ),
                                   buildCategory(
                                     context,
-                                    categories_list_all[2],
+                                    categoriesListAll[2],
                                     Icons.emoji_transportation_rounded,
                                   ),
                                   SizedBox(
@@ -228,7 +229,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                         MediaQuery.of(context).size.height *
                                             0.012,
                                   ),
-                                  buildCategory(context, categories_list_all[3],
+                                  buildCategory(context, categoriesListAll[3],
                                       Icons.pets_rounded),
 
                                   SizedBox(
@@ -238,7 +239,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ),
                                   buildCategory(
                                     context,
-                                    categories_list_all[4],
+                                    categoriesListAll[4],
                                     Icons.local_grocery_store_rounded,
                                   ),
                                   SizedBox(
@@ -248,7 +249,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ),
                                   buildCategory(
                                       context,
-                                      categories_list_all[5],
+                                      categoriesListAll[5],
                                       Icons.child_care_rounded),
                                   SizedBox(
                                     height:
@@ -257,7 +258,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ),
                                   buildCategory(
                                       context,
-                                      categories_list_all[6],
+                                      categoriesListAll[6],
                                       Icons.sign_language_rounded),
                                   SizedBox(
                                     height:
@@ -266,7 +267,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ),
                                   buildCategory(
                                       context,
-                                      categories_list_all[7],
+                                      categoriesListAll[7],
                                       Icons.menu_book),
                                   SizedBox(
                                     height:
@@ -275,7 +276,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                   ),
                                   buildCategory(
                                       context,
-                                      categories_list_all[8],
+                                      categoriesListAll[8],
                                       Icons.medical_information_outlined),
                                   SizedBox(
                                     height:

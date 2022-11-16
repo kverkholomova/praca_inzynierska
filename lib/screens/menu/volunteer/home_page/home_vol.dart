@@ -14,6 +14,7 @@ import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_c
 import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../constants.dart';
+import '../../../../models/categories.dart';
 import '../../../../service/local_push_notifications.dart';
 import '../../../register_login/volunteer/register/register_volunteer_1.dart';
 import 'settings/settings_vol_info.dart';
@@ -1034,23 +1035,23 @@ class _HomeVolState extends State<HomeVol> {
                                                           0.04,
                                                     ),
                                                     child: Icon(
-                                                      categoriesVolunteer[index]==categories_list_all[3]
+                                                      categoriesVolunteer[index]==categoriesListAll[3]
                                                           ?Icons.pets_rounded
-                                                          :categoriesVolunteer[index]==categories_list_all[4]
+                                                          :categoriesVolunteer[index]==categoriesListAll[4]
                                                           ?Icons.local_grocery_store
-                                                          :categoriesVolunteer[index]==categories_list_all[2]
+                                                          :categoriesVolunteer[index]==categoriesListAll[2]
                                                           ?Icons.emoji_transportation_rounded
-                                                          :categoriesVolunteer[index]==categories_list_all[1]
+                                                          :categoriesVolunteer[index]==categoriesListAll[1]
                                                           ?Icons.house
-                                                          :categoriesVolunteer[index]==categories_list_all[6]
+                                                          :categoriesVolunteer[index]==categoriesListAll[6]
                                                           ?Icons.sign_language_rounded
-                                                          :categoriesVolunteer[index]==categories_list_all[5]
+                                                          :categoriesVolunteer[index]==categoriesListAll[5]
                                                           ?Icons.child_care_outlined
-                                                          :categoriesVolunteer[index]==categories_list_all[7]
+                                                          :categoriesVolunteer[index]==categoriesListAll[7]
                                                           ?Icons.menu_book
-                                                          :categoriesVolunteer[index]==categories_list_all[8]
+                                                          :categoriesVolunteer[index]==categoriesListAll[8]
                                                           ?Icons.medical_information_outlined
-                                                          :categoriesVolunteer[index]==categories_list_all[0]
+                                                          :categoriesVolunteer[index]==categoriesListAll[0]
                                                           ?Icons.check_box
                                                           :Icons.new_label_sharp,
                                                       size: 30,

@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  cool_dropdown:
+    dependency: "direct main"
+    description:
+      name: cool_dropdown
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.2"
   country_code_picker:
     dependency: "direct main"
     description:

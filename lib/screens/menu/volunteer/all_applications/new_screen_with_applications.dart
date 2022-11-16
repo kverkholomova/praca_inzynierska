@@ -10,6 +10,7 @@ import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/volunteer/your_app_vol.dart';
 
 import '../../../../constants.dart';
+import '../../../../models/categories.dart';
 import '../home_page/home_vol.dart';
 import 'chosen_category_applications.dart';
 
@@ -19,17 +20,7 @@ String? card_category_vol='';
 String? card_comment_vol='';
 String userID_vol ='';
 
-List<String> categories_list_all = [
-  "Your categories",
-  "Accommodation",
-  "Transfer",
-  "Animal assistance",
-  "Grocery assistance",
-  "Assistance with children",
-  "Language assistance",
-  "Law consult",
-  "Medical assistance",
-  "Other"];
+
 
 class Categories extends StatefulWidget {
   const Categories({Key? key}) : super(key: key);
@@ -161,61 +152,61 @@ class CategoriesState extends State<Categories> {
                           padding: padding,
                           child: Column(
                             children: [
-                              CategoryWidget(text: categories_list_all[0],),
+                              CategoryWidget(text: categoriesListAll[0],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[1],),
+                              CategoryWidget(text: categoriesListAll[1],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[2],),
+                              CategoryWidget(text: categoriesListAll[2],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[3],),
+                              CategoryWidget(text: categoriesListAll[3],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[4],),
+                              CategoryWidget(text: categoriesListAll[4],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[5],),
+                              CategoryWidget(text: categoriesListAll[5],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[6],),
+                              CategoryWidget(text: categoriesListAll[6],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[7],),
+                              CategoryWidget(text: categoriesListAll[7],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[8],),
+                              CategoryWidget(text: categoriesListAll[8],),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categories_list_all[9],),
+                              CategoryWidget(text: categoriesListAll[9],),
 
 
                       // Padding(
@@ -411,7 +402,7 @@ class CategoryWidget extends StatelessWidget {
         // category_chosen_button = categories_list_all[0];
         // print(categories_list_all[7]);
 
-        if (text == categories_list_all[0]){
+        if (text == categoriesListAll[0]){
           Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
         }
         else {
@@ -431,23 +422,23 @@ class CategoryWidget extends StatelessWidget {
                     right: MediaQuery.of(context).size.width * 0.04,
                   ),
                   child: Icon(
-                      text==categories_list_all[3]
+                      text==categoriesListAll[3]
                           ?Icons.pets_rounded
-                          :text==categories_list_all[4]
+                          :text==categoriesListAll[4]
                           ?Icons.local_grocery_store
-                          :text==categories_list_all[2]
+                          :text==categoriesListAll[2]
                           ?Icons.emoji_transportation_rounded
-                          :text==categories_list_all[1]
+                          :text==categoriesListAll[1]
                           ?Icons.house
-                          :text==categories_list_all[6]
+                          :text==categoriesListAll[6]
                           ?Icons.sign_language_rounded
-                          :text==categories_list_all[5]
+                          :text==categoriesListAll[5]
                           ?Icons.child_care_outlined
-                          :text==categories_list_all[7]
+                          :text==categoriesListAll[7]
                           ?Icons.menu_book
-                          :text==categories_list_all[8]
+                          :text==categoriesListAll[8]
                           ?Icons.medical_information_outlined
-                          :text==categories_list_all[0]
+                          :text==categoriesListAll[0]
                           ?Icons.check_box
                           :Icons.new_label_sharp,
                     size: 30,

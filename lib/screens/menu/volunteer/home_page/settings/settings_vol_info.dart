@@ -12,6 +12,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
 
+import '../../../../../models/categories.dart';
 import '../../all_applications/new_screen_with_applications.dart';
 import '../home_vol.dart';
 import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
@@ -126,50 +127,57 @@ class _SettingsVolState extends State<SettingsVol> {
                               child: SizedBox(
                                   height:
                                       MediaQuery.of(context).size.width * 0.5,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      currentStreamSnapshot =
-                                          streamSnapshot.data?.docs[index].id;
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ImageUploads()));
-                                    },
-                                    child: url_image == null
-                                        ? Stack(
-                                          children: [
-                                            Image(
-                                              image:
-                                                  AssetImage("assets/user.png")),
-                                            IconButton(
+                                  child: url_image == null
+                                      ? Stack(
+                                        children: [
+                                          Image(
+                                            image:
+                                                AssetImage("assets/user.png")),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context).size.height * 0.125,
+                                              left: MediaQuery.of(context).size.width * 0.3,
+                                            ),
+                                            child: IconButton(
                                                 onPressed: (){
-
+                                                  currentStreamSnapshot =
+                                                      streamSnapshot.data?.docs[index].id;
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ImageUploads()));
                                                 },
                                                 icon: CircleAvatar(
                                                   backgroundColor: Colors.white,
                                                   radius: 10,
-                                                    child: Icon(Icons.add, color: blueColor,)))
-                                        ])
-                                        : Stack(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 70.0,
-                                              backgroundImage: NetworkImage(
-                                                  url_image.toString())),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.125,
-                                              left: MediaQuery.of(context).size.width * 0.3,
-                                              ),
-                                              child: IconButton(
-                                                  onPressed: (){
-
-                                                  },
-                                                  icon: Icon(Icons.add_circle, color: background, size: 35,)),
+                                                    child: Icon(Icons.add, color: blueColor,))),
+                                          )
+                                      ])
+                                      : Stack(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 70.0,
+                                            backgroundImage: NetworkImage(
+                                                url_image.toString())),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context).size.height * 0.125,
+                                            left: MediaQuery.of(context).size.width * 0.3,
                                             ),
-                                        ]),
-                                  )),
+                                            child: IconButton(
+                                                onPressed: (){
+                                                  currentStreamSnapshot =
+                                                      streamSnapshot.data?.docs[index].id;
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ImageUploads()));
+                                                },
+                                                icon: Icon(Icons.add_circle, color: background, size: 35,)),
+                                          ),
+                                      ])),
                             ),
                           ),
                         ),
@@ -587,49 +595,49 @@ class _SettingsVolState extends State<SettingsVol> {
                                     "Choose categories which are the best suitable for you",
                                     style: textLabelSeparated),
                               ),
-                              buildCategorySettings(context, categories_list_all[3],
+                              buildCategorySettings(context, categoriesListAll[3],
                                   Icons.pets_rounded),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
-                              buildCategorySettings(context, categories_list_all[4],
+                              buildCategorySettings(context, categoriesListAll[4],
                                   Icons.local_grocery_store),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
-                              buildCategorySettings(context, categories_list_all[2],
+                              buildCategorySettings(context, categoriesListAll[2],
                                   Icons.emoji_transportation_rounded),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
                               buildCategorySettings(
-                                  context, categories_list_all[1], Icons.house),
+                                  context, categoriesListAll[1], Icons.house),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
-                              buildCategorySettings(context, categories_list_all[6],
+                              buildCategorySettings(context, categoriesListAll[6],
                                   Icons.sign_language_rounded),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
-                              buildCategorySettings(context, categories_list_all[5],
+                              buildCategorySettings(context, categoriesListAll[5],
                                   Icons.child_care_outlined),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
-                              buildCategorySettings(context, categories_list_all[7],
+                              buildCategorySettings(context, categoriesListAll[7],
                                   Icons.menu_book),
                               SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * 0.012,
                               ),
-                              buildCategorySettings(context, categories_list_all[8],
+                              buildCategorySettings(context, categoriesListAll[8],
                                   Icons.medical_information_outlined),
                               Divider(color: blueColor),
                               SizedBox(
