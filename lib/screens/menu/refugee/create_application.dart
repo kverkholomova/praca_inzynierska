@@ -60,6 +60,18 @@ class _ApplicationState extends State<Application> {
         return true;
       },
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
+            color: blueColor,
+          ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomeRef()));
+          },
+        ),
         backgroundColor: background,
         resizeToAvoidBottomInset: false,
         // appBar: AppBar(
@@ -87,22 +99,37 @@ class _ApplicationState extends State<Application> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.08,
+                    top: MediaQuery.of(context).size.height * 0.02
+                ),
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Text(
                     "Add new application",
                     style: GoogleFonts.raleway(
-                      fontSize: 16,
+                      fontSize: 18,
                       color: Colors.black,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height:
-                MediaQuery.of(context).size.height *
-                    0.02,
+              // SizedBox(
+              //   height:
+              //   MediaQuery.of(context).size.height *
+              //       0.02,
+              // ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height *
+                        0.005,
+                  ),
+                  child: Text(
+                    "What the title of your application?",
+                    style: textLabelSeparated,
+                  ),
+                ),
               ),
               TextFormField(
                 // controller: widget.customHintText == "Name"
@@ -199,7 +226,19 @@ class _ApplicationState extends State<Application> {
               //     },
               //   ),
               // ),
-
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height *
+                        0.005,
+                  ),
+                  child: Text(
+                    "Choose category that refers to your application",
+                    style: textLabelSeparated,
+                  ),
+                ),
+              ),
               Align(
                 alignment: Alignment.center,
                 child: CoolDropdown(
@@ -270,18 +309,30 @@ class _ApplicationState extends State<Application> {
               //     },
               //   ),
               // ),
-
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height *
+                        0.005,
+                  ),
+                  child: Text(
+                    "Add description to your application \n(max 100 words)",
+                    style: textLabelSeparated,
+                  ),
+                ),
+              ),
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height *
-                    0.3,
+                // height: MediaQuery.of(context).size.height *
+                //     0.2,
                 decoration:
                   BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24)
                   ),
                 child: TextFormField(
-                  maxLines: height ~/ 10,
+                  maxLines: height ~/ 15,
                   decoration: InputDecoration(
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(24.0),
@@ -361,7 +412,7 @@ class _ApplicationState extends State<Application> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
-                        0.075,
+                        0.085,
                     decoration: buttonDecoration,
                     child: TextButton(
                         child: Text(

@@ -576,6 +576,8 @@ class _HomeVolState extends State<HomeVol> {
                                         case ConnectionState.active:
                                           // categoriesVolunteer.add(streamSnapshot
                                           //     .data?.docs[index]['category']);
+                                          print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+                                          print(categoriesVolunteer.length);
                                           return scrolled
                                               ?Padding(
                                             padding: EdgeInsets.only( top: MediaQuery.of(context)
@@ -1059,7 +1061,7 @@ class _HomeVolState extends State<HomeVol> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    categoriesVolunteer[index],
+                                                    categoriesVolunteer[index].toString(),
                                                     // streamSnapshot.data?.docs[index]
                                                     //     ["category"][index],
                                                     style: textCategoryStyle,

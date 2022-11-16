@@ -467,7 +467,7 @@ class _HomeRefState extends State<HomeRef> {
               SizedBox(
                 height:
                 MediaQuery.of(context).size.height *
-                    0.012,
+                    0.1,
               ),
               Align(
                 alignment: Alignment.center,

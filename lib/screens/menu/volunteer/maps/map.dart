@@ -37,7 +37,7 @@ class _HomeMapState extends State<HomeMap> {
     super.dispose();
   }
 
-  String googleApiKey = "AIzaSyBAgesf9zmHaKektOApmFHO3PzBAehdhZw";
+  String googleApiKey = "AIzaSyABCUjJTtZaRaiYIICkeemTqnWKnRTwQZ4";
   GoogleMapController? mapController;
   Set<Marker> markers = {};
 

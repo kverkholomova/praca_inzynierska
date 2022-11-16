@@ -31,7 +31,7 @@ TextStyle textCategoryStyle = GoogleFonts.raleway(
 );
 
 TextStyle textLabelSeparated = GoogleFonts.raleway(
-  fontSize: 14,
+  fontSize: 12,
   color: Colors.black,
 );
 
