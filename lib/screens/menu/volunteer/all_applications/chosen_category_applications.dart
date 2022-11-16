@@ -116,7 +116,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                       ),
                     ),
                     SizedBox(
-                      height: 550,
+                      height: 450,
                       child: Column(
                         children: [
                           Expanded(
