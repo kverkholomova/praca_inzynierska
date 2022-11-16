@@ -25,11 +25,12 @@ List<String> categoriesListAllRefugee = [
 
 List dropdownItemList = [
   {
-    'label': categoriesListAll[1],
-    'value': categoriesListAll[1],
     'icon': Icon(
       Icons.house,
-    )
+    ),
+    'label': categoriesListAll[1],
+    'value': categoriesListAll[1],
+
   }, // label is required and unique
   {
     'label': categoriesListAll[2],

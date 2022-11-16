@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         print('User is currently signed out!');
       } else {
         print('User is signed in!');
-        loadImage();
+        // loadImage();
         DocumentSnapshot variable = await FirebaseFirestore.instance.
         collection('users').
         doc(FirebaseAuth.instance.currentUser!.uid).
@@ -66,11 +66,11 @@ class _MyAppState extends State<MyApp> {
 
         var currentRole = variable['role'];
         print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-        print(variable["category"]);
-        var cList = variable["category"];
-        cList.forEach((element) {
-          categoriesVolunteer.add(element);
-        });
+        // print(variable["category"]);
+        // var cList = variable["category"];
+        // cList.forEach((element) {
+        //   categoriesVolunteer.add(element);
+        // });
         // categoriesVolunteer
         //     .add(variable["category"][0]);
         print(categoriesVolunteer);

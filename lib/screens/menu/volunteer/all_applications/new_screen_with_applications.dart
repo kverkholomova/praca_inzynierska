@@ -14,7 +14,7 @@ import '../../../../models/categories.dart';
 import '../home_page/home_vol.dart';
 import 'chosen_category_applications.dart';
 
-String category_chosen_button ='';
+String categoryChosenVolunteer ='';
 String? card_title_vol='';
 String? card_category_vol='';
 String? card_comment_vol='';
@@ -389,23 +389,35 @@ class CategoriesState extends State<Categories> {
   }
 }
 
-class CategoryWidget extends StatelessWidget {
+class CategoryWidget extends StatefulWidget {
   final String text;
   CategoryWidget({
     Key? key, required this.text
   }) : super(key: key);
 
   @override
+  State<CategoryWidget> createState() => _CategoryWidgetState();
+}
+
+class _CategoryWidgetState extends State<CategoryWidget> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        setState(() {
+          if(widget.text != categoriesListAll[0]){
+            categoryChosenVolunteer = widget.text;
+          }
+
+        });
         // category_chosen_button = categories_list_all[0];
         // print(categories_list_all[7]);
 
-        if (text == categoriesListAll[0]){
+        if (widget.text == categoriesListAll[0]){
           Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
         }
         else {
+
           Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
         }
 
@@ -422,30 +434,30 @@ class CategoryWidget extends StatelessWidget {
                     right: MediaQuery.of(context).size.width * 0.04,
                   ),
                   child: Icon(
-                      text==categoriesListAll[3]
+                      widget.text==categoriesListAll[3]
                           ?Icons.pets_rounded
-                          :text==categoriesListAll[4]
+                          :widget.text==categoriesListAll[4]
                           ?Icons.local_grocery_store
-                          :text==categoriesListAll[2]
+                          :widget.text==categoriesListAll[2]
                           ?Icons.emoji_transportation_rounded
-                          :text==categoriesListAll[1]
+                          :widget.text==categoriesListAll[1]
                           ?Icons.house
-                          :text==categoriesListAll[6]
+                          :widget.text==categoriesListAll[6]
                           ?Icons.sign_language_rounded
-                          :text==categoriesListAll[5]
+                          :widget.text==categoriesListAll[5]
                           ?Icons.child_care_outlined
-                          :text==categoriesListAll[7]
+                          :widget.text==categoriesListAll[7]
                           ?Icons.menu_book
-                          :text==categoriesListAll[8]
+                          :widget.text==categoriesListAll[8]
                           ?Icons.medical_information_outlined
-                          :text==categoriesListAll[0]
+                          :widget.text==categoriesListAll[0]
                           ?Icons.check_box
                           :Icons.new_label_sharp,
                     size: 30,
                     color: Colors.black,
                   ),
                 ),
-                Text(text, style: textCategoryStyle,),
+                Text(widget.text, style: textCategoryStyle,),
               ],
             ),
           ),
