@@ -3,19 +3,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
-import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
+import 'package:wol_pro_1/screens/my_applications/settings_of_application.dart';
 
 import '../../screens/menu/volunteer/home_page/home_vol.dart';
 
 
 String? last_message= '';
 final ScrollController _scrollControllerVOL = ScrollController();
-class messages extends StatefulWidget {
+class Messages extends StatefulWidget {
   //
   String? name;
-  messages({ required this.name});
+  Messages({ required this.name});
   @override
-  _messagesState createState() => _messagesState(name: name);
+  _MessagesState createState() => _MessagesState(name: name);
 }
 bool loading = true;
 
@@ -36,10 +36,10 @@ double myMessageRight(String name_receiver){
     return 50;
   }
 }
-class _messagesState extends State<messages> {
+class _MessagesState extends State<Messages> {
 
   String? name;
-  _messagesState({ required this.name});
+  _MessagesState({ required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +174,7 @@ class _SelectedChatroomState extends State<SelectedChatroom> {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.91,
-              child: messages(
+              child: Messages(
                 name: currentNameVol,
               ),
             ),

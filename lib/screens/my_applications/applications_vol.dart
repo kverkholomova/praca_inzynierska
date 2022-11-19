@@ -6,9 +6,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
-import 'package:wol_pro_1/volunteer/applications/settings_of_application.dart';
+import 'package:wol_pro_1/screens/my_applications/settings_of_application.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
+import '../../models/categories.dart';
 import '../intro_screen/option.dart';
 import '../menu/volunteer/home_page/home_vol.dart';
 
@@ -56,172 +57,267 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
         //   title: Text('Your applications',style: TextStyle(fontSize: 16),),
         //
         // ),
-        body: Stack(
-          children: [
-            ClipPath(
-              clipper: OvalBottomBorderClipper(),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: blueColor,
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.black,
-                      blurRadius: 5,
-                    ),
-                  ],
-                ),
-                height: MediaQuery.of(context).size.height * 0.15,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          Text(
-                            "Applications",
-                            style: GoogleFonts.raleway(
-                              fontSize: 24,
-                              color: Colors.white,
-                            ),
-                          ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
 
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              "Manage your applications",
+              ClipPath(
+                clipper: OvalBottomBorderClipper(),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: blueColor,
+                    boxShadow: const <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Applications",
                               style: GoogleFonts.raleway(
-                                fontSize: 16,
+                                fontSize: 24,
                                 color: Colors.white,
                               ),
                             ),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            ),
-            StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('applications')
-                  .where("volunteerID", isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                  .where("status", isEqualTo: 'Application is accepted')
 
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                return ListView.builder(
-                    itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
-                    itemBuilder: (ctx, index) {
-                    if (streamSnapshot.hasData){
-                    switch (streamSnapshot.connectionState){
-                      case ConnectionState.waiting:
-                        return Column(
-                            children: [
-                              SizedBox(
-                                width: 60,
-                                height: 60,
-                                child: CircularProgressIndicator(),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 16),
-                                child: Text('Awaiting data...'),
-                              )
-                            ]
-
-                        );
-
-                      case ConnectionState.active:
-                        return Column(
-                          children: [
-                            SizedBox(
-                              width: 350,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 0),
-                                child: MaterialButton(
-                                  onPressed: (){
-                                    Id_Of_current_application= streamSnapshot.data?.docs[index].id;
-                                    print("GGGGGGGGGGGGGGG________________GGGGGGGGGFFFFFFFFFFFFFFF");
-                                    print(Id_Of_current_application);
-
-                                    card_title_accepted=streamSnapshot.data?.docs[index]['title'] as String;
-                                    card_category_accepted=streamSnapshot.data?.docs[index]['category'] as String;
-                                    card_comment_accepted=streamSnapshot.data?.docs[index]['comment'] as String;
-
-                                    // current_name = streamSnapshot.data?.docs[index]['ref_name'];
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => SettingsOfApplication()),
-                                    );
-                                  },
-                                  child: Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Stack(
-                                        children: [
-                                          Align(
-                                              alignment: Alignment.topRight,
-                                              child: Container(child: Icon(Icons.zoom_in_rounded, color: Colors.grey[700], size: 20,))),
-                                          Column(
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                  streamSnapshot.data?.docs[index]['title'] as String,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                    streamSnapshot.data?.docs[index]
-                                                    ['category'] as String,
-                                                    style: TextStyle(color: Colors.grey)),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(streamSnapshot.data?.docs[index]
-                                                ['comment'] as String),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                "Manage your applications",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 16,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
-
-
                           ],
-                        );}}
-                    return Center(
-                      child: Padding(padding: EdgeInsets.only(top: 100),
-                        child: Column(
-                          children: [
-                            SpinKitChasingDots(
-                              color: Colors.brown,
-                              size: 50.0,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                  "Waiting...",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+                        )),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height *
+                    0.015),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height *
+                      0.9,
+                  child:StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('applications')
+                        .where("volunteerID", isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                        .where("status", isEqualTo: 'Application is accepted')
+
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      return ListView.builder(
+                          itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
+                          itemBuilder: (ctx, index) {
+                          if (streamSnapshot.hasData){
+                          switch (streamSnapshot.connectionState){
+                            case ConnectionState.waiting:
+                              return Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Text('Awaiting data...'),
+                                    )
+                                  ]
+
+                              );
+
+                            case ConnectionState.active:
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: padding,
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        Id_Of_current_application= streamSnapshot.data?.docs[index].id;
+                                        print("GGGGGGGGGGGGGGG________________GGGGGGGGGFFFFFFFFFFFFFFF");
+                                        print(Id_Of_current_application);
+
+                                        card_title_accepted=streamSnapshot.data?.docs[index]['title'] as String;
+                                        card_category_accepted=streamSnapshot.data?.docs[index]['category'] as String;
+                                        card_comment_accepted=streamSnapshot.data?.docs[index]['comment'] as String;
+
+                                        // current_name = streamSnapshot.data?.docs[index]['ref_name'];
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SettingsOfApplication()),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        // height: MediaQuery.of(context).size.height *
+                                        //     0.2,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                24)),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                                  child: Icon(
+                                                    streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
+                                                        ?Icons.pets_rounded
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[4]
+                                                        ?Icons.local_grocery_store
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[2]
+                                                        ?Icons.emoji_transportation_rounded
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[1]
+                                                        ?Icons.house
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[6]
+                                                        ?Icons.sign_language_rounded
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[5]
+                                                        ?Icons.child_care_outlined
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[7]
+                                                        ?Icons.menu_book
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[8]
+                                                        ?Icons.medical_information_outlined
+                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[0]
+                                                        ?Icons.check_box
+                                                        :Icons.new_label_sharp,
+                                                    size: 30,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: SizedBox(
+                                                    width: MediaQuery.of(context).size.width *
+                                                            0.65,
+                                                    height: MediaQuery.of(context).size.height *
+                                                        0.15,
+                                                    child:Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                      child: Align(
+                                                        alignment: Alignment.center,
+                                                        child: ListTile(
+                                                          // mainAxisAlignment: MainAxisAlignment.start,
+                                                          contentPadding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10),
+                                                          title: Text(
+                                                              streamSnapshot.data
+                                                                  ?.docs[index]
+                                                              ['title']
+                                                              as String,
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                fontSize: 14,
+                                                                color: Colors.black,
+                                                              )),
+                                                          // Text(
+                                                          //     streamSnapshot.data?.docs[index]['category'] as String,
+                                                          //     style: TextStyle(color: Colors.grey)),
+                                                          subtitle: Text(
+                                                            streamSnapshot.data
+                                                                ?.docs[index]
+                                                            ['comment']
+                                                            as String,
+                                                            style:
+                                                            GoogleFonts.raleway(
+                                                              fontSize: 12,
+                                                              color: Colors.black
+                                                                  .withOpacity(0.5),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // Stack(
+                                      //   children: [
+                                      //     Align(
+                                      //         alignment: Alignment.topRight,
+                                      //         child: Container(child: Icon(Icons.zoom_in_rounded, color: Colors.grey[700], size: 20,))),
+                                      //     Column(
+                                      //       children: [
+                                      //         Align(
+                                      //           alignment: Alignment.topLeft,
+                                      //           child: Text(
+                                      //             streamSnapshot.data?.docs[index]['title'] as String,
+                                      //             style: TextStyle(
+                                      //                 fontWeight: FontWeight.bold),
+                                      //           ),
+                                      //         ),
+                                      //         Align(
+                                      //           alignment: Alignment.topLeft,
+                                      //           child: Text(
+                                      //               streamSnapshot.data?.docs[index]
+                                      //               ['category'] as String,
+                                      //               style: TextStyle(color: Colors.grey)),
+                                      //         ),
+                                      //         Align(
+                                      //           alignment: Alignment.topLeft,
+                                      //           child: Text(streamSnapshot.data?.docs[index]
+                                      //           ['comment'] as String),
+                                      //         ),
+                                      //       ],
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                    ),
+                                  ),
+
+
+                                ],
+                              );}}
+                          return Center(
+                            child: Padding(padding: EdgeInsets.only(top: 100),
+                              child: Column(
+                                children: [
+                                  SpinKitChasingDots(
+                                    color: Colors.brown,
+                                    size: 50.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "Waiting...",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+                                    ),
+                                  ),
+                                  Padding(padding: EdgeInsets.only(top: 20),)
+                                ],
                               ),
                             ),
-                            Padding(padding: EdgeInsets.only(top: 20),)
-                          ],
-                        ),
-                      ),
-                    );
-                    });
-              },
-            ),
-          ],
+                          );
+                          });
+                    },
+                  ),),
+              )
+            ],
+          ),
         ),
       ),
     );

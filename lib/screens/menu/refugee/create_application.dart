@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cool_dropdown/cool_dropdown.dart';
@@ -49,6 +50,22 @@ class _ApplicationState extends State<Application> {
   final AuthService _auth = AuthService();
 
   String valueChosen = dropdownItemList[3]["value"];
+  late StreamSubscription<User?> user;
+  String? userNameRefugee;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+      DocumentSnapshot variable = await FirebaseFirestore.instance.
+      collection('users').
+      doc(FirebaseAuth.instance.currentUser!.uid).
+      get();
+
+      userNameRefugee = variable['user_name'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -436,7 +453,7 @@ class _ApplicationState extends State<Application> {
                             'chatId_vol': "null",
                             'mess_button_visibility_vol': true,
                             'mess_button_visibility_ref': false,
-                            'refugee_name': current_name_Ref,
+                            'refugee_name': userNameRefugee!,
                             'volunteer_name': 'null',
                             'Id': 'null',
                             'voluneer_rating': 5,
