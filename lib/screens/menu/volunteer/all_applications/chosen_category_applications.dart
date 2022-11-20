@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
-import '../../../../volunteer/applications/page_of_application_vol.dart';
+import 'page_of_application_vol.dart';
 import 'new_screen_with_applications.dart';
 
 String? id_card = '';

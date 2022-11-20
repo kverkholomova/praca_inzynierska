@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
-import 'package:wol_pro_1/screens/my_applications/settings_of_application.dart';
 
 import '../../screens/menu/volunteer/home_page/home_vol.dart';
+import '../../screens/menu/volunteer/my_applications/settings_of_application.dart';
 
 
 String? last_message= '';

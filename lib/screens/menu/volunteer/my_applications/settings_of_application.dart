@@ -7,11 +7,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/all_applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/volunteer/chat/message.dart';
-import 'package:wol_pro_1/screens/my_applications/applications_vol.dart';
 import 'package:http/http.dart' as http;
-import '../../Refugee/SettingRefugee.dart';
+
+import '../../../../Refugee/SettingRefugee.dart';
+import 'applications_vol.dart';
 
 String roomExist ='';
 // bool isvisible = true;

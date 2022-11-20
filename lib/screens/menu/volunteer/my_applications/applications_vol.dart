@@ -5,13 +5,12 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
-import 'package:wol_pro_1/screens/my_applications/settings_of_application.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/all_applications/page_of_application_vol.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
 
-import '../../models/categories.dart';
-import '../intro_screen/option.dart';
-import '../menu/volunteer/home_page/home_vol.dart';
+import '../../../../models/categories.dart';
+import '../home_page/home_vol.dart';
+
 
 String card_title_accepted='';
 String card_category_accepted='';

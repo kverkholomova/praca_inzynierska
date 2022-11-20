@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
 
@@ -404,6 +403,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+
         setState(() {
           if(widget.text != categoriesListAll[0]){
             categoryChosenVolunteer = widget.text;
@@ -417,8 +417,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
         }
         else {
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => ChosenCategory()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
         }
 
       },

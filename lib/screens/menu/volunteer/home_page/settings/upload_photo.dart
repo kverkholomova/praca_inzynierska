@@ -189,145 +189,152 @@ class _ImageUploadsState extends State<ImageUploads> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        floatingActionButton: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 30,
-            color: blueColor,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => SettingsVol()));
+        return true;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+          floatingActionButton: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 30,
+              color: blueColor,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SettingsVol()));
+            },
           ),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SettingsVol()));
-          },
-        ),
-        backgroundColor: background,
-        // floatingActionButton: StreamBuilder(
-        //   stream: FirebaseFirestore.instance
-        //       .collection('users')
-        //       .where('id_vol',
-        //       isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        //       .snapshots(),
-        //   builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-        //     return ListView.builder(
-        //         itemCount: streamSnapshot.data?.docs.length,
-        //         itemBuilder: (ctx, index) {
-        //           // categories_user = streamSnapshot.data?.docs[index]['category'];
-        //           // token_vol = streamSnapshot.data?.docs[index]['token'];
-        //           // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
-        //           return ElevatedButton(onPressed: () async {
-        //             image_url_volunteer = file!.name;
-        //             Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/${FirebaseAuth.instance.currentUser!.uid}").child(image_url_volunteer);
-        //             var urlCurrent = await ref.getDownloadURL();
-        //             setState(() {
-        //               url = urlCurrent;
-        //             });
-        //             FirebaseFirestore.instance
-        //                 .collection('users')
-        //                 .doc(streamSnapshot
-        //                 .data?.docs[index].id)
-        //                 .update({
-        //               "image": file!.name
-        //             });
-        //           }, child: Text("Done"));
-        //         });
-        //   },
-        // ),
-        body: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context)
-              .size
-              .width *
-              0.1),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              file != null
-                  ? Expanded(
-                      child: Container(
-                      child:
-                          // Text(pickedFile!.path!)
-                          Image.file(
-                        File(file!.path!),
-                        // File(pickedFile!.path!),
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ))
-                  : Expanded(
-                      child: Container(
-                        child: Center(
-                          child: Text("Choose your avatar picture",
-                          style: textCategoryStyle,
-                          ),
+          backgroundColor: background,
+          // floatingActionButton: StreamBuilder(
+          //   stream: FirebaseFirestore.instance
+          //       .collection('users')
+          //       .where('id_vol',
+          //       isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          //       .snapshots(),
+          //   builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          //     return ListView.builder(
+          //         itemCount: streamSnapshot.data?.docs.length,
+          //         itemBuilder: (ctx, index) {
+          //           // categories_user = streamSnapshot.data?.docs[index]['category'];
+          //           // token_vol = streamSnapshot.data?.docs[index]['token'];
+          //           // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
+          //           return ElevatedButton(onPressed: () async {
+          //             image_url_volunteer = file!.name;
+          //             Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/${FirebaseAuth.instance.currentUser!.uid}").child(image_url_volunteer);
+          //             var urlCurrent = await ref.getDownloadURL();
+          //             setState(() {
+          //               url = urlCurrent;
+          //             });
+          //             FirebaseFirestore.instance
+          //                 .collection('users')
+          //                 .doc(streamSnapshot
+          //                 .data?.docs[index].id)
+          //                 .update({
+          //               "image": file!.name
+          //             });
+          //           }, child: Text("Done"));
+          //         });
+          //   },
+          // ),
+          body: Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context)
+                .size
+                .width *
+                0.1),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                file != null
+                    ? Expanded(
+                        child: Container(
+                        child:
+                            // Text(pickedFile!.path!)
+                            Image.file(
+                          File(file!.path!),
+                          // File(pickedFile!.path!),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
-                    )),
-              Padding(
-                padding: padding,
-                child: Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.075,
-                  decoration: buttonDecoration,
-                  child: TextButton(
-                      onPressed: () {
-                        selectFile();
-                      },
-                      child: Text(
-                        "Select file",
-                        style: textButtonStyle,
+                      ))
+                    : Expanded(
+                        child: Container(
+                          child: Center(
+                            child: Text("Choose your avatar picture",
+                            style: textCategoryStyle,
+                            ),
+                          ),
                       )),
+                Padding(
+                  padding: padding,
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.075,
+                    decoration: buttonDecoration,
+                    child: TextButton(
+                        onPressed: () {
+                          selectFile();
+                        },
+                        child: Text(
+                          "Select file",
+                          style: textButtonStyle,
+                        )),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height:
-                MediaQuery.of(context).size.height *
-                    0.012,
-              ),
-              // Padding(
-              //   padding: padding,
-              //   child: Container(
-              //       width: double.infinity,
-              //       height: MediaQuery.of(context).size.height * 0.075,
-              //       decoration: buttonDecoration,
-              //       child: TextButton(
-              //           onPressed: uploadFile,
-              //           child: Text(
-              //             "Upload file",
-              //             style: textButtonStyle,
-              //           ))),
-              // ),
-              // SizedBox(
-              //   height:
-              //   MediaQuery.of(context).size.height *
-              //       0.012,
-              // ),
-              Padding(
-                padding: padding,
-                child: Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.075,
-                  decoration: buttonDecoration,
-                  child: TextButton(
-                      onPressed: () {
-                        loadImage();
-                        Future.delayed(const Duration(milliseconds: 500), () {
-                          print(
-                              "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
-                          print(url_image);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SettingsVol()));
-                        });
-                      },
-                      child: Text(
-                        "Done",
-                        style: textButtonStyle,
-                      )),
+                SizedBox(
+                  height:
+                  MediaQuery.of(context).size.height *
+                      0.012,
                 ),
-              ),
-            ],
+                // Padding(
+                //   padding: padding,
+                //   child: Container(
+                //       width: double.infinity,
+                //       height: MediaQuery.of(context).size.height * 0.075,
+                //       decoration: buttonDecoration,
+                //       child: TextButton(
+                //           onPressed: uploadFile,
+                //           child: Text(
+                //             "Upload file",
+                //             style: textButtonStyle,
+                //           ))),
+                // ),
+                // SizedBox(
+                //   height:
+                //   MediaQuery.of(context).size.height *
+                //       0.012,
+                // ),
+                Padding(
+                  padding: padding,
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.075,
+                    decoration: buttonDecoration,
+                    child: TextButton(
+                        onPressed: () {
+                          loadImage();
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            print(
+                                "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
+                            print(url_image);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SettingsVol()));
+                          });
+                        },
+                        child: Text(
+                          "Done",
+                          style: textButtonStyle,
+                        )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

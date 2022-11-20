@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:wol_pro_1/volunteer/applications/page_of_application_vol.dart';
-import 'package:wol_pro_1/screens/my_applications/applications_vol.dart';
-import 'package:wol_pro_1/screens/intro_screen/option.dart';
+
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 import '../screens/menu/volunteer/home_page/home_vol.dart';
+import '../screens/menu/volunteer/all_applications/page_of_application_vol.dart';
 
 
 String card_title='';

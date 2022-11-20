@@ -10,7 +10,6 @@ import 'package:wol_pro_1/screens/menu/volunteer/maps/map.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 
 import '../../../constants.dart';
-import '../../my_applications/applications_vol.dart';
 import '../../intro_screen/option.dart';
 
 class MainScreenRefugee extends StatefulWidget {

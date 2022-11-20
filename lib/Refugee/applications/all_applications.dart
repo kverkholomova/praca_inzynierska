@@ -17,7 +17,7 @@ String card_category_ref='';
 String card_comment_ref='';
 
 String userID_ref = '';
-String? token_vol;
+// String? token_vol;
 
 class CategoriesRef extends StatefulWidget {
   const CategoriesRef({Key? key}) : super(key: key);
