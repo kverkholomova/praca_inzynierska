@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/volunteer/chat/message.dart';
-
 import 'package:wol_pro_1/volunteer/chat/messagesVol.dart';
 
 import '../../home_page/home_vol.dart';
 import '../../home_page/settings/upload_photo.dart';
+import '../../main_screen.dart';
 
 
 
@@ -148,15 +146,25 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                                   setState(() {
                                     listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
                                     IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SelectedChatroomVol()),
-                                    );
+                                    isVisibleTabBar = false;
+                                    print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
+                                    print(isVisibleTabBar);
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           MainScreen()),
+                                    // );
                                     // print("print ${streamSnapshot.data?.docs[index][id]}");
                                   });
+                                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                                      MaterialPageRoute(builder: (context) => new SelectedChatroomVol()));
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           SelectedChatroomVol()),
+                                  // );
                                 },
                                 child: Container(
                                   width: double.infinity,

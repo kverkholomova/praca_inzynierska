@@ -7,6 +7,7 @@ import '../../../../constants.dart';
 import '../../../../services/auth.dart';
 import '../../../../widgets/loading.dart';
 import '../../../intro_screen/option.dart';
+import '../../../menu/volunteer/home_page/home_vol.dart';
 
 int volunteerAge = 0;
 bool registrationVol = false;
@@ -217,7 +218,11 @@ class _RegisterVol1State extends State<RegisterVol1> {
                                 style: textButtonStyle,
                               ),
                               onPressed: () async {
+
                                 registrationVol = true;
+                                setState(() {
+                                  isLoggedIn = false;
+                                });
                                 if (controllerTextFieldNameVol.text.isEmpty) {
                                   setState(() {
                                     errorEmptyRegister = true;

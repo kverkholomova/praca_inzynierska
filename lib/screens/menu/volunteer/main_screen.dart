@@ -13,6 +13,9 @@ import '../../intro_screen/option.dart';
 import 'home_page/home_vol.dart';
 import 'messages/volunteer/pageWithChatsVol.dart';
 
+bool isVisibleTabBar = true;
+PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
+
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
   String id = "homepage";
@@ -22,8 +25,15 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFTTTTTTTTTT");
+    print(isVisibleTabBar);
+  }
   int _selectedIndex = 2;
-  PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -143,7 +153,7 @@ class _MainScreenState extends State<MainScreen> {
         child: SafeArea(
             child: PersistentTabView(
         context,
-
+        hideNavigationBar: !isVisibleTabBar,
         controller: controllerTabBottom,
         screens: _buildScreens(),
         items: _navBarsItems(),

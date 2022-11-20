@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
@@ -36,10 +37,15 @@ class _ChooseCategoryState extends State<ChooseCategory> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const OptionChoose()),
-        );
+        setState(() {
+          controllerTabBottom = PersistentTabController(initialIndex: 2);
+        });
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => isLoggedIn? MainScreen(): OptionChoose()));
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const OptionChoose()),
+        // );
         return true;
       },
       child: loading
@@ -47,7 +53,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
           : SafeArea(
               child: Scaffold(
                 resizeToAvoidBottomInset: true,
-                backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
+                backgroundColor: background,
                 appBar: AppBar(
                   // title: Padding(
                   //   padding: EdgeInsets.only(
@@ -65,11 +71,11 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   backgroundColor: Colors.transparent,
                   leading: IconButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeVol()),
-                        );
+                        setState(() {
+                          controllerTabBottom = PersistentTabController(initialIndex: 2);
+                        });
+                        Navigator.of(context, rootNavigator: true).pushReplacement(
+                            MaterialPageRoute(builder: (context) => isLoggedIn? MainScreen(): OptionChoose()));
                       },
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -360,6 +366,11 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                                 });
                                           }),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height *
+                                        0.015,
                                   ),
                                   // SizedBox(
                                   //   height: MediaQuery.of(context).size.height *

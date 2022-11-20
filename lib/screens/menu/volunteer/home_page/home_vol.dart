@@ -20,7 +20,7 @@ import '../../../register_login/volunteer/register/register_volunteer_1.dart';
 import 'settings/settings_vol_info.dart';
 import '../all_applications/new_screen_with_applications.dart';
 
-
+bool isLoggedIn = true;
 List categoriesVolunteer = [];
 // String? currentId_set = '';
 String? currentNameVol = '';
@@ -665,12 +665,14 @@ class _HomeVolState extends State<HomeVol> {
                                                           ['image']);
                                                           Future.delayed(const Duration(milliseconds: 500), ()
                                                           {
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (
-                                                                        context) =>
-                                                                        SettingsVol()));
+                                                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                                MaterialPageRoute(builder: (context) => new SettingsVol()));
+                                                            // Navigator.push(
+                                                            //     context,
+                                                            //     MaterialPageRoute(
+                                                            //         builder: (
+                                                            //             context) =>
+                                                            //             SettingsVol()));
                                                           });
                                                         },
                                                       ),
@@ -1092,7 +1094,9 @@ class _HomeVolState extends State<HomeVol> {
                   alignment: Alignment.center,
                   child: TextButton.icon(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
+                      Navigator.of(context, rootNavigator: true).pushReplacement(
+                          MaterialPageRoute(builder: (context) => new ChooseCategory()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
                       chosenCategoryListChanges = [];
                     },
                     icon: Icon(Icons.add, color: Colors.black, size: 30,),

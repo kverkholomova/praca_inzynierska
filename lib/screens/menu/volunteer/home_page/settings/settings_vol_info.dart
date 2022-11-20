@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
 
@@ -79,8 +80,10 @@ class _SettingsVolState extends State<SettingsVol> {
           color: background,
         ),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomeVol()));
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => new MainScreen()));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => const HomeVol()));
         },
       ),
       // appBar: AppBar(
@@ -93,7 +96,7 @@ class _SettingsVolState extends State<SettingsVol> {
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height *
-                0.27,
+                0.31,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -188,7 +191,7 @@ class _SettingsVolState extends State<SettingsVol> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height *
-                0.55,
+                0.69,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -710,6 +713,10 @@ class _SettingsVolState extends State<SettingsVol> {
                                         }),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height:
+                                MediaQuery.of(context).size.height * 0.015,
                               ),
 
                             ],

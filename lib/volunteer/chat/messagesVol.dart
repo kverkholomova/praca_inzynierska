@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:wol_pro_1/Refugee/pageWithChats.dart';
+import 'package:wol_pro_1/constants.dart';
 
 import '../../screens/menu/volunteer/home_page/home_vol.dart';
 import '../../screens/menu/volunteer/messages/volunteer/pageWithChatsVol.dart';
@@ -62,96 +63,101 @@ class _messages_VolState extends State<messages_Vol> {
         );
         return true;
       },
-      child: Container(
-        height: 250,
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("USERS_COLLECTION").doc(IdOfChatroomVol).collection("CHATROOMS_COLLECTION")
-              .orderBy('time')
-              .snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
-            print(FirebaseAuth.instance.currentUser?.uid);
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: background,
+          body: SizedBox(
+            height: 250,
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("USERS_COLLECTION").doc(IdOfChatroomVol).collection("CHATROOMS_COLLECTION")
+                  .orderBy('time')
+                  .snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
+                print(FirebaseAuth.instance.currentUser?.uid);
 
-            if (snapshot.hasError) {
-              return Text("Something is wrong");
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+                if (snapshot.hasError) {
+                  return Text("Something is wrong");
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: ListView.builder(
-                controller: _scrollControllerVol_,
-                itemCount: snapshot.data!.docs.length,
-                // physics: NeverScrollableScrollPhysics(),
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 0),
+                  child: ListView.builder(
+                    controller: _scrollControllerVol_,
+                    itemCount: snapshot.data!.docs.length,
+                    // physics: NeverScrollableScrollPhysics(),
 
-                // physics: ScrollPhysics(),
-                shrinkWrap: true,
-                // primary: true,
-                itemBuilder: (_, index) {
-                  QueryDocumentSnapshot qs = snapshot.data!.docs[index];
-                  Timestamp t = qs['time'];
-                  DateTime d = t.toDate();
-                  print(d.toString());
-                  final dataKey = GlobalKey();
-                  return Padding(
-                    padding: EdgeInsets.only(top: 8, bottom: 8, left: myMessageLeftVol(snapshot.data?.docs[index]["name"]), right: myMessageRightVol(snapshot.data?.docs[index]["name"])),
-                    child: Column(
-                      // crossAxisAlignment: name == qs['name']
-                      //     ? CrossAxisAlignment.end
-                      //     : CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: new BoxDecoration(
-                              color: snapshot.data?.docs[index]["name"] == currentNameVol ? Colors.blue[100]:Colors.purple[100],
-                              borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          // width: 300,
-
-                          child: ListTile(
-                            key: dataKey,
-                            // shape: RoundedRectangleBorder(
-                            //   side: BorderSide(
-                            //     color: snapshot.data?.docs[index]["name"] == current_name_Vol ? Colors.blue:Colors.purple,
-                            //   ),
-                            //   borderRadius: BorderRadius.circular(10),
-                            // ),
-                            title: Text(
-                              qs['name'],
-                              style: TextStyle(
-                                fontSize: 15,
+                    // physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    // primary: true,
+                    itemBuilder: (_, index) {
+                      QueryDocumentSnapshot qs = snapshot.data!.docs[index];
+                      Timestamp t = qs['time'];
+                      DateTime d = t.toDate();
+                      print(d.toString());
+                      final dataKey = GlobalKey();
+                      return Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8, left: myMessageLeftVol(snapshot.data?.docs[index]["name"]), right: myMessageRightVol(snapshot.data?.docs[index]["name"])),
+                        child: Column(
+                          // crossAxisAlignment: name == qs['name']
+                          //     ? CrossAxisAlignment.end
+                          //     : CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: new BoxDecoration(
+                                  color: snapshot.data?.docs[index]["name"] == currentNameVol ? Colors.white:blueColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
                               ),
-                            ),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 200,
-                                  child: Text(
-                                    qs['message'],
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),
+                              // width: 300,
+
+                              child: ListTile(
+                                key: dataKey,
+                                // shape: RoundedRectangleBorder(
+                                //   side: BorderSide(
+                                //     color: snapshot.data?.docs[index]["name"] == current_name_Vol ? Colors.blue:Colors.purple,
+                                //   ),
+                                //   borderRadius: BorderRadius.circular(10),
+                                // ),
+                                title: Text(
+                                  qs['name'],
+                                  style: TextStyle(
+                                    fontSize: 15,
                                   ),
                                 ),
-                                Text(
-                                  d.hour.toString() + ":" + d.minute.toString(),
-                                )
-                              ],
+                                subtitle: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 200,
+                                      child: Text(
+                                        qs['message'],
+                                        softWrap: true,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      d.hour.toString() + ":" + d.minute.toString(),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            );
-          },
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -202,66 +208,69 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 0),
                 child: Container(
-                  color: Colors.white,
+                  color: background,
                   height: 60,
                   child: Align(
                     alignment: Alignment.center,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: TextFormField(
-                              controller: message,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'message',
-                                enabled: true,
-                                contentPadding: const EdgeInsets.only(
-                                    left: 14.0, bottom: 8.0, top: 8.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: new BorderSide(color: Colors.lightBlue),
-                                  borderRadius: new BorderRadius.circular(10),
+                    child: Padding(
+                      padding: padding,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: TextFormField(
+                                controller: message,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Message',
+                                  enabled: true,
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14.0, bottom: 8.0, top: 8.0),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: new BorderSide(color: blueColor),
+                                    borderRadius: new BorderRadius.circular(24),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: new BorderSide(color: blueColor),
+                                    borderRadius: new BorderRadius.circular(24),
+                                  ),
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: new BorderSide(color: Colors.lightBlue),
-                                  borderRadius: new BorderRadius.circular(10),
-                                ),
-                              ),
-                              validator: (value) {
+                                validator: (value) {
 
-                              },
-                              onSaved: (value) {
-                                message.text = value!;
-                              },
+                                },
+                                onSaved: (value) {
+                                  message.text = value!;
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        CircleAvatar(
-                          radius: 25,
-                          backgroundColor: Colors.lightBlue,
-                          child: IconButton(
-                            onPressed: () async {
-                              // /messages_Vol(name: current_name_Vol,);
+                          CircleAvatar(
+                            radius: 25,
+                            backgroundColor: blueColor,
+                            child: IconButton(
+                              onPressed: () async {
+                                // /messages_Vol(name: current_name_Vol,);
 
-                              if (message.text.isNotEmpty) {
-                                writeMessages();
-                                await Future.delayed(Duration(milliseconds: 500));
-                                SchedulerBinding.instance?.addPostFrameCallback((_) {
-                                  print("AAAAAAAAAAA__________________works");
-                                  _scrollControllerVol_.jumpTo(
-                                      _scrollControllerVol_.positions.last.maxScrollExtent);
-                                      // duration: Duration(milliseconds: 400),
-                                      // curve: Curves.fastOutSlowIn);
-                                });
-                                message.clear();
-                              }
-                            },
-                            icon: Icon(Icons.send_sharp, color: Colors.white,),
+                                if (message.text.isNotEmpty) {
+                                  writeMessages();
+                                  await Future.delayed(Duration(milliseconds: 500));
+                                  SchedulerBinding.instance?.addPostFrameCallback((_) {
+                                    print("AAAAAAAAAAA__________________works");
+                                    _scrollControllerVol_.jumpTo(
+                                        _scrollControllerVol_.positions.last.maxScrollExtent);
+                                        // duration: Duration(milliseconds: 400),
+                                        // curve: Curves.fastOutSlowIn);
+                                  });
+                                  message.clear();
+                                }
+                              },
+                              icon: Icon(Icons.send_sharp, color: background,),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
