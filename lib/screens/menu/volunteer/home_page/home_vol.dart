@@ -21,7 +21,7 @@ import 'settings/settings_vol_info.dart';
 import '../all_applications/new_screen_with_applications.dart';
 
 bool isLoggedIn = true;
-List categoriesVolunteer = [];
+
 // String? currentId_set = '';
 String? currentNameVol = '';
 List categoriesUserRegister = [];
@@ -37,8 +37,8 @@ class HomeVol extends StatefulWidget {
 }
 
 class _HomeVolState extends State<HomeVol> {
-
   ScrollController scrollController = ScrollController();
+
   // final Stream<int> _bids = (() {
   //   late final StreamController<int> controller;
   //   controller = StreamController<int>(
@@ -79,10 +79,10 @@ class _HomeVolState extends State<HomeVol> {
   // String token = '';
   //
 
-  loadImage(String image_url) async{
-
+  loadImage(String image_url) async {
     //select the image url
-    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
+    Reference ref =
+        FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
 
     //get image url from firebase storage
     var url = await ref.getDownloadURL();
@@ -91,6 +91,7 @@ class _HomeVolState extends State<HomeVol> {
       url_image = url;
     });
   }
+
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
     print(
@@ -106,6 +107,7 @@ class _HomeVolState extends State<HomeVol> {
   }
 
   bool scrolled = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -226,9 +228,7 @@ class _HomeVolState extends State<HomeVol> {
           body: SingleChildScrollView(
             controller: scrollController,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-
                 // IconButton(
                 //   icon: const Icon(Icons.edit, color: Colors.white,),
                 //   onPressed: (){
@@ -416,717 +416,804 @@ class _HomeVolState extends State<HomeVol> {
                 ClipPath(
                   clipper: OvalBottomBorderClipper(),
                   child: AnimatedContainer(
-                    height: scrolled? MediaQuery.of(context).size.height * 0.3: MediaQuery.of(context).size.height * 0.43,
+                    height: scrolled
+                        ? MediaQuery.of(context).size.height * 0.3
+                        : MediaQuery.of(context).size.height * 0.43,
                     duration: Duration(milliseconds: 10000000),
                     decoration: BoxDecoration(
                       color: blueColor,
                     ),
 
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: blueColor,
-                  //     boxShadow: const <BoxShadow>[
-                  //       BoxShadow(
-                  //         color: Colors.black,
-                  //         blurRadius: 5,
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   height: MediaQuery.of(context).size.height * 0.47,
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     color: blueColor,
+                    //     boxShadow: const <BoxShadow>[
+                    //       BoxShadow(
+                    //         color: Colors.black,
+                    //         blurRadius: 5,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   height: MediaQuery.of(context).size.height * 0.47,
                     child:
-                    // scrolled
-                    //     ?
-                    // Align(
-                    //   alignment: Alignment.topLeft,
-                    //     child: StreamBuilder(
-                    //       stream: FirebaseFirestore.instance
-                    //           .collection('users')
-                    //           .where('id_vol',
-                    //           isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                    //           .snapshots(),
-                    //       builder: (context,
-                    //           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                    //         return SizedBox(
-                    //           height: 200,
-                    //           width: 200,
-                    //           child: ListView.builder(
-                    //               physics: NeverScrollableScrollPhysics(),
-                    //               shrinkWrap: true,
-                    //               itemCount: !streamSnapshot.hasData
-                    //                   ? 1
-                    //                   : streamSnapshot.data?.docs.length,
-                    //               itemBuilder: (ctx, index) {
-                    //                 token_vol =
-                    //                 streamSnapshot.data?.docs[index]['token_vol'];
-                    //                 currentNameVol =
-                    //                 streamSnapshot.data?.docs[index]['user_name'];
-                    //                 if (streamSnapshot.hasData) {
-                    //                   switch (streamSnapshot.connectionState) {
-                    //                     case ConnectionState.waiting:
-                    //                       return SizedBox(
-                    //                               width: 60,
-                    //                               height: 60,
-                    //                               child: CircularProgressIndicator(),
-                    //                             );
-                    //
-                    //                     case ConnectionState.active:
-                    //                       categoriesVolunteer.add(streamSnapshot
-                    //                           .data?.docs[index]['category']);
-                    //                       return Row(
-                    //
-                    //                         children: [
-                    //                           Container(
-                    //                             height: MediaQuery.of(context)
-                    //                                 .size
-                    //                                 .width *
-                    //                                 0.04,
-                    //                             child: url_image==null?Image(
-                    //                                 image:AssetImage("assets/user.png")
-                    //                             ): CircleAvatar(
-                    //                                 radius: 30.0,
-                    //                                 backgroundImage: NetworkImage(url_image.toString())),
-                    //                           ),
-                    //                           ListTile(
-                    //                             title: Text(
-                    //                                   streamSnapshot
-                    //                                       .data?.docs[index]
-                    //                                   ['user_name'],
-                    //                                   style: GoogleFonts.raleway(
-                    //                                     fontSize: 24,
-                    //                                     color: Colors.white,
-                    //                                   )),
-                    //                             subtitle: Text(
-                    //                                 "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
-                    //                                 style: GoogleFonts.raleway(
-                    //                                   fontSize: 16,
-                    //                                   color: Colors.white,
-                    //                                 )),
-                    //                           ),
-                    //
-                    //                           // Padding(
-                    //                           //   padding: const EdgeInsets.only(top: 15),
-                    //                           //   child: Row(
-                    //                           //     children: [
-                    //                           //       IconButton(onPressed: () {
-                    //                           //         print("Phone");
-                    //                           //       }, icon: Icon(Icons.phone)),
-                    //                           //       Align(
-                    //                           //         alignment: Alignment.topLeft,
-                    //                           //         child: Text(
-                    //                           //           streamSnapshot.data?.docs[index]['phone_number'],
-                    //                           //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
-                    //                           //       ),
-                    //                           //     ],
-                    //                           //   ),
-                    //                           // ),
-                    //
-                    //                           // Text(
-                    //                           //   streamSnapshot.data?.docs[index]['date'],
-                    //                           //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
-                    //
-                    //                         ],
-                    //                       );
-                    //                   }
-                    //                 } else {}
-                    //                 return Center(
-                    //                   child: SpinKitChasingDots(
-                    //                     color: Colors.brown,
-                    //                     size: 50.0,
-                    //                   ),
-                    //                 );
-                    //               }),
-                    //         );
-                    //       },
-                    //     ))
-                    //
-                    // :
+                        // scrolled
+                        //     ?
+                        // Align(
+                        //   alignment: Alignment.topLeft,
+                        //     child: StreamBuilder(
+                        //       stream: FirebaseFirestore.instance
+                        //           .collection('users')
+                        //           .where('id_vol',
+                        //           isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                        //           .snapshots(),
+                        //       builder: (context,
+                        //           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        //         return SizedBox(
+                        //           height: 200,
+                        //           width: 200,
+                        //           child: ListView.builder(
+                        //               physics: NeverScrollableScrollPhysics(),
+                        //               shrinkWrap: true,
+                        //               itemCount: !streamSnapshot.hasData
+                        //                   ? 1
+                        //                   : streamSnapshot.data?.docs.length,
+                        //               itemBuilder: (ctx, index) {
+                        //                 token_vol =
+                        //                 streamSnapshot.data?.docs[index]['token_vol'];
+                        //                 currentNameVol =
+                        //                 streamSnapshot.data?.docs[index]['user_name'];
+                        //                 if (streamSnapshot.hasData) {
+                        //                   switch (streamSnapshot.connectionState) {
+                        //                     case ConnectionState.waiting:
+                        //                       return SizedBox(
+                        //                               width: 60,
+                        //                               height: 60,
+                        //                               child: CircularProgressIndicator(),
+                        //                             );
+                        //
+                        //                     case ConnectionState.active:
+                        //                       categoriesVolunteer.add(streamSnapshot
+                        //                           .data?.docs[index]['category']);
+                        //                       return Row(
+                        //
+                        //                         children: [
+                        //                           Container(
+                        //                             height: MediaQuery.of(context)
+                        //                                 .size
+                        //                                 .width *
+                        //                                 0.04,
+                        //                             child: url_image==null?Image(
+                        //                                 image:AssetImage("assets/user.png")
+                        //                             ): CircleAvatar(
+                        //                                 radius: 30.0,
+                        //                                 backgroundImage: NetworkImage(url_image.toString())),
+                        //                           ),
+                        //                           ListTile(
+                        //                             title: Text(
+                        //                                   streamSnapshot
+                        //                                       .data?.docs[index]
+                        //                                   ['user_name'],
+                        //                                   style: GoogleFonts.raleway(
+                        //                                     fontSize: 24,
+                        //                                     color: Colors.white,
+                        //                                   )),
+                        //                             subtitle: Text(
+                        //                                 "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                        //                                 style: GoogleFonts.raleway(
+                        //                                   fontSize: 16,
+                        //                                   color: Colors.white,
+                        //                                 )),
+                        //                           ),
+                        //
+                        //                           // Padding(
+                        //                           //   padding: const EdgeInsets.only(top: 15),
+                        //                           //   child: Row(
+                        //                           //     children: [
+                        //                           //       IconButton(onPressed: () {
+                        //                           //         print("Phone");
+                        //                           //       }, icon: Icon(Icons.phone)),
+                        //                           //       Align(
+                        //                           //         alignment: Alignment.topLeft,
+                        //                           //         child: Text(
+                        //                           //           streamSnapshot.data?.docs[index]['phone_number'],
+                        //                           //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
+                        //                           //       ),
+                        //                           //     ],
+                        //                           //   ),
+                        //                           // ),
+                        //
+                        //                           // Text(
+                        //                           //   streamSnapshot.data?.docs[index]['date'],
+                        //                           //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
+                        //
+                        //                         ],
+                        //                       );
+                        //                   }
+                        //                 } else {}
+                        //                 return Center(
+                        //                   child: SpinKitChasingDots(
+                        //                     color: Colors.brown,
+                        //                     size: 50.0,
+                        //                   ),
+                        //                 );
+                        //               }),
+                        //         );
+                        //       },
+                        //     ))
+                        //
+                        // :
 
-                    Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .where('id_vol',
-                                isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                                .snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount: !streamSnapshot.hasData
-                                      ? 1
-                                      : streamSnapshot.data?.docs.length,
-                                  itemBuilder: (ctx, index) {
-                                    token_vol =
-                                    streamSnapshot.data?.docs[index]['token_vol'];
-                                    currentNameVol =
-                                    streamSnapshot.data?.docs[index]['user_name'];
-                                    if (streamSnapshot.hasData) {
-                                      switch (streamSnapshot.connectionState) {
-                                        case ConnectionState.waiting:
-                                          return
-                                                SizedBox(
-                                                  width: 60,
-                                                  height: 60,
-                                                  child: Loading(),
-                                                );
+                        Center(
+                            child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id_vol',
+                                isEqualTo:
+                                    FirebaseAuth.instance.currentUser?.uid)
+                            .snapshots(),
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: !streamSnapshot.hasData
+                                  ? 1
+                                  : streamSnapshot.data?.docs.length,
+                              itemBuilder: (ctx, index) {
+                                token_vol = streamSnapshot.data?.docs[index]
+                                    ['token_vol'];
+                                currentNameVol = streamSnapshot
+                                    .data?.docs[index]['user_name'];
+                                if (streamSnapshot.hasData) {
+                                  switch (streamSnapshot.connectionState) {
+                                    case ConnectionState.waiting:
+                                      return SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: Loading(),
+                                      );
 
-                                        case ConnectionState.active:
-                                          // categoriesVolunteer.add(streamSnapshot
-                                          //     .data?.docs[index]['category']);
-                                          print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-                                          print(categoriesVolunteer.length);
-                                          return scrolled
-                                              ?Padding(
-                                            padding: EdgeInsets.only( top: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.2,),
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                            height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.3,
-                                            child: url_image==null?Image(
-                                                      image:AssetImage("assets/user.png")
-                                            ): CircleAvatar(
-                                                      radius: 60.0,
-                                                      backgroundImage: NetworkImage(url_image.toString())),
-                                          ),
-                                                    Align(
-                                                      alignment: Alignment.topLeft,
-                                                      child: Column(
-                                                        children: [
-                                                          Text(
-                                                              streamSnapshot
-                                                                  .data?.docs[index]
-                                                              ['user_name'],
-                                                              style: GoogleFonts.raleway(
-                                                                fontSize: 24,
-                                                                color: Colors.white,
-                                                              )),
-                                                          Align(
-                                                            alignment: Alignment.topLeft,
-                                                            child: Text(
-                                                                "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
-                                                                style: GoogleFonts.raleway(
-                                                                  fontSize: 18,
-                                                                  color: Colors.white,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                              :Padding(
-                                            padding: const EdgeInsets
-                                                .only(top: 20),
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.4,
-                                                  child: url_image==null?Image(
-                                                      image:AssetImage("assets/user.png")
-                                                  ): CircleAvatar(
-                                                      radius: 80.0,
-                                                      backgroundImage: NetworkImage(url_image.toString())),
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.topCenter,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                          streamSnapshot
-                                                              .data?.docs[index]
-                                                          ['user_name'],
-                                                          style: GoogleFonts.raleway(
-                                                            fontSize: 24,
-                                                            color: Colors.white,
-                                                          )),
-                                                      IconButton(
-                                                        icon: const Icon(
-                                                          Icons.edit,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onPressed: () {
-                                                          loadImage(streamSnapshot
-                                                              .data?.docs[index]
-                                                          ['image']);
-                                                          Future.delayed(const Duration(milliseconds: 500), ()
-                                                          {
-                                                            Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                                MaterialPageRoute(builder: (context) => new SettingsVol()));
-                                                            // Navigator.push(
-                                                            //     context,
-                                                            //     MaterialPageRoute(
-                                                            //         builder: (
-                                                            //             context) =>
-                                                            //             SettingsVol()));
-                                                          });
-                                                        },
-                                                      ),
-                                                    ],
+                                    case ConnectionState.active:
+                                      // categoriesVolunteer.add(streamSnapshot
+                                      //     .data?.docs[index]['category']);
+                                      print(
+                                          "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+                                      print(categoriesVolunteer.length);
+                                      return scrolled
+                                          ? Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.2,
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.3,
+                                                    child: url_image == null
+                                                        ? Image(
+                                                            image: AssetImage(
+                                                                "assets/user.png"))
+                                                        : CircleAvatar(
+                                                            radius: 60.0,
+                                                            backgroundImage:
+                                                                NetworkImage(
+                                                                    url_image
+                                                                        .toString())),
                                                   ),
-                                                ),
-
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.02),
-                                                  child: Align(
-                                                    alignment: Alignment.topCenter,
-                                                    child: Text(
-                                                        "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Your profile isn't completed" : streamSnapshot.data?.docs[index]['age']}",
-                                                        style: GoogleFonts.raleway(
-                                                          fontSize: 16,
-                                                          color: Colors.white,
-                                                        )),
-                                                  ),
-                                                ),
-
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.02),
-                                                  child: Align(
-                                                    alignment: Alignment.topCenter,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Column(
                                                       children: [
-                                                        streamSnapshot.data
-                                                            ?.docs[index]
-                                                        ['ranking'] >=
-                                                            1
-                                                            ? Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : streamSnapshot.data
-                                                            ?.docs[
-                                                        index]
-                                                        ['ranking'] ==
-                                                            0.5
-                                                            ? Icon(
-                                                          Icons.star_half,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : Icon(
-                                                          Icons.star_border,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        ),
-                                                        streamSnapshot.data
-                                                            ?.docs[index]
-                                                        ['ranking'] >=
-                                                            2
-                                                            ? Icon(
-                                                          Icons.star_rate,
-                                                          color: Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : streamSnapshot.data
-                                                            ?.docs[
-                                                        index]
-                                                        ['ranking'] ==
-                                                            1.5
-                                                            ? Icon(
-                                                          Icons.star_half,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : Icon(
-                                                          Icons.star_border,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        ),
-                                                        streamSnapshot.data
-                                                            ?.docs[index]
-                                                        ['ranking'] >=
-                                                            3
-                                                            ? Icon(
-                                                          Icons.star_rate,
-                                                          color: Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : streamSnapshot.data
-                                                            ?.docs[
-                                                        index]
-                                                        ['ranking'] ==
-                                                            2.5
-                                                            ? Icon(
-                                                          Icons.star_half,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : Icon(
-                                                          Icons.star_border,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        ),
-                                                        streamSnapshot.data
-                                                            ?.docs[index]
-                                                        ['ranking'] >=
-                                                            4
-                                                            ? Icon(
-                                                          Icons.star_rate,
-                                                          color: Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : streamSnapshot.data
-                                                            ?.docs[
-                                                        index]
-                                                        ['ranking'] ==
-                                                            3.5
-                                                            ? Icon(
-                                                          Icons.star_half,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : Icon(
-                                                          Icons.star_border,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        ),
-                                                        streamSnapshot.data
-                                                            ?.docs[index]
-                                                        ['ranking'] >=
-                                                            5
-                                                            ? Icon(
-                                                          Icons.star_rate,
-                                                          color: Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : streamSnapshot.data
-                                                            ?.docs[
-                                                        index]
-                                                        ['ranking'] ==
-                                                            4.5
-                                                            ? Icon(
-                                                          Icons.star_half,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
-                                                        )
-                                                            : Icon(
-                                                          Icons.star_border,
-                                                          color:
-                                                          Colors.white,
-                                                          size: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                              0.06,
+                                                        Text(
+                                                            streamSnapshot.data
+                                                                    ?.docs[index]
+                                                                ['user_name'],
+                                                            style: GoogleFonts
+                                                                .raleway(
+                                                              fontSize: 24,
+                                                              color:
+                                                                  Colors.white,
+                                                            )),
+                                                        Align(
+                                                          alignment:
+                                                              Alignment.topLeft,
+                                                          child: Text(
+                                                              "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                                                              style: GoogleFonts
+                                                                  .raleway(
+                                                                fontSize: 18,
+                                                                color: Colors
+                                                                    .white,
+                                                              )),
                                                         ),
                                                       ],
                                                     ),
                                                   ),
-                                                ),
-
-                                                // Padding(
-                                                //   padding: const EdgeInsets.only(top: 15),
-                                                //   child: Row(
-                                                //     children: [
-                                                //       IconButton(onPressed: () {
-                                                //         print("Phone");
-                                                //       }, icon: Icon(Icons.phone)),
-                                                //       Align(
-                                                //         alignment: Alignment.topLeft,
-                                                //         child: Text(
-                                                //           streamSnapshot.data?.docs[index]['phone_number'],
-                                                //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
-                                                //       ),
-                                                //     ],
-                                                //   ),
-                                                // ),
-
-                                                // Text(
-                                                //   streamSnapshot.data?.docs[index]['date'],
-                                                //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
-
-                                                const SizedBox(
-                                                  height: 250,
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                      }
-                                    } else {}
-                                    return Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 100),
-                                        child: Column(
-                                          children: const [
-                                            SpinKitChasingDots(
-                                              color: Colors.brown,
-                                              size: 50.0,
-                                            ),
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text("Waiting...",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 24,
-                                                    color: Colors.black,
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 20),
+                                                ],
+                                              ),
                                             )
-                                          ],
+                                          : Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20),
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.4,
+                                                    child: url_image == null
+                                                        ? Image(
+                                                            image: AssetImage(
+                                                                "assets/user.png"))
+                                                        : CircleAvatar(
+                                                            radius: 80.0,
+                                                            backgroundImage:
+                                                                NetworkImage(
+                                                                    url_image
+                                                                        .toString())),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                            streamSnapshot.data
+                                                                    ?.docs[index]
+                                                                ['user_name'],
+                                                            style: GoogleFonts
+                                                                .raleway(
+                                                              fontSize: 24,
+                                                              color:
+                                                                  Colors.white,
+                                                            )),
+                                                        IconButton(
+                                                          icon: const Icon(
+                                                            Icons.edit,
+                                                            color: Colors.white,
+                                                          ),
+                                                          onPressed: () {
+                                                            loadImage(
+                                                                streamSnapshot
+                                                                            .data
+                                                                            ?.docs[
+                                                                        index]
+                                                                    ['image']);
+                                                            Future.delayed(
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        500),
+                                                                () {
+                                                              Navigator.of(
+                                                                      context,
+                                                                      rootNavigator:
+                                                                          true)
+                                                                  .pushReplacement(
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              new SettingsVol()));
+                                                              // Navigator.push(
+                                                              //     context,
+                                                              //     MaterialPageRoute(
+                                                              //         builder: (
+                                                              //             context) =>
+                                                              //             SettingsVol()));
+                                                            });
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.02),
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.topCenter,
+                                                      child: Text(
+                                                          "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Your profile isn't completed" : streamSnapshot.data?.docs[index]['age']}",
+                                                          style: GoogleFonts
+                                                              .raleway(
+                                                            fontSize: 16,
+                                                            color: Colors.white,
+                                                          )),
+                                                    ),
+                                                  ),
+
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.02),
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.topCenter,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          streamSnapshot.data?.docs[
+                                                                          index]
+                                                                      [
+                                                                      'ranking'] >=
+                                                                  1
+                                                              ? Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.06,
+                                                                )
+                                                              : streamSnapshot
+                                                                          .data
+                                                                          ?.docs[index]['ranking'] ==
+                                                                      0.5
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .star_half,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .star_border,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    ),
+                                                          streamSnapshot.data?.docs[
+                                                                          index]
+                                                                      [
+                                                                      'ranking'] >=
+                                                                  2
+                                                              ? Icon(
+                                                                  Icons
+                                                                      .star_rate,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.06,
+                                                                )
+                                                              : streamSnapshot
+                                                                          .data
+                                                                          ?.docs[index]['ranking'] ==
+                                                                      1.5
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .star_half,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .star_border,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    ),
+                                                          streamSnapshot.data?.docs[
+                                                                          index]
+                                                                      [
+                                                                      'ranking'] >=
+                                                                  3
+                                                              ? Icon(
+                                                                  Icons
+                                                                      .star_rate,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.06,
+                                                                )
+                                                              : streamSnapshot
+                                                                          .data
+                                                                          ?.docs[index]['ranking'] ==
+                                                                      2.5
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .star_half,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .star_border,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    ),
+                                                          streamSnapshot.data?.docs[
+                                                                          index]
+                                                                      [
+                                                                      'ranking'] >=
+                                                                  4
+                                                              ? Icon(
+                                                                  Icons
+                                                                      .star_rate,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.06,
+                                                                )
+                                                              : streamSnapshot
+                                                                          .data
+                                                                          ?.docs[index]['ranking'] ==
+                                                                      3.5
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .star_half,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .star_border,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    ),
+                                                          streamSnapshot.data?.docs[
+                                                                          index]
+                                                                      [
+                                                                      'ranking'] >=
+                                                                  5
+                                                              ? Icon(
+                                                                  Icons
+                                                                      .star_rate,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.06,
+                                                                )
+                                                              : streamSnapshot
+                                                                          .data
+                                                                          ?.docs[index]['ranking'] ==
+                                                                      4.5
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .star_half,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .star_border,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          0.06,
+                                                                    ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  // Padding(
+                                                  //   padding: const EdgeInsets.only(top: 15),
+                                                  //   child: Row(
+                                                  //     children: [
+                                                  //       IconButton(onPressed: () {
+                                                  //         print("Phone");
+                                                  //       }, icon: Icon(Icons.phone)),
+                                                  //       Align(
+                                                  //         alignment: Alignment.topLeft,
+                                                  //         child: Text(
+                                                  //           streamSnapshot.data?.docs[index]['phone_number'],
+                                                  //           style: TextStyle(color: Colors.grey[700],fontSize: 16),textAlign: TextAlign.left,),
+                                                  //       ),
+                                                  //     ],
+                                                  //   ),
+                                                  // ),
+
+                                                  // Text(
+                                                  //   streamSnapshot.data?.docs[index]['date'],
+                                                  //   style: TextStyle(color: Colors.grey,fontSize: 14),textAlign: TextAlign.center,),
+
+                                                  const SizedBox(
+                                                    height: 250,
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                  }
+                                } else {}
+                                return Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 100),
+                                    child: Column(
+                                      children: const [
+                                        SpinKitChasingDots(
+                                          color: Colors.brown,
+                                          size: 50.0,
                                         ),
-                                      ),
-                                    );
-                                  });
-                            },
-                          ),
-                        )),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text("Waiting...",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.black,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 20),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                      ),
+                    )),
                   ),
                 ),
                 SizedBox(
-                  height:
-                  MediaQuery.of(context).size.height *
-                      0.012,
+                  height: MediaQuery.of(context).size.height * 0.012,
                 ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
                     padding: padding,
-                    child: Text("Preferencies", style: GoogleFonts.raleway(
-                      fontSize: 18,
-                      color: Colors.black,
-                    ), textAlign: TextAlign.left,),
+                    child: Text(
+                      "Preferencies",
+                      style: GoogleFonts.raleway(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: categoriesVolunteer.length==1
-                      ?60
-                      :categoriesVolunteer.length==2
-                      ?120
-                      :categoriesVolunteer.length==3
-                      ?180
-                      :categoriesVolunteer.length==4
-                      ?230
-                      :categoriesVolunteer.length==5
-                      ?290
-                      :categoriesVolunteer.length==6
-                      ?350
-                      :categoriesVolunteer.length==7
-                      ?410
-                      :categoriesVolunteer.length==8
-                      ?470
-                      :550,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .where('id_vol',
-                                    isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                                .snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                              if (streamSnapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Loading();
-                              } else if (streamSnapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return Text('done');
-                              } else if (streamSnapshot.hasError) {
-                                return Text('Error!');
-                              } else {
-
-                                return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: categoriesVolunteer.length,
-                                    itemBuilder: (ctx, index) {
-                                      return Column(
-                                        children: [
-                                          SizedBox(
-                                            height:
-                                            MediaQuery.of(context).size.height *
-                                                0.012,
-                                          ),
-                                          Padding(
-                                            padding: padding,
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context).size.height *
-                                                  0.075,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(24)
+                  height: categoriesVolunteer.length == 1
+                      ? 60
+                      : categoriesVolunteer.length == 2
+                          ? 120
+                          : categoriesVolunteer.length == 3
+                              ? 180
+                              : categoriesVolunteer.length == 4
+                                  ? 230
+                                  : categoriesVolunteer.length == 5
+                                      ? 290
+                                      : categoriesVolunteer.length == 6
+                                          ? 350
+                                          : categoriesVolunteer.length == 7
+                                              ? 410
+                                              : categoriesVolunteer.length == 8
+                                                  ? 470
+                                                  : 40,
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .where('id_vol',
+                              isEqualTo:
+                                  FirebaseAuth.instance.currentUser?.uid)
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        if (streamSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Loading();
+                        } else if (streamSnapshot.connectionState ==
+                            ConnectionState.done) {
+                          return Text('done');
+                        } else if (streamSnapshot.hasError) {
+                          return Text('Error!');
+                        } else {
+                          return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: categoriesVolunteer.length,
+                              itemBuilder: (ctx, index) {
+                                return Column(
+                                  children: [
+                                    SizedBox(
+                                      height: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                          0.012,
+                                    ),
+                                    Padding(
+                                      padding: padding,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                            0.075,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(
+                                                    24)),
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left:
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.05,
+                                                right:
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.04,
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      left: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05,
-                                                      right: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.04,
-                                                    ),
-                                                    child: Icon(
-                                                      categoriesVolunteer[index]==categoriesListAll[3]
-                                                          ?Icons.pets_rounded
-                                                          :categoriesVolunteer[index]==categoriesListAll[4]
-                                                          ?Icons.local_grocery_store
-                                                          :categoriesVolunteer[index]==categoriesListAll[2]
-                                                          ?Icons.emoji_transportation_rounded
-                                                          :categoriesVolunteer[index]==categoriesListAll[1]
-                                                          ?Icons.house
-                                                          :categoriesVolunteer[index]==categoriesListAll[6]
-                                                          ?Icons.sign_language_rounded
-                                                          :categoriesVolunteer[index]==categoriesListAll[5]
-                                                          ?Icons.child_care_outlined
-                                                          :categoriesVolunteer[index]==categoriesListAll[7]
-                                                          ?Icons.menu_book
-                                                          :categoriesVolunteer[index]==categoriesListAll[8]
-                                                          ?Icons.medical_information_outlined
-                                                          :categoriesVolunteer[index]==categoriesListAll[0]
-                                                          ?Icons.check_box
-                                                          :Icons.new_label_sharp,
-                                                      size: 30,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    categoriesVolunteer[index].toString(),
-                                                    // streamSnapshot.data?.docs[index]
-                                                    //     ["category"][index],
-                                                    style: textCategoryStyle,
-                                                  ),
-                                                  // SizedBox(
-                                                  //   height:
-                                                  //   MediaQuery.of(context).size.height *
-                                                  //       0.05,
-                                                  // ),
-                                                ],
+                                              child: Icon(
+                                                categoriesVolunteer[
+                                                            index] ==
+                                                        categoriesListAll[
+                                                            3]
+                                                    ? Icons.pets_rounded
+                                                    : categoriesVolunteer[
+                                                                index] ==
+                                                            categoriesListAll[
+                                                                4]
+                                                        ? Icons
+                                                            .local_grocery_store
+                                                        : categoriesVolunteer[
+                                                                    index] ==
+                                                                categoriesListAll[
+                                                                    2]
+                                                            ? Icons
+                                                                .emoji_transportation_rounded
+                                                            : categoriesVolunteer[
+                                                                        index] ==
+                                                                    categoriesListAll[
+                                                                        1]
+                                                                ? Icons
+                                                                    .house
+                                                                : categoriesVolunteer[index] ==
+                                                                        categoriesListAll[6]
+                                                                    ? Icons.sign_language_rounded
+                                                                    : categoriesVolunteer[index] == categoriesListAll[5]
+                                                                        ? Icons.child_care_outlined
+                                                                        : categoriesVolunteer[index] == categoriesListAll[7]
+                                                                            ? Icons.menu_book
+                                                                            : categoriesVolunteer[index] == categoriesListAll[8]
+                                                                                ? Icons.medical_information_outlined
+                                                                                : categoriesVolunteer[index] == categoriesListAll[0]
+                                                                                    ? Icons.check_box
+                                                                                    : Icons.new_label_sharp,
+                                                size: 30,
+                                                color: Colors.black,
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      );
-                                      // }
-                                      // );
-                                      // return CircularProgressIndicator();
-                                    });
-                              }
-                            }),
-                      ),
-                    ],
-                  ),
+                                            Text(
+                                              categoriesVolunteer[index]
+                                                  .toString(),
+                                              // streamSnapshot.data?.docs[index]
+                                              //     ["category"][index],
+                                              style: textCategoryStyle,
+                                            ),
+                                            // SizedBox(
+                                            //   height:
+                                            //   MediaQuery.of(context).size.height *
+                                            //       0.05,
+                                            // ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                                // }
+                                // );
+                                // return CircularProgressIndicator();
+                              });
+                        }
+                      }),
                 ),
 
                 Align(
                   alignment: Alignment.center,
                   child: TextButton.icon(
-                    onPressed: (){
-                      Navigator.of(context, rootNavigator: true).pushReplacement(
-                          MaterialPageRoute(builder: (context) => new ChooseCategory()));
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushReplacement(MaterialPageRoute(
+                              builder: (context) => new ChooseCategory()));
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
                       chosenCategoryListChanges = [];
                     },
-                    icon: Icon(Icons.add, color: Colors.black, size: 30,),
-                    label: Text("Add new preferences",
-                    style: GoogleFonts.raleway(
-                      fontSize: 16,
+                    icon: Icon(
+                      Icons.add,
                       color: Colors.black,
+                      size: 30,
                     ),
+                    label: Text(
+                      "Add new preferences",
+                      style: GoogleFonts.raleway(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
 
                 SizedBox(
-                  height:
-                  categoriesVolunteer.length==1
-                  ?MediaQuery.of(context).size.height *
-                      0.012
-                  :categoriesVolunteer.length==2
-                      ?MediaQuery.of(context).size.height *
-                      0.012
-                      :categoriesVolunteer.length==3
-                      ?MediaQuery.of(context).size.height *
-                      0.015
-                      :categoriesVolunteer.length==4
-                      ?MediaQuery.of(context).size.height *
-                      0.025
-                  :MediaQuery.of(context).size.height *
-                      0.012,
+                  height: categoriesVolunteer.length == 1
+                      ? MediaQuery.of(context).size.height * 0.012
+                      : categoriesVolunteer.length == 2
+                          ? MediaQuery.of(context).size.height * 0.012
+                          : categoriesVolunteer.length == 3
+                              ? MediaQuery.of(context).size.height * 0.015
+                              : categoriesVolunteer.length == 4
+                                  ? MediaQuery.of(context).size.height * 0.025
+                                  : MediaQuery.of(context).size.height * 0.012,
                 ),
-
               ],
             ),
           ),

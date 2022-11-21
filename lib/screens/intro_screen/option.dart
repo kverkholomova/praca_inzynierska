@@ -11,7 +11,7 @@ import '../../widgets/loading.dart';
 
 
 var optionRefugee=true;
-
+List categoriesVolunteer = [];
 class OptionChoose extends StatefulWidget {
   const OptionChoose({Key? key}) : super(key: key);
 
