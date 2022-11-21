@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
+import '../main_screen.dart';
 import 'page_of_application_vol.dart';
 import 'new_screen_with_applications.dart';
 
@@ -26,10 +28,11 @@ class ChosenCategoryState extends State<ChosenCategory> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Categories()),
-          );
+          setState(() {
+            controllerTabBottom = PersistentTabController(initialIndex: 4);
+          });
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => Categories()));
           return true;
         },
         child: SafeArea(
@@ -44,8 +47,12 @@ class ChosenCategoryState extends State<ChosenCategory> {
                 color: blueColor,
               ),
               onPressed: () {
-                Navigator.push(context,
+                setState(() {
+                  controllerTabBottom = PersistentTabController(initialIndex: 4);
+                });
+                Navigator.of(context, rootNavigator: true).pushReplacement(
                     MaterialPageRoute(builder: (context) => Categories()));
+
               },
             ),
             // appBar: AppBar(

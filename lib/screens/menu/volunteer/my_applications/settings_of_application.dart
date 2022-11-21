@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/volunteer/chat/message.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../Refugee/SettingRefugee.dart';
+import '../main_screen.dart';
 import 'applications_vol.dart';
 
 String roomExist ='';
@@ -168,14 +170,31 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ApplicationsOfVolunteer()),
-        );
+        setState(() {
+          controllerTabBottom = PersistentTabController(initialIndex: 1);
+        });
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => MainScreen()));
         return true;
       },
       child: Scaffold(
         backgroundColor: background,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
+            color: blueColor,
+          ),
+          onPressed: () {
+            setState(() {
+              controllerTabBottom = PersistentTabController(initialIndex: 1);
+            });
+            Navigator.of(context, rootNavigator: true).pushReplacement(
+                MaterialPageRoute(builder: (context) => MainScreen()));
+
+          },
+        ),
         // appBar: AppBar(
         //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
         //   elevation: 0.0,
@@ -225,16 +244,30 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                 case ConnectionState.active:
                 return Column(
                       children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.02),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              "Application details",
+                              style: GoogleFonts.raleway(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           height:
-                          MediaQuery.of(context).size.height * 0.03,
+                          MediaQuery.of(context).size.height * 0.05,
                         ),
                         Padding(
                           padding: padding,
                           child: Container(
                             width: double.infinity,
                             height: MediaQuery.of(context).size.height *
-                                0.55,
+                                0.7,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:

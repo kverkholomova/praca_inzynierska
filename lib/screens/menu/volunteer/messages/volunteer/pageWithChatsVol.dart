@@ -5,7 +5,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/volunteer/chat/messagesVol.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/messages/volunteer/messagesVol.dart';
 
 import '../../home_page/home_vol.dart';
 import '../../home_page/settings/upload_photo.dart';

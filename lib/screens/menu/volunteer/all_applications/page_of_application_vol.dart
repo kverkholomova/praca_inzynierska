@@ -18,6 +18,7 @@ import 'package:http/http.dart' as http;
 import '../../../../Refugee/applications/all_applications.dart';
 import '../../../../models/categories.dart';
 import '../main_screen.dart';
+import 'chosen_category_applications.dart';
 import 'new_screen_with_applications.dart';
 import '../home_page/home_vol.dart';
 import '../my_applications/applications_vol.dart';
@@ -180,11 +181,27 @@ class _PageOfApplicationState extends State<PageOfApplication> {
           controllerTabBottom = PersistentTabController(initialIndex: 4);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => new MainScreen()));
+            MaterialPageRoute(builder: (context) => new ChosenCategory()));
         return true;
       },
       child: Scaffold(
         backgroundColor: background,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
+            color: blueColor,
+          ),
+          onPressed: () {
+            setState(() {
+              controllerTabBottom = PersistentTabController(initialIndex: 4);
+            });
+            Navigator.of(context, rootNavigator: true).pushReplacement(
+                MaterialPageRoute(builder: (context) => ChosenCategory()));
+
+          },
+        ),
         // appBar: AppBar(
         //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
         //   elevation: 0.0,
@@ -232,6 +249,20 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                   padding: padding,
                                   child: Column(
                                     children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: MediaQuery.of(context).size.height * 0.02),
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Text(
+                                            "Application details",
+                                            style: GoogleFonts.raleway(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                       SizedBox(
                                         height: MediaQuery.of(context).size.height * 0.05,
                                       ),
@@ -431,7 +462,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.05,
+                                        height: MediaQuery.of(context).size.height * 0.02,
                                       ),
                                       Align(
                                         alignment: Alignment.topCenter,
@@ -499,12 +530,11 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                   ID_of_vol_application =
                                                       streamSnapshot
                                                           .data?.docs[index].id;
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ApplicationsOfVolunteer()),
-                                                  );
+                                                  setState(() {
+                                                    controllerTabBottom = PersistentTabController(initialIndex: 1);
+                                                  });
+                                                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                      MaterialPageRoute(builder: (context) => MainScreen()));
                                                 }),
                                           ),
                                         ),

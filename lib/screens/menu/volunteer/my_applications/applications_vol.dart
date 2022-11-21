@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/page_of_application_vol.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
 
 import '../../../../models/categories.dart';
 import '../home_page/home_vol.dart';
+import '../main_screen.dart';
 
 
 String card_title_accepted='';
@@ -154,11 +156,13 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
 
                                         // current_name = streamSnapshot.data?.docs[index]['ref_name'];
 
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SettingsOfApplication()),
-                                        );
+                                        Navigator.of(context, rootNavigator: true).pushReplacement(
+                                            MaterialPageRoute(builder: (context) => new SettingsOfApplication()));
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //       builder: (context) => SettingsOfApplication()),
+                                        // );
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -285,6 +289,9 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                       //   ],
                                       // ),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.015,
                                   ),
 
 
