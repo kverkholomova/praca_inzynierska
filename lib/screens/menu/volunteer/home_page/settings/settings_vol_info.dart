@@ -670,11 +670,13 @@ class _SettingsVolState extends State<SettingsVol> {
                                           ),
                                           onPressed: () async {
                                             await _auth.signOut();
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                    const OptionChoose()));
+                                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                MaterialPageRoute(builder: (context) => OptionChoose()));
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //         const OptionChoose()));
                                           }),
                                     ),
                                   ),
