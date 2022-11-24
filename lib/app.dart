@@ -9,6 +9,7 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/home_vol.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
 import 'package:wol_pro_1/widgets/wrapper.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
 
   void initState() {
     super.initState();
+
     user = FirebaseAuth.instance.authStateChanges().listen((user) async {
       if (user == null) {
         print('User is currently signed out!');
@@ -65,7 +67,7 @@ class _MyAppState extends State<MyApp> {
         get();
 
         var currentRole = variable['role'];
-        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCApp");
         // print(variable["category"]);
         // var cList = variable["category"];
         // cList.forEach((element) {
@@ -90,7 +92,7 @@ class _MyAppState extends State<MyApp> {
         Future.delayed(Duration(seconds: 5), () {
           setState(() {
             _isLoading = false;
-            print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+            print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFApp");
             print(url_image);
           });
         });

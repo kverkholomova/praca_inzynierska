@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 import 'package:wol_pro_1/to_delete/register_refugee.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
@@ -56,6 +57,9 @@ class _WrapperState extends State<Wrapper> {
   void initState(){
     super.initState();
 
+    if(justSignedIn){
+
+    }
     user = FirebaseAuth.instance.authStateChanges().listen((user) async {
       loadImage();
       DocumentSnapshot variable = await FirebaseFirestore.instance.
@@ -64,9 +68,10 @@ class _WrapperState extends State<Wrapper> {
       get();
 
       var currentRole = variable['role'];
-      print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+      print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCWraper");
       print(variable["category"]);
       print(FirebaseAuth.instance.currentUser!.uid);
+      categoriesVolunteer = [];
       var cList = variable["category"];
       cList.forEach((element) {
         categoriesVolunteer.add(element);
@@ -92,8 +97,6 @@ class _WrapperState extends State<Wrapper> {
     Future.delayed(Duration(seconds: 5), () {
       setState(() {
         _isLoading = false;
-        print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-        print(url_image);
       });
     });
 

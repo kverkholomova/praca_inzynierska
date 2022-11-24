@@ -5,7 +5,7 @@ EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 20);
 
 BoxDecoration buttonDecoration = BoxDecoration(
     color: Colors.white,
-    borderRadius: BorderRadius.circular(24)
+    borderRadius: BorderRadius.circular(18)
 );
 
 TextStyle textButtonStyle = GoogleFonts.raleway(

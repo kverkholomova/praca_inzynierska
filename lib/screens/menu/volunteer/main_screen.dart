@@ -26,7 +26,8 @@ class _MainScreenState extends State<MainScreen> {
     // TODO: implement initState
     super.initState();
     print("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFTTTTTTTTTT");
-    print(isVisibleTabBar);
+    print(categoriesVolunteer);
+
   }
   int _selectedIndex = 2;
 

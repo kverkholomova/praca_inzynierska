@@ -5,6 +5,7 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
+import 'package:wol_pro_1/widgets/wrapper.dart';
 
 import '../../../../../widgets/text_form_field.dart';
 
@@ -14,6 +15,7 @@ bool isVisible = false;
 double paddingHeightShadow = 0.048;
 String emailVolLog = '';
 String passwordVolLog = '';
+bool justSignedIn = false;
 
 class SignInVol extends StatefulWidget {
   final Function toggleView;
@@ -48,17 +50,14 @@ class _SignInVolState extends State<SignInVol> {
                 resizeToAvoidBottomInset: true,
                 backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
                 appBar: AppBar(
-                  title: Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.1),
-                    child: Text(
-                      "Volunteer",
-                      style: GoogleFonts.sairaStencilOne(
-                        fontSize: 25,
-                        color: Colors.black.withOpacity(0.7),
+                  title: Text(
+                    "Volunteer",
+                    style: GoogleFonts.sairaStencilOne(
+                      fontSize: 25,
+                      color: Colors.black.withOpacity(0.7),
 
-                      ),
-                      textAlign: TextAlign.center,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   elevation: 0,
                   backgroundColor: Colors.transparent,
@@ -77,7 +76,7 @@ class _SignInVolState extends State<SignInVol> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.06),
+                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.08),
                           child: Column(
                             children: [
                               Align(
@@ -91,18 +90,15 @@ class _SignInVolState extends State<SignInVol> {
                                   textAlign: TextAlign.left,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 7),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Sign in to continue",
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                                    textAlign: TextAlign.left,
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Sign in to continue",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 18,
+                                    color: Colors.black,
                                   ),
+                                  textAlign: TextAlign.left,
                                 ),
                               ),
                             ],
@@ -164,7 +160,7 @@ class _SignInVolState extends State<SignInVol> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: !errorEmpty
-                              ?MediaQuery.of(context).size.height * 0.12
+                              ?MediaQuery.of(context).size.height * 0.17
                           : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,
@@ -195,6 +191,7 @@ class _SignInVolState extends State<SignInVol> {
                                         await _auth.signInWithEmailAndPasswordVol(
                                             emailVolLog, passwordVolLog);
 
+
                                     if (result == null) {
                                       setState(() {
                                         errorEmpty = true;
@@ -203,6 +200,12 @@ class _SignInVolState extends State<SignInVol> {
                                         error =
                                             'Could not sign in with those credentials';
                                       });
+                                    } else{
+                                      justSignedIn = true;
+    // Future.delayed(const Duration(milliseconds: 500), () {
+    //                                   Navigator.of(context, rootNavigator: true).pushReplacement(
+    //                                       MaterialPageRoute(builder: (context) => Wrapper()));
+    // });
                                     }
                                   }
                                 }),

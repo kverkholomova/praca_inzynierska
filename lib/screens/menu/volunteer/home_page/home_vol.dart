@@ -1035,6 +1035,7 @@ class _HomeVolState extends State<HomeVol> {
                     ),
                   ),
                 ),
+
                 SizedBox(
                   height: categoriesVolunteer.length == 1
                       ? 60
@@ -1052,7 +1053,7 @@ class _HomeVolState extends State<HomeVol> {
                                               ? 410
                                               : categoriesVolunteer.length == 8
                                                   ? 470
-                                                  : 40,
+                                                  : 140,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('users')
@@ -1076,6 +1077,7 @@ class _HomeVolState extends State<HomeVol> {
                               shrinkWrap: true,
                               itemCount: categoriesVolunteer.length,
                               itemBuilder: (ctx, index) {
+
                                 return Column(
                                   children: [
                                     SizedBox(
