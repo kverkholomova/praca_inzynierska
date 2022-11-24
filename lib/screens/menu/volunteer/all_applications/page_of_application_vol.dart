@@ -269,7 +269,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                       Container(
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
-                                            0.7,
+                                            0.47,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
@@ -279,7 +279,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                           child: Column(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.all(30),
+                                                padding: const EdgeInsets.all(20),
                                                 child: Icon(
                                                   streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
                                                       ?Icons.pets_rounded
@@ -308,7 +308,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.03,
+                                                    0.02,
                                               ),
                                               Align(
                                                 alignment: Alignment.topLeft,
@@ -326,7 +326,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.015,
+                                                    0.007,
                                               ),
                                               Align(
                                                 alignment: Alignment.topLeft,
@@ -342,7 +342,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height *
-                                                    0.1,
+                                                    0.05,
                                               ),
                                               Align(
                                                 alignment: Alignment.topLeft,
@@ -462,7 +462,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.02,
+                                        height: MediaQuery.of(context).size.height * 0.27,
                                       ),
                                       Align(
                                         alignment: Alignment.topCenter,

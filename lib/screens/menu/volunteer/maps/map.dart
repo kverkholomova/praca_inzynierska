@@ -201,28 +201,24 @@ class _HomeMapState extends State<HomeMap> {
     return ListView(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 16 / 10.2,
+          aspectRatio: 20 / 12.5,
           child: Image.asset(
             imageURL,
             fit: BoxFit.fill,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: const Icon(Icons.maps_home_work_outlined),
-            title: Text(name, style: GoogleFonts.raleway(
-              fontSize: 18,
-              color: Colors.black,
-            ),),
-            subtitle: Text(address,style: GoogleFonts.raleway(
-              fontSize: 13,
-              color: Colors.black45,)
-            ),
+        ListTile(
+          title: Text(name, style: GoogleFonts.raleway(
+            fontSize: 18,
+            color: Colors.black,
+          ),),
+          subtitle: Text(address,style: GoogleFonts.raleway(
+            fontSize: 13,
+            color: Colors.black45,)
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 80, bottom: 20.0),
+          padding: padding,
           child: Align(
               alignment: Alignment.topLeft,
               child: Text("Work hours: $workHours", style: GoogleFonts.raleway(
@@ -230,16 +226,19 @@ class _HomeMapState extends State<HomeMap> {
     color: Colors.black,
     ),)),
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.015,
+        ),
         Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          padding: padding,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: blueColor,
+                primary: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(24),
+                      Radius.circular(18),
                     )),
-                minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.075),
+                minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
                 // NEW
               ),
               onPressed: () async {
@@ -249,14 +248,14 @@ class _HomeMapState extends State<HomeMap> {
                   Container(
                     decoration: BoxDecoration(
                       color: blueColor,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(18),
                     ),
                     width: double.infinity,
                     height: double.infinity,
                     child: FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           ("Total Distance: ${distance.toStringAsFixed(2)} KM"),
                           softWrap: true,

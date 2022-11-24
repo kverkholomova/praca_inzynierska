@@ -303,6 +303,12 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                                 // ),
                               ),
                             ),
+                            SizedBox(
+                              height: MediaQuery.of(context)
+                                  .size
+                                  .height *
+                                  0.015,
+                            ),
                           ],
                         );}}
                         return Center(
@@ -329,7 +335,13 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                       });
                   },
                 ),
-              )
+              ),
+              SizedBox(
+                height: MediaQuery.of(context)
+                    .size
+                    .height *
+                    0.015,
+              ),
             ],
           ),
         ),

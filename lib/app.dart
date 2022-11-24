@@ -18,6 +18,7 @@ import 'models/user.dart';
 
 
 bool isVolunteer = true;
+String currentName = '';
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -67,6 +68,7 @@ class _MyAppState extends State<MyApp> {
         get();
 
         var currentRole = variable['role'];
+        currentName = variable['user_name'];
         print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCApp");
         // print(variable["category"]);
         // var cList = variable["category"];

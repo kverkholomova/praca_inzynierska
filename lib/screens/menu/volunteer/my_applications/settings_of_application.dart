@@ -9,16 +9,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/page_of_application_vol.dart';
-import 'package:wol_pro_1/volunteer/chat/message.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:wol_pro_1/screens/menu/volunteer/messages/volunteer/messagesVol.dart';
 import '../../../../Refugee/SettingRefugee.dart';
+import '../../../../models/categories.dart';
 import '../main_screen.dart';
 import 'applications_vol.dart';
 
 String roomExist ='';
 // bool isvisible = true;
-
+bool firstMessage = false;
 String? IdOfChatroom = '';
 
 String VoluntterName = '';
@@ -267,7 +267,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                           child: Container(
                             width: double.infinity,
                             height: MediaQuery.of(context).size.height *
-                                0.7,
+                                0.45,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
@@ -276,11 +276,37 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                               padding: padding,
                               child: Column(
                                 children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Icon(
+                                      streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
+                                          ?Icons.pets_rounded
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[4]
+                                          ?Icons.local_grocery_store
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[2]
+                                          ?Icons.emoji_transportation_rounded
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[1]
+                                          ?Icons.house
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[6]
+                                          ?Icons.sign_language_rounded
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[5]
+                                          ?Icons.child_care_outlined
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[7]
+                                          ?Icons.menu_book
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[8]
+                                          ?Icons.medical_information_outlined
+                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[0]
+                                          ?Icons.check_box
+                                          :Icons.new_label_sharp,
+                                      size: 30,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   SizedBox(
                                     height: MediaQuery.of(context)
                                         .size
                                         .height *
-                                        0.1,
+                                        0.02,
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
@@ -297,7 +323,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                     height: MediaQuery.of(context)
                                         .size
                                         .height *
-                                        0.015,
+                                        0.007,
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
@@ -312,7 +338,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                     height: MediaQuery.of(context)
                                         .size
                                         .height *
-                                        0.1,
+                                        0.05,
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
@@ -431,8 +457,9 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                           ),
                         ),
                         SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height * 0.015,
+                          height: streamSnapshot.data?.docs[index]["mess_button_visibility_vol"]
+                              ?MediaQuery.of(context).size.height * 0.2
+                          :MediaQuery.of(context).size.height * 0.27,
                         ),
                         // Padding(
                         //   padding: const EdgeInsets.only(top: 20, left: 10),
@@ -491,6 +518,11 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                     style: textButtonStyle,
                                   ),
                                   onPressed: () {
+                                    setState(() {
+                                      firstMessage= true;
+                                      print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKK");
+                                      print(firstMessage);
+                                    });
                                     print(
                                         "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
                                     // print(users_chat);
@@ -534,7 +566,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                          context,
                                          MaterialPageRoute(
                                              builder: (context) =>
-                                                 SelectedChatroom()),
+                                                 SelectedChatroomVol()),
                                        );
                                      }
                                     //LOOOOK HEEEEREEEEE
@@ -615,18 +647,24 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                       streamSnapshot.data?.docs[index].id)
                                       .update({"volunteer_name": "null"});
 
-                                  print(streamSnapshot.data?.docs[index].id);
-                                  print(
-                                      "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
+                                  // print(streamSnapshot.data?.docs[index].id);
+                                  // print(
+                                  //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
 
                                   ID_of_vol_application =
                                       streamSnapshot.data?.docs[index].id;
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ApplicationsOfVolunteer()),
-                                  );
+
+                                  setState(() {
+                                    controllerTabBottom = PersistentTabController(initialIndex: 1);
+                                  });
+                                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                                      MaterialPageRoute(builder: (context) => MainScreen()));
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           ApplicationsOfVolunteer()),
+                                  // );
                                 }),
                           ),
                         )

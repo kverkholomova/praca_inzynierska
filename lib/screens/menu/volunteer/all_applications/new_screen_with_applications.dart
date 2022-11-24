@@ -425,7 +425,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       },
           child: Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.075,
+            height: MediaQuery.of(context).size.height * 0.085,
             decoration: categoryDecoration,
             child: Row(
               children: [

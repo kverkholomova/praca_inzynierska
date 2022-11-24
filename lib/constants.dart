@@ -21,7 +21,7 @@ BoxDecoration categoryDecoration = BoxDecoration(
 
   color: Colors.white,
   borderRadius: const BorderRadius.all(
-    Radius.circular(24),
+    Radius.circular(18),
   ),
 );
 

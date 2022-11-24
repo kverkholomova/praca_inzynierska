@@ -109,7 +109,7 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                     0.015),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height *
-                      0.9,
+                      0.5,
                   child:StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('applications')
@@ -173,87 +173,77 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                             borderRadius:
                                             BorderRadius.circular(
                                                 24)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 15,),
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                                  child: Icon(
-                                                    streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
-                                                        ?Icons.pets_rounded
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[4]
-                                                        ?Icons.local_grocery_store
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[2]
-                                                        ?Icons.emoji_transportation_rounded
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[1]
-                                                        ?Icons.house
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[6]
-                                                        ?Icons.sign_language_rounded
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[5]
-                                                        ?Icons.child_care_outlined
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[7]
-                                                        ?Icons.menu_book
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[8]
-                                                        ?Icons.medical_information_outlined
-                                                        :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[0]
-                                                        ?Icons.check_box
-                                                        :Icons.new_label_sharp,
-                                                    size: 30,
-                                                    color: Colors.black,
-                                                  ),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.height *
+                                                    0.015),
+                                                child: Icon(
+                                                  streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
+                                                      ?Icons.pets_rounded
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[4]
+                                                      ?Icons.local_grocery_store
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[2]
+                                                      ?Icons.emoji_transportation_rounded
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[1]
+                                                      ?Icons.house
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[6]
+                                                      ?Icons.sign_language_rounded
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[5]
+                                                      ?Icons.child_care_outlined
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[7]
+                                                      ?Icons.menu_book
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[8]
+                                                      ?Icons.medical_information_outlined
+                                                      :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[0]
+                                                      ?Icons.check_box
+                                                      :Icons.new_label_sharp,
+                                                  size: 30,
+                                                  color: Colors.black,
                                                 ),
-                                                Align(
+                                              ),
+                                              SizedBox(
+                                                width: MediaQuery.of(context).size.width *
+                                                        0.65,
+                                                height: MediaQuery.of(context).size.height *
+                                                    0.12,
+                                                child:Align(
                                                   alignment: Alignment.center,
-                                                  child: SizedBox(
-                                                    width: MediaQuery.of(context).size.width *
-                                                            0.65,
-                                                    height: MediaQuery.of(context).size.height *
-                                                        0.15,
-                                                    child:Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                      child: Align(
-                                                        alignment: Alignment.center,
-                                                        child: ListTile(
-                                                          // mainAxisAlignment: MainAxisAlignment.start,
-                                                          contentPadding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 10),
-                                                          title: Text(
-                                                              streamSnapshot.data
-                                                                  ?.docs[index]
-                                                              ['title']
-                                                              as String,
-                                                              style: GoogleFonts
-                                                                  .raleway(
-                                                                fontSize: 14,
-                                                                color: Colors.black,
-                                                              )),
-                                                          // Text(
-                                                          //     streamSnapshot.data?.docs[index]['category'] as String,
-                                                          //     style: TextStyle(color: Colors.grey)),
-                                                          subtitle: Text(
-                                                            streamSnapshot.data
-                                                                ?.docs[index]
-                                                            ['comment']
-                                                            as String,
-                                                            style:
-                                                            GoogleFonts.raleway(
-                                                              fontSize: 12,
-                                                              color: Colors.black
-                                                                  .withOpacity(0.5),
-                                                            ),
-                                                          ),
-                                                        ),
+                                                  child: ListTile(
+                                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                                    // contentPadding:
+                                                    // EdgeInsets.symmetric(
+                                                    //     vertical: 10),
+                                                    title: Text(
+                                                        streamSnapshot.data
+                                                            ?.docs[index]
+                                                        ['title']
+                                                        as String,
+                                                        style: GoogleFonts
+                                                            .raleway(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                        )),
+                                                    // Text(
+                                                    //     streamSnapshot.data?.docs[index]['category'] as String,
+                                                    //     style: TextStyle(color: Colors.grey)),
+                                                    subtitle: Text(
+                                                      "${streamSnapshot.data
+                                                          ?.docs[index]
+                                                      ['comment']}".substring(0,30)+"...",
+                                                      style:
+                                                      GoogleFonts.raleway(
+                                                        fontSize: 13,
+                                                        color: Colors.black
+                                                            .withOpacity(0.5),
                                                       ),
-                                                    ),),
-                                                )
-                                              ],
-                                            ),
+                                                    ),
+                                                  ),
+                                                ),)
+                                            ],
                                           ),
                                         ),
                                       ),

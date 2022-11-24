@@ -1084,7 +1084,7 @@ class _HomeVolState extends State<HomeVol> {
                                       height: MediaQuery.of(context)
                                               .size
                                               .height *
-                                          0.012,
+                                          0.015,
                                     ),
                                     Padding(
                                       padding: padding,
@@ -1093,12 +1093,8 @@ class _HomeVolState extends State<HomeVol> {
                                         height: MediaQuery.of(context)
                                                 .size
                                                 .height *
-                                            0.075,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(
-                                                    24)),
+                                            0.085,
+                                        decoration: categoryDecoration,
                                         child: Row(
                                           children: [
                                             Padding(
