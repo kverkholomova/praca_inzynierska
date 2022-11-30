@@ -235,7 +235,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              24)),
+                                                              18)),
                                                   child: Row(
                                                     children: [
                                                       Padding(
@@ -298,14 +298,14 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                                             0.12,
                                                         child: Align(
                                                           alignment:
-                                                              Alignment.center,
+                                                              Alignment.topCenter,
                                                           child: ListTile(
                                                             // mainAxisAlignment: MainAxisAlignment.start,
                                                             contentPadding:
                                                                 EdgeInsets
                                                                     .symmetric(
                                                                         vertical:
-                                                                            10),
+                                                                4),
                                                             title: Padding(
                                                               padding: const EdgeInsets
                                                                       .symmetric(

@@ -1042,7 +1042,7 @@ class _HomeVolState extends State<HomeVol> {
                       : categoriesVolunteer.length == 2
                           ? 170
                           : categoriesVolunteer.length == 3
-                              ? 250
+                              ? 210
                               : categoriesVolunteer.length == 4
                                   ? 300
                                   : categoriesVolunteer.length == 5
@@ -1207,7 +1207,7 @@ class _HomeVolState extends State<HomeVol> {
                       : categoriesVolunteer.length == 2
                           ? MediaQuery.of(context).size.height * 0.012
                           : categoriesVolunteer.length == 3
-                              ? MediaQuery.of(context).size.height * 0.015
+                              ? MediaQuery.of(context).size.height * 0.2
                               : categoriesVolunteer.length == 4
                                   ? MediaQuery.of(context).size.height * 0.025
                                   : MediaQuery.of(context).size.height * 0.05,

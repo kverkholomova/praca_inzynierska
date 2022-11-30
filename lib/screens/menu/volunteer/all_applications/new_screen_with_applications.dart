@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
 
-import 'package:wol_pro_1/volunteer/your_app_vol.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
 
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
