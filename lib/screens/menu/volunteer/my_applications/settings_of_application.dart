@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,9 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/page_of_application_vol.dart';
 import 'package:http/http.dart' as http;
-import 'package:wol_pro_1/screens/menu/volunteer/messages/volunteer/messagesVol.dart';
 import '../../../../Refugee/SettingRefugee.dart';
 import '../../../../models/categories.dart';
+import '../../../../volunteer/chat/message.dart';
 import '../main_screen.dart';
 import 'applications_vol.dart';
 
@@ -23,6 +25,8 @@ String? IdOfChatroom = '';
 
 String VoluntterName = '';
 String RefugeeName = '';
+String nameOfApplication = '';
+
 
 class SettingsOfApplication extends StatefulWidget {
   const SettingsOfApplication({Key? key}) : super(key: key);
@@ -41,6 +45,25 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   String? token = " ";
+  // late StreamSubscription<User?> user;
+  // void deleteChat(){
+  //   user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+  //     if (user == null) {
+  //       print('User is currently signed out!');
+  //     } else {
+  //       print('User is signed in!');
+  //       // loadImage();
+  //       DocumentSnapshot variable = await FirebaseFirestore.instance.
+  //       collection('USERS_COLLECTION').
+  //       doc(IdOfChatroom).
+  //       get();
+  //
+  //       await FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
+  //         await myTransaction.delete(variable);
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   void initState() {
@@ -546,7 +569,9 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                              .data?.docs[index]['refugee_name'],
                                          'Volunteer_Name': streamSnapshot
                                              .data?.docs[index]['volunteer_name'],
-                                         'Id_Of_Chat': "null"
+                                         'Id_Of_Chat': "null",
+                                         'Application_Name': streamSnapshot
+                                             .data?.docs[index]['title']
                                        });
 
                                        // FirebaseFirestore.instance
@@ -566,7 +591,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                          context,
                                          MaterialPageRoute(
                                              builder: (context) =>
-                                                 SelectedChatroomVol()),
+                                                 SelectedChatroom()),
                                        );
                                      }
                                     //LOOOOK HEEEEREEEEE
@@ -612,6 +637,9 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
 
                                 onPressed: () {
                                   sendPushMessage();
+                                  // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
+                                  // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
+                                  // print(IdOfChatroom);
                                   FirebaseFirestore.instance
                                       .collection('applications')
                                       .doc(
@@ -654,6 +682,10 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                   ID_of_vol_application =
                                       streamSnapshot.data?.docs[index].id;
 
+                                  // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
+                                  //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
+                                  // });
+                                  FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(streamSnapshot.data?.docs[index]["chatId_vol"]).delete();
                                   setState(() {
                                     controllerTabBottom = PersistentTabController(initialIndex: 1);
                                   });

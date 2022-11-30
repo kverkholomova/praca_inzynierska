@@ -1038,21 +1038,21 @@ class _HomeVolState extends State<HomeVol> {
 
                 SizedBox(
                   height: categoriesVolunteer.length == 1
-                      ? 60
+                      ? 100
                       : categoriesVolunteer.length == 2
-                          ? 120
+                          ? 170
                           : categoriesVolunteer.length == 3
-                              ? 180
+                              ? 250
                               : categoriesVolunteer.length == 4
-                                  ? 230
+                                  ? 300
                                   : categoriesVolunteer.length == 5
-                                      ? 290
+                                      ? 350
                                       : categoriesVolunteer.length == 6
-                                          ? 350
+                                          ? 400
                                           : categoriesVolunteer.length == 7
-                                              ? 410
+                                              ? 500
                                               : categoriesVolunteer.length == 8
-                                                  ? 470
+                                                  ? 600
                                                   : 140,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -1210,7 +1210,7 @@ class _HomeVolState extends State<HomeVol> {
                               ? MediaQuery.of(context).size.height * 0.015
                               : categoriesVolunteer.length == 4
                                   ? MediaQuery.of(context).size.height * 0.025
-                                  : MediaQuery.of(context).size.height * 0.012,
+                                  : MediaQuery.of(context).size.height * 0.05,
                 ),
               ],
             ),

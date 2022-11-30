@@ -198,7 +198,7 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                                                   // EdgeInsets.symmetric(
                                                   //     vertical: 10),
                                                   title: Text(
-                                                      streamSnapshot.data?.docs[index]['Refugee_Name']
+                                                      streamSnapshot.data?.docs[index]['Application_Name']
                                                       as String,
                                                       style: GoogleFonts
                                                           .raleway(

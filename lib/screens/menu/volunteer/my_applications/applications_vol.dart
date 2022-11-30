@@ -109,7 +109,7 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                     0.015),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height *
-                      0.5,
+                      0.7,
                   child:StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('applications')

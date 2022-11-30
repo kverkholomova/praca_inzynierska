@@ -133,60 +133,71 @@ class _SettingsVolState extends State<SettingsVol> {
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(bottom: 30, top: 10),
-                                child: SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    child: url_image == null
-                                        ? Stack(
-                                          children: [
-                                            Image(
-                                              image:
-                                                  AssetImage("assets/user.png")),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.125,
+                                child: GestureDetector(
+                                  onTap: (){
+                                    currentStreamSnapshot =
+                                        streamSnapshot.data?.docs[index].id;
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ImageUploads()));
+                                  },
+                                  child: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.width * 0.5,
+                                      child: url_image == null
+                                          ? Stack(
+                                            children: [
+                                              Image(
+                                                image:
+                                                    AssetImage("assets/user.png")),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  top: MediaQuery.of(context).size.height * 0.125,
+                                                  left: MediaQuery.of(context).size.width * 0.3,
+                                                ),
+                                                child: IconButton(
+                                                    onPressed: (){
+                                                      currentStreamSnapshot =
+                                                          streamSnapshot.data?.docs[index].id;
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ImageUploads()));
+                                                    },
+                                                    icon: CircleAvatar(
+                                                      backgroundColor: Colors.white,
+                                                      radius: 10,
+                                                        child: Icon(Icons.add, color: blueColor,))),
+                                              )
+                                          ])
+                                          : Stack(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 70.0,
+                                                backgroundImage: NetworkImage(
+                                                    url_image.toString())),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  top: MediaQuery.of(context).size.height * 0.125,
                                                 left: MediaQuery.of(context).size.width * 0.3,
+                                                ),
+                                                child: IconButton(
+                                                    onPressed: (){
+                                                      currentStreamSnapshot =
+                                                          streamSnapshot.data?.docs[index].id;
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ImageUploads()));
+                                                    },
+                                                    icon: Icon(Icons.add_circle, color: background, size: 35,)),
                                               ),
-                                              child: IconButton(
-                                                  onPressed: (){
-                                                    currentStreamSnapshot =
-                                                        streamSnapshot.data?.docs[index].id;
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ImageUploads()));
-                                                  },
-                                                  icon: CircleAvatar(
-                                                    backgroundColor: Colors.white,
-                                                    radius: 10,
-                                                      child: Icon(Icons.add, color: blueColor,))),
-                                            )
-                                        ])
-                                        : Stack(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 70.0,
-                                              backgroundImage: NetworkImage(
-                                                  url_image.toString())),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.125,
-                                              left: MediaQuery.of(context).size.width * 0.3,
-                                              ),
-                                              child: IconButton(
-                                                  onPressed: (){
-                                                    currentStreamSnapshot =
-                                                        streamSnapshot.data?.docs[index].id;
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ImageUploads()));
-                                                  },
-                                                  icon: Icon(Icons.add_circle, color: background, size: 35,)),
-                                            ),
-                                        ])),
+                                          ])),
+                                ),
                               ),
                             ),
                           ),
@@ -658,11 +669,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                     child: Container(
                                       width: double.infinity,
                                       height: MediaQuery.of(context).size.height *
-                                          0.075,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(24)),
+                                          0.085,
+                                      decoration: buttonDecoration,
                                       child: TextButton(
                                           child: Text(
                                             "Sign Out",
@@ -691,7 +699,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     child: Container(
                                       width: double.infinity,
                                       height: MediaQuery.of(context).size.height *
-                                          0.075,
+                                          0.085,
                                       decoration: buttonDecoration,
                                       child: TextButton(
                                           child: Text(

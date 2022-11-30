@@ -102,9 +102,7 @@ class _MessagesVolState extends State<MessagesVol> {
                   ),
                 ),
               ),
-              firstMessage
-                  ? Container()
-                  : Padding(
+             Padding(
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.05),
                       child: SizedBox(
@@ -321,7 +319,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 0),
                 child: Container(
-                  color: background,
+                  // color: background,
                   height: 60,
                   child: Align(
                     alignment: Alignment.center,
