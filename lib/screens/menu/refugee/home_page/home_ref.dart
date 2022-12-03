@@ -10,9 +10,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
+import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/settings_ref_info.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
-import 'package:wol_pro_1/screens/menu/refugee/create_application.dart';
+import 'package:wol_pro_1/screens/menu/refugee/create_application/create_application.dart';
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
@@ -182,12 +183,12 @@ class _HomeRefState extends State<HomeRef> {
                                                         ['image']);
                                                         Future.delayed(const Duration(milliseconds: 500), ()
                                                         {
-                                                          // Navigator.push(
-                                                          //     context,
-                                                          //     MaterialPageRoute(
-                                                          //         builder: (
-                                                          //             context) =>
-                                                          //             SettingsVol()));
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (
+                                                                      context) =>
+                                                                      SettingsRef()));
                                                         });
                                                       },
                                                     ),

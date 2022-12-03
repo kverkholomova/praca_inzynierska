@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:wol_pro_1/screens/menu/refugee/create_application/create_application.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/maps/map.dart';
+
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
 
 import '../../../constants.dart';
 import '../../intro_screen/option.dart';
+import 'maps/map_ref.dart';
 
 class MainScreenRefugee extends StatefulWidget {
   MainScreenRefugee({Key? key}) : super(key: key);
@@ -22,7 +24,7 @@ class MainScreenRefugee extends StatefulWidget {
 class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   int _selectedIndex = 2;
-  PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 1);
+  PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -32,10 +34,12 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   List<Widget> _buildScreens() {
     return [
-      // Text("Chats"),
-      Text("My applications"),
+      Text("Chats"),
+      Application(),
       HomeRef(),
-      const HomeMap(),
+      const HomeMapRef(),
+      Text("My applications"),
+      // Text("Add application"),
       // const Categories(),
 
     ];
@@ -43,27 +47,13 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      // PersistentBottomNavBarItem(
-      //   inactiveIcon: const Icon(Icons.message_rounded,size: 24,),
-      //   icon: const Padding(
-      //     padding: EdgeInsets.only(bottom: 5),
-      //     child: Icon(Icons.message_rounded,size: 28,),
-      //   ),
-      //   title: ("Messages"),
-      //   textStyle: GoogleFonts.raleway(
-      //     fontSize: 11,
-      //     color: Colors.white,
-      //   ),
-      //   activeColorPrimary: Colors.white,
-      //   inactiveColorPrimary: Colors.white.withOpacity(0.5),
-      // ),
       PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(Icons.folder_special_rounded, size: 24,),
+        inactiveIcon: const Icon(Icons.message_rounded,size: 24,),
         icon: const Padding(
           padding: EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.folder_special_rounded, size: 28,),
+          child: Icon(Icons.message_rounded,size: 28,),
         ),
-        title: ("Accepted"),
+        title: ("Messages"),
         textStyle: GoogleFonts.raleway(
           fontSize: 11,
           color: Colors.white,
@@ -71,6 +61,21 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
+      PersistentBottomNavBarItem(
+        inactiveIcon:  const Icon(Icons.note_add_rounded, size: 24,),
+        icon: const Padding(
+          padding: EdgeInsets.only(bottom: 5),
+          child: Icon(Icons.note_add_rounded, size: 28,),
+        ),
+        title: ("Add"),
+        textStyle: GoogleFonts.raleway(
+          fontSize: 11,
+          color: Colors.white,
+        ),
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+      ),
+
       PersistentBottomNavBarItem(
         inactiveIcon: const Icon(Icons.home, size: 24,),
         activeColorSecondary: Colors.white,
@@ -90,6 +95,20 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
           child: Icon(Icons.map, size: 28,),
         ),
         title: ("Map"),
+        textStyle: GoogleFonts.raleway(
+          fontSize: 11,
+          color: Colors.white,
+        ),
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+      ),
+      PersistentBottomNavBarItem(
+        inactiveIcon: const Icon(Icons.folder_special_rounded, size: 24,),
+        icon: const Padding(
+          padding: EdgeInsets.only(bottom: 5),
+          child: Icon(Icons.folder_special_rounded, size: 28,),
+        ),
+        title: ("Applications"),
         textStyle: GoogleFonts.raleway(
           fontSize: 11,
           color: Colors.white,

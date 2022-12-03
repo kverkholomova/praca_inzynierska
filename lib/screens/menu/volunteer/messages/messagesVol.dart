@@ -9,8 +9,8 @@ import 'package:wol_pro_1/app.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
 
-import '../../home_page/home_vol.dart';
-import '../../main_screen.dart';
+import '../home_page/home_vol.dart';
+import '../main_screen.dart';
 import 'pageWithChatsVol.dart';
 
 ScrollController _scrollControllerVol_ = ScrollController();

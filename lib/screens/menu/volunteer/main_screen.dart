@@ -6,7 +6,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_wit
 import '../../../constants.dart';
 import '../../intro_screen/option.dart';
 import 'home_page/home_vol.dart';
-import 'messages/volunteer/pageWithChatsVol.dart';
+import 'messages/pageWithChatsVol.dart';
 import 'my_applications/applications_vol.dart';
 
 bool isVisibleTabBar = true;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/menu/refugee/create_application.dart';
+import 'package:wol_pro_1/screens/menu/refugee/create_application/create_application.dart';
 
 
 class SetVol extends StatefulWidget {
