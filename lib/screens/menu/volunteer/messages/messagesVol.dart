@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/Refugee/pageWithChats.dart';
+import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/app.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
@@ -62,7 +62,7 @@ class _MessagesVolState extends State<MessagesVol> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 0);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
@@ -79,7 +79,7 @@ class _MessagesVolState extends State<MessagesVol> {
             ),
             onPressed: () {
               setState(() {
-                controllerTabBottom = PersistentTabController(initialIndex: 0);
+                controllerTabBottomVol = PersistentTabController(initialIndex: 0);
               });
               Navigator.of(context, rootNavigator: true).pushReplacement(
                   MaterialPageRoute(builder: (context) => MainScreen()));
@@ -166,7 +166,7 @@ class _MessagesVolState extends State<MessagesVol> {
                                                           ["name"] ==
                                                       currentNameVol
                                                   ? Colors.white
-                                                  : blueColor,
+                                                  : blueColor.withOpacity(0.2),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10))),
                                           // width: 300,
@@ -261,7 +261,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 0);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
@@ -279,7 +279,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
           ),
           onPressed: () {
             setState(() {
-              controllerTabBottom = PersistentTabController(initialIndex: 0);
+              controllerTabBottomVol = PersistentTabController(initialIndex: 0);
             });
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => MainScreen()));

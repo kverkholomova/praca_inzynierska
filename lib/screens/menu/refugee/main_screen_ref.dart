@@ -8,11 +8,13 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/refugee/create_application/create_application.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 
-import 'package:wol_pro_1/screens/menu/volunteer/all_applications/new_screen_with_applications.dart';
-
 import '../../../constants.dart';
 import '../../intro_screen/option.dart';
 import 'maps/map_ref.dart';
+import 'messages/pageWithChatsRef.dart';
+import 'my_applications/all_applications.dart';
+
+PersistentTabController controllerTabBottomRef = PersistentTabController(initialIndex: 2);
 
 class MainScreenRefugee extends StatefulWidget {
   MainScreenRefugee({Key? key}) : super(key: key);
@@ -24,7 +26,7 @@ class MainScreenRefugee extends StatefulWidget {
 class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   int _selectedIndex = 2;
-  PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -34,11 +36,11 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
   List<Widget> _buildScreens() {
     return [
-      Text("Chats"),
+      ListofChatroomsRef(),
       Application(),
       HomeRef(),
       const HomeMapRef(),
-      Text("My applications"),
+      CategoriesRef(),
       // Text("Add application"),
       // const Categories(),
 
@@ -163,7 +165,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         child: SafeArea(
             child: PersistentTabView(
               context,
-              controller: controllerTabBottom,
+              controller: controllerTabBottomRef,
               screens: _buildScreens(),
               items: _navBarsItems(),
               confineInSafeArea: true,

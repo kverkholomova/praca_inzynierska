@@ -194,7 +194,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 1);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 1);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
@@ -211,7 +211,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
           ),
           onPressed: () {
             setState(() {
-              controllerTabBottom = PersistentTabController(initialIndex: 1);
+              controllerTabBottomVol = PersistentTabController(initialIndex: 1);
             });
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => MainScreen()));
@@ -687,7 +687,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                                   // });
                                   FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(streamSnapshot.data?.docs[index]["chatId_vol"]).delete();
                                   setState(() {
-                                    controllerTabBottom = PersistentTabController(initialIndex: 1);
+                                    controllerTabBottomVol = PersistentTabController(initialIndex: 1);
                                   });
                                   Navigator.of(context, rootNavigator: true).pushReplacement(
                                       MaterialPageRoute(builder: (context) => MainScreen()));

@@ -143,6 +143,8 @@ class _HomeRefState extends State<HomeRef> {
                                               )
                                             ]);
                                       case ConnectionState.active:
+                                        currentNameRef = streamSnapshot
+                                            .data?.docs[index]['user_name'];
                                         return Padding(
                                           padding: const EdgeInsets.only(top: 20),
                                           child: Column(

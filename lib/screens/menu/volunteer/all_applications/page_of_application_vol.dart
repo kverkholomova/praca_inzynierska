@@ -15,7 +15,7 @@ import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../Refugee/applications/all_applications.dart';
+import '../../refugee/my_applications/all_applications.dart';
 import '../../../../models/categories.dart';
 import '../main_screen.dart';
 import 'chosen_category_applications.dart';
@@ -178,7 +178,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 4);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 4);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => new ChosenCategory()));
@@ -195,7 +195,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
           ),
           onPressed: () {
             setState(() {
-              controllerTabBottom = PersistentTabController(initialIndex: 4);
+              controllerTabBottomVol = PersistentTabController(initialIndex: 4);
             });
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => ChosenCategory()));
@@ -531,7 +531,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                       streamSnapshot
                                                           .data?.docs[index].id;
                                                   setState(() {
-                                                    controllerTabBottom = PersistentTabController(initialIndex: 1);
+                                                    controllerTabBottomVol = PersistentTabController(initialIndex: 1);
                                                   });
                                                   Navigator.of(context, rootNavigator: true).pushReplacement(
                                                       MaterialPageRoute(builder: (context) => MainScreen()));

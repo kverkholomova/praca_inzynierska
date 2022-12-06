@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/Refugee/pageWithChats.dart';
+import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/app.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
@@ -63,7 +63,7 @@ class _MessagesVolFirstState extends State<MessagesVolFirst> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 0);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
@@ -80,7 +80,7 @@ class _MessagesVolFirstState extends State<MessagesVolFirst> {
             ),
             onPressed: () {
               setState(() {
-                controllerTabBottom = PersistentTabController(initialIndex: 0);
+                controllerTabBottomVol = PersistentTabController(initialIndex: 0);
               });
               Navigator.of(context, rootNavigator: true).pushReplacement(
                   MaterialPageRoute(builder: (context) => MainScreen()));
@@ -264,7 +264,7 @@ class _SelectedChatroomVolFirstState extends State<SelectedChatroomVolFirst> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 0);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
@@ -282,7 +282,7 @@ class _SelectedChatroomVolFirstState extends State<SelectedChatroomVolFirst> {
           ),
           onPressed: () {
             setState(() {
-              controllerTabBottom = PersistentTabController(initialIndex: 0);
+              controllerTabBottomVol = PersistentTabController(initialIndex: 0);
             });
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => MainScreen()));

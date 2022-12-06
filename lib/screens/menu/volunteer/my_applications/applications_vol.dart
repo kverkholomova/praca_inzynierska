@@ -172,7 +172,7 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                             color: Colors.white,
                                             borderRadius:
                                             BorderRadius.circular(
-                                                24)),
+                                                18)),
                                         child: Align(
                                           alignment: Alignment.center,
                                           child: Row(
@@ -207,7 +207,7 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                               ),
                                               SizedBox(
                                                 width: MediaQuery.of(context).size.width *
-                                                        0.65,
+                                                    0.65,
                                                 height: MediaQuery.of(context).size.height *
                                                     0.12,
                                                 child:Align(

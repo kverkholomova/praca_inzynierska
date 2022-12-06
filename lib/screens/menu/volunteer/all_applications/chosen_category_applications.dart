@@ -30,7 +30,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
     return WillPopScope(
         onWillPop: () async {
           setState(() {
-            controllerTabBottom = PersistentTabController(initialIndex: 4);
+            controllerTabBottomVol = PersistentTabController(initialIndex: 4);
           });
           Navigator.of(context, rootNavigator: true).pushReplacement(
               MaterialPageRoute(builder: (context) => MainScreen()));
@@ -49,7 +49,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
               ),
               onPressed: () {
                 setState(() {
-                  controllerTabBottom =
+                  controllerTabBottomVol =
                       PersistentTabController(initialIndex: 4);
                 });
                 Navigator.of(context, rootNavigator: true).pushReplacement(

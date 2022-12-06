@@ -11,14 +11,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wol_pro_1/Refugee/messages_ref.dart';
-import 'package:wol_pro_1/Refugee/pageWithChats.dart';
+import 'package:wol_pro_1/to_delete/messages_ref.dart';
+import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/Refugee/rating.dart';
 import 'package:wol_pro_1/screens/info_volunteer_accepted_application.dart';
 
 import '../../constants.dart';
 import '../../screens/menu/refugee/home_page/home_ref.dart';
-import 'all_applications.dart';
+import '../../screens/menu/refugee/my_applications/all_applications.dart';
 
 String IDVolOfApplication = '';
 // String? token;
@@ -317,13 +317,13 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                       .doc(
                                       streamSnapshot.data?.docs[index].id)
                                       .update({"mess_button_visibility_ref": false});
-                                 IdOfChatroomRef = streamSnapshot.data?.docs[index]['chatId_vol'];
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SelectedChatroom_Ref()),
-                                    );
+                                 // IdOfChatroomRef = streamSnapshot.data?.docs[index]['chatId_vol'];
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           SelectedChatroom_Ref()),
+                                    // );
 
 
                                   //}

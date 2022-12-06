@@ -10,7 +10,7 @@ import 'messages/pageWithChatsVol.dart';
 import 'my_applications/applications_vol.dart';
 
 bool isVisibleTabBar = true;
-PersistentTabController controllerTabBottom = PersistentTabController(initialIndex: 2);
+PersistentTabController controllerTabBottomVol = PersistentTabController(initialIndex: 2);
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -151,7 +151,7 @@ class _MainScreenState extends State<MainScreen> {
             child: PersistentTabView(
         context,
         // hideNavigationBar: !isVisibleTabBar,
-        controller: controllerTabBottom,
+        controller: controllerTabBottomVol,
         screens: _buildScreens(),
         items: _navBarsItems(),
         confineInSafeArea: true,

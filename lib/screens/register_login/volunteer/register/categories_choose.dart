@@ -38,7 +38,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 2);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 2);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => isLoggedIn? MainScreen(): OptionChoose()));
@@ -72,7 +72,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                   leading: IconButton(
                       onPressed: () {
                         setState(() {
-                          controllerTabBottom = PersistentTabController(initialIndex: 2);
+                          controllerTabBottomVol = PersistentTabController(initialIndex: 2);
                         });
                         Navigator.of(context, rootNavigator: true).pushReplacement(
                             MaterialPageRoute(builder: (context) => isLoggedIn? MainScreen(): OptionChoose()));

@@ -8,6 +8,7 @@ import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
 
 import '../home_page/home_ref.dart';
+import 'messagesRef.dart';
 
 
 class ListofChatroomsRef extends StatefulWidget {
@@ -16,7 +17,7 @@ class ListofChatroomsRef extends StatefulWidget {
   @override
   State<ListofChatroomsRef> createState() => _ListofChatroomsRefState();
 }
-String? IdOfChatroomVol = '';
+String? IdOfChatroomRef = '';
 List<String?> listOfRefugeesVol_ = [];
 class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
   @override
@@ -105,7 +106,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('USERS_COLLECTION')
-                      .where('IdVolunteer', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                      .where('IdRefugee', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
                     return ListView.builder(
@@ -140,7 +141,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                         onTap: () {
                                           setState(() {
                                             listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
-                                            IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
+                                            IdOfChatroomRef = streamSnapshot.data?.docs[index]["chatId"];
                                             // isVisibleTabBar = false;
                                             // print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
                                             // print(isVisibleTabBar);
@@ -153,7 +154,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                             // print("print ${streamSnapshot.data?.docs[index][id]}");
                                           });
                                           Navigator.of(context, rootNavigator: true).pushReplacement(
-                                              MaterialPageRoute(builder: (context) => new SelectedChatroomVol()));
+                                              MaterialPageRoute(builder: (context) => new SelectedChatroomRef()));
                                           // Navigator.push(
                                           //   context,
                                           //   MaterialPageRoute(

@@ -51,7 +51,7 @@ class _MessagesState extends State<Messages> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 0);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
@@ -77,7 +77,7 @@ class _MessagesState extends State<Messages> {
               ),
               onPressed: () {
                 setState(() {
-                  controllerTabBottom = PersistentTabController(initialIndex: 0);
+                  controllerTabBottomVol = PersistentTabController(initialIndex: 0);
                 });
                 Navigator.of(context, rootNavigator: true).pushReplacement(
                     MaterialPageRoute(builder: (context) => MainScreen()));
@@ -233,7 +233,7 @@ class _SelectedChatroomState extends State<SelectedChatroom> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottom = PersistentTabController(initialIndex: 0);
+          controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => MainScreen()));
