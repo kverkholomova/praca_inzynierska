@@ -164,12 +164,12 @@ class _SignInVolState extends State<SignInVol> {
                           : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.075,
-                            decoration: buttonDecoration,
+                            height: MediaQuery.of(context).size.height * 0.085,
+                            decoration: buttonActiveDecoration,
                             child: TextButton(
                                 child: Text(
                                   "Sign In",
-                                  style: textButtonStyle,
+                                  style: textActiveButtonStyle,
                                 ),
                                 onPressed: () async {
                                   registrationVol = false;

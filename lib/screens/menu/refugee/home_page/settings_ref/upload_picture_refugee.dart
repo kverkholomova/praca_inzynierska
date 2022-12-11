@@ -146,14 +146,14 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.075,
-                    decoration: buttonDecoration,
+                    decoration: buttonActiveDecoration,
                     child: TextButton(
                         onPressed: () {
                           selectFile();
                         },
                         child: Text(
                           "Select file",
-                          style: textButtonStyle,
+                          style: textActiveButtonStyle,
                         )),
                   ),
                 ),
@@ -167,7 +167,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.075,
-                    decoration: buttonDecoration,
+                    decoration: buttonActiveDecoration,
                     child: TextButton(
                         onPressed: () {
                           loadImage();
@@ -183,7 +183,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                         },
                         child: Text(
                           "Done",
-                          style: textButtonStyle,
+                          style: textActiveButtonStyle,
                         )),
                   ),
                 ),

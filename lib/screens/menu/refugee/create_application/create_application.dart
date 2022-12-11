@@ -430,11 +430,11 @@ class _ApplicationState extends State<Application> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
                         0.085,
-                    decoration: buttonDecoration,
+                    decoration: buttonActiveDecoration,
                     child: TextButton(
                         child: Text(
                           "Add new application",
-                          style: textButtonStyle,
+                          style: textActiveButtonStyle,
                         ),
                         onPressed: () async {
                           ID = FirebaseAuth.instance.currentUser?.uid;

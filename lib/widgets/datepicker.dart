@@ -44,7 +44,7 @@ class _DatePickerState extends State<DatePicker> {
     setState(() {
       var currentDate;
       var bDate;
-      print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+      print("Your BDay");
       print(DateFormat('yyyy').format(details.date!));
       print(DateFormat('MMMM').format(DateTime.now()));
       month.forEach((element) {

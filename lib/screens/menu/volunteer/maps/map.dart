@@ -275,7 +275,7 @@ class _HomeMapState extends State<HomeMap> {
               },
               child: Text(
                 "Directions",
-                style: textButtonStyle,
+                style: textActiveButtonStyle,
               )),
         )
       ],

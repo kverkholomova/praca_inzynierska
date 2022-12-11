@@ -174,11 +174,11 @@ class _SignInRefState extends State<SignInRef> {
                     child: Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.075,
-                      decoration: buttonDecoration,
+                      decoration: buttonActiveDecoration,
                       child: TextButton(
                           child: Text(
                             "Sign In",
-                            style: textButtonStyle,
+                            style: textActiveButtonStyle,
                           ),
                           onPressed: () async {
                             if (controllerTextFieldEmailRef.text.isEmpty) {

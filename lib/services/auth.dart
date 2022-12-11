@@ -1,14 +1,17 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wol_pro_1/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/register_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/database.dart';
-
+import 'package:http/http.dart' as http;
 import '../screens/register_login/volunteer/login/sign_in_volunteer.dart';
 
 class AuthService {
-
+  String? tokenFirst;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on firebase user
@@ -66,7 +69,7 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New refugee','2', userNameRef, phoneNumberRef,[], user.uid, 0, 0, '');
+      await DatabaseService(uid: user!.uid).updateUserData('New refugee','2', userNameRef, phoneNumberRef,[], user.uid, 0, 0, '', "");
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());
@@ -80,7 +83,7 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategoryListChanges, user.uid, volunteerRate, volunteerAge, image_url_volunteer);
+      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategoryListChanges, user.uid, volunteerRate, volunteerAge, image_url_volunteer, "");
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());
@@ -89,7 +92,26 @@ class AuthService {
   }
 
 
-
+  Future<void> changePassword(String newPassword) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print(newPassword);
+    tokenFirst = sharedPreferences.getString("token");
+    final url = "https://identitytoolkit.googleapis.com/v1/accounts:update?key='AIzaSyDxovtIAVt8ka_uAA9UrrypBBBLlrbev-w";
+    try {
+      await http.post(
+        Uri.parse(url),
+        body: json.encode(
+          {
+            'idToken': tokenFirst,
+            'password': newPassword,
+            'returnSecureToken': true,
+          },
+        ),
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 
 // sign out
 Future signOut() async{

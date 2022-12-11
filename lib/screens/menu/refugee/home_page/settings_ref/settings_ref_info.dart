@@ -672,11 +672,11 @@ class _SettingsRefState extends State<SettingsRef> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonDecoration,
+                                        decoration: buttonActiveDecoration,
                                         child: TextButton(
                                             child: Text(
                                               "Sign Out",
-                                              style: textButtonStyle,
+                                              style: textActiveButtonStyle,
                                             ),
                                             onPressed: () async {
                                               await _auth.signOut();
@@ -702,11 +702,11 @@ class _SettingsRefState extends State<SettingsRef> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonDecoration,
+                                        decoration: buttonActiveDecoration,
                                         child: TextButton(
                                             child: Text(
                                               "Save changes",
-                                              style: textButtonStyle,
+                                              style: textActiveButtonStyle,
                                             ),
                                             onPressed: () async {
                                               FirebaseFirestore.instance

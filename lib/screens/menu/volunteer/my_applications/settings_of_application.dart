@@ -538,7 +538,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                               child: TextButton(
                                   child: Text(
                                     "Message",
-                                    style: textButtonStyle,
+                                    style: textActiveButtonStyle,
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -632,7 +632,7 @@ class _SettingsOfApplicationState extends State<SettingsOfApplication> {
                             child: TextButton(
                                 child: Text(
                                   "Decline",
-                                  style: textButtonStyle,
+                                  style: textActiveButtonStyle,
                                 ),
 
                                 onPressed: () {

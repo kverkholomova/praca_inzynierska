@@ -48,44 +48,44 @@ class _OptionChooseState extends State<OptionChoose> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      backgroundColor: blueColor,
+      backgroundColor: background,
       body: Stack(
         children: [
-          // Align(
-          //   alignment: Alignment.center,
-          //   child: Padding(
-          //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.35),
-          //     child: Padding(
-          //       padding: const EdgeInsets.symmetric(horizontal: 30),
-          //               child: SvgPicture.asset('assets/logo.svg')
-          //     ),
-          //   ),
-          // ),
-
-          Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Text("Helpmate ",
-                style: GoogleFonts.sairaStencilOne(
-                  fontSize: 50,
-                  color: background,
-                ),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.35),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: SvgPicture.asset('assets/logo.svg')
               ),
             ),
           ),
+
+          // Padding(
+          //   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+          //   child: Align(
+          //     alignment: Alignment.topCenter,
+          //     child: Text("Helpmate ",
+          //       style: GoogleFonts.sairaStencilOne(
+          //         fontSize: 50,
+          //         color: background,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.38),
             child: Align(
               alignment: Alignment.topCenter,
               child: Shimmer.fromColors(
                 period: const Duration(seconds: 5),
-                baseColor: Colors.white,
-                highlightColor: blueColor,
+                baseColor: Colors.black,
+                highlightColor: background,
                 child: Text("Get ready now",
                 style: GoogleFonts.raleway(
                   fontSize: 24,
-                  color: blueColor,
+                  color: Colors.black,
                 ),
                 ),
               ),
@@ -128,10 +128,10 @@ class StartButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.085,
-        decoration: buttonDecoration,
+        decoration: buttonActiveDecoration,
         child: TextButton(
         child: Text(buttonName,
-          style: textButtonStyle,
+          style: textActiveButtonStyle,
         ),
         onPressed: () async{
           optionRefugee=optionRef;

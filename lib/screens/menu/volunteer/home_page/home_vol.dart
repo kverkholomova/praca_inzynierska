@@ -18,14 +18,13 @@ import '../../../../models/categories.dart';
 import '../../../../service/local_push_notifications.dart';
 import '../../../register_login/volunteer/register/register_volunteer_1.dart';
 import 'settings/settings_vol_info.dart';
-import '../all_applications/new_screen_with_applications.dart';
 
 bool isLoggedIn = true;
 
 // String? currentId_set = '';
 String? currentNameVol = '';
 List categoriesUserRegister = [];
-String? token_vol;
+String? tokenVol;
 // final FirebaseFirestore _db = FirebaseFirestore.instance;
 // final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
@@ -95,14 +94,14 @@ class _HomeVolState extends State<HomeVol> {
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
     print(
-        "------???---------RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+        "------???---------Token");
     print(token_v);
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({'token_vol': token_v}, SetOptions(merge: true));
     print(
-        "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+        "Token");
     print(token_v);
   }
 
@@ -419,7 +418,7 @@ class _HomeVolState extends State<HomeVol> {
                     height: scrolled
                         ? MediaQuery.of(context).size.height * 0.3
                         : MediaQuery.of(context).size.height * 0.43,
-                    duration: Duration(milliseconds: 10000000),
+                    duration: const Duration(milliseconds: 10000000),
                     decoration: BoxDecoration(
                       color: blueColor,
                     ),
@@ -557,19 +556,19 @@ class _HomeVolState extends State<HomeVol> {
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           return ListView.builder(
                               shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: !streamSnapshot.hasData
                                   ? 1
                                   : streamSnapshot.data?.docs.length,
                               itemBuilder: (ctx, index) {
-                                token_vol = streamSnapshot.data?.docs[index]
+                                tokenVol = streamSnapshot.data?.docs[index]
                                     ['token_vol'];
                                 currentNameVol = streamSnapshot
                                     .data?.docs[index]['user_name'];
                                 if (streamSnapshot.hasData) {
                                   switch (streamSnapshot.connectionState) {
                                     case ConnectionState.waiting:
-                                      return SizedBox(
+                                      return const SizedBox(
                                         width: 60,
                                         height: 60,
                                         child: Loading(),
@@ -578,9 +577,9 @@ class _HomeVolState extends State<HomeVol> {
                                     case ConnectionState.active:
                                       // categoriesVolunteer.add(streamSnapshot
                                       //     .data?.docs[index]['category']);
-                                      print(
-                                          "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-                                      print(categoriesVolunteer.length);
+                                      // print(
+                                      //     "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+                                      // print(categoriesVolunteer.length);
                                       return scrolled
                                           ? Padding(
                                               padding: EdgeInsets.only(
@@ -591,14 +590,14 @@ class _HomeVolState extends State<HomeVol> {
                                               ),
                                               child: Row(
                                                 children: [
-                                                  Container(
+                                                  SizedBox(
                                                     height:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
                                                             0.3,
                                                     child: url_image == null
-                                                        ? Image(
+                                                        ? const Image(
                                                             image: AssetImage(
                                                                 "assets/user.png"))
                                                         : CircleAvatar(
@@ -646,14 +645,14 @@ class _HomeVolState extends State<HomeVol> {
                                                   top: 20),
                                               child: Column(
                                                 children: [
-                                                  Container(
+                                                  SizedBox(
                                                     height:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
                                                             0.4,
                                                     child: url_image == null
-                                                        ? Image(
+                                                        ? const Image(
                                                             image: AssetImage(
                                                                 "assets/user.png"))
                                                         : CircleAvatar(
@@ -1065,15 +1064,15 @@ class _HomeVolState extends State<HomeVol> {
                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Loading();
+                          return const Loading();
                         } else if (streamSnapshot.connectionState ==
                             ConnectionState.done) {
-                          return Text('done');
+                          return const Text('done');
                         } else if (streamSnapshot.hasError) {
-                          return Text('Error!');
+                          return const Text('Error!');
                         } else {
                           return ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: categoriesVolunteer.length,
                               itemBuilder: (ctx, index) {
@@ -1186,7 +1185,7 @@ class _HomeVolState extends State<HomeVol> {
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
                       chosenCategoryListChanges = [];
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add,
                       color: Colors.black,
                       size: 30,

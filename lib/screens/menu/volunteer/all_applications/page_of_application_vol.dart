@@ -479,7 +479,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                             child: TextButton(
                                                 child: Text(
                                                   "Accept application",
-                                                  style: textButtonStyle,
+                                                  style: textActiveButtonStyle,
                                                 ),
                                                 onPressed: () async {
                                                   sendPushMessage();
@@ -507,7 +507,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                       .doc(streamSnapshot
                                                       .data?.docs[index].id)
                                                       .update(
-                                                      {"token_vol": token_vol});
+                                                      {"token_vol": tokenVol});
                                                   FirebaseFirestore.instance
                                                       .collection('applications')
                                                       .doc(streamSnapshot

@@ -3,12 +3,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 20);
 
-BoxDecoration buttonDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(18)
+BoxDecoration buttonActiveDecoration = BoxDecoration(
+    color: blueColor,
+    borderRadius: BorderRadius.circular(15)
 );
 
-TextStyle textButtonStyle = GoogleFonts.raleway(
+TextStyle textActiveButtonStyle = GoogleFonts.raleway(
+  fontSize: 18,
+  color: Colors.white,
+);
+
+BoxDecoration buttonInactiveDecoration = BoxDecoration(
+    color: Colors.white,
+    border: Border.all(
+      color: blueColor
+    ),
+    borderRadius: BorderRadius.circular(15)
+);
+
+TextStyle textInactiveButtonStyle = GoogleFonts.raleway(
   fontSize: 18,
   color: blueColor,
 );

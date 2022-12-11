@@ -204,11 +204,11 @@ class _RegisterRefState extends State<RegisterRef> {
                         Container(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.075,
-                          decoration: buttonDecoration,
+                          decoration: buttonActiveDecoration,
                           child: TextButton(
                               child: Text(
                                 "Sign Up",
-                                style: textButtonStyle,
+                                style: textActiveButtonStyle,
                               ),
                               onPressed: () async {
                                 registrationRef = true;

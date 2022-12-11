@@ -211,11 +211,11 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         Container(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.075,
-                          decoration: buttonDecoration,
+                          decoration: buttonActiveDecoration,
                           child: TextButton(
                               child: Text(
                                 "Sign Up",
-                                style: textButtonStyle,
+                                style: textActiveButtonStyle,
                               ),
                               onPressed: () async {
 

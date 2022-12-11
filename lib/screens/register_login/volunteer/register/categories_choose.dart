@@ -312,11 +312,11 @@ class _ChooseCategoryState extends State<ChooseCategory> {
                                                     width: double.infinity,
                                                     height: MediaQuery.of(context).size.height *
                                                         0.085,
-                                                    decoration: buttonDecoration,
+                                                    decoration: buttonActiveDecoration,
                                                     child: TextButton(
                                                         child: Text(
                                                           "Done",
-                                                          style: textButtonStyle,
+                                                          style: textActiveButtonStyle,
                                                         ),
                                                         onPressed: () {
                                                           // print("PPPPPPPPPPPPPPPPPPPPPPPPPP");

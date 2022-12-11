@@ -13,9 +13,6 @@ import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
 
-import '../../../../../models/categories.dart';
-import '../../all_applications/new_screen_with_applications.dart';
-import '../home_vol.dart';
 import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../../services/auth.dart';
 
@@ -37,14 +34,14 @@ class _SettingsVolState extends State<SettingsVol> {
   storeNotificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     print(
-        "------???---------RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+        "------???---------Token");
     print(token);
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({'token': token}, SetOptions(merge: true));
     print(
-        "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+        "Token");
     print(token);
   }
 
@@ -150,7 +147,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                         child: url_image == null
                                             ? Stack(
                                               children: [
-                                                Image(
+                                                const Image(
                                                   image:
                                                       AssetImage("assets/user.png")),
                                                 Padding(
@@ -243,7 +240,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.075,
+                                    MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
                                         changedName = val;
@@ -251,14 +248,14 @@ class _SettingsVolState extends State<SettingsVol> {
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                       decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
@@ -267,7 +264,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                         errorStyle:
                                         const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: blueColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
@@ -275,7 +272,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -481,29 +478,40 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.075,
+                                    MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
-                                      onChanged: (val) {
-                                        changedAge = currentAgeVolunteer;
-                                      },
+                                      // onEditingComplete: (){
+                                      //   changedAge = currentAgeVolunteer;
+                                      //   print("!AgeEditInside");
+                                      // },
+                                      // onSaved: (val) {
+                                      //   changedAge = currentAgeVolunteer;
+                                      //   print("!AgeSaveInside");
+                                      //   print(val);
+                                      // },
+                                      // onChanged: (val) {
+                                      //   changedAge = currentAgeVolunteer;
+                                      //   print("!AgeInside");
+                                      //   print(val);
+                                      // },
                                       onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => DatePicker()),
+                                              builder: (context) => const DatePicker()),
                                         );
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                       decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
@@ -512,7 +520,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                         errorStyle:
                                         const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: blueColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
@@ -520,7 +528,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -556,7 +564,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                   ),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.075,
+                                    MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
                                         changedPhone = val;
@@ -564,14 +572,14 @@ class _SettingsVolState extends State<SettingsVol> {
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                       decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
@@ -580,7 +588,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                         errorStyle:
                                         const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: blueColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
@@ -588,7 +596,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -606,64 +614,73 @@ class _SettingsVolState extends State<SettingsVol> {
                                       ),
                                     ),
                                   ),
+                                  // Divider(color: blueColor),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(
+                                  //     bottom:
+                                  //     MediaQuery.of(context).size.height * 0.02,
+                                  //   ),
+                                  //   child: Text(
+                                  //       "Choose categories which are the best suitable for you",
+                                  //       style: textLabelSeparated),
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[3],
+                                  //     Icons.pets_rounded),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[4],
+                                  //     Icons.local_grocery_store),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[2],
+                                  //     Icons.emoji_transportation_rounded),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(
+                                  //     context, categoriesListAll[1], Icons.house),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[6],
+                                  //     Icons.sign_language_rounded),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[5],
+                                  //     Icons.child_care_outlined),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[7],
+                                  //     Icons.menu_book),
+                                  // SizedBox(
+                                  //   height:
+                                  //   MediaQuery.of(context).size.height * 0.012,
+                                  // ),
+                                  // buildCategorySettings(context, categoriesListAll[8],
+                                  //     Icons.medical_information_outlined),
+                                  SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height * 0.015,
+                                  ),
                                   Divider(color: blueColor),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    child: Text(
-                                        "Choose categories which are the best suitable for you",
-                                        style: textLabelSeparated),
-                                  ),
-                                  buildCategorySettings(context, categoriesListAll[3],
-                                      Icons.pets_rounded),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.012,
+                                    MediaQuery.of(context).size.height * 0.015,
                                   ),
-                                  buildCategorySettings(context, categoriesListAll[4],
-                                      Icons.local_grocery_store),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
-                                  buildCategorySettings(context, categoriesListAll[2],
-                                      Icons.emoji_transportation_rounded),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
-                                  buildCategorySettings(
-                                      context, categoriesListAll[1], Icons.house),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
-                                  buildCategorySettings(context, categoriesListAll[6],
-                                      Icons.sign_language_rounded),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
-                                  buildCategorySettings(context, categoriesListAll[5],
-                                      Icons.child_care_outlined),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
-                                  buildCategorySettings(context, categoriesListAll[7],
-                                      Icons.menu_book),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
-                                  buildCategorySettings(context, categoriesListAll[8],
-                                      Icons.medical_information_outlined),
-                                  Divider(color: blueColor),
                                   SizedBox(
                                       height: MediaQuery.of(context).size.height *
                                           0.01),
+
                                   Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Center(
@@ -671,21 +688,59 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonDecoration,
+                                        decoration: buttonActiveDecoration,
                                         child: TextButton(
                                             child: Text(
-                                              "Sign Out",
-                                              style: textButtonStyle,
+                                              "Save changes",
+                                              style: textActiveButtonStyle,
                                             ),
                                             onPressed: () async {
-                                              await _auth.signOut();
-                                              Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                  MaterialPageRoute(builder: (context) => OptionChoose()));
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //         builder: (context) =>
-                                              //         const OptionChoose()));
+                                              setState(() {
+                                                FirebaseFirestore.instance
+                                                    .collection('users')
+                                                    .doc(streamSnapshot
+                                                    .data?.docs[index].id)
+                                                    .update({
+                                                  "category": changedCategories !=
+                                                      []
+                                                      ? changedCategories
+                                                      : streamSnapshot
+                                                      .data
+                                                      ?.docs[index]['category'],
+                                                  "user_name": changedName != ""
+                                                      ? changedName
+                                                      : streamSnapshot
+                                                      .data
+                                                      ?.docs[index]['user_name'],
+                                                  "age": currentAgeVolunteer != 0
+                                                      ? currentAgeVolunteer
+                                                      : streamSnapshot
+                                                      .data?.docs[index]['age'],
+                                                  "phone_number": changedPhone !=
+                                                      ""
+                                                      ? changedPhone
+                                                      : streamSnapshot
+                                                      .data
+                                                      ?.docs[index]['phone_number'],
+                                                  "birth_day": dateOfBirth==DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString()
+                                                      ?"Please supply data"
+                                                      :dateOfBirth
+                                                });
+                                                print("!!!!!!!!!!!!!!!!!AGE");
+                                                print(changedAge);
+                                                print(currentAgeVolunteer);
+                                              });
+
+                                              Future.delayed(const Duration(
+                                                  milliseconds: 500), () {
+                                                Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                    MaterialPageRoute(builder: (context) => new MainScreen()));
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) =>
+                                                //         const HomeVol()));
+                                              });
                                             }),
                                       ),
                                     ),
@@ -701,36 +756,26 @@ class _SettingsVolState extends State<SettingsVol> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonDecoration,
+                                        decoration: buttonInactiveDecoration,
                                         child: TextButton(
                                             child: Text(
-                                              "Save changes",
-                                              style: textButtonStyle,
+                                              "Sign Out",
+                                              style: textInactiveButtonStyle,
                                             ),
                                             onPressed: () async {
-                                              FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(streamSnapshot
-                                                  .data?.docs[index].id)
-                                                  .update({
-                                                "category": changedCategories!=[]?changedCategories:streamSnapshot
-                                                    .data?.docs[index]['category'],
-                                                "user_name": changedName!=""?changedName:streamSnapshot
-                                                    .data?.docs[index]['user_name'],
-                                                "age": changedAge!=0?changedAge:streamSnapshot
-                                                    .data?.docs[index]['age'],
-                                                "phone_number": changedPhone!=""?changedPhone:streamSnapshot
-                                                    .data?.docs[index]['phone_number']
-                                              });
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                      const HomeVol()));
+                                              await _auth.signOut();
+                                              Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                  MaterialPageRoute(builder: (context) => const OptionChoose()));
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) =>
+                                              //         const OptionChoose()));
                                             }),
                                       ),
                                     ),
                                   ),
+
                                   SizedBox(
                                     height:
                                     MediaQuery.of(context).size.height * 0.015,
