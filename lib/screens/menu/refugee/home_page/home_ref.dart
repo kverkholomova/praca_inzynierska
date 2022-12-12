@@ -13,10 +13,10 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/settings_ref_info.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
-import 'package:wol_pro_1/screens/menu/refugee/create_application/create_application.dart';
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
+import 'create_application/create_application.dart';
 
 String? currentNameRef = '';
 
@@ -180,17 +180,19 @@ class _HomeRefState extends State<HomeRef> {
                                                         color: Colors.white,
                                                       ),
                                                       onPressed: () {
-                                                        loadImage(streamSnapshot
-                                                            .data?.docs[index]
-                                                        ['image']);
-                                                        Future.delayed(const Duration(milliseconds: 500), ()
+                                                        // loadImage(streamSnapshot
+                                                        //     .data?.docs[index]
+                                                        // ['image']);
+                                                        Future.delayed(const Duration(milliseconds: 300), ()
                                                         {
-                                                          Navigator.push(
+                                                          Navigator.of(
                                                               context,
+                                                              rootNavigator:
+                                                              true)
+                                                              .pushReplacement(
                                                               MaterialPageRoute(
-                                                                  builder: (
-                                                                      context) =>
-                                                                      SettingsRef()));
+                                                                  builder: (context) =>
+                                                                  new SettingsRef()));
                                                         });
                                                       },
                                                     ),

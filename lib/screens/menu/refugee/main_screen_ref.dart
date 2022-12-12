@@ -1,18 +1,17 @@
-import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/screens/menu/refugee/create_application/create_application.dart';
+import 'package:wol_pro_1/screens/menu/refugee/all_applications/all_app_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 
 import '../../../constants.dart';
 import '../../intro_screen/option.dart';
+import 'accepted_applications/all_applications.dart';
+import 'home_page/create_application/create_application.dart';
 import 'maps/map_ref.dart';
 import 'messages/pageWithChatsRef.dart';
-import 'my_applications/all_applications.dart';
 
 PersistentTabController controllerTabBottomRef = PersistentTabController(initialIndex: 2);
 
@@ -37,10 +36,11 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
   List<Widget> _buildScreens() {
     return [
       ListofChatroomsRef(),
-      Application(),
+      CategoriesRef(),
+
       HomeRef(),
       const HomeMapRef(),
-      CategoriesRef(),
+      AllCategoriesRef(),
       // Text("Add application"),
       // const Categories(),
 
@@ -67,9 +67,9 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         inactiveIcon:  const Icon(Icons.note_add_rounded, size: 24,),
         icon: const Padding(
           padding: EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.note_add_rounded, size: 28,),
+          child: Icon(Icons.folder_special_rounded, size: 28,),
         ),
-        title: ("Add"),
+        title: ("Accepted"),
         textStyle: GoogleFonts.raleway(
           fontSize: 11,
           color: Colors.white,
@@ -108,7 +108,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         inactiveIcon: const Icon(Icons.folder_special_rounded, size: 24,),
         icon: const Padding(
           padding: EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.folder_special_rounded, size: 28,),
+          child: Icon(Icons.note_alt_rounded, size: 28,),
         ),
         title: ("Applications"),
         textStyle: GoogleFonts.raleway(

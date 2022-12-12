@@ -12,16 +12,15 @@ import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/upload_picture_refugee.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
 
-import '../../../../../models/categories.dart';
+import '../../../../../widgets/datepicker_ref.dart';
 import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../../services/auth.dart';
 
 var currentStreamSnapshotRef;
-String dateOfBirth =
+String dateOfBirthRefugee =
 DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
 String? tokenVol;
 final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -244,7 +243,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                   ),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.075,
+                                    MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
                                         changedName = val;
@@ -252,14 +251,14 @@ class _SettingsRefState extends State<SettingsRef> {
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                       decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
@@ -268,7 +267,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                         errorStyle:
                                         const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: blueColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
@@ -276,7 +275,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -482,7 +481,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                   ),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.075,
+                                    MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
                                         changedAge = currentAgeVolunteer;
@@ -491,20 +490,20 @@ class _SettingsRefState extends State<SettingsRef> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => DatePicker()),
+                                              builder: (context) => DatePickerRefugee()),
                                         );
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                       decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
@@ -513,7 +512,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                         errorStyle:
                                         const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: blueColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
@@ -521,7 +520,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(24.0),
+                                          borderRadius: BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -529,7 +528,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        hintText: dateOfBirth==DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString()?"Please supply data":dateOfBirth,
+                                        hintText: dateOfBirthRefugee==DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString()?"Please supply data":dateOfBirthRefugee,
                                         hintStyle: hintStyleText,
                                         // labelStyle: GoogleFonts.raleway(
                                         //   fontSize: 16,
@@ -557,7 +556,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                   ),
                                   SizedBox(
                                     height:
-                                    MediaQuery.of(context).size.height * 0.075,
+                                    MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
                                         changedPhone = val;
@@ -565,14 +564,14 @@ class _SettingsRefState extends State<SettingsRef> {
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                       decoration: InputDecoration(
                                           focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderRadius: BorderRadius.circular(15),
                                             borderSide: const BorderSide(
                                               color: Colors.red,
                                               width: 1.5,
                                             ),
                                           ),
                                           errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderRadius: BorderRadius.circular(15),
                                             borderSide: const BorderSide(
                                               color: Colors.red,
                                               width: 1.5,
@@ -581,7 +580,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                           errorStyle:
                                           const TextStyle(color: Colors.red),
                                           focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderRadius: BorderRadius.circular(15),
                                             borderSide: BorderSide(
                                               color: blueColor,
                                               // color: Color.fromRGBO(2, 62, 99, 20),
@@ -589,7 +588,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                             ),
                                           ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(24.0),
+                                            borderRadius: BorderRadius.circular(15),
                                             borderSide: const BorderSide(
                                               color: Colors.white,
                                               width: 0,
@@ -607,7 +606,15 @@ class _SettingsRefState extends State<SettingsRef> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height * 0.015,
+                                  ),
                                   Divider(color: blueColor),
+                                  SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height * 0.015,
+                                  ),
                                   // Padding(
                                   //   padding: EdgeInsets.only(
                                   //     bottom:
@@ -675,18 +682,28 @@ class _SettingsRefState extends State<SettingsRef> {
                                         decoration: buttonActiveDecoration,
                                         child: TextButton(
                                             child: Text(
-                                              "Sign Out",
+                                              "Save changes",
                                               style: textActiveButtonStyle,
                                             ),
                                             onPressed: () async {
-                                              await _auth.signOut();
+                                              setState(() {
+                                                FirebaseFirestore.instance
+                                                    .collection('users')
+                                                    .doc(streamSnapshot
+                                                    .data?.docs[index].id)
+                                                    .update({
+                                                  "category": changedCategories!=[]?changedCategories:streamSnapshot
+                                                      .data?.docs[index]['category'],
+                                                  "user_name": changedName!=""?changedName:streamSnapshot
+                                                      .data?.docs[index]['user_name'],
+                                                  "age": currentAgeRefugee!=0?currentAgeRefugee:streamSnapshot
+                                                      .data?.docs[index]['age'],
+                                                  "phone_number": changedPhone!=""?changedPhone:streamSnapshot
+                                                      .data?.docs[index]['phone_number']
+                                                });
+                                              });
                                               Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                  MaterialPageRoute(builder: (context) => OptionChoose()));
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //         builder: (context) =>
-                                              //         const OptionChoose()));
+                                                  MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                                             }),
                                       ),
                                     ),
@@ -702,36 +719,26 @@ class _SettingsRefState extends State<SettingsRef> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonActiveDecoration,
+                                        decoration: buttonInactiveDecoration,
                                         child: TextButton(
                                             child: Text(
-                                              "Save changes",
-                                              style: textActiveButtonStyle,
+                                              "Sign Out",
+                                              style: textInactiveButtonStyle,
                                             ),
                                             onPressed: () async {
-                                              FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(streamSnapshot
-                                                  .data?.docs[index].id)
-                                                  .update({
-                                                "category": changedCategories!=[]?changedCategories:streamSnapshot
-                                                    .data?.docs[index]['category'],
-                                                "user_name": changedName!=""?changedName:streamSnapshot
-                                                    .data?.docs[index]['user_name'],
-                                                "age": changedAge!=0?changedAge:streamSnapshot
-                                                    .data?.docs[index]['age'],
-                                                "phone_number": changedPhone!=""?changedPhone:streamSnapshot
-                                                    .data?.docs[index]['phone_number']
-                                              });
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                      const HomeRef()));
+                                              await _auth.signOut();
+                                              Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                  MaterialPageRoute(builder: (context) => OptionChoose()));
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) =>
+                                              //         const OptionChoose()));
                                             }),
                                       ),
                                     ),
                                   ),
+
                                   SizedBox(
                                     height:
                                     MediaQuery.of(context).size.height * 0.015,

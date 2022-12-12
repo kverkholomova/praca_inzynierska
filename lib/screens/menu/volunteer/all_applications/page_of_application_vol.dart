@@ -15,7 +15,6 @@ import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
 
-import '../../refugee/my_applications/all_applications.dart';
 import '../../../../models/categories.dart';
 import '../main_screen.dart';
 import 'chosen_category_applications.dart';
