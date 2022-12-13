@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/to_delete/home_ref.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
 import '../../../../../models/categories.dart';
+import '../../main_screen_ref.dart';
 import '../home_ref.dart';
 
 
@@ -70,10 +72,9 @@ class _ApplicationState extends State<Application> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeRef()),
-        );
+        controllerTabBottomRef = PersistentTabController(initialIndex: 2);
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
         return true;
       },
       child: Scaffold(
@@ -85,8 +86,9 @@ class _ApplicationState extends State<Application> {
             color: blueColor,
           ),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomeRef()));
+            controllerTabBottomRef = PersistentTabController(initialIndex: 2);
+            Navigator.of(context, rootNavigator: true).pushReplacement(
+                MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
           },
         ),
         backgroundColor: background,
@@ -334,7 +336,7 @@ class _ApplicationState extends State<Application> {
                         0.005,
                   ),
                   child: Text(
-                    "Add description to your application \n(max 100 words)",
+                    "Add description to your application \n(min 30 signs)",
                     style: textLabelSeparated,
                   ),
                 ),
@@ -437,36 +439,46 @@ class _ApplicationState extends State<Application> {
                           style: textActiveButtonStyle,
                         ),
                         onPressed: () async {
-                          ID = FirebaseAuth.instance.currentUser?.uid;
-                          await FirebaseFirestore.instance
-                              .collection('applications')
-                              .add({
-                            'title': (title == Null)?("Title"):(title),
-                            'category': (currentCategory=='')?("Category"):(currentCategory),
-                            'comment': (comment==Null)?("Comment"):(comment),
-                            'status': status,
-                            'userID': ID,
-                            'volunteerID': volID,
-                            'date': "null",
-                            'token_vol': "null",
-                            'token_ref': token_ref,
-                            'chatId_vol': "null",
-                            'mess_button_visibility_vol': true,
-                            'mess_button_visibility_ref': false,
-                            'refugee_name': userNameRefugee!,
-                            'volunteer_name': 'null',
-                            'Id': 'null',
-                            'voluneer_rating': 5,
-                            "application_accepted": false,
-                            //'volunteer_pref': currentCategory,
-
-                            // 'userId': FirebaseFirestore.instance.collection('applications').doc().id,
-                          });
-                          currentCategory='';
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomeRef()),
-                          );
+                          if ( (title == '')||(comment == '')){
+                            dialogBuilderEmpty(context);
+                          } else{
+                            // setState(() {
+                              ID = FirebaseAuth.instance.currentUser?.uid;
+                              await FirebaseFirestore.instance
+                                  .collection('applications')
+                                  .add({
+                                'title': (title == Null)?("Title"):(title),
+                                'category': (currentCategory=='')?("Category"):(currentCategory),
+                                'comment': (comment==Null)?("Comment"):(comment),
+                                'status': status,
+                                'userID': ID,
+                                'volunteerID': volID,
+                                'date': "null",
+                                'token_vol': "null",
+                                'token_ref': token_ref,
+                                'chatId_vol': "null",
+                                'mess_button_visibility_vol': true,
+                                'mess_button_visibility_ref': false,
+                                'refugee_name': userNameRefugee!,
+                                'volunteer_name': 'null',
+                                'Id': 'null',
+                                'voluneer_rating': 5,
+                                "application_accepted": false,
+                              });
+                              currentCategory='';
+                              title = '';
+                              comment = '';
+                            // });
+                            // Future.delayed(const Duration(milliseconds: 500), ()
+                            // {
+                              controllerTabBottomRef =
+                                  PersistentTabController(initialIndex: 4);
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushReplacement(
+                                  MaterialPageRoute(builder: (
+                                      context) => new MainScreenRefugee()));
+                            // });
+                          }
                         }),
                   ),
                 ),
@@ -557,6 +569,161 @@ class _ApplicationState extends State<Application> {
           ),
         ),
       ),
+    );
+  }
+  Future<void> dialogBuilderEmpty(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text('Fill the form'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content: const Text("You haven't filled the form, please supply the data"),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            color: blueColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.circular(15)),
+                    child: TextButton(
+                        child: Text(
+                          'Supply the data',
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            color: blueColor,
+                          ),
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Choose category'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.circular(15)),
+                    child: TextButton(
+                        child: Text(
+                          "Don't need any help",
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            color: blueColor,
+                          ),
+                        ),
+                        onPressed: () async {
+                          currentCategory='';
+                          title = '';
+                          comment = '';
+                          Future.delayed(Duration(seconds: 1),
+                                  () {
+                                    controllerTabBottomRef = PersistentTabController(initialIndex: 2);
+                                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                                        MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+                              });
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => MainScreen()),
+                          // if(chosenCategoryList==[]){
+                          //   dialogBuilder(context);
+                          // }
+                          // else if(chosenCategoryList!=[]){
+                          // FirebaseFirestore.instance
+                          //     .collection('users')
+                          //     .doc(streamSnapshot
+                          //     .data?.docs[index].id)
+                          //     .update({
+                          //   "category": chosenCategoryList
+                          // });
+                          // categoriesVolunteer =
+                          //     chosenCategoryList;
+                          // }
+                          // Future.delayed(Duration(seconds: 1),
+                          //         () {
+                          //   if(chosenCategoryList == []){
+                          //     dialogBuilder(context);
+                          //     print("IIIIIIIIIIIIII");
+                          //   }
+                          //   else {
+                          //     print("SSSSSSSSSSSSSSS");
+                          //     print(chosenCategoryList);
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (
+                          //                 context) =>
+                          //             const HomeVol()));
+                          //   }
+                          //     });
+                          // );
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Leave my categories'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const HomeVol()),
+            //     );
+            //   },
+            // ),
+          ],
+        );
+      },
     );
   }
 }

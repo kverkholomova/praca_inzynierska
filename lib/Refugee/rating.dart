@@ -17,8 +17,8 @@ import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/Refugee/rating.dart';
 import 'package:wol_pro_1/screens/info_volunteer_accepted_application.dart';
 
-import '../screens/menu/refugee/accepted_applications/all_applications.dart';
-import 'applications/application_info.dart';
+import '../screens/menu/refugee/accepted_applications/accepted_applications.dart';
+import '../screens/menu/refugee/all_applications/application_info.dart';
 
 
 

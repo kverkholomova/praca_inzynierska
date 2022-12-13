@@ -13,7 +13,7 @@ import '../../../../models/categories.dart';
 import '../home_page/home_ref.dart';
 import '../../../../Refugee/SettingRefugee.dart';
 import '../../../../to_delete/home_ref.dart';
-import '../../../../Refugee/applications/application_info.dart';
+import '../all_applications/application_info.dart';
 import '../main_screen_ref.dart';
 
 String application_ID = '';
@@ -89,6 +89,7 @@ class CategoriesRefState extends State<CategoriesRef> {
 
               //.where("volunteer_pref", arrayContainsAny: volunteer_preferencies)
               //.where("category", arrayContainsAny: ['Accomodation', 'Transfer', 'Assistance with animals'])
+
                   .where("status", isEqualTo: 'Application is accepted')
 
 

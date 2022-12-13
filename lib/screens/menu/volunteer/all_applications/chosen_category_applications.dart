@@ -130,12 +130,11 @@ class ChosenCategoryState extends State<ChosenCategory> {
                               stream: FirebaseFirestore.instance
                                   .collection('applications')
                                   .where("category",
-                                      isEqualTo: categoryChosenVolunteer)
+                                      isEqualTo: chosenCategoryVolApp)
 
                                   //.where("volunteer_pref", arrayContainsAny: volunteer_preferencies)
                                   //.where("category", arrayContainsAny: ['Accomodation', 'Transfer', 'Assistance with animals'])
-                                  .where("status",
-                                      isEqualTo: 'Sent to volunteer')
+                                  .where("status", isEqualTo: 'Sent to volunteer')
 
                                   //.where("category", whereIn: ['Accomodation','Transfer','Assistance with animals'])
                                   //.where("category", arrayContainsAny: ['Accomodation','Transfer','Assistance with animals'])

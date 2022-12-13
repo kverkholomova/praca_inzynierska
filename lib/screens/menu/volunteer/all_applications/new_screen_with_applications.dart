@@ -13,7 +13,7 @@ import '../../../../models/categories.dart';
 import '../home_page/home_vol.dart';
 import 'chosen_category_applications.dart';
 
-String categoryChosenVolunteer ='';
+String chosenCategoryVolApp = '';
 String? card_title_vol='';
 String? card_category_vol='';
 String? card_comment_vol='';
@@ -404,12 +404,12 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     return GestureDetector(
       onTap: () {
 
-        setState(() {
-          if(widget.text != categoriesListAll[0]){
-            categoryChosenVolunteer = widget.text;
-          }
-
-        });
+        // setState(() {
+        //   if(widget.text != categoriesListAll[0]){
+        //
+        //   }
+        //
+        // });
         // category_chosen_button = categories_list_all[0];
         // print(categories_list_all[7]);
 
@@ -417,8 +417,14 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
         }
         else {
-          Navigator.of(context, rootNavigator: true).pushReplacement(
-              MaterialPageRoute(builder: (context) => ChosenCategory()));
+          setState(() {
+            chosenCategoryVolApp = widget.text;
+          });
+          Future.delayed(const Duration(milliseconds: 500), ()
+          {
+            Navigator.of(context, rootNavigator: true).pushReplacement(
+                MaterialPageRoute(builder: (context) => ChosenCategory()));
+          });
           // Navigator.push(context, MaterialPageRoute(builder: (context) => const ChosenCategory()));
         }
 

@@ -8,7 +8,7 @@ import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 
 import '../../../constants.dart';
 import '../../intro_screen/option.dart';
-import 'accepted_applications/all_applications.dart';
+import 'accepted_applications/accepted_applications.dart';
 import 'home_page/create_application/create_application.dart';
 import 'maps/map_ref.dart';
 import 'messages/pageWithChatsRef.dart';
@@ -24,30 +24,27 @@ class MainScreenRefugee extends StatefulWidget {
 
 class _MainScreenRefugeeState extends State<MainScreenRefugee> {
 
-  int _selectedIndex = 2;
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   List<Widget> _buildScreens() {
     return [
       ListofChatroomsRef(),
       CategoriesRef(),
-
       HomeRef(),
       const HomeMapRef(),
-      AllCategoriesRef(),
+      AllApplicationsRef()
+      // AllCategoriesRef(),
       // Text("Add application"),
       // const Categories(),
 
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
+  List<PersistentBottomNavBarItem> navBarsItemsRefugee() {
     return [
       PersistentBottomNavBarItem(
         inactiveIcon: const Icon(Icons.message_rounded,size: 24,),
@@ -64,7 +61,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon:  const Icon(Icons.note_add_rounded, size: 24,),
+        inactiveIcon:  const Icon(Icons.folder_special_rounded, size: 24,),
         icon: const Padding(
           padding: EdgeInsets.only(bottom: 5),
           child: Icon(Icons.folder_special_rounded, size: 28,),
@@ -105,7 +102,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
         inactiveColorPrimary: Colors.white.withOpacity(0.5),
       ),
       PersistentBottomNavBarItem(
-        inactiveIcon: const Icon(Icons.folder_special_rounded, size: 24,),
+        inactiveIcon: const Icon(Icons.note_alt_rounded, size: 24,),
         icon: const Padding(
           padding: EdgeInsets.only(bottom: 5),
           child: Icon(Icons.note_alt_rounded, size: 28,),
@@ -167,7 +164,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
               context,
               controller: controllerTabBottomRef,
               screens: _buildScreens(),
-              items: _navBarsItems(),
+              items: navBarsItemsRefugee(),
               confineInSafeArea: true,
               backgroundColor: blueColor, // Default is Colors.white.
               handleAndroidBackButtonPress: true, // Default is true.
