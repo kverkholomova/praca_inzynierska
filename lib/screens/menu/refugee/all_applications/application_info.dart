@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -7,26 +7,23 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:wol_pro_1/screens/menu/refugee/all_applications/volunteer_info_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
-import 'package:wol_pro_1/to_delete/messages_ref.dart';
-import 'package:wol_pro_1/to_delete/pageWithChats.dart';
-import 'package:wol_pro_1/Refugee/rating.dart';
-import 'package:wol_pro_1/screens/info_volunteer_accepted_application.dart';
+import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
 
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
-import '../../volunteer/main_screen.dart';
-import '../accepted_applications/accepted_applications.dart';
+
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 
 String IDVolOfApplication = '';
+String IDVolInfo = '';
 // String? token;
 final FirebaseFirestore _db = FirebaseFirestore.instance;
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -178,7 +175,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
           controllerTabBottomRef = PersistentTabController(initialIndex: 4);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => new AllApplicationsRef()));
+            MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
         return true;
       },
       child: Scaffold(
@@ -195,7 +192,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
               controllerTabBottomRef = PersistentTabController(initialIndex: 4);
             });
             Navigator.of(context, rootNavigator: true).pushReplacement(
-                MaterialPageRoute(builder: (context) => AllApplicationsRef()));
+                MaterialPageRoute(builder: (context) => MainScreenRefugee()));
 
           },
         ),
@@ -460,9 +457,76 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.27,
+                                        height: streamSnapshot.data?.docs[index]
+                          ['application_accepted']?MediaQuery.of(context).size.height * 0.05:MediaQuery.of(context).size.height * 0.22,
                                       ),
+                                      Visibility(
+                                        visible: streamSnapshot.data?.docs[index]
+                                        ['application_accepted'],
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Center(
+                                            child: Container(
+                                              width: double.infinity,
+                                              height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.085,
+                                              decoration: buttonActiveDecoration,
+                                              child: TextButton(
+                                                  child: Text(
+                                                    "Look info about volunteer",
+                                                    style: textActiveButtonStyle,
+                                                  ),
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      IDVolInfo=streamSnapshot.data?.docs[index]
+                                                      ['volunteerID'];
+                                                    });
 
+                                                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                        MaterialPageRoute(builder: (context) => InfoVolforRef()));
+                                                  }),
+                                            ),
+                                          ),
+                                        ),
+                                      ),SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.015,
+                                      ),
+                                      Visibility(
+                                        visible: streamSnapshot.data?.docs[index]
+                          ['application_accepted'],
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Center(
+                                            child: Container(
+                                              width: double.infinity,
+                                              height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.085,
+                                              decoration: buttonInactiveDecoration,
+                                              child: TextButton(
+                                                  child: Text(
+                                                    "Mark application as done",
+                                                    style: textInactiveButtonStyle,
+                                                  ),
+                                                  onPressed: () async {
+                                                    sendPushMessage();
+                                                    FirebaseFirestore.instance
+                                                        .collection('applications')
+                                                        .doc(streamSnapshot.data?.docs[index].id).delete();
+                                                    setState(() {
+                                                      controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+                                                    });
+                                                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                        MaterialPageRoute(builder: (context) => MainScreenRefugee()));
+                                                  }),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.015,
+                                      ),
                                       Align(
                                         alignment: Alignment.topCenter,
                                         child: Center(
@@ -491,6 +555,9 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                           ),
                                         ),
                                       ),
+
+
+
 
                           // Padding(
                           //                       padding: const EdgeInsets.only(top: 20),
