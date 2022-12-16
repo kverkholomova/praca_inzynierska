@@ -703,7 +703,7 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
 // import '../../../../widgets/loading.dart';
 // import '../home_page/home_ref.dart';
 //
-// import '../../../../Refugee/applications/application_info.dart';
+// import '../../../../Refugee/applications/application_info_accepted.dart';
 // import '../main_screen_ref.dart';
 //
 // String application_ID = '';

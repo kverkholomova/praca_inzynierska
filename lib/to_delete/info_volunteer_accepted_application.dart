@@ -4,7 +4,7 @@
 //
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:wol_pro_1/screens/menu/refugee/all_applications/application_info.dart';
+// import 'package:wol_pro_1/screens/menu/refugee/all_applications/application_info_accepted.dart';
 //
 //
 //

@@ -294,7 +294,7 @@ class _Rating_PageState extends State<Rating_Page> {
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-// import 'package:wol_pro_1/Refugee/applications/application_info.dart';
+// import 'package:wol_pro_1/Refugee/applications/application_info_accepted.dart';
 //
 //
 //
@@ -714,7 +714,7 @@ class _Rating_PageState extends State<Rating_Page> {
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import "package:flutter/material.dart";
 //
-// import 'applications/application_info.dart';
+// import 'applications/application_info_accepted.dart';
 //
 // var icon_chosen = Icons.star_border;
 // var icon_chosen1 = Icons.star_border;

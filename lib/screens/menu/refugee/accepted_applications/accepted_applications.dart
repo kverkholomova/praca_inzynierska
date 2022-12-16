@@ -13,8 +13,9 @@ import '../../volunteer/all_applications/new_screen_with_applications.dart';
 
 import '../all_applications/application_info.dart';
 import '../main_screen_ref.dart';
+import 'application_info_accepted.dart';
 
-String applicationIDVol = '';
+String applicationIDRefInfo = '';
 String? token_vol;
 String card_title_ref='';
 String card_category_ref='';
@@ -122,7 +123,7 @@ class CategoriesRefState extends State<CategoriesRef> {
                                               card_comment_ref = streamSnapshot
                                                       .data?.docs[index]
                                                   ['comment'] as String;
-                                              applicationIDVol = streamSnapshot
+                                              applicationIDRefInfo = streamSnapshot
                                                   .data
                                                   ?.docs[index]
                                                   .id as String;
@@ -136,7 +137,7 @@ class CategoriesRefState extends State<CategoriesRef> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        PageOfApplicationRef()),
+                                                        PageOfApplicationAcceptedRef()),
                                               );
                                               // print("print ${streamSnapshot.data?.docs[index][id]}");
                                             });
@@ -346,7 +347,7 @@ class CategoriesRefState extends State<CategoriesRef> {
 // import '../home_page/home_ref.dart';
 // import '../../../../Refugee/SettingRefugee.dart';
 // import '../../../../to_delete/home_ref.dart';
-// import '../all_applications/application_info.dart';
+// import '../all_applications/application_info_accepted.dart';
 // import '../main_screen_ref.dart';
 //
 // String application_ID = '';
