@@ -1,19 +1,18 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
-import 'package:wol_pro_1/widgets/datepicker.dart';
-import '../../../../../../service/local_push_notifications.dart';
 
-import '../../../../../services/auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:wol_pro_1/constants.dart';
+
+import 'all_app_ref.dart';
 import 'application_info.dart';
 
 
@@ -28,7 +27,20 @@ class InfoVolforRef extends StatefulWidget {
 }
 
 class _InfoVolforRefState extends State<InfoVolforRef> {
+  late StreamSubscription<User?> user;
+  String idAppDeleteVol = '';
+  deleteVolunteer(){
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
 
+      DocumentSnapshot variable = await FirebaseFirestore.instance.
+      collection('applications').
+      doc(applicationIDRef).
+      get();
+
+      idAppDeleteVol = variable.id;
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,26 +48,37 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
       onWillPop: () async {
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(
-                builder: (context) => new PageOfApplicationRef()));
+                builder: (context) => const PageOfApplicationRef()));
         return true;
       },
       child: Scaffold(
         backgroundColor: background,
-        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        floatingActionButton: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 30,
-            color: background,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Text(
+            "Volunteer Info",
+            style: GoogleFonts.raleway(
+              fontSize: 20,
+              color: blueColor,
+            ),
           ),
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pushReplacement(
-                MaterialPageRoute(
-                    builder: (context) => new PageOfApplicationRef()));
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => const HomeVol()));
-          },
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 30,
+              color: blueColor,
+            ),
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pushReplacement(
+                  MaterialPageRoute(
+                      builder: (context) => const PageOfApplicationRef()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => const HomeVol()));
+            },
+          ),
         ),
+
         // appBar: AppBar(
         //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
         //   elevation: 0.0,
@@ -71,7 +94,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                     .of(context)
                     .size
                     .height *
-                    0.69,
+                    0.9,
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('users')
@@ -81,17 +104,41 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                   builder: (context,
                       AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                     return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
                         itemCount: streamSnapshot.data?.docs.length,
                         itemBuilder: (ctx, index) {
                           // categories_user = streamSnapshot.data?.docs[index]['category'];
                           // token_vol = streamSnapshot.data?.docs[index]['token'];
                           // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
+
+                          if (streamSnapshot.hasData) {
+                            switch (streamSnapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return Column(children: const [
+                                  SizedBox(
+                                    width: 60,
+                                    height: 60,
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 16),
+                                    child: Text('Awaiting data...'),
+                                  )
+                                ]);
+                              case ConnectionState.active:
                           return SingleChildScrollView(
                             child: Padding(
                               padding: padding,
                               child: Column(
                                 children: [
-
+                                  SizedBox(
+                                    height:
+                                    MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.015,
+                                  ),
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Padding(
@@ -105,7 +152,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                       child: Text(
                                         streamSnapshot.data?.docs[index]
                                         ['user_name'],
-                                        style: textLabelSeparated,
+                                        style: GoogleFonts.raleway(
+                                          fontSize: 20,
+                                          color:  blueColor,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -125,11 +175,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                             0.02),
                                     child: Align(
                                       alignment:
-                                      Alignment.topCenter,
+                                      Alignment.topLeft,
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .center,
+                                        MainAxisAlignment.start,
                                         children: [
                                           streamSnapshot.data?.docs[
                                           index]
@@ -138,8 +187,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               1
                                               ? Icon(
                                             Icons.star,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(
                                                 context)
                                                 .size
@@ -153,8 +201,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_half,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -163,8 +210,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               : Icon(
                                             Icons
                                                 .star_border,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -178,8 +224,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_rate,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(
                                                 context)
                                                 .size
@@ -193,8 +238,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_half,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -203,8 +247,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               : Icon(
                                             Icons
                                                 .star_border,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -218,8 +261,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_rate,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(
                                                 context)
                                                 .size
@@ -233,8 +275,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_half,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -243,8 +284,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               : Icon(
                                             Icons
                                                 .star_border,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -258,8 +298,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_rate,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(
                                                 context)
                                                 .size
@@ -273,8 +312,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_half,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -283,8 +321,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               : Icon(
                                             Icons
                                                 .star_border,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -298,8 +335,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_rate,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(
                                                 context)
                                                 .size
@@ -313,8 +349,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ? Icon(
                                             Icons
                                                 .star_half,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -323,8 +358,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               : Icon(
                                             Icons
                                                 .star_border,
-                                            color: Colors
-                                                .white,
+                                            color: blueColor,
                                             size: MediaQuery.of(context)
                                                 .size
                                                 .width *
@@ -354,7 +388,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                       child: Text(
                                         streamSnapshot.data?.docs[index]
                                         ['phone_number'],
-                                        style: textLabelSeparated,
+                                        style: GoogleFonts.raleway(
+                                          fontSize: 14,
+                                          color:  blueColor,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -372,14 +409,8 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                     MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.015,
+                                        .height * 0.55,
                                   ),
-                                  SizedBox(
-                                      height: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.01),
 
                                   Align(
                                     alignment: Alignment.bottomCenter,
@@ -394,10 +425,11 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                         decoration: buttonActiveDecoration,
                                         child: TextButton(
                                             child: Text(
-                                              "Save changes",
+                                              "Decline this volunteer",
                                               style: textActiveButtonStyle,
                                             ),
-                                            onPressed: () async {
+                                            onPressed: () {
+                                              dialogBuilderDeclineVolunteer(context);
 
                                             }),
                                       ),
@@ -411,6 +443,36 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                         .height * 0.015,
                                   ),
 
+                                ],
+                              ),
+                            ),
+
+                          );
+                              case ConnectionState.none:
+                              // TODO: Handle this case.
+                                break;
+                              case ConnectionState.done:
+                              // TODO: Handle this case.
+                                break;
+                            }}
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 100),
+                              child: Column(
+                                children: const [
+                                  SpinKitChasingDots(
+                                    color: Colors.brown,
+                                    size: 50.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("Waiting...",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                          color: Colors.black,
+                                        )),
+                                  ),
                                 ],
                               ),
                             ),
@@ -524,5 +586,107 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
       ),
     );
   }
+  Future<void> dialogBuilderDeclineVolunteer(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text('Decline volunteer?'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content: const Text("You are about to decline this volunteer. If you are ready to do it, your application would become active for other volunteers and you would have to wait until another volunteer accept your application to help you."),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 13,
+            color: blueColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonActiveDecoration,
+                    child: TextButton(
+                        child: Text(
+                          'Keep volunteer',
+                          style: textActiveButtonStyle,
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
 
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonInactiveDecoration,
+                    child: TextButton(
+                        child: Text(
+                          "Decline volunteer",
+                          style: textInactiveButtonStyle,
+                        ),
+                        onPressed: () async {
+                          setState(() {
+                            FirebaseFirestore.instance
+                                .collection('applications')
+                                .doc(idAppDeleteVol).update({"volunteerID": "",
+                              "application_accepted": false,
+                              "chatId_vol":"",
+                              "date":"",
+                              "mess_button_visibility_ref": false,
+                              "mess_button_visibility_vol": true,
+                              "status":"Sent to volunteer",
+                              "token_vol": "",
+                              "voluneer_rating":0,
+                              "volunteerID":"",
+                              "volunteer_name":""
+                            });
+                            FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
+                          });
+
+                          Future.delayed(const Duration(milliseconds: 500), () {
+
+                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                MaterialPageRoute(builder: (context) => new PageOfApplicationRef()));});
+
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+
+          ],
+        );
+      },
+    );
+  }
 }

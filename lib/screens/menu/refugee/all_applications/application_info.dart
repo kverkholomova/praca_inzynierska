@@ -22,8 +22,9 @@ import '../../../../models/categories.dart';
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 
-String IDVolOfApplication = '';
+// String IDVolOfApplication = '';
 String IDVolInfo = '';
+String IdApplicationVolInfo = '';
 // String? token;
 final FirebaseFirestore _db = FirebaseFirestore.instance;
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -482,6 +483,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                       IDVolInfo=streamSnapshot.data?.docs[index]
                                                       ['volunteerID'];
                                                     });
+                                                    IdApplicationVolInfo = streamSnapshot.data?.docs[index]["chatId_vol"];
 
                                                     Navigator.of(context, rootNavigator: true).pushReplacement(
                                                         MaterialPageRoute(builder: (context) => InfoVolforRef()));

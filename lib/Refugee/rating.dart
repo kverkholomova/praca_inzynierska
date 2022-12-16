@@ -100,9 +100,9 @@ class _Rating_PageState extends State<Rating_Page> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('applications')
-                .where('title', isEqualTo: card_title_ref)
-                .where('category', isEqualTo: card_category_ref)
-                .where('comment', isEqualTo: card_comment_ref)
+                // .where('title', isEqualTo: card_title_ref)
+                // .where('category', isEqualTo: card_category_ref)
+                // .where('comment', isEqualTo: card_comment_ref)
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               return ListView.builder(

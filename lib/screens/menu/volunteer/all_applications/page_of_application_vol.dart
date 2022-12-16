@@ -471,10 +471,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                             height:
                                             MediaQuery.of(context).size.height *
                                                 0.085,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                BorderRadius.circular(24)),
+                                            decoration: buttonActiveDecoration,
                                             child: TextButton(
                                                 child: Text(
                                                   "Accept application",

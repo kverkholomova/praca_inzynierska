@@ -52,3 +52,5 @@ TextStyle hintStyleText = GoogleFonts.raleway(
   fontSize: 14,
   color: Colors.black.withOpacity(0.5),
 );
+
+BorderRadius borderRadiusApplication = BorderRadius.circular(15);

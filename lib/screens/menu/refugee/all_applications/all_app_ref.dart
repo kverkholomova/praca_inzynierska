@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,10 +10,6 @@ import 'package:wol_pro_1/services/auth.dart';
 
 import '../../../../models/categories.dart';
 import '../../volunteer/all_applications/new_screen_with_applications.dart';
-// import '../../volunteer/all_applications/page_of_application_vol.dart';
-import '../home_page/home_ref.dart';
-import '../../../../Refugee/SettingRefugee.dart';
-import '../../../../to_delete/home_ref.dart';
 import 'application_info.dart';
 import '../main_screen_ref.dart';
 
@@ -146,7 +141,7 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                   ),
                                   child: Align(
                                     alignment: Alignment.topCenter,
-                                    child: Text("Waiting for data",
+                                    child: Text("",
                                         style: GoogleFonts.raleway(
                                           fontSize: 25,
                                           color: Colors.white,

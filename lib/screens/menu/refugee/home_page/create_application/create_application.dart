@@ -24,6 +24,7 @@ var count = 0;
 
 String status = "Sent to volunteer";
 String volID = "";
+int numChart = 0;
 
 class Application extends StatefulWidget {
   @override
@@ -72,6 +73,10 @@ class _ApplicationState extends State<Application> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        currentCategory='';
+        title = '';
+        comment = '';
+        numChart = 0;
         controllerTabBottomRef = PersistentTabController(initialIndex: 2);
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
@@ -86,6 +91,10 @@ class _ApplicationState extends State<Application> {
             color: blueColor,
           ),
           onPressed: () {
+            currentCategory='';
+            title = '';
+            comment = '';
+            numChart = 0;
             controllerTabBottomRef = PersistentTabController(initialIndex: 2);
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
@@ -162,14 +171,14 @@ class _ApplicationState extends State<Application> {
                 //     :null,
                 decoration: InputDecoration(
                   focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24.0),
+                    borderRadius: borderRadiusApplication,
                     borderSide: const BorderSide(
                       color: Colors.red,
                       width: 1.5,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24.0),
+                    borderRadius: borderRadiusApplication,
                     borderSide: const BorderSide(
                       color: Colors.red,
                       width: 1.5,
@@ -179,7 +188,7 @@ class _ApplicationState extends State<Application> {
                       color: Colors.red
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24.0),
+                    borderRadius: borderRadiusApplication,
                     borderSide: BorderSide(
                       color: Colors.black.withOpacity(0.7),
                       // color: Color.fromRGBO(2, 62, 99, 20),
@@ -192,7 +201,7 @@ class _ApplicationState extends State<Application> {
                   //   color: Colors.black.withOpacity(0.7),
                   // ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24.0),
+                    borderRadius: borderRadiusApplication,
                     borderSide: const BorderSide(
                       color: Colors.white,
                       width: 0,
@@ -261,14 +270,19 @@ class _ApplicationState extends State<Application> {
               Align(
                 alignment: Alignment.center,
                 child: CoolDropdown(
+                    resultMainAxis:MainAxisAlignment.start,
                   unselectedItemTS: const TextStyle(
                       color: Colors.black, fontSize: 14),
                   dropdownItemPadding:
                   const EdgeInsets.symmetric(horizontal: 20),
+                  isTriangle: false,
+                  gap: -30,
+                    dropdownItemReverse: true,
+                    dropdownItemMainAxis:MainAxisAlignment.start,
                   resultHeight: MediaQuery.of(context).size.height * 0.09,
                   resultBD: BoxDecoration(
                       color: background,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: borderRadiusApplication,
                       border:
                       Border.all(width: 0.5, color: blueColor)),
                   resultTS: TextStyle(
@@ -282,7 +296,7 @@ class _ApplicationState extends State<Application> {
                       color: background),
                   dropdownBD: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: borderRadiusApplication,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.1),
@@ -336,7 +350,7 @@ class _ApplicationState extends State<Application> {
                         0.005,
                   ),
                   child: Text(
-                    "Add description to your application \n(min 30 signs)",
+                    "Add description to your application \n(min 30 signs) ${numChart}/30",
                     style: textLabelSeparated,
                   ),
                 ),
@@ -348,20 +362,21 @@ class _ApplicationState extends State<Application> {
                 decoration:
                   BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(24)
+                      borderRadius: borderRadiusApplication
                   ),
                 child: TextFormField(
+
                   maxLines: height ~/ 15,
                   decoration: InputDecoration(
                     focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24.0),
+                      borderRadius: borderRadiusApplication,
                       borderSide: const BorderSide(
                         color: Colors.red,
                         width: 1.5,
                       ),
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24.0),
+                      borderRadius: borderRadiusApplication,
                       borderSide: const BorderSide(
                         color: Colors.red,
                         width: 1.5,
@@ -371,7 +386,7 @@ class _ApplicationState extends State<Application> {
                         color: Colors.red
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24.0),
+                      borderRadius: borderRadiusApplication,
                       borderSide: BorderSide(
                         color: Colors.black.withOpacity(0.7),
                         // color: Color.fromRGBO(2, 62, 99, 20),
@@ -384,7 +399,7 @@ class _ApplicationState extends State<Application> {
                     //   color: Colors.black.withOpacity(0.7),
                     // ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24.0),
+                      borderRadius: borderRadiusApplication,
                       borderSide: const BorderSide(
                         color: Colors.white,
                         width: 0,
@@ -416,7 +431,11 @@ class _ApplicationState extends State<Application> {
                   ),
                   validator: (val) => val!.isEmpty ? 'Enter the comment' : null,
                   onChanged: (val) {
-                    setState(() => comment = val);
+
+                    setState(() {
+                      numChart +=1;
+                      comment= val;
+                    } );
                   },
                 ),
               ),
@@ -441,6 +460,8 @@ class _ApplicationState extends State<Application> {
                         onPressed: () async {
                           if ( (title == '')||(comment == '')){
                             dialogBuilderEmpty(context);
+                          }else if ((comment.length<30)){
+                            dialogBuilderLength(context);
                           } else{
                             // setState(() {
                               ID = FirebaseAuth.instance.currentUser?.uid;
@@ -468,6 +489,7 @@ class _ApplicationState extends State<Application> {
                               currentCategory='';
                               title = '';
                               comment = '';
+                              numChart = 0;
                             // });
                             // Future.delayed(const Duration(milliseconds: 500), ()
                             // {
@@ -578,7 +600,7 @@ class _ApplicationState extends State<Application> {
         return AlertDialog(
           backgroundColor: background,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: borderRadiusApplication,
           ),
           title: const Text('Fill the form'),
           titleTextStyle: GoogleFonts.raleway(
@@ -603,7 +625,7 @@ class _ApplicationState extends State<Application> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
-                        BorderRadius.circular(15)),
+                        borderRadiusApplication),
                     child: TextButton(
                         child: Text(
                           'Supply the data',
@@ -658,6 +680,7 @@ class _ApplicationState extends State<Application> {
                           currentCategory='';
                           title = '';
                           comment = '';
+                          numChart = 0;
                           Future.delayed(Duration(seconds: 1),
                                   () {
                                     controllerTabBottomRef = PersistentTabController(initialIndex: 2);
@@ -704,6 +727,86 @@ class _ApplicationState extends State<Application> {
                 ),
               ),
             ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Leave my categories'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const HomeVol()),
+            //     );
+            //   },
+            // ),
+          ],
+        );
+      },
+    );
+  }
+  Future<void> dialogBuilderLength(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadiusApplication,
+          ),
+          title: const Text('Fill the comment form'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content: const Text("You haven't filled the comment form properly, please supply more characters to detail your application"),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            color: blueColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        borderRadiusApplication),
+                    child: TextButton(
+                        child: Text(
+                          'Supply the data',
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            color: blueColor,
+                          ),
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Choose category'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
