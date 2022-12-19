@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:wol_pro_1/constants.dart';
 
 import '../../../../utils/map_style.dart';
+import '../home_page/home_vol.dart';
 
 const LatLng _center = LatLng(54.4641, 17.0287);
 
@@ -46,96 +48,110 @@ class _HomeMapState extends State<HomeMap> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // ClipPath(
-          //   clipper: OvalBottomBorderClipper(),
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //       color: blueColor,
-          //       boxShadow: const <BoxShadow>[
-          //         BoxShadow(
-          //           color: Colors.black,
-          //           blurRadius: 5,
-          //         ),
-          //       ],
-          //     ),
-          //     height: MediaQuery.of(context).size.height * 0.15,
-          //     child: Padding(
-          //       padding: const EdgeInsets.symmetric(vertical: 20),
-          //       child: Align(
-          //           alignment: Alignment.center,
-          //           child: Column(
-          //             children: [
-          //               Text(
-          //                 "Volunteer centers",
-          //                 style:  GoogleFonts.raleway(
-          //                   fontSize: 24,
-          //                   color: Colors.white,
-          //                 ),
-          //               ),
-          //
-          //               Padding(
-          //                 padding: const EdgeInsets.all(5.0),
-          //                 child: Text(
-          //                   "Find the nearest volunteer center",
-          //                   style: GoogleFonts.raleway(
-          //                     fontSize: 16,
-          //                     color: Colors.white,
-          //                   ),
-          //                 ),
-          //               ),
-          //             ],
-          //           )),
-          //     ),
-          //   ),
-          // ),
-          GoogleMap(
-            mapToolbarEnabled: false,
-            myLocationButtonEnabled: false,
-            zoomControlsEnabled: false,
-            onTap: (position) {
-              _customInfoWindowController.hideInfoWindow!();
-            },
-            onCameraMove: (position) {
-              _customInfoWindowController.onCameraMove!();
-            },
-            polylines: Set<Polyline>.of(polylines.values),
-            zoomGesturesEnabled: true,
-            initialCameraPosition: const CameraPosition(
-              target: _center,
-              zoom: 14.0,
+    return WillPopScope(
+        onWillPop: () async {
+          // SystemNavigator.pop();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeVol()),
+          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const OptionChoose()),
+          // );
+          return true;
+        },child: SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // ClipPath(
+            //   clipper: OvalBottomBorderClipper(),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       color: blueColor,
+            //       boxShadow: const <BoxShadow>[
+            //         BoxShadow(
+            //           color: Colors.black,
+            //           blurRadius: 5,
+            //         ),
+            //       ],
+            //     ),
+            //     height: MediaQuery.of(context).size.height * 0.15,
+            //     child: Padding(
+            //       padding: const EdgeInsets.symmetric(vertical: 20),
+            //       child: Align(
+            //           alignment: Alignment.center,
+            //           child: Column(
+            //             children: [
+            //               Text(
+            //                 "Volunteer centers",
+            //                 style:  GoogleFonts.raleway(
+            //                   fontSize: 24,
+            //                   color: Colors.white,
+            //                 ),
+            //               ),
+            //
+            //               Padding(
+            //                 padding: const EdgeInsets.all(5.0),
+            //                 child: Text(
+            //                   "Find the nearest volunteer center",
+            //                   style: GoogleFonts.raleway(
+            //                     fontSize: 16,
+            //                     color: Colors.white,
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           )),
+            //     ),
+            //   ),
+            // ),
+            GoogleMap(
+              mapToolbarEnabled: false,
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              onTap: (position) {
+                _customInfoWindowController.hideInfoWindow!();
+              },
+              onCameraMove: (position) {
+                _customInfoWindowController.onCameraMove!();
+              },
+              polylines: Set<Polyline>.of(polylines.values),
+              zoomGesturesEnabled: true,
+              initialCameraPosition: const CameraPosition(
+                target: _center,
+                zoom: 14.0,
+              ),
+              markers: markers,
+              mapType: MapType.normal,
+              onMapCreated: (controller) {
+                _customInfoWindowController.googleMapController = controller;
+                controller.setMapStyle(MapStyle.mapStyles);
+                setState(() {
+                  mapController = controller;
+                });
+              },
             ),
-            markers: markers,
-            mapType: MapType.normal,
-            onMapCreated: (controller) {
-              _customInfoWindowController.googleMapController = controller;
-              controller.setMapStyle(MapStyle.mapStyles);
-              setState(() {
-                mapController = controller;
-              });
-            },
-          ),
-          CustomInfoWindow(
-            controller: _customInfoWindowController,
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: blueColor,
-        child: const Icon(
-          Icons.location_searching,
-          color: Colors.white,
+            CustomInfoWindow(
+              controller: _customInfoWindowController,
+            ),
+          ],
         ),
-        onPressed: () {
-          setState(() {
-            _getCurrentLocation();
-            checkCurrentPosition();
-          });
-        },
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: blueColor,
+          child: const Icon(
+            Icons.location_searching,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            setState(() {
+              _getCurrentLocation();
+              checkCurrentPosition();
+            });
+          },
+        ),
       ),
-    );
+    ));
   }
 
   void checkCurrentPosition() {

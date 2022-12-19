@@ -124,10 +124,8 @@ class _SignInVolState extends State<SignInVol> {
                             children: <Widget>[
                               Material(
                                 color: Colors.transparent,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(24),
-                                    )),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: borderRadiusApplication),
                                 elevation: errorEmpty==true? 0:5,
                                 child: CustomTextFormField(
                                   customHintText: 'Email',
@@ -140,10 +138,9 @@ class _SignInVolState extends State<SignInVol> {
                               :MediaQuery.of(context).size.height * 0.015,),
                               Material(
                                 color: Colors.transparent,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(24),
-                                    )),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: borderRadiusApplication,
+                                    ),
                                 elevation: errorEmpty==true? 0:5,
                                 child: CustomTextFormField(
                                   customHintText: 'Password',

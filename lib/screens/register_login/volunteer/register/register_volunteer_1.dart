@@ -63,16 +63,14 @@ class _RegisterVol1State extends State<RegisterVol1> {
           resizeToAvoidBottomInset: true,
           backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
           appBar: AppBar(
-            title: Padding(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.1),              child: Text(
-              "Volunteer",
-              style: GoogleFonts.sairaStencilOne(
-                fontSize: 25,
-                color: Colors.black.withOpacity(0.7),
+            title: Text(
+            "Volunteer",
+            style: GoogleFonts.sairaStencilOne(
+              fontSize: 25,
+              color: Colors.black.withOpacity(0.7),
 
-              ),
-              textAlign: TextAlign.center,
             ),
+            textAlign: TextAlign.center,
             ),
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -144,10 +142,8 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         ),
                         Material(
                           color: Colors.transparent,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(24),
-                              )),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRegister==true? 0:5,
                           child: CustomTextFormFieldRegister(
                             customHintText: 'Name',
@@ -160,10 +156,8 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             :MediaQuery.of(context).size.height * 0.015,),
                         Material(
                           color: Colors.transparent,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(24),
-                              )),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRegister==true? 0:5,
                           child: CustomTextFormFieldRegister(
                             customHintText: 'Phone number',
@@ -176,10 +170,8 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             :MediaQuery.of(context).size.height * 0.015,),
                         Material(
                           color: Colors.transparent,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(24),
-                              )),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRegister==true? 0:5,
                           child: CustomTextFormFieldRegister(
                             customHintText: 'Email',
@@ -193,10 +185,8 @@ class _RegisterVol1State extends State<RegisterVol1> {
                         Material(
 
                           color: Colors.transparent,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(24),
-                              )),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRegister==true? 0:5,
                           child: CustomTextFormFieldRegister(
                             customHintText: 'Password',

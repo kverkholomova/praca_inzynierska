@@ -43,14 +43,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         obscureText: widget.hide ==true?true:false,
         decoration: InputDecoration(
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24.0),
+              borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(
                 color: Colors.red,
                 width: 1.5,
               ),
             ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.0),
+            borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(
               color: Colors.red,
               width: 1.5,
@@ -60,7 +60,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             color: Colors.red
           ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24.0),
+              borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
                 color: Colors.black.withOpacity(0.7),
                 width: 1.5,
@@ -68,7 +68,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ),
 
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(24.0),
+              borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(
                 color: Colors.white,
                 width: 0,
@@ -175,14 +175,14 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
       obscureText: widget.hide ==true?true:false,
       decoration: InputDecoration(
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(
             color: Colors.red,
             width: 1.5,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(
             color: Colors.red,
             width: 1.5,
@@ -192,7 +192,7 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
             color: Colors.red
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
             color: Colors.black.withOpacity(0.7),
             // color: Color.fromRGBO(2, 62, 99, 20),
@@ -205,7 +205,7 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
           color: Colors.black.withOpacity(0.7),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(
             color: Colors.white,
             width: 0,

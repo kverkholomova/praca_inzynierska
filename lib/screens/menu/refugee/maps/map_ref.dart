@@ -232,11 +232,12 @@ class _HomeMapRefState extends State<HomeMapRef> {
         Padding(
           padding: padding,
           child: ElevatedButton(
+
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
+                primary: blueColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(18),
+                      Radius.circular(15),
                     )),
                 minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
                 // NEW

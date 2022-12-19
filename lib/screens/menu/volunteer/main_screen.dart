@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/maps/map.dart';
@@ -141,10 +142,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const OptionChoose()),
-          );
+          SystemNavigator.pop();
           return true;
         },
         child: SafeArea(

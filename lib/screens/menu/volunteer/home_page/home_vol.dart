@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ import '../../../../constants.dart';
 import '../../../../models/categories.dart';
 import '../../../../service/local_push_notifications.dart';
 import '../../../register_login/volunteer/register/register_volunteer_1.dart';
+import 'categories/update_categories.dart';
 import 'settings/settings_vol_info.dart';
 
 bool isLoggedIn = true;
@@ -141,10 +143,11 @@ class _HomeVolState extends State<HomeVol> {
     print("Volunteer");
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const OptionChoose()),
-        );
+        SystemNavigator.pop();
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const OptionChoose()),
+        // );
         return true;
       },
       child: SafeArea(
@@ -1181,17 +1184,20 @@ class _HomeVolState extends State<HomeVol> {
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true)
                           .pushReplacement(MaterialPageRoute(
-                              builder: (context) => new ChooseCategory()));
+                              builder: (context) => ManageCategories(categoriesUpdated: [],)));
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
-                      chosenCategoryListChanges = [];
+                      // categoriesUpdated = categoriesVolunteer;
+                      // print("Updateeeeeed");
+                      // print(categoriesUpdated);
+
                     },
                     icon: const Icon(
-                      Icons.add,
+                      Icons.manage_accounts_rounded,
                       color: Colors.black,
                       size: 30,
                     ),
                     label: Text(
-                      "Add new preferences",
+                      "Manage your preferences",
                       style: GoogleFonts.raleway(
                         fontSize: 16,
                         color: Colors.black,
