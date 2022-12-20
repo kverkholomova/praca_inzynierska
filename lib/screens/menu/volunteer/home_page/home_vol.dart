@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -109,6 +111,7 @@ class _HomeVolState extends State<HomeVol> {
 
   bool scrolled = false;
 
+  late StreamSubscription<User?> user;
   @override
   void initState() {
     // TODO: implement initState
@@ -120,6 +123,30 @@ class _HomeVolState extends State<HomeVol> {
     FirebaseMessaging.instance.subscribeToTopic('subscription');
     FirebaseMessaging.onMessage.listen((event) {
       LocalNotificationService.display(event);
+    });
+    setState(() {
+      user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+
+        // loadImage();
+        DocumentSnapshot variable = await FirebaseFirestore.instance.
+        collection('users').
+        doc(FirebaseAuth.instance.currentUser!.uid).
+        get();
+
+
+        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCApp");
+        print(variable["category"]);
+        var cList = variable["category"];
+        cList.forEach((element) {
+          categoriesUpdated.add(element);
+        });
+        // categoriesVolunteer
+        //     .add(variable["category"][0]);
+        print("UUUUUUUUUUUpadaaaaaaaaateeeeed");
+        print(categoriesUpdated);
+
+
+      });
     });
   }
 
@@ -568,6 +595,7 @@ class _HomeVolState extends State<HomeVol> {
                                     ['token_vol'];
                                 currentNameVol = streamSnapshot
                                     .data?.docs[index]['user_name'];
+
                                 if (streamSnapshot.hasData) {
                                   switch (streamSnapshot.connectionState) {
                                     case ConnectionState.waiting:
@@ -1079,7 +1107,12 @@ class _HomeVolState extends State<HomeVol> {
                               shrinkWrap: true,
                               itemCount: categoriesVolunteer.length,
                               itemBuilder: (ctx, index) {
-
+                                // var cList = streamSnapshot.data?.docs[index]['category'];
+                                // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOOOOOOOOOOOO");
+                                // print(cList);
+                                // cList.forEach((element) {
+                                //   categoriesUpdated.add(element);
+                                // });
                                 return Column(
                                   children: [
                                     SizedBox(
@@ -1182,9 +1215,10 @@ class _HomeVolState extends State<HomeVol> {
                   alignment: Alignment.center,
                   child: TextButton.icon(
                     onPressed: () {
+
                       Navigator.of(context, rootNavigator: true)
                           .pushReplacement(MaterialPageRoute(
-                              builder: (context) => ManageCategories(categoriesUpdated: [],)));
+                              builder: (context) => ManageCategories()));
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => ChooseCategory()));
                       // categoriesUpdated = categoriesVolunteer;
                       // print("Updateeeeeed");

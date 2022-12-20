@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -12,12 +14,11 @@ import '../../../../../widgets/loading.dart';
 import '../../../../intro_screen/option.dart';
 import '../home_vol.dart';
 
-
+List categoriesUpdated = [];
 
 class ManageCategories extends StatefulWidget {
-  final List categoriesUpdated = [];
   ManageCategories({
-    Key? key, List? categoriesUpdated
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -32,12 +33,12 @@ class _ManageCategoriesState extends State<ManageCategories> {
   bool chosen = false;
 
   // text field state
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print(widget.categoriesUpdated);
+
+
+
   }
 
   @override
@@ -258,12 +259,12 @@ class _ManageCategoriesState extends State<ManageCategories> {
                                                   ),
                                                   onPressed: () {
                                                     // print("PPPPPPPPPPPPPPPPPPPPPPPPPP");
-                                                    // // print(chosenCategoryListChanges[0]);
-                                                    // print(chosenCategoryListChanges);
+                                                    // // // print(chosenCategoryListChanges[0]);
+                                                    // print(categoriesVolunteer);
                                                     // print(chosenCategoryListChanges.isEmpty);
                                                     // print(chosenCategoryListChanges!="New one");
 
-                                                    if (categoriesVolunteer.isEmpty){
+                                                    if (categoriesUpdated.isEmpty){
                                                       dialogBuilderEmpty(context);
                                                     } else {
                                                       dialogBuilder(context);
@@ -300,14 +301,14 @@ class _ManageCategoriesState extends State<ManageCategories> {
 
   String listTileBuilder(){
     String listTile = '';
-    for(int i = 0;i<categoriesVolunteer.length;i++){
-      if(categoriesVolunteer.length==1){
-        listTile += categoriesVolunteer[i];
+    for(int i = 0;i<categoriesUpdated.length;i++){
+      if(categoriesUpdated.length==1){
+        listTile += categoriesUpdated[i];
       } else {
-        if (categoriesVolunteer.length-1==i){
-          listTile += categoriesVolunteer[i];
+        if (categoriesUpdated.length-1==i){
+          listTile += categoriesUpdated[i];
         } else {
-          listTile += "${categoriesVolunteer[i]}\n";
+          listTile += "${categoriesUpdated[i]}\n";
         }
 
       }
@@ -323,7 +324,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
         return AlertDialog(
           backgroundColor: background,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(15),
           ),
           title: const Text('Choose your categories'),
           titleTextStyle: GoogleFonts.raleway(
@@ -345,18 +346,12 @@ class _ManageCategoriesState extends State<ManageCategories> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(15)),
+                        0.085,
+                    decoration: buttonActiveDecoration,
                     child: TextButton(
                         child: Text(
                           'Choose category',
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            color: blueColor,
-                          ),
+                          style: textActiveButtonStyle,
                         ),
                         onPressed: () async {
                           Navigator.of(context).pop();
@@ -387,26 +382,21 @@ class _ManageCategoriesState extends State<ManageCategories> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(15)),
+                        0.085,
+                    decoration: buttonInactiveDecoration,
                     child: TextButton(
                         child: Text(
-                          'Leave previous choice',
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            color: blueColor,
-                          ),
+                          'Leave previous',
+                          style: textInactiveButtonStyle,
                         ),
                         onPressed: () async {
 
                             setState(() {
-                              print(widget.categoriesUpdated);
-                              categoriesVolunteer = widget.categoriesUpdated;
+                              // print(widget.categoriesUpdated);
+                              // categoriesVolunteer = widget.categoriesUpdated;
                               print("Leave previous choiceeeeeeeeeeeee");
                               print(categoriesVolunteer);
+                              print(categoriesUpdated);
                               controllerTabBottomVol = PersistentTabController(initialIndex: 2);
                             });
 
@@ -445,7 +435,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
         return AlertDialog(
           backgroundColor: background,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(15),
           ),
           title: const Text('Verify your choice'),
           titleTextStyle: GoogleFonts.raleway(
@@ -462,54 +452,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
             //   padding: const EdgeInsets.symmetric(horizontal: 20),
             //   child: Text(listTileBuilder()),
             // ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 15
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(18)),
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id_vol',
-                            isEqualTo:
-                            FirebaseAuth.instance.currentUser?.uid)
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          return ListView.builder(
-                              itemCount: !streamSnapshot.hasData
-                                  ? 1
-                                  : streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
-                                return TextButton(
-                                    child: Text(
-                                      'Change my choice',
-                                      style: GoogleFonts.raleway(
-                                        fontSize: 16,
-                                        color: blueColor,
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      Navigator.of(context).pop();
-                                    });
-                              }
-                          );
-                        }
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             // TextButton(
             //   style: TextButton.styleFrom(
             //     textStyle: Theme.of(context).textTheme.labelLarge,
@@ -519,11 +462,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
             //     Navigator.of(context).pop();
             //   },
             // ),
-            SizedBox(
-              height:
-              MediaQuery.of(context).size.height *
-                  0.01,
-            ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Align(
@@ -532,11 +471,8 @@ class _ManageCategoriesState extends State<ManageCategories> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(18)),
+                        0.085,
+                    decoration: buttonActiveDecoration,
                     child: StreamBuilder(
                         stream: FirebaseFirestore.instance
                             .collection('users')
@@ -554,10 +490,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
                                 return TextButton(
                                     child: Text(
                                       'Save my changes',
-                                      style: GoogleFonts.raleway(
-                                        fontSize: 16,
-                                        color: blueColor,
-                                      ),
+                                      style: textActiveButtonStyle,
                                     ),
                                     onPressed: () async {
                                       // Navigator.push(
@@ -573,8 +506,13 @@ class _ManageCategoriesState extends State<ManageCategories> {
                                           .doc(streamSnapshot
                                           .data?.docs[index].id)
                                           .update({
-                                        "category": categoriesVolunteer
+                                        "category": categoriesUpdated
                                       });
+                                      categoriesVolunteer = categoriesUpdated;
+                                      print("It is workiiiiiiiiiiiiiing");
+                                      print(categoriesVolunteer);
+                                      print(categoriesUpdated);
+                                      categoriesUpdated = [];
                                       // categoriesVolunteer =
                                       //     chosenCategoryListChanges;
                                       // }
@@ -588,6 +526,53 @@ class _ManageCategoriesState extends State<ManageCategories> {
 
                                           });
 
+                                    });
+                              }
+                          );
+                        }
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 15
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonInactiveDecoration,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id_vol',
+                            isEqualTo:
+                            FirebaseAuth.instance.currentUser?.uid)
+                            .snapshots(),
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                          return ListView.builder(
+                              itemCount: !streamSnapshot.hasData
+                                  ? 1
+                                  : streamSnapshot.data?.docs.length,
+                              itemBuilder: (ctx, index) {
+                                return TextButton(
+                                    child: Text(
+                                      'Change my choice',
+                                      style: textInactiveButtonStyle,
+                                    ),
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
                                     });
                               }
                           );
@@ -625,11 +610,15 @@ class _ManageCategoriesState extends State<ManageCategories> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (categoriesVolunteer.contains(text)) {
-            categoriesVolunteer.remove(text);
+
+          if (categoriesUpdated.contains(text)) {
+            categoriesUpdated.remove(text);
           } else {
-            categoriesVolunteer.add(text);
+            categoriesUpdated.add(text);
           }
+          print("KKKKKKKKKKKUpdateeeeeeeeeeeeeeeee");
+          print(categoriesUpdated);
+          print(categoriesVolunteer);
         });
       },
       child: AnimatedContainer(
@@ -637,7 +626,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
         duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
           border: Border.all(
-            color: categoriesVolunteer.contains(text) ? blueColor : Colors.white,
+            color: categoriesUpdated.contains(text) ? blueColor : Colors.white,
             width: 2,
 
           ),
@@ -681,7 +670,7 @@ class _ManageCategoriesState extends State<ManageCategories> {
               ],
             ),
 
-            categoriesVolunteer.contains(text)
+            categoriesUpdated.contains(text)
                 ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(
