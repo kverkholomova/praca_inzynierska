@@ -157,7 +157,7 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                         // current_name = streamSnapshot.data?.docs[index]['ref_name'];
 
                                         Navigator.of(context, rootNavigator: true).pushReplacement(
-                                            MaterialPageRoute(builder: (context) => new SettingsOfApplication()));
+                                            MaterialPageRoute(builder: (context) => new SettingsOfApplicationAccepted()));
                                         // Navigator.push(
                                         //   context,
                                         //   MaterialPageRoute(

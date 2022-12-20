@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
 import 'package:wol_pro_1/services/auth.dart';
 
 import '../../../../models/categories.dart';
@@ -40,22 +41,36 @@ class ChosenCategoryState extends State<ChosenCategory> {
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             backgroundColor: background,
-            floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-            floatingActionButton: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 30,
-                color: blueColor,
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 30,
+                  color: blueColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    controllerTabBottomVol =
+                        PersistentTabController(initialIndex: 4);
+                  });
+                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                      MaterialPageRoute(builder: (context) => MainScreen()));
+                },
               ),
-              onPressed: () {
-                setState(() {
-                  controllerTabBottomVol =
-                      PersistentTabController(initialIndex: 4);
-                });
-                Navigator.of(context, rootNavigator: true).pushReplacement(
-                    MaterialPageRoute(builder: (context) => MainScreen()));
-              },
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Choose an application",
+                  style: GoogleFonts.raleway(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
             ),
+
             // appBar: AppBar(
             //   centerTitle: false,
             //   title: const Text('Home'),
@@ -106,21 +121,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.08,
-                          top: MediaQuery.of(context).size.height * 0.02),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Text(
-                          "Choose application",
-                          style: GoogleFonts.raleway(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
+
                     SizedBox(
                       height: 450,
                       child: Column(
@@ -199,6 +200,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                               GestureDetector(
                                                 onTap: () {
                                                   setState(() {
+                                                    myCategories = false;
                                                     // FirebaseFirestore.instance
                                                     //     .collection('applications')
                                                     //     .doc(streamSnapshot.data?.docs[index].id)

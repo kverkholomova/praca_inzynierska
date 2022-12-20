@@ -71,6 +71,7 @@ class _MessagesVolFirstState extends State<MessagesVolFirst> {
       },
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           floatingActionButton: IconButton(
             icon: Icon(
@@ -307,7 +308,7 @@ class _SelectedChatroomVolFirstState extends State<SelectedChatroomVolFirst> {
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               //     firstMessage?
               Container(
@@ -345,12 +346,12 @@ class _SelectedChatroomVolFirstState extends State<SelectedChatroomVolFirst> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide:
                                     new BorderSide(color: blueColor),
-                                    borderRadius: new BorderRadius.circular(24),
+                                    borderRadius: new BorderRadius.circular(15),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide:
                                     new BorderSide(color: blueColor),
-                                    borderRadius: new BorderRadius.circular(24),
+                                    borderRadius: new BorderRadius.circular(15),
                                   ),
                                 ),
                                 validator: (value) {},

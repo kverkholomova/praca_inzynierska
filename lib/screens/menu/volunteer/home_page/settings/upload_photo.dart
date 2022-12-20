@@ -13,9 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../../../../../constants.dart';
+import '../../main_screen.dart';
 
 String? url_image;
 String image_url_volunteer = '';
@@ -191,8 +193,11 @@ class _ImageUploadsState extends State<ImageUploads> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        setState(() {
+          controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+        });
         Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => SettingsVol()));
+            MaterialPageRoute(builder: (context) => new MainScreen()));
         return true;
       },
       child: SafeArea(
@@ -205,8 +210,11 @@ class _ImageUploadsState extends State<ImageUploads> {
               color: blueColor,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SettingsVol()));
+              setState(() {
+                controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+              });
+              Navigator.of(context, rootNavigator: true).pushReplacement(
+                  MaterialPageRoute(builder: (context) => new MainScreen()));
             },
           ),
           backgroundColor: background,
@@ -321,10 +329,11 @@ class _ImageUploadsState extends State<ImageUploads> {
                             print(
                                 "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
                             print(url_image);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SettingsVol()));
+                            setState(() {
+                              controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+                            });
+                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                MaterialPageRoute(builder: (context) => new MainScreen()));
                           });
                         },
                         child: Text(

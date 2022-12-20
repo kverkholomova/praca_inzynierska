@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 
@@ -10,11 +11,12 @@ import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../../../../models/categories.dart';
+import '../main_screen.dart';
 import 'new_screen_with_applications.dart';
 import '../home_page/home_vol.dart';
 import 'page_of_application_vol.dart';
 
-
+bool myCategories = true;
 String card_title='';
 String card_category='';
 String card_comment='';
@@ -69,10 +71,11 @@ class YourCategoriesState extends State<YourCategories> {
     print(userID_vol);
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Categories()),
-        );
+        setState(() {
+          controllerTabBottomVol = PersistentTabController(initialIndex: 4);
+        });
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => MainScreen()));
         return true;
       },
       child:
@@ -81,6 +84,35 @@ class YourCategoriesState extends State<YourCategories> {
       //   length: categories.length,
         Scaffold(
           backgroundColor: background,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                size: 30,
+                color: blueColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  controllerTabBottomVol =
+                      PersistentTabController(initialIndex: 4);
+                });
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(builder: (context) => MainScreen()));
+              },
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Choose an application",
+                style: GoogleFonts.raleway(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
           // appBar:
           //
           // AppBar(
@@ -185,6 +217,7 @@ class YourCategoriesState extends State<YourCategories> {
                                     child: GestureDetector(
                                       onTap: () {
                                         setState(() {
+                                          myCategories = true;
                                           card_title_vol=streamSnapshot.data?.docs[index]['title'] as String;
                                           card_category_vol=streamSnapshot.data?.docs[index]['category'] as String;
                                           card_comment_vol=streamSnapshot.data?.docs[index]['comment'] as String;
@@ -312,7 +345,7 @@ class YourCategoriesState extends State<YourCategories> {
                                                       "${streamSnapshot.data?.docs[index]['comment']}"
                                                           .substring(
                                                           0,
-                                                          30) +
+                                                          22) +
                                                           "...",
                                                       style:
                                                       GoogleFonts

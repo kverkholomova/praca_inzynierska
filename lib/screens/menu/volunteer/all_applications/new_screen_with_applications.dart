@@ -414,7 +414,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         // print(categories_list_all[7]);
 
         if (widget.text == categoriesListAll[0]){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => YourCategories()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCategories()));
         }
         else {
           setState(() {

@@ -70,156 +70,157 @@ class _MessagesVolState extends State<MessagesVol> {
       },
       child: SafeArea(
         child: Scaffold(
-          floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-          floatingActionButton: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 30,
-              color: blueColor,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                size: 30,
+                color: blueColor,
+              ),
+              onPressed: () {
+                setState(() {
+                  controllerTabBottomVol = PersistentTabController(initialIndex: 0);
+                });
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(builder: (context) => MainScreen()));
+              },
             ),
-            onPressed: () {
-              setState(() {
-                controllerTabBottomVol = PersistentTabController(initialIndex: 0);
-              });
-              Navigator.of(context, rootNavigator: true).pushReplacement(
-                  MaterialPageRoute(builder: (context) => MainScreen()));
-            },
-          ),
-          backgroundColor: background,
-          body: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    ("Messages"),
-                    style: GoogleFonts.raleway(
-                      fontSize: 18,
-                      color: Colors.black,
-                    ),
+            title: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  ("Messages"),
+                  style: GoogleFonts.raleway(
+                    fontSize: 18,
+                    color: Colors.black,
                   ),
                 ),
               ),
-             Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.05),
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection("USERS_COLLECTION")
-                              .doc(IdOfChatroomVol)
-                              .collection("CHATROOMS_COLLECTION")
-                              .orderBy('time')
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            print(
-                                "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
-                            print(FirebaseAuth.instance.currentUser?.uid);
 
-                            if (snapshot.hasError) {
-                              return Text("Something is wrong");
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
+          ),
+          // resizeToAvoidBottomInset: false,
 
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 0),
-                              child: ListView.builder(
-                                controller: _scrollControllerVol_,
-                                itemCount: snapshot.data!.docs.length,
-                                // physics: NeverScrollableScrollPhysics(),
+          backgroundColor: background,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+               SizedBox(
+                 height: MediaQuery.of(context).size.height * 0.75,
+                 child: StreamBuilder(
+                   stream: FirebaseFirestore.instance
+                       .collection("USERS_COLLECTION")
+                       .doc(IdOfChatroomVol)
+                       .collection("CHATROOMS_COLLECTION")
+                       .orderBy('time')
+                       .snapshots(),
+                   builder: (BuildContext context,
+                       AsyncSnapshot<QuerySnapshot> snapshot) {
+                     print(
+                         "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
+                     print(FirebaseAuth.instance.currentUser?.uid);
 
-                                // physics: ScrollPhysics(),
-                                shrinkWrap: true,
-                                // primary: true,
-                                itemBuilder: (_, index) {
-                                  QueryDocumentSnapshot qs =
-                                      snapshot.data!.docs[index];
-                                  Timestamp t = qs['time'];
-                                  DateTime d = t.toDate();
-                                  print(d.toString());
-                                  final dataKey = GlobalKey();
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 8,
-                                        bottom: 8,
-                                        left: myMessageLeftVol(
-                                            snapshot.data?.docs[index]["name"]),
-                                        right: myMessageRightVol(snapshot
-                                            .data?.docs[index]["name"])),
-                                    child: Column(
-                                      // crossAxisAlignment: name == qs['name']
-                                      //     ? CrossAxisAlignment.end
-                                      //     : CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          decoration: new BoxDecoration(
-                                              color: snapshot.data?.docs[index]
-                                                          ["name"] ==
-                                                      currentNameVol
-                                                  ? Colors.white
-                                                  : blueColor.withOpacity(0.2),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10))),
-                                          // width: 300,
+                     if (snapshot.hasError) {
+                       return Text("Something is wrong");
+                     }
+                     if (snapshot.connectionState ==
+                         ConnectionState.waiting) {
+                       return Center(
+                         child: CircularProgressIndicator(),
+                       );
+                     }
 
-                                          child: ListTile(
-                                            key: dataKey,
-                                            // shape: RoundedRectangleBorder(
-                                            //   side: BorderSide(
-                                            //     color: snapshot.data?.docs[index]["name"] == current_name_Vol ? Colors.blue:Colors.purple,
-                                            //   ),
-                                            //   borderRadius: BorderRadius.circular(10),
-                                            // ),
-                                            title: Text(
-                                              qs['name'],
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                            subtitle: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  width: 200,
-                                                  child: Text(
-                                                    qs['message'],
-                                                    softWrap: true,
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  d.hour.toString() +
-                                                      ":" +
-                                                      d.minute.toString(),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-            ],
+                     return Padding(
+                       padding: const EdgeInsets.only(bottom: 0),
+                       child: ListView.builder(
+                         controller: _scrollControllerVol_,
+                         itemCount: snapshot.data!.docs.length,
+                         // physics: NeverScrollableScrollPhysics(),
+
+                         // physics: ScrollPhysics(),
+                         shrinkWrap: true,
+                         // primary: true,
+                         itemBuilder: (_, index) {
+                           QueryDocumentSnapshot qs =
+                               snapshot.data!.docs[index];
+                           Timestamp t = qs['time'];
+                           DateTime d = t.toDate();
+                           print(d.toString());
+                           final dataKey = GlobalKey();
+                           return Padding(
+                             padding: EdgeInsets.only(
+                                 top: 8,
+                                 bottom: 8,
+                                 left: myMessageLeftVol(
+                                     snapshot.data?.docs[index]["name"]),
+                                 right: myMessageRightVol(snapshot
+                                     .data?.docs[index]["name"])),
+                             child: Column(
+                               // crossAxisAlignment: name == qs['name']
+                               //     ? CrossAxisAlignment.end
+                               //     : CrossAxisAlignment.start,
+                               children: [
+                                 Container(
+                                   decoration: new BoxDecoration(
+                                       color: snapshot.data?.docs[index]
+                                                   ["name"] ==
+                                               currentNameVol
+                                           ? Colors.white
+                                           : blueColor.withOpacity(0.2),
+                                       borderRadius: BorderRadius.all(
+                                           Radius.circular(10))),
+                                   // width: 300,
+
+                                   child: ListTile(
+                                     key: dataKey,
+                                     // shape: RoundedRectangleBorder(
+                                     //   side: BorderSide(
+                                     //     color: snapshot.data?.docs[index]["name"] == current_name_Vol ? Colors.blue:Colors.purple,
+                                     //   ),
+                                     //   borderRadius: BorderRadius.circular(10),
+                                     // ),
+                                     title: Text(
+                                       qs['name'],
+                                       style: TextStyle(
+                                         fontSize: 15,
+                                       ),
+                                     ),
+                                     subtitle: Row(
+                                       mainAxisAlignment:
+                                           MainAxisAlignment
+                                               .spaceBetween,
+                                       children: [
+                                         Container(
+                                           width: 200,
+                                           child: Text(
+                                             qs['message'],
+                                             softWrap: true,
+                                             style: TextStyle(
+                                               fontSize: 15,
+                                             ),
+                                           ),
+                                         ),
+                                         Text(
+                                           d.hour.toString() +
+                                               ":" +
+                                               d.minute.toString(),
+                                         )
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+                               ],
+                             ),
+                           );
+                         },
+                       ),
+                     );
+                   },
+                 ),
+               ),
+
+              ],
+            ),
           ),
         ),
       ),
@@ -269,22 +270,22 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
       },
       child: Scaffold(
         backgroundColor: background,
-        resizeToAvoidBottomInset: true,
-        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        floatingActionButton: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 30,
-            color: blueColor,
-          ),
-          onPressed: () {
-            setState(() {
-              controllerTabBottomVol = PersistentTabController(initialIndex: 0);
-            });
-            Navigator.of(context, rootNavigator: true).pushReplacement(
-                MaterialPageRoute(builder: (context) => MainScreen()));
-          },
-        ),
+        // resizeToAvoidBottomInset: true,
+        // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        // floatingActionButton: IconButton(
+        //   icon: Icon(
+        //     Icons.arrow_back_ios_new_rounded,
+        //     size: 30,
+        //     color: blueColor,
+        //   ),
+        //   onPressed: () {
+        //     setState(() {
+        //       controllerTabBottomVol = PersistentTabController(initialIndex: 0);
+        //     });
+        //     Navigator.of(context, rootNavigator: true).pushReplacement(
+        //         MaterialPageRoute(builder: (context) => MainScreen()));
+        //   },
+        // ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         // floatingActionButton: IconButton(
         //   icon: Icon(
@@ -310,17 +311,17 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
               // Container(
               //       height: MediaQuery.of(context).size.height * 0.91,)
               //     :
-              Container(
-                height: MediaQuery.of(context).size.height * 0.91,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
                 child: MessagesVol(
                   name: currentName,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 0),
-                child: Container(
+                child: SizedBox(
                   // color: background,
-                  height: 60,
+                  height: MediaQuery.of(context).size.height * 0.06,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
@@ -342,12 +343,12 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide:
                                         new BorderSide(color: blueColor),
-                                    borderRadius: new BorderRadius.circular(24),
+                                    borderRadius: new BorderRadius.circular(15),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide:
                                         new BorderSide(color: blueColor),
-                                    borderRadius: new BorderRadius.circular(24),
+                                    borderRadius: new BorderRadius.circular(15),
                                   ),
                                 ),
                                 validator: (value) {},

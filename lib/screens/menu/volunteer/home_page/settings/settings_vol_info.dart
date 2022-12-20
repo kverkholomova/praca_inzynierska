@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
@@ -69,6 +70,9 @@ class _SettingsVolState extends State<SettingsVol> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        setState(() {
+          controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+        });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => new MainScreen()));
         return true;
@@ -83,6 +87,9 @@ class _SettingsVolState extends State<SettingsVol> {
             color: background,
           ),
           onPressed: () {
+            setState(() {
+              controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+            });
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => new MainScreen()));
             // Navigator.push(context,
@@ -695,52 +702,57 @@ class _SettingsVolState extends State<SettingsVol> {
                                               style: textActiveButtonStyle,
                                             ),
                                             onPressed: () async {
-                                              setState(() {
-                                                FirebaseFirestore.instance
-                                                    .collection('users')
-                                                    .doc(streamSnapshot
-                                                    .data?.docs[index].id)
-                                                    .update({
-                                                  "category": changedCategories !=
-                                                      []
-                                                      ? changedCategories
-                                                      : streamSnapshot
-                                                      .data
-                                                      ?.docs[index]['category'],
-                                                  "user_name": changedName != ""
-                                                      ? changedName
-                                                      : streamSnapshot
-                                                      .data
-                                                      ?.docs[index]['user_name'],
-                                                  "age": currentAgeVolunteer != 0
-                                                      ? currentAgeVolunteer
-                                                      : streamSnapshot
-                                                      .data?.docs[index]['age'],
-                                                  "phone_number": changedPhone !=
-                                                      ""
-                                                      ? changedPhone
-                                                      : streamSnapshot
-                                                      .data
-                                                      ?.docs[index]['phone_number'],
-                                                  "birth_day": dateOfBirth==DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString()
-                                                      ?"Please supply data"
-                                                      :dateOfBirth
+                                              if (changedName==""||changedAge==""||changedPhone==''){
+                                                dialogBuilderEmpty(context);
+                                              } else{
+                                                setState(() {
+                                                  FirebaseFirestore.instance
+                                                      .collection('users')
+                                                      .doc(streamSnapshot
+                                                      .data?.docs[index].id)
+                                                      .update({
+                                                    // "category": changedCategories !=
+                                                    //     []
+                                                    //     ? changedCategories
+                                                    //     : streamSnapshot
+                                                    //     .data
+                                                    //     ?.docs[index]['category'],
+                                                    "user_name": changedName != ""
+                                                        ? changedName
+                                                        : streamSnapshot
+                                                        .data
+                                                        ?.docs[index]['user_name'],
+                                                    "age": currentAgeVolunteer != 0
+                                                        ? currentAgeVolunteer
+                                                        : streamSnapshot
+                                                        .data?.docs[index]['age'],
+                                                    "phone_number": changedPhone !=
+                                                        ""
+                                                        ? changedPhone
+                                                        : streamSnapshot
+                                                        .data
+                                                        ?.docs[index]['phone_number'],
+                                                    "birth_day": dateOfBirth==DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString()
+                                                        ?"Please supply data"
+                                                        :dateOfBirth
+                                                  });
+                                                  print("!!!!!!!!!!!!!!!!!AGE");
+                                                  print(changedAge);
+                                                  print(currentAgeVolunteer);
                                                 });
-                                                print("!!!!!!!!!!!!!!!!!AGE");
-                                                print(changedAge);
-                                                print(currentAgeVolunteer);
-                                              });
 
-                                              Future.delayed(const Duration(
-                                                  milliseconds: 500), () {
-                                                Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                    MaterialPageRoute(builder: (context) => new MainScreen()));
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) =>
-                                                //         const HomeVol()));
-                                              });
+                                                Future.delayed(const Duration(
+                                                    milliseconds: 500), () {
+                                                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                      MaterialPageRoute(builder: (context) => new MainScreen()));
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (context) =>
+                                                  //         const HomeVol()));
+                                                });
+                                              }
+
                                             }),
                                       ),
                                     ),
@@ -895,54 +907,150 @@ class _SettingsVolState extends State<SettingsVol> {
     );
   }
 
-  GestureDetector buildCategorySettings(
-      BuildContext context, String text, IconData icon) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (changedCategories.contains(text)) {
-            changedCategories.remove(text);
-          } else {
-            changedCategories.add(text);
-          }
-        });
-      },
-      child: AnimatedContainer(
-        height: MediaQuery.of(context).size.height * 0.075,
-        duration: const Duration(milliseconds: 500),
-        decoration: BoxDecoration(
-          color: chosenCategoryListChanges.contains(text) ? blueColor : Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(24),
+  Future<void> dialogBuilderEmpty(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-        ),
-        child: Row(
-          children: [
+          title: const Text('Change your info'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content: const Text("You haven't supply any changes, please supply any change to save something"
+              ' or leave your previous information'),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            color: blueColor,
+          ),
+          actions: <Widget>[
             Padding(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.05,
-                right: MediaQuery.of(context).size.width * 0.04,
-              ),
-              child: Icon(
-                icon,
-                size: 27,
-                color: chosenCategoryListChanges.contains(text)
-                    ? Colors.white
-                    : Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonActiveDecoration,
+                    child: TextButton(
+                        child: Text(
+                          'Change info',
+                          style: textActiveButtonStyle,
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
               ),
             ),
-            Text(
-              text,
-              style: GoogleFonts.raleway(
-                fontSize: 14,
-                color: chosenCategoryListChanges.contains(text)
-                    ? Colors.white
-                    : Colors.black,
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Choose category'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonInactiveDecoration,
+                    child: TextButton(
+                        child: Text(
+                          'Leave my info',
+                          style: textInactiveButtonStyle,
+                        ),
+                        onPressed: () async {
+        setState(() {
+          controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+        });
+                          Navigator.of(context, rootNavigator: true).pushReplacement(
+                              MaterialPageRoute(builder: (context) => new MainScreen()));
+
+                        }),
+                  ),
+                ),
               ),
-            )
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+
           ],
-        ),
-      ),
+        );
+      },
     );
   }
+
+  // GestureDetector buildCategorySettings(
+  //     BuildContext context, String text, IconData icon) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         if (changedCategories.contains(text)) {
+  //           changedCategories.remove(text);
+  //         } else {
+  //           changedCategories.add(text);
+  //         }
+  //       });
+  //     },
+  //     child: AnimatedContainer(
+  //       height: MediaQuery.of(context).size.height * 0.075,
+  //       duration: const Duration(milliseconds: 500),
+  //       decoration: BoxDecoration(
+  //         color: chosenCategoryListChanges.contains(text) ? blueColor : Colors.white,
+  //         borderRadius: const BorderRadius.all(
+  //           Radius.circular(24),
+  //         ),
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           Padding(
+  //             padding: EdgeInsets.only(
+  //               left: MediaQuery.of(context).size.width * 0.05,
+  //               right: MediaQuery.of(context).size.width * 0.04,
+  //             ),
+  //             child: Icon(
+  //               icon,
+  //               size: 27,
+  //               color: chosenCategoryListChanges.contains(text)
+  //                   ? Colors.white
+  //                   : Colors.black,
+  //             ),
+  //           ),
+  //           Text(
+  //             text,
+  //             style: GoogleFonts.raleway(
+  //               fontSize: 14,
+  //               color: chosenCategoryListChanges.contains(text)
+  //                   ? Colors.white
+  //                   : Colors.black,
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

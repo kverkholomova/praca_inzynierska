@@ -14,6 +14,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
 
 import '../../../../models/categories.dart';
 import '../main_screen.dart';
@@ -176,31 +177,53 @@ class _PageOfApplicationState extends State<PageOfApplication> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        setState(() {
-          controllerTabBottomVol = PersistentTabController(initialIndex: 4);
-        });
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => new ChosenCategory()));
+        // setState(() {
+        //   controllerTabBottomVol = PersistentTabController(initialIndex: 4);
+        // });
+        if(myCategories==true){
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => new YourCategories()));
+        } else {
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(builder: (context) => new ChosenCategory()));
+        }
+
         return true;
       },
       child: Scaffold(
-        backgroundColor: background,
-        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        floatingActionButton: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 30,
-            color: blueColor,
-          ),
-          onPressed: () {
-            setState(() {
-              controllerTabBottomVol = PersistentTabController(initialIndex: 4);
-            });
-            Navigator.of(context, rootNavigator: true).pushReplacement(
-                MaterialPageRoute(builder: (context) => ChosenCategory()));
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 30,
+              color: blueColor,
+            ),
+            onPressed: () {
+              if(myCategories==true){
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(builder: (context) => new YourCategories()));
+              } else {
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(builder: (context) => new ChosenCategory()));
+              }
 
-          },
+            },
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Manage chosen application",
+              style: GoogleFonts.raleway(
+                fontSize: 18,
+                color: Colors.black,
+              ),
+            ),
+          ),
         ),
+        backgroundColor: background,
+
         // appBar: AppBar(
         //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
         //   elevation: 0.0,
