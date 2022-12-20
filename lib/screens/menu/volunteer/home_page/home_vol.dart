@@ -117,7 +117,7 @@ class _HomeVolState extends State<HomeVol> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+    // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {});
@@ -134,8 +134,6 @@ class _HomeVolState extends State<HomeVol> {
         collection('users').
         doc(FirebaseAuth.instance.currentUser!.uid).
         get();
-
-
         print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCApp");
         print(variable["category"]);
         var cList = variable["category"];

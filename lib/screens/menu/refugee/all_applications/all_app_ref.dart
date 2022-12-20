@@ -72,402 +72,404 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
           //
           // ),
         ),
-        body: Padding(
-          padding: padding,
-          child: SizedBox(
-            height: 450,
-            child: Column(
-              children: [
-                Expanded(
-                  child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('applications')
-                        .where('userID', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                        // .where("category",
-                        // isEqualTo: categoryChosenVolunteer)
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: padding,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('applications')
+                          .where('userID', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                          // .where("category",
+                          // isEqualTo: categoryChosenVolunteer)
 
-                    //.where("volunteer_pref", arrayContainsAny: volunteer_preferencies)
-                    //.where("category", arrayContainsAny: ['Accomodation', 'Transfer', 'Assistance with animals'])
-                    //     .where("status",
-                    //     isEqualTo: 'Sent to volunteer')
+                      //.where("volunteer_pref", arrayContainsAny: volunteer_preferencies)
+                      //.where("category", arrayContainsAny: ['Accomodation', 'Transfer', 'Assistance with animals'])
+                      //     .where("status",
+                      //     isEqualTo: 'Sent to volunteer')
 
-                    //.where("category", whereIn: ['Accomodation','Transfer','Assistance with animals'])
-                    //.where("category", arrayContainsAny: ['Accomodation','Transfer','Assistance with animals'])
-                        .snapshots(),
-                    builder: (context,
-                        AsyncSnapshot<QuerySnapshot?>
-                        streamSnapshot) {
-                      //                           var tom = streamSnapshot.data!.docs;
-                      // if (tom.isEmpty) {
-                      // return Center(
-                      // child: Padding(
-                      // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,),
-                      // child: Column(
-                      // children: const [
-                      // Align(
-                      // alignment: Alignment.center,
-                      // child: Text("There is no data...",
-                      // style: TextStyle(
-                      // fontWeight: FontWeight.bold,
-                      // fontSize: 24,
-                      // color: Colors.black,
-                      // )),
-                      // ),
-                      // Padding(
-                      // padding: EdgeInsets.only(top: 20),
-                      // )
-                      // ],
-                      // ),
-                      // ),
-                      // );
-                      // }
-                      // else
-                      //   if (streamSnapshot.data!.docs.isNotEmpty) {
+                      //.where("category", whereIn: ['Accomodation','Transfer','Assistance with animals'])
+                      //.where("category", arrayContainsAny: ['Accomodation','Transfer','Assistance with animals'])
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot?>
+                          streamSnapshot) {
+                        //                           var tom = streamSnapshot.data!.docs;
+                        // if (tom.isEmpty) {
+                        // return Center(
+                        // child: Padding(
+                        // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,),
+                        // child: Column(
+                        // children: const [
+                        // Align(
+                        // alignment: Alignment.center,
+                        // child: Text("There is no data...",
+                        // style: TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        // fontSize: 24,
+                        // color: Colors.black,
+                        // )),
+                        // ),
+                        // Padding(
+                        // padding: EdgeInsets.only(top: 20),
+                        // )
+                        // ],
+                        // ),
+                        // ),
+                        // );
+                        // }
+                        // else
+                        //   if (streamSnapshot.data!.docs.isNotEmpty) {
 
-                      return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: streamSnapshot.data?.docs.length,
-                          itemBuilder: (ctx, index) {
-                            // if (streamSnapshot.hasData) {
-                            switch (streamSnapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return Padding(
-                                  padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.0,
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Text("",
-                                        style: GoogleFonts.raleway(
-                                          fontSize: 25,
-                                          color: Colors.white,
-                                        )),
-                                  ),
-                                );
-                              case ConnectionState.active:
-                                return Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          FirebaseFirestore.instance
-                                              .collection('applications')
-                                              .doc(streamSnapshot.data?.docs[index].id)
-                                              .update({"Id": streamSnapshot.data?.docs[index].id});
-                                          print("IIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDD");
-                                          print(streamSnapshot.data?.docs[index].id);
-                                          applicationIDRef =
-                                          "${
-                                              streamSnapshot
-                                                  .data?.docs[index].id
-                                            }";
-                                          //
-                                          // id_card = streamSnapshot.data?.docs[index].id;
-                                          card_title_vol =
-                                          streamSnapshot.data
-                                              ?.docs[index]
-                                          ['title'];
-                                          card_category_vol =
-                                          streamSnapshot.data
-                                              ?.docs[index]
-                                          ['category'];
-                                          card_comment_vol =
-                                          streamSnapshot.data
-                                              ?.docs[index]
-                                          ['comment'];
-                                          // controllerTabBottomRef = PersistentTabController(initialIndex: 3);
-                                          Navigator.of(context, rootNavigator: true).pushReplacement(
-                                              MaterialPageRoute(builder: (context) => new PageOfApplicationRef()));
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           PageOfApplication()),
-                                          // );
-                                          // print("print ${streamSnapshot.data?.docs[index][id]}");
-                                        });
-                                      },
-                                      child: Container(
-                                        width: double.infinity,
-                                        // height: MediaQuery.of(context).size.height *
-                                        //     0.2,
-                                        decoration: BoxDecoration(
+                        return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: streamSnapshot.data?.docs.length,
+                            itemBuilder: (ctx, index) {
+                              // if (streamSnapshot.hasData) {
+                              switch (streamSnapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context)
+                                          .size
+                                          .height *
+                                          0.0,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text("",
+                                          style: GoogleFonts.raleway(
+                                            fontSize: 25,
                                             color: Colors.white,
-                                            borderRadius:
-                                            BorderRadius.circular(
-                                                18)),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(
-                                                      context)
-                                                      .size
-                                                      .height *
-                                                      0.015),
-                                              child: Icon(
-                                                streamSnapshot.data?.docs[
-                                                index]
-                                                ['category']
-                                                as String ==
-                                                    categoriesListAll[
-                                                    3]
-                                                    ? Icons
-                                                    .pets_rounded
-                                                    : streamSnapshot.data
-                                                    ?.docs[index]['category']
-                                                as String ==
-                                                    categoriesListAll[
-                                                    4]
-                                                    ? Icons
-                                                    .local_grocery_store
-                                                    : streamSnapshot.data?.docs[index]['category']
-                                                as String ==
-                                                    categoriesListAll[
-                                                    2]
-                                                    ? Icons
-                                                    .emoji_transportation_rounded
-                                                    : streamSnapshot.data?.docs[index]['category'] as String ==
-                                                    categoriesListAll[1]
-                                                    ? Icons.house
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
-                                                    ? Icons.sign_language_rounded
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
-                                                    ? Icons.child_care_outlined
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
-                                                    ? Icons.menu_book
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
-                                                    ? Icons.medical_information_outlined
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
-                                                    ? Icons.check_box
-                                                    : Icons.new_label_sharp,
-                                                size: 30,
-                                                color: Colors.black,
+                                          )),
+                                    ),
+                                  );
+                                case ConnectionState.active:
+                                  return Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            FirebaseFirestore.instance
+                                                .collection('applications')
+                                                .doc(streamSnapshot.data?.docs[index].id)
+                                                .update({"Id": streamSnapshot.data?.docs[index].id});
+                                            print("IIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDD");
+                                            print(streamSnapshot.data?.docs[index].id);
+                                            applicationIDRef =
+                                            "${
+                                                streamSnapshot
+                                                    .data?.docs[index].id
+                                              }";
+                                            //
+                                            // id_card = streamSnapshot.data?.docs[index].id;
+                                            card_title_vol =
+                                            streamSnapshot.data
+                                                ?.docs[index]
+                                            ['title'];
+                                            card_category_vol =
+                                            streamSnapshot.data
+                                                ?.docs[index]
+                                            ['category'];
+                                            card_comment_vol =
+                                            streamSnapshot.data
+                                                ?.docs[index]
+                                            ['comment'];
+                                            // controllerTabBottomRef = PersistentTabController(initialIndex: 3);
+                                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                MaterialPageRoute(builder: (context) => new PageOfApplicationRef()));
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           PageOfApplication()),
+                                            // );
+                                            // print("print ${streamSnapshot.data?.docs[index][id]}");
+                                          });
+                                        },
+                                        child: Container(
+                                          width: double.infinity,
+                                          // height: MediaQuery.of(context).size.height *
+                                          //     0.2,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  18)),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: MediaQuery.of(
+                                                        context)
+                                                        .size
+                                                        .height *
+                                                        0.015),
+                                                child: Icon(
+                                                  streamSnapshot.data?.docs[
+                                                  index]
+                                                  ['category']
+                                                  as String ==
+                                                      categoriesListAll[
+                                                      3]
+                                                      ? Icons
+                                                      .pets_rounded
+                                                      : streamSnapshot.data
+                                                      ?.docs[index]['category']
+                                                  as String ==
+                                                      categoriesListAll[
+                                                      4]
+                                                      ? Icons
+                                                      .local_grocery_store
+                                                      : streamSnapshot.data?.docs[index]['category']
+                                                  as String ==
+                                                      categoriesListAll[
+                                                      2]
+                                                      ? Icons
+                                                      .emoji_transportation_rounded
+                                                      : streamSnapshot.data?.docs[index]['category'] as String ==
+                                                      categoriesListAll[1]
+                                                      ? Icons.house
+                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
+                                                      ? Icons.sign_language_rounded
+                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
+                                                      ? Icons.child_care_outlined
+                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
+                                                      ? Icons.menu_book
+                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
+                                                      ? Icons.medical_information_outlined
+                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
+                                                      ? Icons.check_box
+                                                      : Icons.new_label_sharp,
+                                                  size: 30,
+                                                  color: Colors.black,
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.65,
-                                              height: MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .height *
-                                                  0.12,
-                                              child: Align(
-                                                alignment:
-                                                Alignment.topCenter,
-                                                child: ListTile(
-                                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                                  contentPadding:
-                                                  EdgeInsets
-                                                      .symmetric(
-                                                      vertical:
-                                                      4),
-                                                  title: Padding(
-                                                    padding: const EdgeInsets
+                                              SizedBox(
+                                                width: MediaQuery.of(
+                                                    context)
+                                                    .size
+                                                    .width *
+                                                    0.65,
+                                                height: MediaQuery.of(
+                                                    context)
+                                                    .size
+                                                    .height *
+                                                    0.12,
+                                                child: Align(
+                                                  alignment:
+                                                  Alignment.topCenter,
+                                                  child: ListTile(
+                                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                                    contentPadding:
+                                                    EdgeInsets
                                                         .symmetric(
-                                                        horizontal:
-                                                        12),
-                                                    child: Text(
-                                                        streamSnapshot
-                                                            .data
-                                                            ?.docs[index]['title']
-                                                        as String,
-                                                        style: GoogleFonts
+                                                        vertical:
+                                                        4),
+                                                    title: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal:
+                                                          12),
+                                                      child: Text(
+                                                          streamSnapshot
+                                                              .data
+                                                              ?.docs[index]['title']
+                                                          as String,
+                                                          style: GoogleFonts
+                                                              .raleway(
+                                                            fontSize:
+                                                            14,
+                                                            color: Colors
+                                                                .black,
+                                                          )),
+                                                    ),
+                                                    // Text(
+                                                    //     streamSnapshot.data?.docs[index]['category'] as String,
+                                                    //     style: TextStyle(color: Colors.grey)),
+                                                    subtitle: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal:
+                                                          12),
+                                                      child: Text(
+                                                        "${streamSnapshot.data?.docs[index]['comment']}"
+                                                            .substring(
+                                                            0,
+                                                            30) +
+                                                            "...",
+                                                        style:
+                                                        GoogleFonts
                                                             .raleway(
-                                                          fontSize:
-                                                          14,
+                                                          fontSize: 12,
                                                           color: Colors
-                                                              .black,
-                                                        )),
-                                                  ),
-                                                  // Text(
-                                                  //     streamSnapshot.data?.docs[index]['category'] as String,
-                                                  //     style: TextStyle(color: Colors.grey)),
-                                                  subtitle: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal:
-                                                        12),
-                                                    child: Text(
-                                                      "${streamSnapshot.data?.docs[index]['comment']}"
-                                                          .substring(
-                                                          0,
-                                                          30) +
-                                                          "...",
-                                                      style:
-                                                      GoogleFonts
-                                                          .raleway(
-                                                        fontSize: 12,
-                                                        color: Colors
-                                                            .black
-                                                            .withOpacity(
-                                                            0.5),
+                                                              .black
+                                                              .withOpacity(
+                                                              0.5),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.012,
-                                    ),
-                                  ],
-                                );
-                            // case ConnectionState.none:
-                            //
-                            // case ConnectionState.done:
-                            // // TODO: Handle this case.
-                            //   break;
-                            }
-                            // }
-                            return Container();
-                          });
-                      //                           return ListView.builder(
-                      //                               physics: NeverScrollableScrollPhysics(),
-                      //                               shrinkWrap: true,
-                      //                               scrollDirection: Axis.vertical,
-                      //                               itemCount: streamSnapshot.data?.docs.length,
-                      //                               itemBuilder: (ctx, index)
-                      //                               {
-                      //                               if (streamSnapshot.hasData) {
-                      //                               switch (streamSnapshot.connectionState) {
-                      //                               case ConnectionState.waiting:
-                      //                               return Padding(
-                      //                               padding: EdgeInsets.only(
-                      //                               top: MediaQuery.of(context).size.height * 0.0,
-                      //                               ),
-                      //                               child: Align(
-                      //                               alignment: Alignment.topCenter,
-                      //                               child: Text("Waiting for data",
-                      //                               style: GoogleFonts.raleway(
-                      //                               fontSize: 25,
-                      //                               color: Colors.white,
-                      //                               )),
-                      //                               ),
-                      //                               );
-                      //                               case ConnectionState.active:
-                      //                                       return  Column(
-                      //                                           children: [
-                      //                                             GestureDetector(
-                      //                                               onTap: () {
-                      //                                                 setState(() {
-                      //                                                   // FirebaseFirestore.instance
-                      //                                                   //     .collection('applications')
-                      //                                                   //     .doc(streamSnapshot.data?.docs[index].id)
-                      //                                                   //     .update({"Id": streamSnapshot.data?.docs[index].id});
-                      //                                                   //
-                      //                                                   // id_card = streamSnapshot.data?.docs[index].id;
-                      //                                                   card_title_vol =
-                      //                                                       streamSnapshot.data
-                      //                                                               ?.docs[index]
-                      //                                                           ['title'];
-                      //                                                   card_category_vol =
-                      //                                                       streamSnapshot.data
-                      //                                                               ?.docs[index]
-                      //                                                           ['category'];
-                      //                                                   card_comment_vol =
-                      //                                                       streamSnapshot.data
-                      //                                                               ?.docs[index]
-                      //                                                           ['comment'];
-                      //                                                   Navigator.push(
-                      //                                                     context,
-                      //                                                     MaterialPageRoute(
-                      //                                                         builder: (context) =>
-                      //                                                             PageOfApplication()),
-                      //                                                   );
-                      //                                                   // print("print ${streamSnapshot.data?.docs[index][id]}");
-                      //                                                 });
-                      //                                               },
-                      //                                               child: Container(
-                      //                                                 width: double.infinity,
-                      //                                                 // height: MediaQuery.of(context).size.height *
-                      //                                                 //     0.2,
-                      //                                                 decoration: BoxDecoration(
-                      //                                                     color: Colors.white,
-                      //                                                     borderRadius:
-                      //                                                         BorderRadius
-                      //                                                             .circular(24)),
-                      //                                                 child: ListTile(
-                      //                                                   // mainAxisAlignment: MainAxisAlignment.start,
-                      //
-                      //                                                   contentPadding:
-                      //                                                       EdgeInsets.symmetric(
-                      //                                                           vertical: 5),
-                      //                                                   title: Padding(
-                      //                                                     padding:
-                      //                                                         const EdgeInsets
-                      //                                                                 .symmetric(
-                      //                                                             horizontal: 12),
-                      //                                                     child: Text(
-                      //                                                         streamSnapshot.data
-                      //                                                                     ?.docs[index]
-                      //                                                                 ['title']
-                      //                                                             as String,
-                      //                                                         style: GoogleFonts
-                      //                                                             .raleway(
-                      //                                                           fontSize: 16,
-                      //                                                           color:
-                      //                                                               Colors.black,
-                      //                                                         )),
-                      //                                                   ),
-                      //                                                   // Text(
-                      //                                                   //     streamSnapshot.data?.docs[index]['category'] as String,
-                      //                                                   //     style: TextStyle(color: Colors.grey)),
-                      //                                                   subtitle: Padding(
-                      //                                                     padding:
-                      //                                                         const EdgeInsets
-                      //                                                                 .symmetric(
-                      //                                                             horizontal: 12),
-                      //                                                     child: Text(
-                      //                                                       streamSnapshot.data
-                      //                                                                   ?.docs[index]
-                      //                                                               ['comment']
-                      //                                                           as String,
-                      //                                                       style: GoogleFonts
-                      //                                                           .raleway(
-                      //                                                         fontSize: 14,
-                      //                                                         color: Colors.black
-                      //                                                             .withOpacity(
-                      //                                                                 0.5),
-                      //                                                       ),
-                      //                                                     ),
-                      //                                                   ),
-                      //                                                 ),
-                      //                                               ),
-                      //                                             ),
-                      //                                           ],
-                      //                                         );
-                      //                                 // case ConnectionState.none:
-                      //                                 //
-                      //                                 // case ConnectionState.done:
-                      //                                 // // TODO: Handle this case.
-                      //                                 //   break;
-                      //                               }
-                      //                               }
-                      //                               return Container();
-                      //
-                      //                                       });
-                      // }
-                      // return Container();
-                    },
+                                      SizedBox(
+                                        height: MediaQuery.of(context)
+                                            .size
+                                            .height *
+                                            0.012,
+                                      ),
+                                    ],
+                                  );
+                              // case ConnectionState.none:
+                              //
+                              // case ConnectionState.done:
+                              // // TODO: Handle this case.
+                              //   break;
+                              }
+                              // }
+                              return Container();
+                            });
+                        //                           return ListView.builder(
+                        //                               physics: NeverScrollableScrollPhysics(),
+                        //                               shrinkWrap: true,
+                        //                               scrollDirection: Axis.vertical,
+                        //                               itemCount: streamSnapshot.data?.docs.length,
+                        //                               itemBuilder: (ctx, index)
+                        //                               {
+                        //                               if (streamSnapshot.hasData) {
+                        //                               switch (streamSnapshot.connectionState) {
+                        //                               case ConnectionState.waiting:
+                        //                               return Padding(
+                        //                               padding: EdgeInsets.only(
+                        //                               top: MediaQuery.of(context).size.height * 0.0,
+                        //                               ),
+                        //                               child: Align(
+                        //                               alignment: Alignment.topCenter,
+                        //                               child: Text("Waiting for data",
+                        //                               style: GoogleFonts.raleway(
+                        //                               fontSize: 25,
+                        //                               color: Colors.white,
+                        //                               )),
+                        //                               ),
+                        //                               );
+                        //                               case ConnectionState.active:
+                        //                                       return  Column(
+                        //                                           children: [
+                        //                                             GestureDetector(
+                        //                                               onTap: () {
+                        //                                                 setState(() {
+                        //                                                   // FirebaseFirestore.instance
+                        //                                                   //     .collection('applications')
+                        //                                                   //     .doc(streamSnapshot.data?.docs[index].id)
+                        //                                                   //     .update({"Id": streamSnapshot.data?.docs[index].id});
+                        //                                                   //
+                        //                                                   // id_card = streamSnapshot.data?.docs[index].id;
+                        //                                                   card_title_vol =
+                        //                                                       streamSnapshot.data
+                        //                                                               ?.docs[index]
+                        //                                                           ['title'];
+                        //                                                   card_category_vol =
+                        //                                                       streamSnapshot.data
+                        //                                                               ?.docs[index]
+                        //                                                           ['category'];
+                        //                                                   card_comment_vol =
+                        //                                                       streamSnapshot.data
+                        //                                                               ?.docs[index]
+                        //                                                           ['comment'];
+                        //                                                   Navigator.push(
+                        //                                                     context,
+                        //                                                     MaterialPageRoute(
+                        //                                                         builder: (context) =>
+                        //                                                             PageOfApplication()),
+                        //                                                   );
+                        //                                                   // print("print ${streamSnapshot.data?.docs[index][id]}");
+                        //                                                 });
+                        //                                               },
+                        //                                               child: Container(
+                        //                                                 width: double.infinity,
+                        //                                                 // height: MediaQuery.of(context).size.height *
+                        //                                                 //     0.2,
+                        //                                                 decoration: BoxDecoration(
+                        //                                                     color: Colors.white,
+                        //                                                     borderRadius:
+                        //                                                         BorderRadius
+                        //                                                             .circular(24)),
+                        //                                                 child: ListTile(
+                        //                                                   // mainAxisAlignment: MainAxisAlignment.start,
+                        //
+                        //                                                   contentPadding:
+                        //                                                       EdgeInsets.symmetric(
+                        //                                                           vertical: 5),
+                        //                                                   title: Padding(
+                        //                                                     padding:
+                        //                                                         const EdgeInsets
+                        //                                                                 .symmetric(
+                        //                                                             horizontal: 12),
+                        //                                                     child: Text(
+                        //                                                         streamSnapshot.data
+                        //                                                                     ?.docs[index]
+                        //                                                                 ['title']
+                        //                                                             as String,
+                        //                                                         style: GoogleFonts
+                        //                                                             .raleway(
+                        //                                                           fontSize: 16,
+                        //                                                           color:
+                        //                                                               Colors.black,
+                        //                                                         )),
+                        //                                                   ),
+                        //                                                   // Text(
+                        //                                                   //     streamSnapshot.data?.docs[index]['category'] as String,
+                        //                                                   //     style: TextStyle(color: Colors.grey)),
+                        //                                                   subtitle: Padding(
+                        //                                                     padding:
+                        //                                                         const EdgeInsets
+                        //                                                                 .symmetric(
+                        //                                                             horizontal: 12),
+                        //                                                     child: Text(
+                        //                                                       streamSnapshot.data
+                        //                                                                   ?.docs[index]
+                        //                                                               ['comment']
+                        //                                                           as String,
+                        //                                                       style: GoogleFonts
+                        //                                                           .raleway(
+                        //                                                         fontSize: 14,
+                        //                                                         color: Colors.black
+                        //                                                             .withOpacity(
+                        //                                                                 0.5),
+                        //                                                       ),
+                        //                                                     ),
+                        //                                                   ),
+                        //                                                 ),
+                        //                                               ),
+                        //                                             ),
+                        //                                           ],
+                        //                                         );
+                        //                                 // case ConnectionState.none:
+                        //                                 //
+                        //                                 // case ConnectionState.done:
+                        //                                 // // TODO: Handle this case.
+                        //                                 //   break;
+                        //                               }
+                        //                               }
+                        //                               return Container();
+                        //
+                        //                                       });
+                        // }
+                        // return Container();
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         )
