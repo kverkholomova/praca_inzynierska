@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/app.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
@@ -13,7 +12,7 @@ import '../home_page/home_vol.dart';
 import '../main_screen.dart';
 import 'pageWithChatsVol.dart';
 
-ScrollController _scrollControllerVol_ = ScrollController();
+
 
 String color = "blue";
 
@@ -62,6 +61,9 @@ class _MessagesVolState extends State<MessagesVol> {
     return WillPopScope(
       onWillPop: () async {
         setState(() {
+          scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+
+
           controllerTabBottomVol = PersistentTabController(initialIndex: 0);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -81,6 +83,9 @@ class _MessagesVolState extends State<MessagesVol> {
               ),
               onPressed: () {
                 setState(() {
+
+                  scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+
                   controllerTabBottomVol = PersistentTabController(initialIndex: 0);
                 });
                 Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -133,7 +138,7 @@ class _MessagesVolState extends State<MessagesVol> {
                      return Padding(
                        padding: const EdgeInsets.only(bottom: 0),
                        child: ListView.builder(
-                         controller: _scrollControllerVol_,
+                         controller: scrollControllerVol,
                          itemCount: snapshot.data!.docs.length,
                          // physics: NeverScrollableScrollPhysics(),
 
@@ -261,9 +266,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
     SchedulerBinding.instance
         .addPostFrameCallback((_) {
       print("AAAAAAAAAAA__________________works");
-      _scrollControllerVol_.jumpTo(
-          _scrollControllerVol_
-              .positions.last.maxScrollExtent);
+      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
   });
   }
   final TextEditingController message = new TextEditingController();
@@ -334,7 +337,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
                 padding: const EdgeInsets.only(bottom: 0),
                 child: SizedBox(
                   // color: background,
-                  height: MediaQuery.of(context).size.height * 0.06,
+                  height: MediaQuery.of(context).size.height * 0.1,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
@@ -391,9 +394,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
                                     SchedulerBinding.instance
                                         ?.addPostFrameCallback((_) {
                                       print("AAAAAAAAAAA__________________works");
-                                      _scrollControllerVol_.jumpTo(
-                                          _scrollControllerVol_
-                                              .positions.last.maxScrollExtent);
+                                      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
                                       // duration: Duration(milliseconds: 400),
                                       // curve: Curves.fastOutSlowIn);
                                     });

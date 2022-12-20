@@ -10,6 +10,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.d
 
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
+import '../../../intro_screen/option.dart';
 import '../home_page/home_vol.dart';
 import 'chosen_category_applications.dart';
 
@@ -40,7 +41,9 @@ class CategoriesState extends State<Categories> {
   @override
 
   void initState() {
+    print("UUUUUUUUUUUpadaaaaaaaaateeeeed222222222222");
 
+    print(categoriesVolunteer);
   }
   Widget build(BuildContext context) {
 

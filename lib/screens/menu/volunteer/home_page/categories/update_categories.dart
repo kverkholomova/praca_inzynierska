@@ -33,13 +33,13 @@ class _ManageCategoriesState extends State<ManageCategories> {
   bool chosen = false;
 
   // text field state
-  @override
-  void initState() {
-    super.initState();
-
-
-
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {

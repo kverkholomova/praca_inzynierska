@@ -271,23 +271,23 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                   padding: padding,
                                   child: Column(
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context).size.height * 0.02),
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Text(
-                                            "Application details",
-                                            style: GoogleFonts.raleway(
-                                              fontSize: 18,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.05,
-                                      ),
+                                      // Padding(
+                                      //   padding: EdgeInsets.only(
+                                      //       top: MediaQuery.of(context).size.height * 0.02),
+                                      //   child: Align(
+                                      //     alignment: Alignment.topCenter,
+                                      //     child: Text(
+                                      //       "Application details",
+                                      //       style: GoogleFonts.raleway(
+                                      //         fontSize: 18,
+                                      //         color: Colors.black,
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // SizedBox(
+                                      //   height: MediaQuery.of(context).size.height * 0.05,
+                                      // ),
                                       Container(
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *

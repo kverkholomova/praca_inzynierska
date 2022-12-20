@@ -20,6 +20,7 @@ import '../../../../constants.dart';
 import '../../../../models/categories.dart';
 import '../../../../service/local_push_notifications.dart';
 import '../../../register_login/volunteer/register/register_volunteer_1.dart';
+import '../messages/pageWithChatsVol.dart';
 import 'categories/update_categories.dart';
 import 'settings/settings_vol_info.dart';
 
@@ -116,6 +117,7 @@ class _HomeVolState extends State<HomeVol> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {});
@@ -144,6 +146,7 @@ class _HomeVolState extends State<HomeVol> {
         //     .add(variable["category"][0]);
         print("UUUUUUUUUUUpadaaaaaaaaateeeeed");
         print(categoriesUpdated);
+        print(categoriesVolunteer);
 
 
       });
@@ -1215,7 +1218,9 @@ class _HomeVolState extends State<HomeVol> {
                   alignment: Alignment.center,
                   child: TextButton.icon(
                     onPressed: () {
-
+                      // setState(() {
+                      //   categoriesUpdated = [];
+                      // });
                       Navigator.of(context, rootNavigator: true)
                           .pushReplacement(MaterialPageRoute(
                               builder: (context) => ManageCategories()));

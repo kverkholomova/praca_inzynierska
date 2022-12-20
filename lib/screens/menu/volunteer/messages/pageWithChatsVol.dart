@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ import '../home_page/settings/upload_photo.dart';
 import '../main_screen.dart';
 
 
-
+ScrollController scrollControllerVol = ScrollController();
 
 
 class ListofChatroomsVol extends StatefulWidget {
@@ -24,6 +26,9 @@ class ListofChatroomsVol extends StatefulWidget {
 String? IdOfChatroomVol = '';
 List<String?> listOfRefugeesVol_ = [];
 class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -145,6 +150,9 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
+                                    // scrollControllerVol.jumpTo(
+                                    //     scrollControllerVol
+                                    //         .positions.last.maxScrollExtent);
                                     listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
                                     IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
                                     isVisibleTabBar = false;
@@ -173,60 +181,51 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                                       color: Colors.white,
                                       borderRadius:
                                       BorderRadius.circular(
-                                          24)),
+                                          15)),
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 15,),
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                            radius: 25.0,
-                                            backgroundImage: NetworkImage(url_image.toString())),
+                                    padding: padding,
+                                    child:
+                                        // CircleAvatar(
+                                        //     radius: 25.0,
+                                        //     backgroundImage: NetworkImage(url_image.toString())),
                                         Align(
-                                          alignment: Alignment.center,
+                                          alignment: Alignment.topLeft,
                                           child: SizedBox(
                                             width: MediaQuery.of(context).size.width *
-                                                0.5,
+                                                0.9,
                                             height: MediaQuery.of(context).size.height *
-                                                0.1,
-                                            child:Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 15),
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: ListTile(
-                                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                                  // contentPadding:
-                                                  // EdgeInsets.symmetric(
-                                                  //     vertical: 10),
-                                                  title: Text(
-                                                      streamSnapshot.data?.docs[index]['Application_Name']
-                                                      as String,
-                                                      style: GoogleFonts
-                                                          .raleway(
-                                                        fontSize: 14,
-                                                        color: Colors.black,
-                                                      )),
-                                                  // Text(
-                                                  //     streamSnapshot.data?.docs[index]['category'] as String,
-                                                  //     style: TextStyle(color: Colors.grey)),
-                                                  // subtitle: Text(
-                                                  //   streamSnapshot.data
-                                                  //       ?.docs[index]
-                                                  //   ['comment']
-                                                  //   as String,
-                                                  //   style:
-                                                  //   GoogleFonts.raleway(
-                                                  //     fontSize: 12,
-                                                  //     color: Colors.black
-                                                  //         .withOpacity(0.5),
-                                                  //   ),
-                                                  // ),
-                                                ),
-                                              ),
+                                                0.085,
+                                            child:ListTile(
+                                              // mainAxisAlignment: MainAxisAlignment.start,
+                                              // contentPadding:
+                                              // EdgeInsets.symmetric(
+                                              //     vertical: 10),
+                                              title: Text(
+                                                  streamSnapshot.data?.docs[index]['Application_Name']
+                                                  as String,
+                                                  style: GoogleFonts
+                                                      .raleway(
+                                                    fontSize: 14,
+                                                    color: Colors.black,
+                                                  )),
+                                              // Text(
+                                              //     streamSnapshot.data?.docs[index]['category'] as String,
+                                              //     style: TextStyle(color: Colors.grey)),
+                                              // subtitle: Text(
+                                              //   streamSnapshot.data
+                                              //       ?.docs[index]
+                                              //   ['comment']
+                                              //   as String,
+                                              //   style:
+                                              //   GoogleFonts.raleway(
+                                              //     fontSize: 12,
+                                              //     color: Colors.black
+                                              //         .withOpacity(0.5),
+                                              //   ),
+                                              // ),
                                             ),),
                                         )
-                                      ],
-                                    ),
+
                                   ),
                                 ),
                                 // Stack(

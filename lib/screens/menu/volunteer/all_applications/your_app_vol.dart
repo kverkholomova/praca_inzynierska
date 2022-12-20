@@ -62,9 +62,10 @@ class YourCategoriesState extends State<YourCategories> {
     // }
 
   @override
-
   void initState() {
+    print("UUUUUUUUUUUpadaaaaaaaaateeeeed22222222222233333333333");
 
+    print(categoriesVolunteer);
   }
   Widget build(BuildContext context) {
 
@@ -172,266 +173,263 @@ class YourCategoriesState extends State<YourCategories> {
     // TabBarView(
     //       children: [
 
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                      height: 450,
-                    child: Column(
-                      children: [
-                      Expanded(
-                      child: StreamBuilder(
-                        stream:  applications
-                            .where("status", isEqualTo: 'Sent to volunteer')
-                            .where("category", whereIn: categoriesVolunteer)
+        SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.99,
+                    child: StreamBuilder(
+                      stream:  applications
+                          .where("status", isEqualTo: 'Sent to volunteer')
+                          .where("category", whereIn: categoriesVolunteer)
 
-                            .snapshots(),
-                        builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
-                          return ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
+                          .snapshots(),
+                      builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
+                        return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: streamSnapshot.data?.docs.length,
+                            itemBuilder: (ctx, index) {
 
-                          if (streamSnapshot.hasData){
-                          switch (streamSnapshot.connectionState){
-                            case ConnectionState.waiting:
-                              return  Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 16),
-                                      child: Text('Awaiting data...'),
-                                    )
-                                  ]
-
-                              );
-                            case ConnectionState.active:
-                              return Column(
+                        if (streamSnapshot.hasData){
+                        switch (streamSnapshot.connectionState){
+                          case ConnectionState.waiting:
+                            return  Column(
                                 children: [
+                                  SizedBox(
+                                    width: 60,
+                                    height: 60,
+                                    child: CircularProgressIndicator(),
+                                  ),
                                   Padding(
-                                    padding: padding,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          myCategories = true;
-                                          card_title_vol=streamSnapshot.data?.docs[index]['title'] as String;
-                                          card_category_vol=streamSnapshot.data?.docs[index]['category'] as String;
-                                          card_comment_vol=streamSnapshot.data?.docs[index]['comment'] as String;
+                                    padding: EdgeInsets.only(top: 16),
+                                    child: Text('Awaiting data...'),
+                                  )
+                                ]
 
-                                          print(card_title);
-                                          print(card_category);
-                                          print(card_comment);
-                                          Id_Of_current_application = streamSnapshot.data?.docs[index].id;
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => PageOfApplication()),
-                                          );
-                                          // print("print ${streamSnapshot.data?.docs[index][id]}");
-                                        });
+                            );
+                          case ConnectionState.active:
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: padding,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        myCategories = true;
+                                        card_title_vol=streamSnapshot.data?.docs[index]['title'] as String;
+                                        card_category_vol=streamSnapshot.data?.docs[index]['category'] as String;
+                                        card_comment_vol=streamSnapshot.data?.docs[index]['comment'] as String;
 
-                                      },
-                                      child:
-                                      Container(
-                                        width: double.infinity,
-                                        // height: MediaQuery.of(context).size.height *
-                                        //     0.2,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                            BorderRadius.circular(
-                                                18)),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(
-                                                      context)
-                                                      .size
-                                                      .height *
-                                                      0.015),
-                                              child: Icon(
-                                                streamSnapshot.data?.docs[
-                                                index]
-                                                ['category']
-                                                as String ==
-                                                    categoriesListAll[
-                                                    3]
-                                                    ? Icons
-                                                    .pets_rounded
-                                                    : streamSnapshot.data
-                                                    ?.docs[index]['category']
-                                                as String ==
-                                                    categoriesListAll[
-                                                    4]
-                                                    ? Icons
-                                                    .local_grocery_store
-                                                    : streamSnapshot.data?.docs[index]['category']
-                                                as String ==
-                                                    categoriesListAll[
-                                                    2]
-                                                    ? Icons
-                                                    .emoji_transportation_rounded
-                                                    : streamSnapshot.data?.docs[index]['category'] as String ==
-                                                    categoriesListAll[1]
-                                                    ? Icons.house
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
-                                                    ? Icons.sign_language_rounded
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
-                                                    ? Icons.child_care_outlined
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
-                                                    ? Icons.menu_book
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
-                                                    ? Icons.medical_information_outlined
-                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
-                                                    ? Icons.check_box
-                                                    : Icons.new_label_sharp,
-                                                size: 30,
-                                                color: Colors.black,
-                                              ),
+                                        print(card_title);
+                                        print(card_category);
+                                        print(card_comment);
+                                        Id_Of_current_application = streamSnapshot.data?.docs[index].id;
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => PageOfApplication()),
+                                        );
+                                        // print("print ${streamSnapshot.data?.docs[index][id]}");
+                                      });
+
+                                    },
+                                    child:
+                                    Container(
+                                      width: double.infinity,
+                                      // height: MediaQuery.of(context).size.height *
+                                      //     0.2,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              18)),
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery.of(
+                                                    context)
+                                                    .size
+                                                    .height *
+                                                    0.015),
+                                            child: Icon(
+                                              streamSnapshot.data?.docs[
+                                              index]
+                                              ['category']
+                                              as String ==
+                                                  categoriesListAll[
+                                                  3]
+                                                  ? Icons
+                                                  .pets_rounded
+                                                  : streamSnapshot.data
+                                                  ?.docs[index]['category']
+                                              as String ==
+                                                  categoriesListAll[
+                                                  4]
+                                                  ? Icons
+                                                  .local_grocery_store
+                                                  : streamSnapshot.data?.docs[index]['category']
+                                              as String ==
+                                                  categoriesListAll[
+                                                  2]
+                                                  ? Icons
+                                                  .emoji_transportation_rounded
+                                                  : streamSnapshot.data?.docs[index]['category'] as String ==
+                                                  categoriesListAll[1]
+                                                  ? Icons.house
+                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
+                                                  ? Icons.sign_language_rounded
+                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
+                                                  ? Icons.child_care_outlined
+                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
+                                                  ? Icons.menu_book
+                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
+                                                  ? Icons.medical_information_outlined
+                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
+                                                  ? Icons.check_box
+                                                  : Icons.new_label_sharp,
+                                              size: 30,
+                                              color: Colors.black,
                                             ),
-                                            SizedBox(
-                                              width: MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.65,
-                                              height: MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .height *
-                                                  0.12,
-                                              child: Align(
-                                                alignment:
-                                                Alignment.topCenter,
-                                                child: ListTile(
-                                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                                  contentPadding:
-                                                  EdgeInsets
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.65,
+                                            height: MediaQuery.of(
+                                                context)
+                                                .size
+                                                .height *
+                                                0.12,
+                                            child: Align(
+                                              alignment:
+                                              Alignment.topCenter,
+                                              child: ListTile(
+                                                // mainAxisAlignment: MainAxisAlignment.start,
+                                                contentPadding:
+                                                EdgeInsets
+                                                    .symmetric(
+                                                    vertical:
+                                                    4),
+                                                title: Padding(
+                                                  padding: const EdgeInsets
                                                       .symmetric(
-                                                      vertical:
-                                                      4),
-                                                  title: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal:
-                                                        12),
-                                                    child: Text(
-                                                        streamSnapshot
-                                                            .data
-                                                            ?.docs[index]['title']
-                                                        as String,
-                                                        style: GoogleFonts
-                                                            .raleway(
-                                                          fontSize:
-                                                          14,
-                                                          color: Colors
-                                                              .black,
-                                                        )),
-                                                  ),
-                                                  // Text(
-                                                  //     streamSnapshot.data?.docs[index]['category'] as String,
-                                                  //     style: TextStyle(color: Colors.grey)),
-                                                  subtitle: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal:
-                                                        12),
-                                                    child: Text(
-                                                      "${streamSnapshot.data?.docs[index]['comment']}"
-                                                          .substring(
-                                                          0,
-                                                          22) +
-                                                          "...",
-                                                      style:
-                                                      GoogleFonts
+                                                      horizontal:
+                                                      12),
+                                                  child: Text(
+                                                      streamSnapshot
+                                                          .data
+                                                          ?.docs[index]['title']
+                                                      as String,
+                                                      style: GoogleFonts
                                                           .raleway(
-                                                        fontSize: 12,
+                                                        fontSize:
+                                                        14,
                                                         color: Colors
-                                                            .black
-                                                            .withOpacity(
-                                                            0.5),
-                                                      ),
+                                                            .black,
+                                                      )),
+                                                ),
+                                                // Text(
+                                                //     streamSnapshot.data?.docs[index]['category'] as String,
+                                                //     style: TextStyle(color: Colors.grey)),
+                                                subtitle: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal:
+                                                      12),
+                                                  child: Text(
+                                                    "${streamSnapshot.data?.docs[index]['comment']}"
+                                                        .substring(
+                                                        0,
+                                                        22) +
+                                                        "...",
+                                                    style:
+                                                    GoogleFonts
+                                                        .raleway(
+                                                      fontSize: 12,
+                                                      color: Colors
+                                                          .black
+                                                          .withOpacity(
+                                                          0.5),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      // Card(
-                                      //   child: Center(
-                                      //     child: Padding(
-                                      //       padding: const EdgeInsets.all(8.0),
-                                      //       child: Column(
-                                      //         children: [
-                                      //           //streamSnapshot.data?.docs[index]['title']==null ?
-                                      //
-                                      //           Align(
-                                      //             alignment: Alignment.topLeft,
-                                      //             child: Text(
-                                      //               streamSnapshot.data?.docs[index]['title'],
-                                      //               style: TextStyle(
-                                      //                   fontWeight: FontWeight.bold, ),
-                                      //               textAlign: TextAlign.left,
-                                      //             ),
-                                      //           ),
-                                      //           Align(
-                                      //             alignment: Alignment.topLeft,
-                                      //             child: Text(
-                                      //                 streamSnapshot.data?.docs[index]
-                                      //                 ['category'] as String,
-                                      //                 style: TextStyle(color: Colors.grey)),
-                                      //           ),
-                                      //           Align(
-                                      //             alignment: Alignment.topLeft,
-                                      //             child: Text(streamSnapshot.data?.docs[index]
-                                      //             ['comment'] as String),
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
                                     ),
+                                    // Card(
+                                    //   child: Center(
+                                    //     child: Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Column(
+                                    //         children: [
+                                    //           //streamSnapshot.data?.docs[index]['title']==null ?
+                                    //
+                                    //           Align(
+                                    //             alignment: Alignment.topLeft,
+                                    //             child: Text(
+                                    //               streamSnapshot.data?.docs[index]['title'],
+                                    //               style: TextStyle(
+                                    //                   fontWeight: FontWeight.bold, ),
+                                    //               textAlign: TextAlign.left,
+                                    //             ),
+                                    //           ),
+                                    //           Align(
+                                    //             alignment: Alignment.topLeft,
+                                    //             child: Text(
+                                    //                 streamSnapshot.data?.docs[index]
+                                    //                 ['category'] as String,
+                                    //                 style: TextStyle(color: Colors.grey)),
+                                    //           ),
+                                    //           Align(
+                                    //             alignment: Alignment.topLeft,
+                                    //             child: Text(streamSnapshot.data?.docs[index]
+                                    //             ['comment'] as String),
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ),
-                                  SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height *
-                                        0.015,
+                                ),
+                                SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height *
+                                      0.015,
+                                ),
+                              ],
+                            );}}
+                        return Center(
+                          child: Padding(padding: EdgeInsets.only(top: 100),
+                            child: Column(
+                              children: [
+                                SpinKitChasingDots(
+                                  color: Colors.brown,
+                                  size: 50.0,
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "Waiting...",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
                                   ),
-                                ],
-                              );}}
-                          return Center(
-                            child: Padding(padding: EdgeInsets.only(top: 100),
-                              child: Column(
-                                children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                        "Waiting...",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(top: 20),)
-                                ],
-                              ),
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 20),)
+                              ],
                             ),
-                          );
-                              });
-                        },
-                      ),
-                    ),])
+                          ),
+                        );
+                            });
+                      },
+                    )
                   ),
                 ],
               ),
