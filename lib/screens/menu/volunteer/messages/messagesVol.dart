@@ -253,6 +253,19 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
     });
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance
+        .addPostFrameCallback((_) {
+      print("AAAAAAAAAAA__________________works");
+      _scrollControllerVol_.jumpTo(
+          _scrollControllerVol_
+              .positions.last.maxScrollExtent);
+  });
+  }
   final TextEditingController message = new TextEditingController();
 
   @override
