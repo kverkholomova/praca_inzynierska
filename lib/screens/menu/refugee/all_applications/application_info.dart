@@ -15,6 +15,7 @@ import 'package:wol_pro_1/screens/menu/refugee/all_applications/volunteer_info_r
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
 
+import '../accepted_applications/application_info_accepted.dart';
 import 'rating.dart';
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
@@ -81,7 +82,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
               'id': '1',
               'status': 'done'
             },
-            "to": "$token_vol",
+            "to": "$tokenVolApplication",
           },
         ),
       );
@@ -413,6 +414,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                               ),
                                                               onPressed: () {
                                                                 setState(() {
+                                                                  acceptedOrAll = false;
                                                                   IDVolInfo = streamSnapshot
                                                                           .data
                                                                           ?.docs[index]
@@ -843,30 +845,29 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                       SizedBox(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.015,
+                                                0.03,
                                       ),
-                                      Visibility(
-                                        visible:
-                                            streamSnapshot.data?.docs[index]
-                                                ['application_accepted'],
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Center(
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.085,
-                                              decoration:
-                                                  buttonInactiveDecoration,
-                                              child: TextButton(
-                                                  child: Text(
-                                                    "Mark application as done",
-                                                    style:
-                                                        textInactiveButtonStyle,
-                                                  ),
-                                                  onPressed: () async {
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Center(
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.085,
+                                            decoration:
+                                                buttonActiveDecoration,
+                                            child: TextButton(
+                                                child: Text(
+                                                  "Mark application as done",
+                                                  style:
+                                                      textActiveButtonStyle,
+                                                ),
+                                                onPressed: () async {
+
+                                                  setState(() {
+
                                                     IDVolOfApplication =
                                                         streamSnapshot.data
                                                                     ?.docs[index]
@@ -883,34 +884,34 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     builder:
                                                                         (context) =>
                                                                             Rating()));
-                                                    // Navigator.push(
-                                                    //   context,
-                                                    //   MaterialPageRoute(
-                                                    //       builder: (context) =>
-                                                    //           Rating_Page()),
-                                                    // );
+                                                  });
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           Rating_Page()),
+                                                  // );
 
-                                                    // sendPushMessage();
-                                                    // FirebaseFirestore.instance
-                                                    //     .collection(
-                                                    //         'applications')
-                                                    //     .doc(streamSnapshot.data
-                                                    //         ?.docs[index].id)
-                                                    //     .delete();
-                                                    // setState(() {
-                                                    //   controllerTabBottomRef =
-                                                    //       PersistentTabController(
-                                                    //           initialIndex: 4);
-                                                    // });
-                                                    // Navigator.of(context,
-                                                    //         rootNavigator: true)
-                                                    //     .pushReplacement(
-                                                    //         MaterialPageRoute(
-                                                    //             builder:
-                                                    //                 (context) =>
-                                                    //                     MainScreenRefugee()));
-                                                  }),
-                                            ),
+                                                  // sendPushMessage();
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection(
+                                                  //         'applications')
+                                                  //     .doc(streamSnapshot.data
+                                                  //         ?.docs[index].id)
+                                                  //     .delete();
+                                                  // setState(() {
+                                                  //   controllerTabBottomRef =
+                                                  //       PersistentTabController(
+                                                  //           initialIndex: 4);
+                                                  // });
+                                                  // Navigator.of(context,
+                                                  //         rootNavigator: true)
+                                                  //     .pushReplacement(
+                                                  //         MaterialPageRoute(
+                                                  //             builder:
+                                                  //                 (context) =>
+                                                  //                     MainScreenRefugee()));
+                                                }),
                                           ),
                                         ),
                                       ),

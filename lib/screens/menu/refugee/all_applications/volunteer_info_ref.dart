@@ -11,6 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/menu/refugee/accepted_applications/application_info_accepted.dart';
 
 import 'all_app_ref.dart';
 import 'application_info.dart';
@@ -46,9 +47,16 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(
-                builder: (context) => const PageOfApplicationRef()));
+        if(acceptedOrAll==true){
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(
+                  builder: (context) => const AcceptedPageOfApplicationRef()));
+        } else{
+          Navigator.of(context, rootNavigator: true).pushReplacement(
+              MaterialPageRoute(
+                  builder: (context) => const PageOfApplicationRef()));
+        }
+
         return true;
       },
       child: Scaffold(
@@ -70,9 +78,15 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
               color: blueColor,
             ),
             onPressed: () {
-              Navigator.of(context, rootNavigator: true).pushReplacement(
-                  MaterialPageRoute(
-                      builder: (context) => const PageOfApplicationRef()));
+              if(acceptedOrAll==true){
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => const AcceptedPageOfApplicationRef()));
+              } else{
+                Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => const PageOfApplicationRef()));
+              }
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => const HomeVol()));
             },
@@ -99,7 +113,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                   stream: FirebaseFirestore.instance
                       .collection('users')
                       .where('id_vol',
-                      isEqualTo: IDVolInfo)
+                      isEqualTo: IdVolInfoAllApp)
                       .snapshots(),
                   builder: (context,
                       AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -112,7 +126,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                           // token_vol = streamSnapshot.data?.docs[index]['token'];
                           // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
 
-                          if (streamSnapshot.hasData) {
+                          // if (streamSnapshot.hasData) {
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return Column(children: const [
@@ -454,25 +468,25 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                               case ConnectionState.done:
                               // TODO: Handle this case.
                                 break;
-                            }}
+                            }
                           return Center(
                             child: Padding(
                               padding: const EdgeInsets.only(top: 100),
                               child: Column(
-                                children: const [
+                                children: [
                                   SpinKitChasingDots(
-                                    color: Colors.brown,
+                                    color: blueColor,
                                     size: 50.0,
                                   ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text("Waiting...",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        )),
-                                  ),
+                                  // Align(
+                                  //   alignment: Alignment.center,
+                                  //   child: Text("Waiting...",
+                                  //       style: TextStyle(
+                                  //         fontWeight: FontWeight.bold,
+                                  //         fontSize: 24,
+                                  //         color: Colors.black,
+                                  //       )),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -670,8 +684,15 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
 
                           Future.delayed(const Duration(milliseconds: 500), () {
 
-                            Navigator.of(context, rootNavigator: true).pushReplacement(
-                                MaterialPageRoute(builder: (context) => new PageOfApplicationRef()));});
+                            if(acceptedOrAll==true){
+                              Navigator.of(context, rootNavigator: true).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => const AcceptedPageOfApplicationRef()));
+                            } else{
+                              Navigator.of(context, rootNavigator: true).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => const PageOfApplicationRef()));
+                            }});
 
                         }),
                   ),

@@ -14,6 +14,9 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/messages/messages_first.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/messages/pageWithChatsVol.dart';
 
 import '../../../../models/categories.dart';
 import '../../../../volunteer/chat/message.dart';
@@ -63,6 +66,38 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
     // FirebaseMessaging.instance.subscribeToTopic("Animal");
   }
 
+  // void sendPushMessageDeletedByVol() async {
+  //   print(
+  //       "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
+  //   try {
+  //     await http.post(
+  //       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //         'Authorization':
+  //         'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+  //       },
+  //       body: jsonEncode(
+  //         <String, dynamic>{
+  //           'notification': <String, dynamic>{
+  //             'body':
+  //             'The application was deleted by refugee, so your help is not necessary anymore.',
+  //             'title': 'Refugee deleted an application'
+  //           },
+  //           'priority': 'high',
+  //           'data': <String, dynamic>{
+  //             'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+  //             'id': '1',
+  //             'status': 'done'
+  //           },
+  //           "to": "$tokenVolInfoAccepted",
+  //         },
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print("error push notification");
+  //   }
+  // }
   void sendPushMessage() async {
     print(
         "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
@@ -503,91 +538,105 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                                       height: MediaQuery.of(context).size.height * 0.05,
                                     ),
 
-                                  Visibility(
-                                    visible: streamSnapshot.data?.docs[index]["mess_button_visibility_vol"],
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: MediaQuery.of(context).size.height *
-                                          0.085,
-                                      decoration: buttonActiveDecoration,
-                                      child: TextButton(
-                                          child: Text(
-                                            "Message",
-                                            style: textActiveButtonStyle,
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              firstMessage= true;
-                                              print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKK");
-                                              print(firstMessage);
-                                            });
-                                            print(
-                                                "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
-                                            // print(users_chat);
-                                            // appId = streamSnapshot.data?.docs[index].id;
+                                  Container(
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.085,
+                                    decoration: buttonActiveDecoration,
+                                    child: TextButton(
+                                        child: Text(
+                                          "Message",
+                                          style: textActiveButtonStyle,
+                                        ),
+                                        onPressed: () {
+                                          // setState(() {
+                                          //   firstMessage= true;
+                                          //   print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKK");
+                                          //   print(firstMessage);
+                                          // });
+                                          // print(
+                                          //     "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+                                          // print(users_chat);
+                                          // appId = streamSnapshot.data?.docs[index].id;
 
 
-                                             if (streamSnapshot.data?.docs[index]["chatId_vol"] == "null"){
-                                               IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
-                                               print("PPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOWWWWWWWWWWWWWWWWWWWWW");
-                                               print(IdOfChatroom);
-                                               FirebaseFirestore.instance
-                                                   .collection('USERS_COLLECTION')
-                                                   .doc(IdOfChatroom)
-                                                   .set({
-                                                 'IdVolunteer': streamSnapshot
-                                                     .data?.docs[index]['volunteerID'],
-                                                 'IdRefugee': streamSnapshot
-                                                     .data?.docs[index]["userID"],
-                                                 'chatId': IdOfChatroom,
-                                                 'Refugee_Name': streamSnapshot
-                                                     .data?.docs[index]['refugee_name'],
-                                                 'Volunteer_Name': streamSnapshot
-                                                     .data?.docs[index]['volunteer_name'],
-                                                 'Id_Of_Chat': "null",
-                                                 'Application_Name': streamSnapshot
-                                                     .data?.docs[index]['title']
-                                               });
-
-                                               // FirebaseFirestore.instance
-                                               //     .collection('users')
-                                               //     .doc(
-                                               //     streamSnapshot.data?.docs[index]["userID"])
-                                               //     .set({"chatId_exist": IdOfChatroom});
-
-                                               FirebaseFirestore.instance
-                                                   .collection('applications')
-                                                   .doc(
-                                                   streamSnapshot.data?.docs[index].id)
-                                                   .update({"chatId_vol": IdOfChatroom});
-                                               // VoluntterName = FirebaseFirestore.instance.collection("users").doc(users_chat[1]).get() as String;
-                                               // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]).get() as String;
-                                               Navigator.push(
-                                                 context,
-                                                 MaterialPageRoute(
-                                                     builder: (context) =>
-                                                         SelectedChatroom()),
-                                               );
-                                             }
-                                            //LOOOOK HEEEEREEEEE
+                                           if (streamSnapshot.data?.docs[index]["chatId_vol"] == "null"){
+                                             IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
+                                             print("PPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOWWWWWWWWWWWWWWWWWWWWW");
+                                             print(IdOfChatroom);
                                              FirebaseFirestore.instance
-                                                .collection('applications')
-                                                .doc(
-                                                streamSnapshot.data?.docs[index].id)
-                                                .update({"mess_button_visibility_vol": false});
+                                                 .collection('USERS_COLLECTION')
+                                                 .doc(IdOfChatroom)
+                                                 .set({
+                                               'IdVolunteer': streamSnapshot
+                                                   .data?.docs[index]['volunteerID'],
+                                               'IdRefugee': streamSnapshot
+                                                   .data?.docs[index]["userID"],
+                                               'chatId': IdOfChatroom,
+                                               'Refugee_Name': streamSnapshot
+                                                   .data?.docs[index]['refugee_name'],
+                                               'Volunteer_Name': streamSnapshot
+                                                   .data?.docs[index]['volunteer_name'],
+                                               'Id_Of_Chat': "null",
+                                               'Application_Name': streamSnapshot
+                                                   .data?.docs[index]['title']
+                                             });
 
-                                            FirebaseFirestore.instance
-                                                .collection('applications')
-                                                .doc(
-                                                streamSnapshot.data?.docs[index].id)
-                                                .update({"mess_button_visibility_ref": true});
+                                             // FirebaseFirestore.instance
+                                             //     .collection('users')
+                                             //     .doc(
+                                             //     streamSnapshot.data?.docs[index]["userID"])
+                                             //     .set({"chatId_exist": IdOfChatroom});
+
+                                             FirebaseFirestore.instance
+                                                 .collection('applications')
+                                                 .doc(
+                                                 streamSnapshot.data?.docs[index].id)
+                                                 .update({"chatId_vol": IdOfChatroom});
+                                             // VoluntterName = FirebaseFirestore.instance.collection("users").doc(users_chat[1]).get() as String;
+                                             // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]).get() as String;
 
 
-                                            // VoluntterName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[1]) as String?;
-                                            // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]) as String?;
-                                          }
-                                          ),
-                                    ),
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SelectedChatroomVolFirst()),
+                                              );
+
+
+
+
+                                           } else{
+
+                                             setState(() {
+                                               IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId_vol"];
+                                             });
+                                             Navigator.push(
+                                               context,
+                                               MaterialPageRoute(
+                                                   builder: (context) =>
+                                                       SelectedChatroomVol()),
+                                             );
+                                           }
+                                          //LOOOOK HEEEEREEEEE
+                                           FirebaseFirestore.instance
+                                              .collection('applications')
+                                              .doc(
+                                              streamSnapshot.data?.docs[index].id)
+                                              .update({"mess_button_visibility_vol": false});
+
+                                          FirebaseFirestore.instance
+                                              .collection('applications')
+                                              .doc(
+                                              streamSnapshot.data?.docs[index].id)
+                                              .update({"mess_button_visibility_ref": true});
+
+
+                                          // VoluntterName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[1]) as String?;
+                                          // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]) as String?;
+                                        }
+                                        ),
                                   ),
                           // Container(
                           //   width: double.infinity,

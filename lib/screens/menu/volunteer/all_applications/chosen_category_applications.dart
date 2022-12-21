@@ -11,7 +11,7 @@ import '../main_screen.dart';
 import 'page_of_application_vol.dart';
 import 'new_screen_with_applications.dart';
 
-String? id_card = '';
+// String? id_card = '';
 
 class ChosenCategory extends StatefulWidget {
   const ChosenCategory({Key? key}) : super(key: key);
@@ -24,8 +24,8 @@ class ChosenCategoryState extends State<ChosenCategory> {
   ScrollController scrollController = ScrollController();
   final AuthService _auth_ = AuthService();
 
-  @override
-  void initState() {}
+  // @override
+  // void initState() {}
 
   Widget build(BuildContext context) {
     return WillPopScope(

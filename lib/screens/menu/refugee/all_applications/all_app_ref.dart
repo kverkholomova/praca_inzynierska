@@ -18,7 +18,7 @@ String applicationIDRef = '';
 String card_title_ref='';
 String card_category_ref='';
 String card_comment_ref='';
-
+String IdVolInfoAllApp = '';
 String userID_ref = '';
 // String? token_vol;
 
@@ -164,6 +164,9 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
+                                            IdVolInfoAllApp = streamSnapshot.data
+                                                ?.docs[index]
+                                            ['volunteerID'];
                                             FirebaseFirestore.instance
                                                 .collection('applications')
                                                 .doc(streamSnapshot.data?.docs[index].id)

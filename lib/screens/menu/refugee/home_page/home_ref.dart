@@ -20,8 +20,8 @@ import '../../../../service/local_push_notifications.dart';
 import 'create_application/create_application.dart';
 
 String? currentNameRef = '';
-
-String? token_vol;
+String? tokenVolApplication;
+// String? tokenRefApplication;
 
 
 class HomeRef extends StatefulWidget {
@@ -32,6 +32,8 @@ class HomeRef extends StatefulWidget {
 }
 
 class _HomeRefState extends State<HomeRef> {
+
+
 
   loadImage(String image_url) async{
 
@@ -51,12 +53,12 @@ class _HomeRefState extends State<HomeRef> {
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
     print(
-        "------???---------RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+        "Token refugeee");
     print(token_v);
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({'token_vol': token_v}, SetOptions(merge: true));
+        .set({'token_ref': token_v}, SetOptions(merge: true));
     print(
         "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
     print(token_v);
@@ -66,9 +68,10 @@ class _HomeRefState extends State<HomeRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    storeNotificationToken();
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {});
-    storeNotificationToken();
+    // storeNotificationToken();
     FirebaseMessaging.instance.subscribeToTopic('subscription');
     FirebaseMessaging.onMessage.listen((event) {
       LocalNotificationService.display(event);
@@ -125,10 +128,15 @@ class _HomeRefState extends State<HomeRef> {
                                     ? 1
                                     : streamSnapshot.data?.docs.length,
                                 itemBuilder: (ctx, index) {
-                                  token_vol =
+                                  tokenVolApplication =
                                   streamSnapshot.data?.docs[index]['token_vol'];
+                                  tokenRefApplication =
+                                  streamSnapshot.data?.docs[index]['token_ref'];
                                   currentNameRef =
                                   streamSnapshot.data?.docs[index]['user_name'];
+
+                                  print("Tokeeeen Refugeeeeeee ApplicaaatiiiiooonHome Rf");
+                                  print(tokenRefApplication);
                                   if (streamSnapshot.hasData) {
                                     switch (streamSnapshot.connectionState) {
                                       case ConnectionState.waiting:

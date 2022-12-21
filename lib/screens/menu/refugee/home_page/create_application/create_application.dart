@@ -19,7 +19,7 @@ import '../home_ref.dart';
 
 
 
-
+String tokenRefApplication = '';
 var count = 0;
 
 String status = "Sent to volunteer";
@@ -59,6 +59,8 @@ class _ApplicationState extends State<Application> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("Tokeeeen Refugeeeeeee Applicaaatiiiiooon");
+    print(tokenRefApplication);
     user = FirebaseAuth.instance.authStateChanges().listen((user) async {
       DocumentSnapshot variable = await FirebaseFirestore.instance.
       collection('users').
@@ -476,7 +478,7 @@ class _ApplicationState extends State<Application> {
                                 'volunteerID': volID,
                                 'date': "null",
                                 'token_vol': "null",
-                                'token_ref': token_ref,
+                                'token_ref': tokenRefApplication,
                                 'chatId_vol': "null",
                                 'mess_button_visibility_vol': true,
                                 'mess_button_visibility_ref': false,

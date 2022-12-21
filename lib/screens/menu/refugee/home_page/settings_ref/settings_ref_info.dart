@@ -22,7 +22,7 @@ import '../../../../../services/auth.dart';
 var currentStreamSnapshotRef;
 String dateOfBirthRefugee =
 DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
-String? tokenVol;
+// String? tokenVol;
 final FirebaseFirestore db = FirebaseFirestore.instance;
 final FirebaseMessaging fcm = FirebaseMessaging.instance;
 

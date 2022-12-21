@@ -612,6 +612,8 @@ class _ManageCategoriesState extends State<ManageCategories> {
         setState(() {
 
           if (categoriesUpdated.contains(text)) {
+            print(text);
+            print(categoriesUpdated);
             categoriesUpdated.remove(text);
           } else {
             categoriesUpdated.add(text);

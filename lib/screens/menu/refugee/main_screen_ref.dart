@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/all_app_ref.dart';
@@ -153,10 +154,11 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
     print(FirebaseAuth.instance.currentUser?.uid);
     return WillPopScope(
         onWillPop: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const OptionChoose()),
-          );
+          SystemNavigator.pop();
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const OptionChoose()),
+          // );
           return true;
         },
         child: SafeArea(

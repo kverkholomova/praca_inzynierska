@@ -13,7 +13,7 @@ import '../main_screen.dart';
 import 'pageWithChatsVol.dart';
 
 
-
+bool firstChat = true;
 String color = "blue";
 
 class MessagesVol extends StatefulWidget {

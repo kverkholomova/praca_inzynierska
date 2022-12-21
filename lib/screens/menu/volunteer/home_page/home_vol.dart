@@ -25,7 +25,7 @@ import 'categories/update_categories.dart';
 import 'settings/settings_vol_info.dart';
 
 bool isLoggedIn = true;
-
+String tokenRefNotification = '';
 // String? currentId_set = '';
 String? currentNameVol = '';
 List categoriesUserRegister = [];
@@ -592,6 +592,8 @@ class _HomeVolState extends State<HomeVol> {
                                   ? 1
                                   : streamSnapshot.data?.docs.length,
                               itemBuilder: (ctx, index) {
+                                tokenRefNotification = streamSnapshot.data?.docs[index]
+                                ['token_ref'];
                                 tokenVol = streamSnapshot.data?.docs[index]
                                     ['token_vol'];
                                 currentNameVol = streamSnapshot

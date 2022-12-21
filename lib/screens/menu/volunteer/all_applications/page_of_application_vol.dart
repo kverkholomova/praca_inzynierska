@@ -41,7 +41,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
   late AndroidNotificationChannel channel;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  String? token = " ";
+  // String? token = " ";
 
   @override
   void initState() {
@@ -58,9 +58,9 @@ class _PageOfApplicationState extends State<PageOfApplication> {
     // FirebaseMessaging.instance.subscribeToTopic("Animal");
   }
 
-  void sendPushMessage() async {
+  void sendPushMessageAccepted() async {
     print(
-        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
+        "Send Info that application is accepted");
     try {
       await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -81,7 +81,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
               'id': '1',
               'status': 'done'
             },
-            "to": "$token_ref",
+            "to": "$tokenRefNotification",
           },
         ),
       );
@@ -501,7 +501,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                   style: textActiveButtonStyle,
                                                 ),
                                                 onPressed: () async {
-                                                  sendPushMessage();
+                                                  sendPushMessageAccepted();
                                                   date = DateTime.now().toString();
                                                   FirebaseFirestore.instance
                                                       .collection('applications')

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
 
@@ -116,24 +117,28 @@ class CategoriesRefState extends State<CategoriesRef> {
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            card_title_ref =
-                                                streamSnapshot.data?.docs[index]
-                                                    ['title'] as String;
-                                            card_category_ref =
-                                                streamSnapshot.data?.docs[index]
-                                                    ['category'] as String;
-                                            card_comment_ref =
-                                                streamSnapshot.data?.docs[index]
-                                                    ['comment'] as String;
+                                            FirebaseFirestore.instance
+                                                  .collection('applications')
+                                                  .doc(streamSnapshot.data?.docs[index].id)
+                                                  .update({"Id": streamSnapshot.data?.docs[index].id});
+                                            // card_title_ref =
+                                            //     streamSnapshot.data?.docs[index]
+                                            //         ['title'] as String;
+                                            // card_category_ref =
+                                            //     streamSnapshot.data?.docs[index]
+                                            //         ['category'] as String;
+                                            // card_comment_ref =
+                                            //     streamSnapshot.data?.docs[index]
+                                            //         ['comment'] as String;
                                             applicationIDRefInfo =
-                                                streamSnapshot.data?.docs[index]
-                                                    .id as String;
-                                            tokenVolInfoAccepted =
+                                                "${streamSnapshot.data?.docs[index]
+                                                .id}";
+                                            tokenVolApplication =
                                                 streamSnapshot.data?.docs[index]
                                                     ["token_vol"] as String;
                                             // print(card_title_ref);
-                                            // print(card_category_ref);
-                                            // print(card_comment_ref);
+                                            print("LLLLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOOO");
+                                            print(applicationIDRefInfo);
                                             Navigator.of(context,
                                                     rootNavigator: true)
                                                 .pushReplacement(MaterialPageRoute(

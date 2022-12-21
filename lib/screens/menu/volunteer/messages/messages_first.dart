@@ -376,6 +376,7 @@ class _SelectedChatroomVolFirstState extends State<SelectedChatroomVolFirst> {
 
                                   writeMessages();
 
+                                  print("Fiiiiiirst meeeeeesssaaaaggge");
                                   await Future.delayed(
                                       Duration(milliseconds: 500), (){
                                     SchedulerBinding.instance

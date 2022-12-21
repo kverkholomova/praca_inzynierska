@@ -18,7 +18,7 @@ String chosenCategoryVolApp = '';
 String? card_title_vol='';
 String? card_category_vol='';
 String? card_comment_vol='';
-String userID_vol ='';
+// String userID_vol ='';
 
 
 
@@ -38,13 +38,13 @@ class CategoriesState extends State<Categories> {
   final CollectionReference applications = FirebaseFirestore.instance.collection("applications");
 
 
-  @override
-
-  void initState() {
-    print("UUUUUUUUUUUpadaaaaaaaaateeeeed222222222222");
-
-    print(categoriesVolunteer);
-  }
+  // @override
+  //
+  // void initState() {
+  //   print("UUUUUUUUUUUpadaaaaaaaaateeeeed222222222222");
+  //
+  //   print(categoriesVolunteer);
+  // }
   Widget build(BuildContext context) {
 
     print(userID_vol);
