@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
 
 import '../../../../models/categories.dart';
+import '../../refugee/home_page/create_application/create_application.dart';
 import '../main_screen.dart';
 import 'chosen_category_applications.dart';
 import 'new_screen_with_applications.dart';
@@ -252,6 +253,8 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                             ? 1
                             : streamSnapshot.data?.docs.length,
                         itemBuilder: (ctx, index) {
+                          tokenRefApplication =
+                          streamSnapshot.data?.docs[index]['token_ref'];
                           if (streamSnapshot.hasData) {
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:

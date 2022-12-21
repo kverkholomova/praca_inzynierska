@@ -130,8 +130,7 @@ class _HomeRefState extends State<HomeRef> {
                                 itemBuilder: (ctx, index) {
                                   tokenVolApplication =
                                   streamSnapshot.data?.docs[index]['token_vol'];
-                                  tokenRefApplication =
-                                  streamSnapshot.data?.docs[index]['token_ref'];
+
                                   currentNameRef =
                                   streamSnapshot.data?.docs[index]['user_name'];
 
