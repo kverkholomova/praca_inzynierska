@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,10 +81,11 @@ class _HomeRefState extends State<HomeRef> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const OptionChoose()),
-        );
+        SystemNavigator.pop();
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const OptionChoose()),
+        // );
         return true;
       },
       child: SafeArea(

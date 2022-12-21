@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,6 +15,7 @@ import 'package:wol_pro_1/screens/menu/refugee/all_applications/volunteer_info_r
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
 
+import 'rating.dart';
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
 
@@ -58,7 +58,8 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
   }
 
   void sendPushMessage() async {
-    print("SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
+    print(
+        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
     try {
       await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -70,7 +71,8 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
         body: jsonEncode(
           <String, dynamic>{
             'notification': <String, dynamic>{
-              'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
+              'body':
+                  'The application was deleted by refugee, so your help is not necessary anymore.',
               'title': 'Refugee deleted an application'
             },
             'priority': 'high',
@@ -165,9 +167,9 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
     }
   }
 
-
   final CollectionReference applications =
       FirebaseFirestore.instance.collection('applications');
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -190,11 +192,11 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
             ),
             onPressed: () {
               setState(() {
-                controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+                controllerTabBottomRef =
+                    PersistentTabController(initialIndex: 4);
               });
               Navigator.of(context, rootNavigator: true).pushReplacement(
                   MaterialPageRoute(builder: (context) => MainScreenRefugee()));
-
             },
           ),
           elevation: 0,
@@ -219,22 +221,21 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
         // ),
         body: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.99,
+                height: MediaQuery.of(context).size.height * 0.9,
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('applications')
-
                       .where('Id', isEqualTo: applicationIDRef)
+
                       // .where('category', isEqualTo: card_category_ref)
                       // .where('comment', isEqualTo: card_comment_ref)
                       .snapshots(),
                   builder:
                       (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                     return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        // physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: !streamSnapshot.hasData
                             ? 1
@@ -261,92 +262,124 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                     children: [
                                       Container(
                                         width: double.infinity,
-                                        height: MediaQuery.of(context).size.height *
-                                            0.7,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.7,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
-                                            BorderRadius.circular(15)),
+                                                BorderRadius.circular(15)),
                                         child: Padding(
                                           padding: padding,
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Column(
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.all(20),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            20),
                                                     child: Icon(
-                                                      streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
-                                                          ?Icons.pets_rounded
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[4]
-                                                          ?Icons.local_grocery_store
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[2]
-                                                          ?Icons.emoji_transportation_rounded
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[1]
-                                                          ?Icons.house
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[6]
-                                                          ?Icons.sign_language_rounded
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[5]
-                                                          ?Icons.child_care_outlined
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[7]
-                                                          ?Icons.menu_book
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[8]
-                                                          ?Icons.medical_information_outlined
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[0]
-                                                          ?Icons.check_box
-                                                          :Icons.new_label_sharp,
+                                                      streamSnapshot.data?.docs[index]
+                                                                      ['category']
+                                                                  as String ==
+                                                              categoriesListAll[
+                                                                  3]
+                                                          ? Icons.pets_rounded
+                                                          : streamSnapshot.data?.docs[index]
+                                                                          ['category']
+                                                                      as String ==
+                                                                  categoriesListAll[
+                                                                      4]
+                                                              ? Icons
+                                                                  .local_grocery_store
+                                                              : streamSnapshot.data?.docs[index]
+                                                                              ['category']
+                                                                          as String ==
+                                                                      categoriesListAll[
+                                                                          2]
+                                                                  ? Icons
+                                                                      .emoji_transportation_rounded
+                                                                  : streamSnapshot
+                                                                              .data
+                                                                              ?.docs[index]['category'] as String ==
+                                                                          categoriesListAll[1]
+                                                                      ? Icons.house
+                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
+                                                                          ? Icons.sign_language_rounded
+                                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
+                                                                              ? Icons.child_care_outlined
+                                                                              : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
+                                                                                  ? Icons.menu_book
+                                                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
+                                                                                      ? Icons.medical_information_outlined
+                                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
+                                                                                          ? Icons.check_box
+                                                                                          : Icons.new_label_sharp,
                                                       size: 30,
                                                       color: Colors.black,
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.02,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.02,
                                                   ),
                                                   Align(
-                                                    alignment: Alignment.topLeft,
+                                                    alignment:
+                                                        Alignment.topLeft,
                                                     child: Text(
                                                       // "Title",
-                                                      streamSnapshot.data?.docs[index]
-                                                      ['title'],
-                                                      style: GoogleFonts.raleway(
+                                                      streamSnapshot
+                                                              .data?.docs[index]
+                                                          ['title'],
+                                                      style:
+                                                          GoogleFonts.raleway(
                                                         fontSize: 18,
                                                         color: Colors.black,
                                                       ),
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.007,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.007,
                                                   ),
                                                   Align(
-                                                    alignment: Alignment.topLeft,
+                                                    alignment:
+                                                        Alignment.topLeft,
                                                     child: Text(
-                                                        streamSnapshot.data?.docs[index]
-                                                        ['category'],
-                                                        style: GoogleFonts.raleway(
+                                                        streamSnapshot.data
+                                                                ?.docs[index]
+                                                            ['category'],
+                                                        style:
+                                                            GoogleFonts.raleway(
                                                           fontSize: 14,
                                                           color: Colors.black,
                                                         )),
                                                   ),
                                                   SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.05,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.05,
                                                   ),
                                                   Align(
-                                                    alignment: Alignment.topLeft,
+                                                    alignment:
+                                                        Alignment.topLeft,
                                                     child: Text(
-                                                      streamSnapshot.data?.docs[index]
-                                                      ['comment'],
-                                                      style: GoogleFonts.raleway(
+                                                      streamSnapshot
+                                                              .data?.docs[index]
+                                                          ['comment'],
+                                                      style:
+                                                          GoogleFonts.raleway(
                                                         fontSize: 14,
                                                         color: Colors.black,
                                                       ),
@@ -356,103 +389,315 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                               ),
 
                                               Align(
-                                                alignment: Alignment.bottomCenter,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(15.0),
-                                                      child: Visibility(
-                                                        visible: streamSnapshot.data?.docs[index]
-                                                        ['application_accepted'],
-                                                        child: IconButton(
-                                                          icon: Icon(
-                                                            Icons.info_outline_rounded,
-                                                            size: 30,
-                                                            color: blueColor,
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: streamSnapshot
+                                                            .data?.docs[index]
+                                                        ['application_accepted']
+                                                    ? Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(15.0),
+                                                            child: IconButton(
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .info_outline_rounded,
+                                                                size: 30,
+                                                                color:
+                                                                    blueColor,
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  IDVolInfo = streamSnapshot
+                                                                          .data
+                                                                          ?.docs[index]
+                                                                      [
+                                                                      'volunteerID'];
+                                                                });
+                                                                IdApplicationVolInfo =
+                                                                    streamSnapshot
+                                                                            .data
+                                                                            ?.docs[index]
+                                                                        [
+                                                                        "chatId_vol"];
+
+                                                                Navigator.of(
+                                                                        context,
+                                                                        rootNavigator:
+                                                                            true)
+                                                                    .pushReplacement(MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                InfoVolforRef()));
+                                                              },
+                                                            ),
                                                           ),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              IDVolInfo=streamSnapshot.data?.docs[index]
-                                                              ['volunteerID'];
-                                                            });
-                                                            IdApplicationVolInfo = streamSnapshot.data?.docs[index]["chatId_vol"];
-
-                                                            Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                                MaterialPageRoute(builder: (context) => InfoVolforRef()));
-
-                                                          },
-                                                        ),
+                                                          // Padding(
+                                                          //   padding:
+                                                          //   const EdgeInsets.all(
+                                                          //       15.0),
+                                                          //   child: Visibility(
+                                                          //     visible: streamSnapshot
+                                                          //         .data
+                                                          //         ?.docs[index][
+                                                          //     'application_accepted'],
+                                                          //     child: IconButton(
+                                                          //       icon: Icon(
+                                                          //         Icons
+                                                          //             .message_rounded,
+                                                          //         size: 30,
+                                                          //         color: blueColor,
+                                                          //       ),
+                                                          //       onPressed: () {
+                                                          //
+                                                          //       },
+                                                          //     ),
+                                                          //   ),
+                                                          // ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(15.0),
+                                                            child: IconButton(
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .delete_forever,
+                                                                size: 30,
+                                                                color:
+                                                                    blueColor,
+                                                              ),
+                                                              onPressed: () {
+                                                                sendPushMessage();
+                                                                FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'applications')
+                                                                    .doc(streamSnapshot
+                                                                        .data
+                                                                        ?.docs[
+                                                                            index]
+                                                                        .id)
+                                                                    .delete();
+                                                                setState(() {
+                                                                  controllerTabBottomRef =
+                                                                      PersistentTabController(
+                                                                          initialIndex:
+                                                                              4);
+                                                                });
+                                                                Navigator.of(
+                                                                        context,
+                                                                        rootNavigator:
+                                                                            true)
+                                                                    .pushReplacement(MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                MainScreenRefugee()));
+                                                              },
+                                                            ),
+                                                          ),
+                                                          // Padding(
+                                                          //   padding: const EdgeInsets.all(15.0),
+                                                          //   child: IconButton(
+                                                          //     icon: Icon(
+                                                          //       Icons.check_circle,
+                                                          //       size: 30,
+                                                          //       color: blueColor,
+                                                          //     ),
+                                                          //     onPressed: () {
+                                                          //
+                                                          //
+                                                          //     },
+                                                          //   ),
+                                                          // ),
+                                                          // IconButton(
+                                                          //   icon: Icon(
+                                                          //     Icons.message_rounded,
+                                                          //     size: 30,
+                                                          //     color: blueColor,
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     setState(() {
+                                                          //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                          //     });
+                                                          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                          //         MaterialPageRoute(builder: (context) => MainScreen()));
+                                                          //
+                                                          //   },
+                                                          // ),
+                                                          // IconButton(
+                                                          //   icon: Icon(
+                                                          //     Icons.delete_forever,
+                                                          //     size: 30,
+                                                          //     color: blueColor,
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     setState(() {
+                                                          //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                          //     });
+                                                          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                          //         MaterialPageRoute(builder: (context) => MainScreen()));
+                                                          //
+                                                          //   },
+                                                          // )
+                                                        ],
+                                                      )
+                                                    : Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          // Padding(
+                                                          //   padding:
+                                                          //   const EdgeInsets.all(
+                                                          //       15.0),
+                                                          //   child: IconButton(
+                                                          //     icon: Icon(
+                                                          //       Icons
+                                                          //           .info_outline_rounded,
+                                                          //       size: 30,
+                                                          //       color: blueColor,
+                                                          //     ),
+                                                          //     onPressed: () {
+                                                          //       setState(() {
+                                                          //         IDVolInfo = streamSnapshot
+                                                          //             .data
+                                                          //             ?.docs[
+                                                          //         index][
+                                                          //         'volunteerID'];
+                                                          //       });
+                                                          //       IdApplicationVolInfo =
+                                                          //       streamSnapshot
+                                                          //           .data
+                                                          //           ?.docs[
+                                                          //       index][
+                                                          //       "chatId_vol"];
+                                                          //
+                                                          //       Navigator.of(
+                                                          //           context,
+                                                          //           rootNavigator:
+                                                          //           true)
+                                                          //           .pushReplacement(
+                                                          //           MaterialPageRoute(
+                                                          //               builder:
+                                                          //                   (context) =>
+                                                          //                   InfoVolforRef()));
+                                                          //     },
+                                                          //   ),
+                                                          // ),
+                                                          // Padding(
+                                                          //   padding:
+                                                          //   const EdgeInsets.all(
+                                                          //       15.0),
+                                                          //   child: Visibility(
+                                                          //     visible: streamSnapshot
+                                                          //         .data
+                                                          //         ?.docs[index][
+                                                          //     'application_accepted'],
+                                                          //     child: IconButton(
+                                                          //       icon: Icon(
+                                                          //         Icons
+                                                          //             .message_rounded,
+                                                          //         size: 30,
+                                                          //         color: blueColor,
+                                                          //       ),
+                                                          //       onPressed: () {
+                                                          //
+                                                          //       },
+                                                          //     ),
+                                                          //   ),
+                                                          // ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(15.0),
+                                                            child: IconButton(
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .delete_forever,
+                                                                size: 30,
+                                                                color:
+                                                                    blueColor,
+                                                              ),
+                                                              onPressed: () {
+                                                                sendPushMessage();
+                                                                FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'applications')
+                                                                    .doc(streamSnapshot
+                                                                        .data
+                                                                        ?.docs[
+                                                                            index]
+                                                                        .id)
+                                                                    .delete();
+                                                                setState(() {
+                                                                  controllerTabBottomRef =
+                                                                      PersistentTabController(
+                                                                          initialIndex:
+                                                                              4);
+                                                                });
+                                                                Navigator.of(
+                                                                        context,
+                                                                        rootNavigator:
+                                                                            true)
+                                                                    .pushReplacement(MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                MainScreenRefugee()));
+                                                              },
+                                                            ),
+                                                          ),
+                                                          // Padding(
+                                                          //   padding: const EdgeInsets.all(15.0),
+                                                          //   child: IconButton(
+                                                          //     icon: Icon(
+                                                          //       Icons.check_circle,
+                                                          //       size: 30,
+                                                          //       color: blueColor,
+                                                          //     ),
+                                                          //     onPressed: () {
+                                                          //
+                                                          //
+                                                          //     },
+                                                          //   ),
+                                                          // ),
+                                                          // IconButton(
+                                                          //   icon: Icon(
+                                                          //     Icons.message_rounded,
+                                                          //     size: 30,
+                                                          //     color: blueColor,
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     setState(() {
+                                                          //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                          //     });
+                                                          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                          //         MaterialPageRoute(builder: (context) => MainScreen()));
+                                                          //
+                                                          //   },
+                                                          // ),
+                                                          // IconButton(
+                                                          //   icon: Icon(
+                                                          //     Icons.delete_forever,
+                                                          //     size: 30,
+                                                          //     color: blueColor,
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     setState(() {
+                                                          //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                          //     });
+                                                          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                          //         MaterialPageRoute(builder: (context) => MainScreen()));
+                                                          //
+                                                          //   },
+                                                          // )
+                                                        ],
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(15.0),
-                                                      child: IconButton(
-                                                        icon: Icon(
-                                                          Icons.delete_forever,
-                                                          size: 30,
-                                                          color: blueColor,
-                                                        ),
-                                                        onPressed: () {
-                                                          sendPushMessage();
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
-                                                              .doc(streamSnapshot.data?.docs[index].id).delete();
-                                                          setState(() {
-                                                            controllerTabBottomRef = PersistentTabController(initialIndex: 4);
-                                                          });
-                                                          Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                              MaterialPageRoute(builder: (context) => MainScreenRefugee()));
-
-                                                        },
-                                                      ),
-                                                    ),
-                                                    // Padding(
-                                                    //   padding: const EdgeInsets.all(15.0),
-                                                    //   child: IconButton(
-                                                    //     icon: Icon(
-                                                    //       Icons.check_circle,
-                                                    //       size: 30,
-                                                    //       color: blueColor,
-                                                    //     ),
-                                                    //     onPressed: () {
-                                                    //
-                                                    //
-                                                    //     },
-                                                    //   ),
-                                                    // ),
-                                                    // IconButton(
-                                                    //   icon: Icon(
-                                                    //     Icons.message_rounded,
-                                                    //     size: 30,
-                                                    //     color: blueColor,
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     setState(() {
-                                                    //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
-                                                    //     });
-                                                    //     Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                    //         MaterialPageRoute(builder: (context) => MainScreen()));
-                                                    //
-                                                    //   },
-                                                    // ),
-                                                    // IconButton(
-                                                    //   icon: Icon(
-                                                    //     Icons.delete_forever,
-                                                    //     size: 30,
-                                                    //     color: blueColor,
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     setState(() {
-                                                    //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
-                                                    //     });
-                                                    //     Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                    //         MaterialPageRoute(builder: (context) => MainScreen()));
-                                                    //
-                                                    //   },
-                                                    // )
-                                                  ],
-                                                ),
                                               )
                                               // SizedBox(
                                               //   height: MediaQuery.of(context)
@@ -560,71 +805,110 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                           ),
                                         ),
                                       ),
-                          //             SizedBox(
-                          //               height: streamSnapshot.data?.docs[index]
-                          // ['application_accepted']?MediaQuery.of(context).size.height * 0.05:MediaQuery.of(context).size.height * 0.22,
-                          //             ),
-                          //             Visibility(
-                          //               visible: streamSnapshot.data?.docs[index]
-                          //               ['application_accepted'],
-                          //               child: Align(
-                          //                 alignment: Alignment.topCenter,
-                          //                 child: Center(
-                          //                   child: Container(
-                          //                     width: double.infinity,
-                          //                     height:
-                          //                     MediaQuery.of(context).size.height *
-                          //                         0.085,
-                          //                     decoration: buttonActiveDecoration,
-                          //                     child: TextButton(
-                          //                         child: Text(
-                          //                           "Look info about volunteer",
-                          //                           style: textActiveButtonStyle,
-                          //                         ),
-                          //                         onPressed: () async {
-                          //                           setState(() {
-                          //                             IDVolInfo=streamSnapshot.data?.docs[index]
-                          //                             ['volunteerID'];
-                          //                           });
-                          //                           IdApplicationVolInfo = streamSnapshot.data?.docs[index]["chatId_vol"];
-                          //
-                          //                           Navigator.of(context, rootNavigator: true).pushReplacement(
-                          //                               MaterialPageRoute(builder: (context) => InfoVolforRef()));
-                          //                         }),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.015,
+                                      //             SizedBox(
+                                      //               height: streamSnapshot.data?.docs[index]
+                                      // ['application_accepted']?MediaQuery.of(context).size.height * 0.05:MediaQuery.of(context).size.height * 0.22,
+                                      //             ),
+                                      //             Visibility(
+                                      //               visible: streamSnapshot.data?.docs[index]
+                                      //               ['application_accepted'],
+                                      //               child: Align(
+                                      //                 alignment: Alignment.topCenter,
+                                      //                 child: Center(
+                                      //                   child: Container(
+                                      //                     width: double.infinity,
+                                      //                     height:
+                                      //                     MediaQuery.of(context).size.height *
+                                      //                         0.085,
+                                      //                     decoration: buttonActiveDecoration,
+                                      //                     child: TextButton(
+                                      //                         child: Text(
+                                      //                           "Look info about volunteer",
+                                      //                           style: textActiveButtonStyle,
+                                      //                         ),
+                                      //                         onPressed: () async {
+                                      //                           setState(() {
+                                      //                             IDVolInfo=streamSnapshot.data?.docs[index]
+                                      //                             ['volunteerID'];
+                                      //                           });
+                                      //                           IdApplicationVolInfo = streamSnapshot.data?.docs[index]["chatId_vol"];
+                                      //
+                                      //                           Navigator.of(context, rootNavigator: true).pushReplacement(
+                                      //                               MaterialPageRoute(builder: (context) => InfoVolforRef()));
+                                      //                         }),
+                                      //                   ),
+                                      //                 ),
+                                      //               ),
+                                      //             ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.015,
                                       ),
                                       Visibility(
-                                        visible: streamSnapshot.data?.docs[index]
-                          ['application_accepted'],
+                                        visible:
+                                            streamSnapshot.data?.docs[index]
+                                                ['application_accepted'],
                                         child: Align(
                                           alignment: Alignment.topCenter,
                                           child: Center(
                                             child: Container(
                                               width: double.infinity,
-                                              height:
-                                              MediaQuery.of(context).size.height *
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
                                                   0.085,
-                                              decoration: buttonInactiveDecoration,
+                                              decoration:
+                                                  buttonInactiveDecoration,
                                               child: TextButton(
                                                   child: Text(
                                                     "Mark application as done",
-                                                    style: textInactiveButtonStyle,
+                                                    style:
+                                                        textInactiveButtonStyle,
                                                   ),
                                                   onPressed: () async {
-                                                    sendPushMessage();
-                                                    FirebaseFirestore.instance
-                                                        .collection('applications')
-                                                        .doc(streamSnapshot.data?.docs[index].id).delete();
-                                                    setState(() {
-                                                      controllerTabBottomRef = PersistentTabController(initialIndex: 4);
-                                                    });
-                                                    Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                        MaterialPageRoute(builder: (context) => MainScreenRefugee()));
+                                                    IDVolOfApplication =
+                                                        streamSnapshot.data
+                                                                    ?.docs[index]
+                                                                ['volunteerID']
+                                                            as String;
+                                                    print(IDVolOfApplication);
+                                                    print(
+                                                        "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+
+                                                    Navigator.of(context,
+                                                                rootNavigator: true)
+                                                            .pushReplacement(
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            Rating()));
+                                                    // Navigator.push(
+                                                    //   context,
+                                                    //   MaterialPageRoute(
+                                                    //       builder: (context) =>
+                                                    //           Rating_Page()),
+                                                    // );
+
+                                                    // sendPushMessage();
+                                                    // FirebaseFirestore.instance
+                                                    //     .collection(
+                                                    //         'applications')
+                                                    //     .doc(streamSnapshot.data
+                                                    //         ?.docs[index].id)
+                                                    //     .delete();
+                                                    // setState(() {
+                                                    //   controllerTabBottomRef =
+                                                    //       PersistentTabController(
+                                                    //           initialIndex: 4);
+                                                    // });
+                                                    // Navigator.of(context,
+                                                    //         rootNavigator: true)
+                                                    //     .pushReplacement(
+                                                    //         MaterialPageRoute(
+                                                    //             builder:
+                                                    //                 (context) =>
+                                                    //                     MainScreenRefugee()));
                                                   }),
                                             ),
                                           ),
@@ -662,91 +946,88 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                       //   ),
                                       // ),
 
-
-
-
-                          // Padding(
-                          //                       padding: const EdgeInsets.only(top: 20),
-                          //                       child: SizedBox(
-                          //                         height: 50,
-                          //                         width: 300,
-                          //                         child: MaterialButton(
-                          //                             child: Text(
-                          //                               "Delete",
-                          //                               style: TextStyle(color: Colors.white),
-                          //                             ),
-                          //                             color: Color.fromRGBO(18, 56, 79, 0.8),
-                          //                             onPressed: () {
-                          //
-                          //
-                          //                               sendPushMessage();
-                          //
-                          //                               FirebaseFirestore.instance
-                          //                                   .collection('applications')
-                          //                                   .doc(streamSnapshot.data?.docs[index].id)
-                          //                                   .update({"status": "deleted"});
-                          //
-                          //
-                          //                             }),
-                          //                       ),
-                          //                     ),
-                          //                     Padding(
-                          //                       padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          //                       child: SizedBox(
-                          //                         height: 50,
-                          //                         width: 300,
-                          //                         child: MaterialButton(
-                          //                             child: Text(
-                          //                               "Look info about volunteer",
-                          //                               style: TextStyle(color: Colors.white),
-                          //                             ),
-                          //                             color: Color.fromRGBO(18, 56, 79, 0.8),
-                          //                             onPressed: () {
-                          //                               IDVolOfApplication = streamSnapshot
-                          //                                   .data?.docs[index]['volunteerID'] as String;
-                          //                               print(IDVolOfApplication);
-                          //                               print(
-                          //                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                          //
-                          //                               Navigator.push(
-                          //                                 context,
-                          //                                 MaterialPageRoute(
-                          //                                     builder: (context) =>
-                          //                                         PageOfVolunteerRef()),
-                          //                               );
-                          //                             }),
-                          //                       ),
-                          //                     ),
-                          //                     // Visibility(
-                          //                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
-                          //                     //   child:
-                          //                       Padding(
-                          //                         padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          //                         child: SizedBox(
-                          //                           height: 50,
-                          //                           width: 300,
-                          //                           child: MaterialButton(
-                          //                               child: Text(
-                          //                                 "Mark application as done",
-                          //                                 style: TextStyle(color: Colors.white),
-                          //                               ),
-                          //                               color: Color.fromRGBO(18, 56, 79, 0.8),
-                          //                               onPressed: () {
-                          //                                 IDVolOfApplication = streamSnapshot
-                          //                                     .data?.docs[index]['volunteerID'] as String;
-                          //                                 print(IDVolOfApplication);
-                          //                                 print(
-                          //                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                          //
-                          //                                 Navigator.push(
-                          //                                   context,
-                          //                                   MaterialPageRoute(
-                          //                                       builder: (context) =>
-                          //                                           Rating_Page()),
-                          //                                 );
-                          //                               }),
-                          //                         ),
-                          //                       ),
+                                      // Padding(
+                                      //                       padding: const EdgeInsets.only(top: 20),
+                                      //                       child: SizedBox(
+                                      //                         height: 50,
+                                      //                         width: 300,
+                                      //                         child: MaterialButton(
+                                      //                             child: Text(
+                                      //                               "Delete",
+                                      //                               style: TextStyle(color: Colors.white),
+                                      //                             ),
+                                      //                             color: Color.fromRGBO(18, 56, 79, 0.8),
+                                      //                             onPressed: () {
+                                      //
+                                      //
+                                      //                               sendPushMessage();
+                                      //
+                                      //                               FirebaseFirestore.instance
+                                      //                                   .collection('applications')
+                                      //                                   .doc(streamSnapshot.data?.docs[index].id)
+                                      //                                   .update({"status": "deleted"});
+                                      //
+                                      //
+                                      //                             }),
+                                      //                       ),
+                                      //                     ),
+                                      //                     Padding(
+                                      //                       padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                      //                       child: SizedBox(
+                                      //                         height: 50,
+                                      //                         width: 300,
+                                      //                         child: MaterialButton(
+                                      //                             child: Text(
+                                      //                               "Look info about volunteer",
+                                      //                               style: TextStyle(color: Colors.white),
+                                      //                             ),
+                                      //                             color: Color.fromRGBO(18, 56, 79, 0.8),
+                                      //                             onPressed: () {
+                                      //                               IDVolOfApplication = streamSnapshot
+                                      //                                   .data?.docs[index]['volunteerID'] as String;
+                                      //                               print(IDVolOfApplication);
+                                      //                               print(
+                                      //                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                      //
+                                      //                               Navigator.push(
+                                      //                                 context,
+                                      //                                 MaterialPageRoute(
+                                      //                                     builder: (context) =>
+                                      //                                         PageOfVolunteerRef()),
+                                      //                               );
+                                      //                             }),
+                                      //                       ),
+                                      //                     ),
+                                      //                     // Visibility(
+                                      //                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
+                                      //                     //   child:
+                                      //                       Padding(
+                                      //                         padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                      //                         child: SizedBox(
+                                      //                           height: 50,
+                                      //                           width: 300,
+                                      //                           child: MaterialButton(
+                                      //                               child: Text(
+                                      //                                 "Mark application as done",
+                                      //                                 style: TextStyle(color: Colors.white),
+                                      //                               ),
+                                      //                               color: Color.fromRGBO(18, 56, 79, 0.8),
+                                      //                               onPressed: () {
+                                      //                                 IDVolOfApplication = streamSnapshot
+                                      //                                     .data?.docs[index]['volunteerID'] as String;
+                                      //                                 print(IDVolOfApplication);
+                                      //                                 print(
+                                      //                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                      //
+                                      //                                 Navigator.push(
+                                      //                                   context,
+                                      //                                   MaterialPageRoute(
+                                      //                                       builder: (context) =>
+                                      //                                           Rating_Page()),
+                                      //                                 );
+                                      //                               }),
+                                      //                         ),
+                                      //                       ),
                                     ],
                                   ),
                                 );
@@ -1033,283 +1314,283 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return WillPopScope(
-  //     onWillPop: () async {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => CategoriesRef()),
-  //       );
-  //       return true;
-  //     },
-  //     child: Scaffold(
-  //       backgroundColor: background,
-  //       // appBar: AppBar(
-  //       //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
-  //       //   elevation: 0.0,
-  //       //   title: Text(
-  //       //     'Application Info',
-  //       //     style: TextStyle(fontSize: 16),
-  //       //   ),
-  //       //   leading: IconButton(
-  //       //     icon: const Icon(Icons.arrow_back,color: Colors.white,),
-  //       //     onPressed: () async {
-  //       //       // await _auth.signOut();
-  //       //       Navigator.push(
-  //       //         context,
-  //       //         MaterialPageRoute(builder: (context) => CategoriesRef()),
-  //       //       );
-  //       //     },
-  //       //   ),
-  //       // ),
-  //       body: StreamBuilder (
-  //         stream: FirebaseFirestore.instance
-  //             .collection('applications')
-  //             .where('title', isEqualTo: card_title_ref)
-  //             .where('category', isEqualTo: card_category_ref)
-  //             .where('comment', isEqualTo: card_comment_ref)
-  //             .snapshots(),
-  //         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-  //           return ListView.builder(
-  //               itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
-  //               itemBuilder: (ctx, index) {
-  //
-  //                 User? user = FirebaseAuth.instance.currentUser;
-  //                 final docId = streamSnapshot.data!.docs[index]["volunteerID"];
-  //                 print("IIIIIIIIIIIIIIII_______________HHHHHHHHHHHHHHH");
-  //                 print(streamSnapshot.data?.docs[index]['title']);
-  //                 if (streamSnapshot.hasData){
-  //                   switch (streamSnapshot.connectionState){
-  //                     case ConnectionState.waiting:
-  //                       return  Column(
-  //                         children: [
-  //                           SizedBox(
-  //                           width: 60,
-  //                           height: 60,
-  //                           child: CircularProgressIndicator(),
-  //                           ),
-  //                           Padding(
-  //                           padding: EdgeInsets.only(top: 16),
-  //                           child: Text('Awaiting data...'),
-  //                           )
-  //                 ]
-  //
-  //                 );
-  //
-  //                 case ConnectionState.active:
-  //                 return Column(
-  //                   children: [
-  //                     Padding(
-  //                       padding: const EdgeInsets.only(top: 30,left: 10,right: 10,bottom: 10),
-  //                       child: Align(
-  //                         alignment: Alignment.topLeft,
-  //                         child: Text(
-  //                           streamSnapshot.data?.docs[index]['title'],
-  //                           style: TextStyle(
-  //                             fontWeight: FontWeight.bold,
-  //                             fontSize: 18,
-  //                             color: Colors.black,
-  //                           ),
-  //                           textAlign: TextAlign.center,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.all(10.0),
-  //                       child: Align(
-  //                         alignment: Alignment.topLeft,
-  //                         child: Text(
-  //                           streamSnapshot.data?.docs[index]['status'],
-  //                           style: TextStyle(
-  //                             fontWeight: FontWeight.bold,
-  //                             fontSize: 14,
-  //                             color: Colors.grey,
-  //                           ),
-  //                           textAlign: TextAlign.center,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.all(10.0),
-  //                       child: Align(
-  //                         alignment: Alignment.topLeft,
-  //                         child: Text(
-  //                           streamSnapshot.data?.docs[index]['category'],
-  //                           style: TextStyle(color: Colors.grey, fontSize: 14),
-  //                           textAlign: TextAlign.center,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.all(10.0),
-  //                       child: Align(
-  //                         alignment: Alignment.topLeft,
-  //                         child: Text(
-  //                           streamSnapshot.data?.docs[index]['comment'],
-  //                           style: TextStyle(color: Colors.black, fontSize: 15),
-  //                           textAlign: TextAlign.center,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.all(10.0),
-  //                       child: Align(
-  //                         alignment: Alignment.topLeft,
-  //                         child: Text(
-  //                           streamSnapshot.data?.docs[index]['date'],
-  //                           style: TextStyle(
-  //                             fontWeight: FontWeight.bold,
-  //                             fontSize: 12,
-  //                             color: Colors.grey[900],
-  //                           ),
-  //                           textAlign: TextAlign.center,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Visibility(
-  //                       visible: streamSnapshot.data?.docs[index]["mess_button_visibility_ref"],
-  //                       child: Padding(
-  //                         padding: const EdgeInsets.only(top: 20, bottom: 10),
-  //                         child: SizedBox(
-  //                           height: 50,
-  //                           width: 300,
-  //                           child: MaterialButton(
-  //                               child: Text(
-  //                                 "Message",
-  //                                 style: TextStyle(color: Colors.white),
-  //                               ),
-  //                               color: Color.fromRGBO(18, 56, 79, 0.8),
-  //                               onPressed: () {
-  //                                 FirebaseFirestore.instance
-  //                                     .collection('applications')
-  //                                     .doc(
-  //                                     streamSnapshot.data?.docs[index].id)
-  //                                     .update({"mess_button_visibility_ref": false});
-  //                                // IdOfChatroomRef = streamSnapshot.data?.docs[index]['chatId_vol'];
-  //                                   // Navigator.push(
-  //                                   //   context,
-  //                                   //   MaterialPageRoute(
-  //                                   //       builder: (context) =>
-  //                                   //           SelectedChatroom_Ref()),
-  //                                   // );
-  //
-  //
-  //                                 //}
-  //                               }),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.only(top: 20),
-  //                       child: SizedBox(
-  //                         height: 50,
-  //                         width: 300,
-  //                         child: MaterialButton(
-  //                             child: Text(
-  //                               "Delete",
-  //                               style: TextStyle(color: Colors.white),
-  //                             ),
-  //                             color: Color.fromRGBO(18, 56, 79, 0.8),
-  //                             onPressed: () {
-  //
-  //
-  //                               sendPushMessage();
-  //
-  //                               FirebaseFirestore.instance
-  //                                   .collection('applications')
-  //                                   .doc(streamSnapshot.data?.docs[index].id)
-  //                                   .update({"status": "deleted"});
-  //
-  //
-  //                             }),
-  //                       ),
-  //                     ),
-  //                     Padding(
-  //                       padding: const EdgeInsets.only(top: 10, bottom: 10),
-  //                       child: SizedBox(
-  //                         height: 50,
-  //                         width: 300,
-  //                         child: MaterialButton(
-  //                             child: Text(
-  //                               "Look info about volunteer",
-  //                               style: TextStyle(color: Colors.white),
-  //                             ),
-  //                             color: Color.fromRGBO(18, 56, 79, 0.8),
-  //                             onPressed: () {
-  //                               IDVolOfApplication = streamSnapshot
-  //                                   .data?.docs[index]['volunteerID'] as String;
-  //                               print(IDVolOfApplication);
-  //                               print(
-  //                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-  //
-  //                               Navigator.push(
-  //                                 context,
-  //                                 MaterialPageRoute(
-  //                                     builder: (context) =>
-  //                                         PageOfVolunteerRef()),
-  //                               );
-  //                             }),
-  //                       ),
-  //                     ),
-  //                     // Visibility(
-  //                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
-  //                     //   child:
-  //                       Padding(
-  //                         padding: const EdgeInsets.only(top: 10, bottom: 10),
-  //                         child: SizedBox(
-  //                           height: 50,
-  //                           width: 300,
-  //                           child: MaterialButton(
-  //                               child: Text(
-  //                                 "Mark application as done",
-  //                                 style: TextStyle(color: Colors.white),
-  //                               ),
-  //                               color: Color.fromRGBO(18, 56, 79, 0.8),
-  //                               onPressed: () {
-  //                                 IDVolOfApplication = streamSnapshot
-  //                                     .data?.docs[index]['volunteerID'] as String;
-  //                                 print(IDVolOfApplication);
-  //                                 print(
-  //                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-  //
-  //                                 Navigator.push(
-  //                                   context,
-  //                                   MaterialPageRoute(
-  //                                       builder: (context) =>
-  //                                           Rating_Page()),
-  //                                 );
-  //                               }),
-  //                         ),
-  //                       ),
-  //                     // )
-  //                   ],
-  //                 );}}
-  //                 return Center(
-  //                   child: Padding(padding: EdgeInsets.only(top: 100),
-  //                     child: Column(
-  //                       children: [
-  //                         SpinKitChasingDots(
-  //                           color: Colors.brown,
-  //                           size: 50.0,
-  //                         ),
-  //                         Align(
-  //                           alignment: Alignment.center,
-  //                           child: Text(
-  //                               "Waiting...",
-  //                               style: TextStyle(
-  //                                 fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-  //                           ),
-  //                         ),
-  //                         Padding(padding: EdgeInsets.only(top: 20),)
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 );
-  //               });
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
+// @override
+// Widget build(BuildContext context) {
+//   return WillPopScope(
+//     onWillPop: () async {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => CategoriesRef()),
+//       );
+//       return true;
+//     },
+//     child: Scaffold(
+//       backgroundColor: background,
+//       // appBar: AppBar(
+//       //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
+//       //   elevation: 0.0,
+//       //   title: Text(
+//       //     'Application Info',
+//       //     style: TextStyle(fontSize: 16),
+//       //   ),
+//       //   leading: IconButton(
+//       //     icon: const Icon(Icons.arrow_back,color: Colors.white,),
+//       //     onPressed: () async {
+//       //       // await _auth.signOut();
+//       //       Navigator.push(
+//       //         context,
+//       //         MaterialPageRoute(builder: (context) => CategoriesRef()),
+//       //       );
+//       //     },
+//       //   ),
+//       // ),
+//       body: StreamBuilder (
+//         stream: FirebaseFirestore.instance
+//             .collection('applications')
+//             .where('title', isEqualTo: card_title_ref)
+//             .where('category', isEqualTo: card_category_ref)
+//             .where('comment', isEqualTo: card_comment_ref)
+//             .snapshots(),
+//         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+//           return ListView.builder(
+//               itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
+//               itemBuilder: (ctx, index) {
+//
+//                 User? user = FirebaseAuth.instance.currentUser;
+//                 final docId = streamSnapshot.data!.docs[index]["volunteerID"];
+//                 print("IIIIIIIIIIIIIIII_______________HHHHHHHHHHHHHHH");
+//                 print(streamSnapshot.data?.docs[index]['title']);
+//                 if (streamSnapshot.hasData){
+//                   switch (streamSnapshot.connectionState){
+//                     case ConnectionState.waiting:
+//                       return  Column(
+//                         children: [
+//                           SizedBox(
+//                           width: 60,
+//                           height: 60,
+//                           child: CircularProgressIndicator(),
+//                           ),
+//                           Padding(
+//                           padding: EdgeInsets.only(top: 16),
+//                           child: Text('Awaiting data...'),
+//                           )
+//                 ]
+//
+//                 );
+//
+//                 case ConnectionState.active:
+//                 return Column(
+//                   children: [
+//                     Padding(
+//                       padding: const EdgeInsets.only(top: 30,left: 10,right: 10,bottom: 10),
+//                       child: Align(
+//                         alignment: Alignment.topLeft,
+//                         child: Text(
+//                           streamSnapshot.data?.docs[index]['title'],
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 18,
+//                             color: Colors.black,
+//                           ),
+//                           textAlign: TextAlign.center,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(10.0),
+//                       child: Align(
+//                         alignment: Alignment.topLeft,
+//                         child: Text(
+//                           streamSnapshot.data?.docs[index]['status'],
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 14,
+//                             color: Colors.grey,
+//                           ),
+//                           textAlign: TextAlign.center,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(10.0),
+//                       child: Align(
+//                         alignment: Alignment.topLeft,
+//                         child: Text(
+//                           streamSnapshot.data?.docs[index]['category'],
+//                           style: TextStyle(color: Colors.grey, fontSize: 14),
+//                           textAlign: TextAlign.center,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(10.0),
+//                       child: Align(
+//                         alignment: Alignment.topLeft,
+//                         child: Text(
+//                           streamSnapshot.data?.docs[index]['comment'],
+//                           style: TextStyle(color: Colors.black, fontSize: 15),
+//                           textAlign: TextAlign.center,
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(10.0),
+//                       child: Align(
+//                         alignment: Alignment.topLeft,
+//                         child: Text(
+//                           streamSnapshot.data?.docs[index]['date'],
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 12,
+//                             color: Colors.grey[900],
+//                           ),
+//                           textAlign: TextAlign.center,
+//                         ),
+//                       ),
+//                     ),
+//                     Visibility(
+//                       visible: streamSnapshot.data?.docs[index]["mess_button_visibility_ref"],
+//                       child: Padding(
+//                         padding: const EdgeInsets.only(top: 20, bottom: 10),
+//                         child: SizedBox(
+//                           height: 50,
+//                           width: 300,
+//                           child: MaterialButton(
+//                               child: Text(
+//                                 "Message",
+//                                 style: TextStyle(color: Colors.white),
+//                               ),
+//                               color: Color.fromRGBO(18, 56, 79, 0.8),
+//                               onPressed: () {
+//                                 FirebaseFirestore.instance
+//                                     .collection('applications')
+//                                     .doc(
+//                                     streamSnapshot.data?.docs[index].id)
+//                                     .update({"mess_button_visibility_ref": false});
+//                                // IdOfChatroomRef = streamSnapshot.data?.docs[index]['chatId_vol'];
+//                                   // Navigator.push(
+//                                   //   context,
+//                                   //   MaterialPageRoute(
+//                                   //       builder: (context) =>
+//                                   //           SelectedChatroom_Ref()),
+//                                   // );
+//
+//
+//                                 //}
+//                               }),
+//                         ),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.only(top: 20),
+//                       child: SizedBox(
+//                         height: 50,
+//                         width: 300,
+//                         child: MaterialButton(
+//                             child: Text(
+//                               "Delete",
+//                               style: TextStyle(color: Colors.white),
+//                             ),
+//                             color: Color.fromRGBO(18, 56, 79, 0.8),
+//                             onPressed: () {
+//
+//
+//                               sendPushMessage();
+//
+//                               FirebaseFirestore.instance
+//                                   .collection('applications')
+//                                   .doc(streamSnapshot.data?.docs[index].id)
+//                                   .update({"status": "deleted"});
+//
+//
+//                             }),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.only(top: 10, bottom: 10),
+//                       child: SizedBox(
+//                         height: 50,
+//                         width: 300,
+//                         child: MaterialButton(
+//                             child: Text(
+//                               "Look info about volunteer",
+//                               style: TextStyle(color: Colors.white),
+//                             ),
+//                             color: Color.fromRGBO(18, 56, 79, 0.8),
+//                             onPressed: () {
+//                               IDVolOfApplication = streamSnapshot
+//                                   .data?.docs[index]['volunteerID'] as String;
+//                               print(IDVolOfApplication);
+//                               print(
+//                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+//
+//                               Navigator.push(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                     builder: (context) =>
+//                                         PageOfVolunteerRef()),
+//                               );
+//                             }),
+//                       ),
+//                     ),
+//                     // Visibility(
+//                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
+//                     //   child:
+//                       Padding(
+//                         padding: const EdgeInsets.only(top: 10, bottom: 10),
+//                         child: SizedBox(
+//                           height: 50,
+//                           width: 300,
+//                           child: MaterialButton(
+//                               child: Text(
+//                                 "Mark application as done",
+//                                 style: TextStyle(color: Colors.white),
+//                               ),
+//                               color: Color.fromRGBO(18, 56, 79, 0.8),
+//                               onPressed: () {
+//                                 IDVolOfApplication = streamSnapshot
+//                                     .data?.docs[index]['volunteerID'] as String;
+//                                 print(IDVolOfApplication);
+//                                 print(
+//                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+//
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                       builder: (context) =>
+//                                           Rating_Page()),
+//                                 );
+//                               }),
+//                         ),
+//                       ),
+//                     // )
+//                   ],
+//                 );}}
+//                 return Center(
+//                   child: Padding(padding: EdgeInsets.only(top: 100),
+//                     child: Column(
+//                       children: [
+//                         SpinKitChasingDots(
+//                           color: Colors.brown,
+//                           size: 50.0,
+//                         ),
+//                         Align(
+//                           alignment: Alignment.center,
+//                           child: Text(
+//                               "Waiting...",
+//                               style: TextStyle(
+//                                 fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+//                           ),
+//                         ),
+//                         Padding(padding: EdgeInsets.only(top: 20),)
+//                       ],
+//                     ),
+//                   ),
+//                 );
+//               });
+//         },
+//       ),
+//     ),
+//   );
+// }
 }

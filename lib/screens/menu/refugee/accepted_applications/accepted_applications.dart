@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
@@ -39,7 +40,8 @@ class CategoriesRefState extends State<CategoriesRef> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        controllerTabBottomRef = PersistentTabController(initialIndex: 1);
+        SystemNavigator.pop();
+        // controllerTabBottomRef = PersistentTabController(initialIndex: 1);
 //         Navigator.of(context, rootNavigator: true).pushReplacement(
 //             MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
         return true;
@@ -47,26 +49,28 @@ class CategoriesRefState extends State<CategoriesRef> {
       child: Scaffold(
           backgroundColor: background,
           appBar: AppBar(
-            title: Text(
-              'Your applications',
-              style: TextStyle(color: blueColor),
+            title: Center(
+              child: Text(
+                'Your applications',
+                style: TextStyle(color: blueColor),
+              ),
             ),
             backgroundColor: background,
             elevation: 0.0,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: blueColor,
-              ),
-              onPressed: () async {
-                // await _auth.signOut();
-                controllerTabBottomRef =
-                    PersistentTabController(initialIndex: 1);
-                Navigator.of(context, rootNavigator: true).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => new MainScreenRefugee()));
-              },
-            ),
+            // leading: IconButton(
+            //   icon: Icon(
+            //     Icons.arrow_back,
+            //     color: blueColor,
+            //   ),
+            //   onPressed: () async {
+            //     // await _auth.signOut();
+            //     controllerTabBottomRef =
+            //         PersistentTabController(initialIndex: 1);
+            //     Navigator.of(context, rootNavigator: true).pushReplacement(
+            //         MaterialPageRoute(
+            //             builder: (context) => new MainScreenRefugee()));
+            //   },
+            // ),
           ),
           body: Padding(
             padding: padding,

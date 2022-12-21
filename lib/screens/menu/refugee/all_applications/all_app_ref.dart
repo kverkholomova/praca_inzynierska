@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
@@ -37,30 +38,31 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        controllerTabBottomRef = PersistentTabController(initialIndex: 3);
-        Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+        SystemNavigator.pop();
+        // controllerTabBottomRef = PersistentTabController(initialIndex: 3);
+        // Navigator.of(context, rootNavigator: true).pushReplacement(
+        //     MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
         return true;
       },
       child: Scaffold(
         backgroundColor: background,
         appBar: AppBar(
-          title: Text('Your applications',
+          title: Text('All applications',
             style: TextStyle(
                 color: blueColor
             ),
           ),
           backgroundColor: background,
           elevation: 0.0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back,color: blueColor,),
-            onPressed: () async {
-              // await _auth.signOut();
-              controllerTabBottomRef = PersistentTabController(initialIndex: 3);
-              Navigator.of(context, rootNavigator: true).pushReplacement(
-                  MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
-            },
-          ),
+          // leading: IconButton(
+          //   icon: Icon(Icons.arrow_back,color: blueColor,),
+          //   onPressed: () async {
+          //     // await _auth.signOut();
+          //     controllerTabBottomRef = PersistentTabController(initialIndex: 3);
+          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+          //         MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+          //   },
+          // ),
 
           // bottom: TabBar(
           //   indicatorColor: blueColor,
@@ -72,18 +74,25 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
           //
           // ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: padding,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.9,
+        body: Padding(
+          padding: EdgeInsets.only(
+    top: MediaQuery.of(context).size.height * 0.015,),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: padding,
               child: Column(
                 children: [
-                  Expanded(
+                  SizedBox(
+              height: MediaQuery.of(
+              context)
+                  .size
+                  .height *
+                  0.92,
                     child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('applications')
                           .where('userID', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+
                           // .where("category",
                           // isEqualTo: categoryChosenVolunteer)
 
@@ -200,7 +209,7 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                               color: Colors.white,
                                               borderRadius:
                                               BorderRadius.circular(
-                                                  18)),
+                                                  15)),
                                           child: Row(
                                             children: [
                                               Padding(

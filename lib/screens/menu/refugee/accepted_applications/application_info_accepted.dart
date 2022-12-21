@@ -168,7 +168,7 @@ class _AcceptedPageOfApplicationRefState
     return WillPopScope(
       onWillPop: () async {
         setState(() {
-          controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+          controllerTabBottomRef = PersistentTabController(initialIndex: 1);
         });
         Navigator.of(context, rootNavigator: true).pushReplacement(
             MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
@@ -185,7 +185,7 @@ class _AcceptedPageOfApplicationRefState
           ),
           onPressed: () {
             setState(() {
-              controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+              controllerTabBottomRef = PersistentTabController(initialIndex: 1);
             });
             Navigator.of(context, rootNavigator: true).pushReplacement(
                 MaterialPageRoute(builder: (context) => MainScreenRefugee()));
@@ -195,359 +195,405 @@ class _AcceptedPageOfApplicationRefState
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.99,
-                child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('applications')
-                      .where('Id', isEqualTo: applicationIDRefInfo)
-                      // .where('category', isEqualTo: card_category_ref)
-                      // .where('comment', isEqualTo: card_comment_ref)
-                      .snapshots(),
-                  builder:
-                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                    return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: !streamSnapshot.hasData
-                            ? 1
-                            : streamSnapshot.data?.docs.length,
-                        itemBuilder: (ctx, index) {
-                          if (streamSnapshot.hasData) {
-                            switch (streamSnapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return Column(children: [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
-                                  )
-                                ]);
-                              case ConnectionState.active:
-                                return Padding(
-                                  padding: padding,
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.02),
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Text(
-                                            "Application details",
-                                            style: GoogleFonts.raleway(
-                                              fontSize: 18,
-                                              color: Colors.black,
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.99,
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('applications')
+                        .where('Id', isEqualTo: applicationIDRefInfo)
+                        // .where('category', isEqualTo: card_category_ref)
+                        // .where('comment', isEqualTo: card_comment_ref)
+                        .snapshots(),
+                    builder:
+                        (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: !streamSnapshot.hasData
+                              ? 1
+                              : streamSnapshot.data?.docs.length,
+                          itemBuilder: (ctx, index) {
+                            if (streamSnapshot.hasData) {
+                              switch (streamSnapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return Column(children: [
+                                    SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Text('Awaiting data...'),
+                                    )
+                                  ]);
+                                case ConnectionState.active:
+                                  return Padding(
+                                    padding: padding,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02),
+                                          child: Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              "Application details",
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.47,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        child: Padding(
-                                          padding: padding,
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(20),
-                                                child: Icon(
-                                                  streamSnapshot.data?.docs[index]
-                                                                  ['category']
-                                                              as String ==
-                                                          categoriesListAll[3]
-                                                      ? Icons.pets_rounded
-                                                      : streamSnapshot.data?.docs[index]
-                                                                      ['category']
-                                                                  as String ==
-                                                              categoriesListAll[
-                                                                  4]
-                                                          ? Icons
-                                                              .local_grocery_store
-                                                          : streamSnapshot.data
-                                                                              ?.docs[index]
-                                                                          ['category']
-                                                                      as String ==
-                                                                  categoriesListAll[
-                                                                      2]
-                                                              ? Icons
-                                                                  .emoji_transportation_rounded
-                                                              : streamSnapshot.data?.docs[index]
-                                                                              ['category']
-                                                                          as String ==
-                                                                      categoriesListAll[1]
-                                                                  ? Icons.house
-                                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
-                                                                      ? Icons.sign_language_rounded
-                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
-                                                                          ? Icons.child_care_outlined
-                                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
-                                                                              ? Icons.menu_book
-                                                                              : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
-                                                                                  ? Icons.medical_information_outlined
-                                                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
-                                                                                      ? Icons.check_box
-                                                                                      : Icons.new_label_sharp,
-                                                  size: 30,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.02,
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                  // "Title",
-                                                  streamSnapshot.data
-                                                      ?.docs[index]['title'],
-                                                  style: GoogleFonts.raleway(
-                                                    fontSize: 18,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.007,
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                    streamSnapshot
-                                                            .data?.docs[index]
-                                                        ['category'],
-                                                    style: GoogleFonts.raleway(
-                                                      fontSize: 14,
-                                                      color: Colors.black,
-                                                    )),
-                                              ),
-                                              SizedBox(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.05,
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                  streamSnapshot.data
-                                                      ?.docs[index]['comment'],
-                                                  style: GoogleFonts.raleway(
-                                                    fontSize: 14,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                        SizedBox(
+                                          height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.05,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: streamSnapshot.data?.docs[index]
-                                                ['application_accepted']
-                                            ? MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.05
-                                            : MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.22,
-                                      ),
-                                      Visibility(
-                                        visible:
-                                            streamSnapshot.data?.docs[index]
-                                                ['application_accepted'],
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Center(
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.085,
-                                              decoration:
-                                                  buttonActiveDecoration,
-                                              child: TextButton(
-                                                  child: Text(
-                                                    "Look info about volunteer",
-                                                    style:
-                                                        textActiveButtonStyle,
-                                                  ),
-                                                  onPressed: () async {
-                                                    setState(() {
-                                                      IDVolInfo = streamSnapshot
-                                                              .data?.docs[index]
-                                                          ['volunteerID'];
-                                                    });
-                                                    IdApplicationVolInfo =
+                                        Container(
+                                          width: double.infinity,
+                                          height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.7,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: Padding(
+                                            padding: padding,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(20),
+                                                      child: Icon(
+                                                        streamSnapshot.data?.docs[index]
+                                                                        ['category']
+                                                                    as String ==
+                                                                categoriesListAll[3]
+                                                            ? Icons.pets_rounded
+                                                            : streamSnapshot.data?.docs[index]
+                                                                            ['category']
+                                                                        as String ==
+                                                                    categoriesListAll[
+                                                                        4]
+                                                                ? Icons
+                                                                    .local_grocery_store
+                                                                : streamSnapshot.data
+                                                                                    ?.docs[index]
+                                                                                ['category']
+                                                                            as String ==
+                                                                        categoriesListAll[
+                                                                            2]
+                                                                    ? Icons
+                                                                        .emoji_transportation_rounded
+                                                                    : streamSnapshot.data?.docs[index]
+                                                                                    ['category']
+                                                                                as String ==
+                                                                            categoriesListAll[1]
+                                                                        ? Icons.house
+                                                                        : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
+                                                                            ? Icons.sign_language_rounded
+                                                                            : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
+                                                                                ? Icons.child_care_outlined
+                                                                                : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
+                                                                                    ? Icons.menu_book
+                                                                                    : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
+                                                                                        ? Icons.medical_information_outlined
+                                                                                        : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
+                                                                                            ? Icons.check_box
+                                                                                            : Icons.new_label_sharp,
+                                                        size: 30,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.02,
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: Text(
+                                                        // "Title",
                                                         streamSnapshot.data
-                                                                ?.docs[index]
-                                                            ["chatId_vol"];
-
-                                                    Navigator.of(context,
-                                                            rootNavigator: true)
-                                                        .pushReplacement(
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        InfoVolforRef()));
-                                                  }),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.015,
-                                      ),
-                                      Visibility(
-                                        visible:
-                                            streamSnapshot.data?.docs[index]
-                                                ['application_accepted'],
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Center(
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.085,
-                                              decoration:
-                                                  buttonInactiveDecoration,
-                                              child: TextButton(
-                                                  child: Text(
-                                                    "Mark application as done",
-                                                    style:
-                                                        textInactiveButtonStyle,
-                                                  ),
-                                                  onPressed: () async {
-                                                    sendPushMessage();
-                                                    FirebaseFirestore.instance
-                                                        .collection(
-                                                            'applications')
-                                                        .doc(streamSnapshot.data
-                                                            ?.docs[index].id)
-                                                        .delete();
-                                                    setState(() {
-                                                      controllerTabBottomRef =
-                                                          PersistentTabController(
-                                                              initialIndex: 4);
-                                                    });
-                                                    Navigator.of(context,
-                                                            rootNavigator: true)
-                                                        .pushReplacement(
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        MainScreenRefugee()));
-                                                  }),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.015,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Center(
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.085,
-                                            decoration:
-                                                buttonInactiveDecoration,
-                                            child: TextButton(
-                                                child: Text(
-                                                  "Delete",
-                                                  style:
-                                                      textInactiveButtonStyle,
+                                                            ?.docs[index]['title'],
+                                                        style: GoogleFonts.raleway(
+                                                          fontSize: 18,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.007,
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: Text(
+                                                          streamSnapshot
+                                                                  .data?.docs[index]
+                                                              ['category'],
+                                                          style: GoogleFonts.raleway(
+                                                            fontSize: 14,
+                                                            color: Colors.black,
+                                                          )),
+                                                    ),
+                                                    SizedBox(
+                                                      height: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.05,
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: Text(
+                                                        streamSnapshot.data
+                                                            ?.docs[index]['comment'],
+                                                        style: GoogleFonts.raleway(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                onPressed: () async {
-                                                  sendPushMessage();
-                                                  FirebaseFirestore.instance
-                                                      .collection(
-                                                          'applications')
-                                                      .doc(streamSnapshot
-                                                          .data?.docs[index].id)
-                                                      .delete();
-                                                  setState(() {
-                                                    controllerTabBottomRef =
-                                                        PersistentTabController(
-                                                            initialIndex: 4);
-                                                  });
-                                                  Navigator.of(context,
-                                                          rootNavigator: true)
-                                                      .pushReplacement(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  MainScreenRefugee()));
-                                                }),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .all(15.0),
+                                                      child: IconButton(
+                                                        icon: Icon(
+                                                          Icons
+                                                              .info_outline_rounded,
+                                                          size: 30,
+                                                          color:
+                                                          blueColor,
+                                                        ),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            IDVolInfo = streamSnapshot
+                                                                .data?.docs[index]
+                                                            ['volunteerID'];
+                                                          });
+                                                          IdApplicationVolInfo =
+                                                          streamSnapshot.data
+                                                              ?.docs[index]
+                                                          ["chatId_vol"];
+
+                                                          Navigator.of(context,
+                                                              rootNavigator: true)
+                                                              .pushReplacement(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                      InfoVolforRef()));
+                                                        },
+                                                      ),
+                                                    ),
+
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .all(15.0),
+                                                      child: IconButton(
+                                                        icon: Icon(
+                                                          Icons
+                                                              .delete_forever,
+                                                          size: 30,
+                                                          color:
+                                                          blueColor,
+                                                        ),
+                                                        onPressed: () {
+                                                          sendPushMessage();
+                                                          FirebaseFirestore.instance
+                                                              .collection(
+                                                              'applications')
+                                                              .doc(streamSnapshot
+                                                              .data?.docs[index].id)
+                                                              .delete();
+                                                          setState(() {
+                                                            controllerTabBottomRef =
+                                                                PersistentTabController(
+                                                                    initialIndex: 4);
+                                                          });
+                                                          Navigator.of(context,
+                                                              rootNavigator: true)
+                                                              .pushReplacement(
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      MainScreenRefugee()));
+                                                        },
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                );
+
+                                        // SizedBox(
+                                        //   height:  MediaQuery.of(context)
+                                        //               .size
+                                        //               .height *
+                                        //           0.05
+                                        //
+                                        // ),
+                                        // Visibility(
+                                        //   visible:
+                                        //       streamSnapshot.data?.docs[index]
+                                        //           ['application_accepted'],
+                                        //   child: Align(
+                                        //     alignment: Alignment.topCenter,
+                                        //     child: Center(
+                                        //       child: Container(
+                                        //         width: double.infinity,
+                                        //         height: MediaQuery.of(context)
+                                        //                 .size
+                                        //                 .height *
+                                        //             0.085,
+                                        //         decoration:
+                                        //             buttonActiveDecoration,
+                                        //         child: TextButton(
+                                        //             child: Text(
+                                        //               "Look info about volunteer",
+                                        //               style:
+                                        //                   textActiveButtonStyle,
+                                        //             ),
+                                        //             onPressed: () async {
+                                        //
+                                        //             }),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        SizedBox(
+                                          height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.03,
+                                        ),
+                                        Visibility(
+                                          visible:
+                                              streamSnapshot.data?.docs[index]
+                                                  ['application_accepted'],
+                                          child: Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Center(
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.085,
+                                                decoration:
+                                                    buttonActiveDecoration,
+                                                child: TextButton(
+                                                    child: Text(
+                                                      "Mark application as done",
+                                                      style:
+                                                          textActiveButtonStyle,
+                                                    ),
+                                                    onPressed: () async {
+                                                      sendPushMessage();
+                                                      FirebaseFirestore.instance
+                                                          .collection(
+                                                              'applications')
+                                                          .doc(streamSnapshot.data
+                                                              ?.docs[index].id)
+                                                          .delete();
+                                                      setState(() {
+                                                        controllerTabBottomRef =
+                                                            PersistentTabController(
+                                                                initialIndex: 4);
+                                                      });
+                                                      Navigator.of(context,
+                                                              rootNavigator: true)
+                                                          .pushReplacement(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          MainScreenRefugee()));
+                                                    }),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              MediaQuery.of(context).size.height *
+                                                  0.015,
+                                        ),
+                                        // Align(
+                                        //   alignment: Alignment.topCenter,
+                                        //   child: Center(
+                                        //     child: Container(
+                                        //       width: double.infinity,
+                                        //       height: MediaQuery.of(context)
+                                        //               .size
+                                        //               .height *
+                                        //           0.085,
+                                        //       decoration:
+                                        //           buttonInactiveDecoration,
+                                        //       child: TextButton(
+                                        //           child: Text(
+                                        //             "Delete",
+                                        //             style:
+                                        //                 textInactiveButtonStyle,
+                                        //           ),
+                                        //           onPressed: () async {
+                                        //
+                                        //           }),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                  );
+                              }
                             }
-                          }
-                          return Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 100),
-                              child: Column(
-                                children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text("Waiting...",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        )),
-                                  ),
-                                ],
+                            return Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 100),
+                                child: Column(
+                                  children: [
+                                    SpinKitChasingDots(
+                                      color: Colors.brown,
+                                      size: 50.0,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Waiting...",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24,
+                                            color: Colors.black,
+                                          )),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        });
-                  },
+                            );
+                          });
+                    },
+                  ),
                 ),
               ),
             ],

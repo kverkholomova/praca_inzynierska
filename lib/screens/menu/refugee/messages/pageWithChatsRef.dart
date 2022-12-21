@@ -124,10 +124,10 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                         height: 60,
                                         child: CircularProgressIndicator(),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 16),
-                                        child: Text('Awaiting data...'),
-                                      )
+                                      // Padding(
+                                      //   padding: EdgeInsets.only(top: 16),
+                                      //   child: Text('Awaiting data...'),
+                                      // )
                                     ]
 
                                 );
@@ -168,7 +168,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                               color: Colors.white,
                                               borderRadius:
                                               BorderRadius.circular(
-                                                  24)),
+                                                  15)),
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                               horizontal: 15,),
@@ -181,42 +181,39 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                                   alignment: Alignment.center,
                                                   child: SizedBox(
                                                     width: MediaQuery.of(context).size.width *
-                                                        0.5,
+                                                        0.7,
                                                     height: MediaQuery.of(context).size.height *
                                                         0.1,
-                                                    child:Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                      child: Align(
-                                                        alignment: Alignment.center,
-                                                        child: ListTile(
-                                                          // mainAxisAlignment: MainAxisAlignment.start,
-                                                          // contentPadding:
-                                                          // EdgeInsets.symmetric(
-                                                          //     vertical: 10),
-                                                          title: Text(
-                                                              streamSnapshot.data?.docs[index]['Application_Name']
-                                                              as String,
-                                                              style: GoogleFonts
-                                                                  .raleway(
-                                                                fontSize: 14,
-                                                                color: Colors.black,
-                                                              )),
-                                                          // Text(
-                                                          //     streamSnapshot.data?.docs[index]['category'] as String,
-                                                          //     style: TextStyle(color: Colors.grey)),
-                                                          // subtitle: Text(
-                                                          //   streamSnapshot.data
-                                                          //       ?.docs[index]
-                                                          //   ['comment']
-                                                          //   as String,
-                                                          //   style:
-                                                          //   GoogleFonts.raleway(
-                                                          //     fontSize: 12,
-                                                          //     color: Colors.black
-                                                          //         .withOpacity(0.5),
-                                                          //   ),
-                                                          // ),
-                                                        ),
+                                                    child:Align(
+                                                      alignment: Alignment.center,
+                                                      child: ListTile(
+                                                        // mainAxisAlignment: MainAxisAlignment.start,
+                                                        // contentPadding:
+                                                        // EdgeInsets.symmetric(
+                                                        //     vertical: 10),
+                                                        title: Text(
+                                                            streamSnapshot.data?.docs[index]['Application_Name']
+                                                            as String,
+                                                            style: GoogleFonts
+                                                                .raleway(
+                                                              fontSize: 14,
+                                                              color: Colors.black,
+                                                            )),
+                                                        // Text(
+                                                        //     streamSnapshot.data?.docs[index]['category'] as String,
+                                                        //     style: TextStyle(color: Colors.grey)),
+                                                        // subtitle: Text(
+                                                        //   streamSnapshot.data
+                                                        //       ?.docs[index]
+                                                        //   ['comment']
+                                                        //   as String,
+                                                        //   style:
+                                                        //   GoogleFonts.raleway(
+                                                        //     fontSize: 12,
+                                                        //     color: Colors.black
+                                                        //         .withOpacity(0.5),
+                                                        //   ),
+                                                        // ),
                                                       ),
                                                     ),),
                                                 )
