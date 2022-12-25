@@ -11,7 +11,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
+import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
@@ -19,7 +19,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/messages/messages_first.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/pageWithChatsVol.dart';
 
 import '../../../../models/categories.dart';
-import '../../../../volunteer/chat/message.dart';
+import '../../../../to_delete/message.dart';
 import '../all_applications/page_of_application_vol.dart';
 import '../main_screen.dart';
 
@@ -121,7 +121,7 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
               'id': '1',
               'status': 'done'
             },
-            "to": "$token_ref",
+            "to": "$tokenRefNotification",
           },
         ),
       );

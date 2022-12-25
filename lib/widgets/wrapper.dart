@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
+import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 import 'package:wol_pro_1/to_delete/register_refugee.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';

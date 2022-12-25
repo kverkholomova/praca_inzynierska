@@ -11,7 +11,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/Refugee/SettingRefugee.dart';
+import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
