@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
-import 'package:wol_pro_1/services/auth.dart';
 
 import '../../../../models/categories.dart';
 import '../home_page/home_vol.dart';
@@ -18,16 +17,17 @@ class ChosenCategory extends StatefulWidget {
   const ChosenCategory({Key? key}) : super(key: key);
 
   @override
-  State createState() => new ChosenCategoryState();
+  State createState() => ChosenCategoryState();
 }
 
 class ChosenCategoryState extends State<ChosenCategory> {
   ScrollController scrollController = ScrollController();
-  final AuthService _auth_ = AuthService();
+  // final AuthService _auth_ = AuthService();
 
   // @override
   // void initState() {}
 
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
@@ -144,6 +144,8 @@ class ChosenCategoryState extends State<ChosenCategory> {
                               builder: (context,
                                   AsyncSnapshot<QuerySnapshot?>
                                       streamSnapshot) {
+
+
                                 //                           var tom = streamSnapshot.data!.docs;
                                 // if (tom.isEmpty) {
                                 // return Center(
@@ -170,12 +172,21 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                 // }
                                 // else
                                 //   if (streamSnapshot.data!.docs.isNotEmpty) {
-
+                                // if (streamSnapshot.hasData){
+                                //   return Text(
+                                //           "There aren't any applications in this category"
+                                //       );
+                                // }
                                 return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: streamSnapshot.data?.docs.length,
                                     itemBuilder: (ctx, index) {
+                                      // if(!streamSnapshot.hasData){
+                                      //   return Text(
+                                      //       "There aren't any applications in this category"
+                                      //   );
+                                      // }
                                       // if (streamSnapshot.hasData) {
                                       switch (streamSnapshot.connectionState) {
                                         case ConnectionState.waiting:
@@ -227,7 +238,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              PageOfApplication()),
+                                                              const PageOfApplication()),
                                                     );
                                                     // print("print ${streamSnapshot.data?.docs[index][id]}");
                                                   });
@@ -307,7 +318,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                                           child: ListTile(
                                                             // mainAxisAlignment: MainAxisAlignment.start,
                                                             contentPadding:
-                                                                EdgeInsets
+                                                                const EdgeInsets
                                                                     .symmetric(
                                                                         vertical:
                                                                 4),
@@ -374,10 +385,19 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                         // case ConnectionState.done:
                                         // // TODO: Handle this case.
                                         //   break;
+                                        case ConnectionState.none:
+
+                                          break;
+                                        case ConnectionState.done:
+                                          // return Text(
+                                          //     "There aren't any applications in this category"
+                                          // );
+                                          break;
                                       }
                                       // }
                                       return Container();
                                     });
+
                                 //                           return ListView.builder(
                                 //                               physics: NeverScrollableScrollPhysics(),
                                 //                               shrinkWrap: true,

@@ -702,7 +702,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                               style: textActiveButtonStyle,
                                             ),
                                             onPressed: () async {
-                                              if (changedName==""||changedAge==""||changedPhone==''){
+                                              if (changedName==""&&changedAge==""&&changedPhone==''){
                                                 dialogBuilderEmpty(context);
                                               } else{
                                                 setState(() {

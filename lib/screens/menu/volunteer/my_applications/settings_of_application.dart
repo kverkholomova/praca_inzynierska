@@ -675,6 +675,9 @@ class _SettingsOfApplicationAcceptedState
                                                           .data?.docs[index]
                                                       ["chatId_vol"] ==
                                                   "null") {
+                                                messagesNull = true;
+                                                print("QQQQQQQQQQQQQQQTATATATA");
+                                                print(messagesNull);
                                                 IdOfChatroomVol = FirebaseFirestore
                                                     .instance
                                                     .collection(
@@ -737,11 +740,18 @@ class _SettingsOfApplicationAcceptedState
                                                   );
                                                 });
                                               } else {
-                                                setState(() {
-                                                  messagesNull = true;
-                                                  print("QQQQQQQQQQQQQQQTATATATA");
-                                                  print(messagesNull);
+                                                print("QQQQQQQQQQQQQQQTATATATA2222222222");
+                                                print(streamSnapshot
+                                                    .data?.docs[index]
+                                                ["chatId_vol"]);
+                                                print(streamSnapshot
+                                                    .data?.docs[index]
+                                                ["chatId_vol"]=="null");
 
+                                                setState(() {
+                                                  messagesNull = false;
+                                                  print("QQQQQQQQQQQQQQQTATATATA2222222222.............");
+                                                  print(messagesNull);
                                                   IdOfChatroomVol =
                                                       streamSnapshot
                                                               .data?.docs[index]
@@ -758,24 +768,24 @@ class _SettingsOfApplicationAcceptedState
                                                   );
                                                 });
                                               }
-                                              //LOOOOK HEEEEREEEEE
-                                              FirebaseFirestore.instance
-                                                  .collection('applications')
-                                                  .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                  .update({
-                                                "mess_button_visibility_vol":
-                                                    false
-                                              });
-
-                                              FirebaseFirestore.instance
-                                                  .collection('applications')
-                                                  .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                  .update({
-                                                "mess_button_visibility_ref":
-                                                    true
-                                              });
+                                              // //LOOOOK HEEEEREEEEE
+                                              // FirebaseFirestore.instance
+                                              //     .collection('applications')
+                                              //     .doc(streamSnapshot
+                                              //         .data?.docs[index].id)
+                                              //     .update({
+                                              //   "mess_button_visibility_vol":
+                                              //       false
+                                              // });
+                                              //
+                                              // FirebaseFirestore.instance
+                                              //     .collection('applications')
+                                              //     .doc(streamSnapshot
+                                              //         .data?.docs[index].id)
+                                              //     .update({
+                                              //   "mess_button_visibility_ref":
+                                              //       true
+                                              // });
 
                                               // VoluntterName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[1]) as String?;
                                               // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]) as String?;

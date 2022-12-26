@@ -30,16 +30,26 @@ class MessagesVol extends StatefulWidget {
 
 bool loading = true;
 
-double myMessageLeftVol(String name_receiver) {
-  if (name_receiver == currentNameVol) {
-    return 40;
-  } else {
+double myMessageLeftVol(String id_receiver) {
+  if (id_receiver != FirebaseAuth.instance.currentUser?.uid) {
+    print("id_receiver != FirebaseAuth.instance.currentUser?.uid");
+    print(id_receiver);
+    print(FirebaseAuth.instance.currentUser?.uid);
     return 5;
+  } else {
+    print("id_receiver != FirebaseAuth.instance.currentUser?.uid");
+    print(id_receiver != FirebaseAuth.instance.currentUser?.uid);
+    print(id_receiver);
+    print(FirebaseAuth.instance.currentUser?.uid);
+    return 40;
   }
 }
 
-double myMessageRightVol(String name_receiver) {
-  if (name_receiver == currentNameVol) {
+double myMessageRightVol(String id_receiver) {
+  if (id_receiver == FirebaseAuth.instance.currentUser?.uid) {
+    print("id_receiver == FirebaseAuth.instance.currentUser?.uid");
+    print(id_receiver);
+    print(FirebaseAuth.instance.currentUser?.uid);
     return 5;
   } else {
     return 40;
@@ -159,10 +169,12 @@ class _MessagesVolState extends State<MessagesVol> {
                              padding: EdgeInsets.only(
                                  top: 8,
                                  bottom: 8,
-                                 left: myMessageLeftVol(
-                                     snapshot.data?.docs[index]["name"]),
+                                 left:
+                                 // 40,
+                                 myMessageLeftVol(
+                                     snapshot.data?.docs[index]["id_user"]),
                                  right: myMessageRightVol(snapshot
-                                     .data?.docs[index]["name"])),
+                                     .data?.docs[index]["id_user"])),
                              child: Column(
                                // crossAxisAlignment: name == qs['name']
                                //     ? CrossAxisAlignment.end
@@ -171,8 +183,8 @@ class _MessagesVolState extends State<MessagesVol> {
                                  Container(
                                    decoration: new BoxDecoration(
                                        color: snapshot.data?.docs[index]
-                                                   ["name"] ==
-                                               currentNameVol
+                                                   ["id_user"] ==
+                                               FirebaseAuth.instance.currentUser?.uid
                                            ? Colors.white
                                            : blueColor.withOpacity(0.2),
                                        borderRadius: BorderRadius.all(
@@ -242,13 +254,12 @@ class SelectedChatroomVol extends StatefulWidget {
   @override
   State<SelectedChatroomVol> createState() => _SelectedChatroomVolState();
 }
-bool messagesNull = true;
+bool? messagesNull;
 // String id_users_col = FirebaseFirestore.instance.collection("USERS_COLLECTION").doc().id;
 class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
   // String id_users_col = FirebaseFirestore.instance.collection("USERS_COLLECTION").doc().id;
 
   writeMessages() {
-
     FirebaseFirestore.instance
         .collection("USERS_COLLECTION")
         .doc(IdOfChatroomVol)
@@ -259,6 +270,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
       'time': DateTime.now(),
       'name': currentNameVol,
       'id_message': "null",
+      "id_user": FirebaseAuth.instance.currentUser?.uid,
       // "user_message": true
     });
 
@@ -270,20 +282,23 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    FirebaseFirestore.instance
-        .collection("USERS_COLLECTION")
-        .doc(IdOfChatroomVol)
-        .collection("CHATROOMS_COLLECTION")
-        .doc()
-        .set({
-      'message': "Hello👋",
-      'time': DateTime.now(),
-      'name': currentNameVol,
-      'id_message': "null",
-      // "user_message": false
-    });
-
+    print("Null message test ................");
+    print(messagesNull);
+if (messagesNull==true){
+  FirebaseFirestore.instance
+      .collection("USERS_COLLECTION")
+      .doc(IdOfChatroomVol)
+      .collection("CHATROOMS_COLLECTION")
+      .doc()
+      .set({
+    'message': "Hello👋",
+    'time': DateTime.now(),
+    'name': currentNameVol,
+    'id_message': "null",
+    "id_user": FirebaseAuth.instance.currentUser?.uid,
+    // "user_message": false
+  });
+}
 
     // user = FirebaseAuth.instance.authStateChanges().listen((user) async {
     //   DocumentSnapshot variable = await FirebaseFirestore.instance.
