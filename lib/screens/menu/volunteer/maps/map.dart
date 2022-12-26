@@ -247,52 +247,101 @@ class _HomeMapState extends State<HomeMap> {
         ),
         Padding(
           padding: padding,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(18),
-                    )),
-                minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
-                // NEW
-              ),
+          child:SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height *
+                0.085,
+            child: ElevatedButton(
               onPressed: () async {
                 isVisible = true;
-                await getDirections(point);
-                _customInfoWindowController.addInfoWindow!(
-                  Container(
-                    decoration: BoxDecoration(
-                      color: blueColor,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          ("Total Distance: ${distance.toStringAsFixed(2)} KM"),
-                          softWrap: true,
-                          style: GoogleFonts.raleway(
-                            fontSize: 22,
-                            color: Colors.white,
+                      await getDirections(point);
+                      _customInfoWindowController.addInfoWindow!(
+                        Container(
+                          decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                ("Total Distance: ${distance.toStringAsFixed(2)} KM"),
+                                softWrap: true,
+                                style: GoogleFonts.raleway(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  LatLng(point.latitude, point.longitude),
-                );
-                setState(() {
-                  Navigator.pop(context);
-                });
+                        LatLng(point.latitude, point.longitude),
+                      );
+                      setState(() {
+                        Navigator.pop(context);
+                      });
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: blueColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
               child: Text(
-                "Directions",
+                'Directions',
                 style: textActiveButtonStyle,
-              )),
+              ),),
+          ),
+
+          // ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       primary: Colors.white,
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.all(
+          //             Radius.circular(18),
+          //           )),
+          //       minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
+          //       // NEW
+          //     ),
+          //     onPressed: () async {
+          //       isVisible = true;
+          //       await getDirections(point);
+          //       _customInfoWindowController.addInfoWindow!(
+          //         Container(
+          //           decoration: BoxDecoration(
+          //             color: blueColor,
+          //             borderRadius: BorderRadius.circular(18),
+          //           ),
+          //           width: double.infinity,
+          //           height: double.infinity,
+          //           child: FittedBox(
+          //             fit: BoxFit.fitWidth,
+          //             child: Padding(
+          //               padding: const EdgeInsets.symmetric(horizontal: 20),
+          //               child: Text(
+          //                 ("Total Distance: ${distance.toStringAsFixed(2)} KM"),
+          //                 softWrap: true,
+          //                 style: GoogleFonts.raleway(
+          //                   fontSize: 22,
+          //                   color: Colors.white,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //         LatLng(point.latitude, point.longitude),
+          //       );
+          //       setState(() {
+          //         Navigator.pop(context);
+          //       });
+          //     },
+          //     child: Text(
+          //       "Directions",
+          //       style: textActiveButtonStyle,
+          //     )),
         )
       ],
     );

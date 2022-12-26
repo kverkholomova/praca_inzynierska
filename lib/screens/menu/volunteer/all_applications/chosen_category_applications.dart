@@ -7,6 +7,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.d
 import 'package:wol_pro_1/services/auth.dart';
 
 import '../../../../models/categories.dart';
+import '../home_page/home_vol.dart';
 import '../main_screen.dart';
 import 'page_of_application_vol.dart';
 import 'new_screen_with_applications.dart';
@@ -207,6 +208,9 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                                     //     .update({"Id": streamSnapshot.data?.docs[index].id});
                                                     //
                                                     // id_card = streamSnapshot.data?.docs[index].id;
+                                                    tokenRefNotification = streamSnapshot.data?.docs[index]
+                                                    ['token_ref'];
+                                                    print("TTooooooookenReeef Chosen applications");
                                                     card_title_vol =
                                                         streamSnapshot.data
                                                                 ?.docs[index]

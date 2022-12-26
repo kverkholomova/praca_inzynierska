@@ -253,9 +253,10 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                             ? 1
                             : streamSnapshot.data?.docs.length,
                         itemBuilder: (ctx, index) {
-                          tokenRefApplication =
-                          streamSnapshot.data?.docs[index]['token_ref'];
-                          if (streamSnapshot.hasData) {
+                          //Toooooooooooooooookeeeeeeeeeeeeen heeeeeeeeeeeereeeeeeeeeeeeeeee
+                          // tokenRefApplication =
+                          // streamSnapshot.data?.docs[index]['token_ref'];
+                          // if (streamSnapshot.hasData) {
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return Column(children: [
@@ -565,7 +566,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                   ),
                                 );
                             }
-                          }
+
                           return Center(
                             child: Padding(
                               padding: EdgeInsets.only(top: 100),

@@ -216,6 +216,10 @@ class YourCategoriesState extends State<YourCategories> {
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        tokenRefNotification = streamSnapshot.data?.docs[index]
+                                        ['token_ref'];
+                                        print("TTooooooookenReeef Your applications");
+                                        print(tokenRefNotification);
                                         myCategories = true;
                                         card_title_vol=streamSnapshot.data?.docs[index]['title'] as String;
                                         card_category_vol=streamSnapshot.data?.docs[index]['category'] as String;

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -117,17 +119,18 @@ class _MessagesVolState extends State<MessagesVol> {
                        .collection("USERS_COLLECTION")
                        .doc(IdOfChatroomVol)
                        .collection("CHATROOMS_COLLECTION")
+
                        .orderBy('time')
                        .snapshots(),
                    builder: (BuildContext context,
                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                     print(
-                         "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
-                     print(FirebaseAuth.instance.currentUser?.uid);
-
-                     if (snapshot.hasError) {
-                       return Text("Something is wrong");
-                     }
+                     // print(
+                     //     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
+                     // print(FirebaseAuth.instance.currentUser?.uid);
+                     //
+                     // if (snapshot.hasError) {
+                     //   return Text("Something is wrong");
+                     // }
                      if (snapshot.connectionState ==
                          ConnectionState.waiting) {
                        return Center(
@@ -239,12 +242,13 @@ class SelectedChatroomVol extends StatefulWidget {
   @override
   State<SelectedChatroomVol> createState() => _SelectedChatroomVolState();
 }
-
+bool messagesNull = true;
 // String id_users_col = FirebaseFirestore.instance.collection("USERS_COLLECTION").doc().id;
 class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
   // String id_users_col = FirebaseFirestore.instance.collection("USERS_COLLECTION").doc().id;
 
   writeMessages() {
+
     FirebaseFirestore.instance
         .collection("USERS_COLLECTION")
         .doc(IdOfChatroomVol)
@@ -254,21 +258,57 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
       'message': message.text.trim(),
       'time': DateTime.now(),
       'name': currentNameVol,
-      'id_message': "null"
+      'id_message': "null",
+      // "user_message": true
     });
+
   }
 
+  late StreamSubscription<User?> user;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    SchedulerBinding.instance
-        .addPostFrameCallback((_) {
-      print("AAAAAAAAAAA__________________works");
-      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
-  });
+
+    FirebaseFirestore.instance
+        .collection("USERS_COLLECTION")
+        .doc(IdOfChatroomVol)
+        .collection("CHATROOMS_COLLECTION")
+        .doc()
+        .set({
+      'message': "Hello👋",
+      'time': DateTime.now(),
+      'name': currentNameVol,
+      'id_message': "null",
+      // "user_message": false
+    });
+
+
+    // user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+    //   DocumentSnapshot variable = await FirebaseFirestore.instance.
+    //   collection("USERS_COLLECTION")
+    //       .doc(IdOfChatroomVol)
+    //       .collection("CHATROOMS_COLLECTION")
+    //       .doc().
+    //   get();
+    //
+    //   print("OOOOOOOOOOOOOOHHHHHHHHHELP");
+    //   print(variable == null);
+    //
+    // });
   }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //
+  //   SchedulerBinding.instance
+  //       .addPostFrameCallback((_) {
+  //     print("AAAAAAAAAAA__________________works");
+  //     scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+  // });
+  // }
   final TextEditingController message = new TextEditingController();
 
   @override
@@ -327,6 +367,23 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
               // Container(
               //       height: MediaQuery.of(context).size.height * 0.91,)
               //     :
+              // messagesNull?
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.9,
+              //   child: Container(
+              //       height: MediaQuery.of(context).size.height * 0.5,
+              //     width: MediaQuery.of(context).size.height * 0.6,
+              //     color: blueColor.withOpacity(0.2),
+              //     child: Text(
+              //       "No messages here yet",
+              //       style: GoogleFonts.raleway(
+              //         fontSize: 12,
+              //         color: Colors.black,
+              //       ),
+              //     ),
+              //   ),
+              // )
+              // :
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.9,
                 child: MessagesVol(
@@ -380,17 +437,20 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
                             child: IconButton(
                               onPressed: () async {
                                 // /messages_Vol(name: current_name_Vol,);
-                                setState(() {
-                                  firstMessage = false;
-                                  // Navigator.of(context, rootNavigator: true).pushReplacement(
-                                  //     MaterialPageRoute(builder: (context) => new MessagesVol(name: currentName)));
-                                });
+                                // setState(() {
+                                //   // firstMessage = false;
+                                //   // Navigator.of(context, rootNavigator: true).pushReplacement(
+                                //   //     MaterialPageRoute(builder: (context) => new MessagesVol(name: currentName)));
+                                // });
                                 if (message.text.isNotEmpty) {
 
-                                    writeMessages();
+                                    setState(() {
+                                      writeMessages();
+                                    });
 
                                   await Future.delayed(
                                       Duration(milliseconds: 500), (){
+                                    messagesNull = false;
                                     SchedulerBinding.instance
                                         ?.addPostFrameCallback((_) {
                                       print("AAAAAAAAAAA__________________works");

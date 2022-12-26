@@ -26,26 +26,29 @@ import '../main_screen.dart';
 import '../home_page/home_vol.dart';
 import '../my_applications/applications_vol.dart';
 
-String roomExist ='';
+String roomExist = '';
 // bool isvisible = true;
 bool firstMessage = false;
-String? IdOfChatroom = '';
+// String? IdOfChatroom = '';
 
 String VoluntterName = '';
 String RefugeeName = '';
 String nameOfApplication = '';
 
 DateTime date = DateTime.now();
+
 class SettingsOfApplicationAccepted extends StatefulWidget {
   const SettingsOfApplicationAccepted({Key? key}) : super(key: key);
 
   @override
-  State<SettingsOfApplicationAccepted> createState() => _SettingsOfApplicationAcceptedState();
+  State<SettingsOfApplicationAccepted> createState() =>
+      _SettingsOfApplicationAcceptedState();
 }
 
 var ID_of_vol_application;
 
-class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAccepted> {
+class _SettingsOfApplicationAcceptedState
+    extends State<SettingsOfApplicationAccepted> {
   late AndroidNotificationChannel channel;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   String status_declined = 'Sent to volunteer';
@@ -107,7 +110,7 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization':
-          'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+              'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
         },
         body: jsonEncode(
           <String, dynamic>{
@@ -193,7 +196,7 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
       /// default FCM channel to enable heads up notifications.
       await flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
+              AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
 
       /// Update the iOS foreground notification presentation options to allow
@@ -208,7 +211,7 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
   }
 
   final CollectionReference applications =
-  FirebaseFirestore.instance.collection('applications');
+      FirebaseFirestore.instance.collection('applications');
 
   String status_updated = 'Application is accepted';
   String volID = FirebaseAuth.instance.currentUser!.uid;
@@ -234,11 +237,11 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
             ),
             onPressed: () {
               setState(() {
-                controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                controllerTabBottomVol =
+                    PersistentTabController(initialIndex: 1);
               });
               Navigator.of(context, rootNavigator: true).pushReplacement(
                   MaterialPageRoute(builder: (context) => MainScreen()));
-
             },
           ),
           backgroundColor: Colors.transparent,
@@ -255,8 +258,6 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
           ),
         ),
         backgroundColor: background,
-
-
         body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -266,8 +267,8 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('applications')
-
-                      .where('volunteerID', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                      .where('volunteerID',
+                          isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                       .where('title', isEqualTo: card_title_accepted)
                       .where('category', isEqualTo: card_category_accepted)
                       .where('comment', isEqualTo: card_comment_accepted)
@@ -320,92 +321,124 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                                       //
                                       Container(
                                         width: double.infinity,
-                                        height: MediaQuery.of(context).size.height *
-                                            0.7,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.7,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
-                                            BorderRadius.circular(15)),
+                                                BorderRadius.circular(15)),
                                         child: Padding(
                                           padding: padding,
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-
                                               Column(
                                                 children: [
                                                   Padding(
-                                                    padding: const EdgeInsets.all(20),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            20),
                                                     child: Icon(
-                                                      streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[3]
-                                                          ?Icons.pets_rounded
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[4]
-                                                          ?Icons.local_grocery_store
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[2]
-                                                          ?Icons.emoji_transportation_rounded
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[1]
-                                                          ?Icons.house
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[6]
-                                                          ?Icons.sign_language_rounded
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[5]
-                                                          ?Icons.child_care_outlined
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[7]
-                                                          ?Icons.menu_book
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[8]
-                                                          ?Icons.medical_information_outlined
-                                                          :streamSnapshot.data?.docs[index]['category'] as String==categoriesListAll[0]
-                                                          ?Icons.check_box
-                                                          :Icons.new_label_sharp,
+                                                      streamSnapshot.data?.docs[index]
+                                                                      ['category']
+                                                                  as String ==
+                                                              categoriesListAll[
+                                                                  3]
+                                                          ? Icons.pets_rounded
+                                                          : streamSnapshot.data?.docs[index]
+                                                                          ['category']
+                                                                      as String ==
+                                                                  categoriesListAll[
+                                                                      4]
+                                                              ? Icons
+                                                                  .local_grocery_store
+                                                              : streamSnapshot.data?.docs[index]
+                                                                              ['category']
+                                                                          as String ==
+                                                                      categoriesListAll[
+                                                                          2]
+                                                                  ? Icons
+                                                                      .emoji_transportation_rounded
+                                                                  : streamSnapshot
+                                                                              .data
+                                                                              ?.docs[index]['category'] as String ==
+                                                                          categoriesListAll[1]
+                                                                      ? Icons.house
+                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
+                                                                          ? Icons.sign_language_rounded
+                                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
+                                                                              ? Icons.child_care_outlined
+                                                                              : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
+                                                                                  ? Icons.menu_book
+                                                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
+                                                                                      ? Icons.medical_information_outlined
+                                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
+                                                                                          ? Icons.check_box
+                                                                                          : Icons.new_label_sharp,
                                                       size: 30,
                                                       color: Colors.black,
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.02,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.02,
                                                   ),
                                                   Align(
-                                                    alignment: Alignment.topLeft,
+                                                    alignment:
+                                                        Alignment.topLeft,
                                                     child: Text(
                                                       // "Title",
-                                                      streamSnapshot.data?.docs[index]
-                                                      ['title'],
-                                                      style: GoogleFonts.raleway(
+                                                      streamSnapshot
+                                                              .data?.docs[index]
+                                                          ['title'],
+                                                      style:
+                                                          GoogleFonts.raleway(
                                                         fontSize: 18,
                                                         color: Colors.black,
                                                       ),
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.007,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.007,
                                                   ),
                                                   Align(
-                                                    alignment: Alignment.topLeft,
+                                                    alignment:
+                                                        Alignment.topLeft,
                                                     child: Text(
-                                                        streamSnapshot.data?.docs[index]
-                                                        ['category'],
-                                                        style: GoogleFonts.raleway(
+                                                        streamSnapshot.data
+                                                                ?.docs[index]
+                                                            ['category'],
+                                                        style:
+                                                            GoogleFonts.raleway(
                                                           fontSize: 14,
                                                           color: Colors.black,
                                                         )),
                                                   ),
                                                   SizedBox(
-                                                    height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.05,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.05,
                                                   ),
                                                   Align(
-                                                    alignment: Alignment.topLeft,
+                                                    alignment:
+                                                        Alignment.topLeft,
                                                     child: Text(
-                                                      streamSnapshot.data?.docs[index]
-                                                      ['comment'],
-                                                      style: GoogleFonts.raleway(
+                                                      streamSnapshot
+                                                              .data?.docs[index]
+                                                          ['comment'],
+                                                      style:
+                                                          GoogleFonts.raleway(
                                                         fontSize: 14,
                                                         color: Colors.black,
                                                       ),
@@ -413,14 +446,18 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                                                   ),
                                                 ],
                                               ),
-
                                               Align(
-                                                alignment: Alignment.bottomCenter,
+                                                alignment:
+                                                    Alignment.bottomCenter,
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsets.all(15.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              15.0),
                                                       child: IconButton(
                                                         icon: Icon(
                                                           Icons.delete_forever,
@@ -432,64 +469,137 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                                                           // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
                                                           // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
                                                           // print(IdOfChatroom);
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'applications')
                                                               .doc(
-                                                              streamSnapshot.data?.docs[index].id)
-                                                              .update({"status": status_declined,
-                                                            "chatId_vol": "null",
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[
+                                                                          index]
+                                                                      .id)
+                                                              .update({
+                                                            "status":
+                                                                status_declined,
+                                                            "chatId_vol":
+                                                                "null",
                                                             "date": "null"
                                                           });
 
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'applications')
                                                               .doc(
-                                                              streamSnapshot.data?.docs[index].id)
-                                                              .update({"mess_button_visibility_ref": false});
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[
+                                                                          index]
+                                                                      .id)
+                                                              .update({
+                                                            "mess_button_visibility_ref":
+                                                                false
+                                                          });
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'applications')
                                                               .doc(
-                                                              streamSnapshot.data?.docs[index].id)
-                                                              .update({"mess_button_visibility_vol": true});
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[
+                                                                          index]
+                                                                      .id)
+                                                              .update({
+                                                            "mess_button_visibility_vol":
+                                                                true
+                                                          });
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'applications')
                                                               .doc(
-                                                              streamSnapshot.data?.docs[index].id)
-                                                              .update({"token_vol": "null"});
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[
+                                                                          index]
+                                                                      .id)
+                                                              .update({
+                                                            "token_vol": "null"
+                                                          });
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'applications')
                                                               .doc(
-                                                              streamSnapshot.data?.docs[index].id)
-                                                              .update({"volunteerID": "null"});
-                                                          FirebaseFirestore.instance
-                                                              .collection('applications')
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[
+                                                                          index]
+                                                                      .id)
+                                                              .update({
+                                                            "volunteerID":
+                                                                "null"
+                                                          });
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'applications')
                                                               .doc(
-                                                              streamSnapshot.data?.docs[index].id)
-                                                              .update({"volunteer_name": "null"});
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[
+                                                                          index]
+                                                                      .id)
+                                                              .update({
+                                                            "volunteer_name":
+                                                                "null"
+                                                          });
 
                                                           // print(streamSnapshot.data?.docs[index].id);
                                                           // print(
                                                           //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
 
                                                           ID_of_vol_application =
-                                                              streamSnapshot.data?.docs[index].id;
+                                                              streamSnapshot
+                                                                  .data
+                                                                  ?.docs[index]
+                                                                  .id;
 
                                                           // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
                                                           //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
                                                           // });
-                                                          FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(streamSnapshot.data?.docs[index]["chatId_vol"]).delete();
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'USERS_COLLECTION')
+                                                              .doc(streamSnapshot
+                                                                          .data
+                                                                          ?.docs[
+                                                                      index][
+                                                                  "chatId_vol"])
+                                                              .delete();
                                                           setState(() {
-                                                            controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                            controllerTabBottomVol =
+                                                                PersistentTabController(
+                                                                    initialIndex:
+                                                                        1);
                                                           });
-                                                          Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                              MaterialPageRoute(builder: (context) => MainScreen()));
+                                                          Navigator.of(context,
+                                                                  rootNavigator:
+                                                                      true)
+                                                              .pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              MainScreen()));
                                                           // Navigator.push(
                                                           //   context,
                                                           //   MaterialPageRoute(
                                                           //       builder: (context) =>
                                                           //           ApplicationsOfVolunteer()),
                                                           // );
-
                                                         },
                                                       ),
                                                     ),
@@ -526,7 +636,6 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                                                   ],
                                                 ),
                                               )
-
                                             ],
                                           ),
                                         ),
@@ -534,185 +643,219 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                                       // SizedBox(
                                       //   height: MediaQuery.of(context).size.height * 0.01,
                                       // ),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                    ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
+                                      ),
 
-                                  Container(
-                                    width: double.infinity,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.085,
-                                    decoration: buttonActiveDecoration,
-                                    child: TextButton(
-                                        child: Text(
-                                          "Message",
-                                          style: textActiveButtonStyle,
-                                        ),
-                                        onPressed: () {
-                                          // setState(() {
-                                          //   firstMessage= true;
-                                          //   print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKK");
-                                          //   print(firstMessage);
-                                          // });
-                                          // print(
-                                          //     "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
-                                          // print(users_chat);
-                                          // appId = streamSnapshot.data?.docs[index].id;
+                                      Container(
+                                        width: double.infinity,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.085,
+                                        decoration: buttonActiveDecoration,
+                                        child: TextButton(
+                                            child: Text(
+                                              "Message",
+                                              style: textActiveButtonStyle,
+                                            ),
+                                            onPressed: () {
+                                              // setState(() {
+                                              //   firstMessage= true;
+                                              //   print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKK");
+                                              //   print(firstMessage);
+                                              // });
+                                              // print(
+                                              //     "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+                                              // print(users_chat);
+                                              // appId = streamSnapshot.data?.docs[index].id;
 
+                                              if (streamSnapshot
+                                                          .data?.docs[index]
+                                                      ["chatId_vol"] ==
+                                                  "null") {
+                                                IdOfChatroomVol = FirebaseFirestore
+                                                    .instance
+                                                    .collection(
+                                                        'USERS_COLLECTION')
+                                                    .doc()
+                                                    .id;
+                                                print(
+                                                    "PPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOWWWWWWWWWWWWWWWWWWWWW");
+                                                print(IdOfChatroomVol);
+                                                FirebaseFirestore.instance
+                                                    .collection(
+                                                        'USERS_COLLECTION')
+                                                    .doc(IdOfChatroomVol)
+                                                    .set({
+                                                  'IdVolunteer': streamSnapshot
+                                                          .data?.docs[index]
+                                                      ['volunteerID'],
+                                                  'IdRefugee': streamSnapshot
+                                                      .data
+                                                      ?.docs[index]["userID"],
+                                                  'chatId': IdOfChatroomVol,
+                                                  'Refugee_Name': streamSnapshot
+                                                          .data?.docs[index]
+                                                      ['refugee_name'],
+                                                  'Volunteer_Name':
+                                                      streamSnapshot
+                                                              .data?.docs[index]
+                                                          ['volunteer_name'],
+                                                  'Id_Of_Chat': "null",
+                                                  'Application_Name':
+                                                      streamSnapshot.data
+                                                          ?.docs[index]['title'],
+                                                  // "user_message": true
+                                                });
 
-                                           if (streamSnapshot.data?.docs[index]["chatId_vol"] == "null"){
-                                             IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
-                                             print("PPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOWWWWWWWWWWWWWWWWWWWWW");
-                                             print(IdOfChatroom);
-                                             FirebaseFirestore.instance
-                                                 .collection('USERS_COLLECTION')
-                                                 .doc(IdOfChatroom)
-                                                 .set({
-                                               'IdVolunteer': streamSnapshot
-                                                   .data?.docs[index]['volunteerID'],
-                                               'IdRefugee': streamSnapshot
-                                                   .data?.docs[index]["userID"],
-                                               'chatId': IdOfChatroom,
-                                               'Refugee_Name': streamSnapshot
-                                                   .data?.docs[index]['refugee_name'],
-                                               'Volunteer_Name': streamSnapshot
-                                                   .data?.docs[index]['volunteer_name'],
-                                               'Id_Of_Chat': "null",
-                                               'Application_Name': streamSnapshot
-                                                   .data?.docs[index]['title']
-                                             });
+                                                // FirebaseFirestore.instance
+                                                //     .collection('users')
+                                                //     .doc(
+                                                //     streamSnapshot.data?.docs[index]["userID"])
+                                                //     .set({"chatId_exist": IdOfChatroom});
 
-                                             // FirebaseFirestore.instance
-                                             //     .collection('users')
-                                             //     .doc(
-                                             //     streamSnapshot.data?.docs[index]["userID"])
-                                             //     .set({"chatId_exist": IdOfChatroom});
+                                                FirebaseFirestore.instance
+                                                    .collection('applications')
+                                                    .doc(streamSnapshot
+                                                        .data?.docs[index].id)
+                                                    .update({
+                                                  "chatId_vol": IdOfChatroomVol
+                                                });
+                                                // VoluntterName = FirebaseFirestore.instance.collection("users").doc(users_chat[1]).get() as String;
+                                                // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]).get() as String;
 
-                                             FirebaseFirestore.instance
-                                                 .collection('applications')
-                                                 .doc(
-                                                 streamSnapshot.data?.docs[index].id)
-                                                 .update({"chatId_vol": IdOfChatroom});
-                                             // VoluntterName = FirebaseFirestore.instance.collection("users").doc(users_chat[1]).get() as String;
-                                             // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]).get() as String;
+                                                Future.delayed(
+                                                    Duration(milliseconds: 500),
+                                                    () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SelectedChatroomVol()),
+                                                  );
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  messagesNull = true;
+                                                  print("QQQQQQQQQQQQQQQTATATATA");
+                                                  print(messagesNull);
 
+                                                  IdOfChatroomVol =
+                                                      streamSnapshot
+                                                              .data?.docs[index]
+                                                          ["chatId_vol"];
+                                                });
+                                                Future.delayed(
+                                                    Duration(milliseconds: 500),
+                                                    () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SelectedChatroomVol()),
+                                                  );
+                                                });
+                                              }
+                                              //LOOOOK HEEEEREEEEE
+                                              FirebaseFirestore.instance
+                                                  .collection('applications')
+                                                  .doc(streamSnapshot
+                                                      .data?.docs[index].id)
+                                                  .update({
+                                                "mess_button_visibility_vol":
+                                                    false
+                                              });
 
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SelectedChatroomVolFirst()),
-                                              );
+                                              FirebaseFirestore.instance
+                                                  .collection('applications')
+                                                  .doc(streamSnapshot
+                                                      .data?.docs[index].id)
+                                                  .update({
+                                                "mess_button_visibility_ref":
+                                                    true
+                                              });
 
-
-
-
-                                           } else{
-
-                                             setState(() {
-                                               IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId_vol"];
-                                             });
-                                             Navigator.push(
-                                               context,
-                                               MaterialPageRoute(
-                                                   builder: (context) =>
-                                                       SelectedChatroomVol()),
-                                             );
-                                           }
-                                          //LOOOOK HEEEEREEEEE
-                                           FirebaseFirestore.instance
-                                              .collection('applications')
-                                              .doc(
-                                              streamSnapshot.data?.docs[index].id)
-                                              .update({"mess_button_visibility_vol": false});
-
-                                          FirebaseFirestore.instance
-                                              .collection('applications')
-                                              .doc(
-                                              streamSnapshot.data?.docs[index].id)
-                                              .update({"mess_button_visibility_ref": true});
-
-
-                                          // VoluntterName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[1]) as String?;
-                                          // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]) as String?;
-                                        }
-                                        ),
-                                  ),
-                          // Container(
-                          //   width: double.infinity,
-                          //   height: MediaQuery.of(context).size.height *
-                          //       0.085,
-                          //   decoration: buttonInactiveDecoration,
-                          //   child: TextButton(
-                          //       child: Text(
-                          //         "Decline",
-                          //         style: textInactiveButtonStyle,
-                          //       ),
-                          //
-                          //       onPressed: () {
-                          //         sendPushMessage();
-                          //         // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
-                          //         // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
-                          //         // print(IdOfChatroom);
-                          //         FirebaseFirestore.instance
-                          //             .collection('applications')
-                          //             .doc(
-                          //                 streamSnapshot.data?.docs[index].id)
-                          //             .update({"status": status_declined,
-                          //           "chatId_vol": "null",
-                          //           "date": "null"
-                          //         });
-                          //
-                          //         FirebaseFirestore.instance
-                          //             .collection('applications')
-                          //             .doc(
-                          //             streamSnapshot.data?.docs[index].id)
-                          //             .update({"mess_button_visibility_ref": false});
-                          //         FirebaseFirestore.instance
-                          //             .collection('applications')
-                          //             .doc(
-                          //             streamSnapshot.data?.docs[index].id)
-                          //             .update({"mess_button_visibility_vol": true});
-                          //         FirebaseFirestore.instance
-                          //             .collection('applications')
-                          //             .doc(
-                          //             streamSnapshot.data?.docs[index].id)
-                          //             .update({"token_vol": "null"});
-                          //         FirebaseFirestore.instance
-                          //             .collection('applications')
-                          //             .doc(
-                          //             streamSnapshot.data?.docs[index].id)
-                          //             .update({"volunteerID": "null"});
-                          //         FirebaseFirestore.instance
-                          //             .collection('applications')
-                          //             .doc(
-                          //             streamSnapshot.data?.docs[index].id)
-                          //             .update({"volunteer_name": "null"});
-                          //
-                          //         // print(streamSnapshot.data?.docs[index].id);
-                          //         // print(
-                          //         //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
-                          //
-                          //         ID_of_vol_application =
-                          //             streamSnapshot.data?.docs[index].id;
-                          //
-                          //         // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
-                          //         //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
-                          //         // });
-                          //         FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(streamSnapshot.data?.docs[index]["chatId_vol"]).delete();
-                          //         setState(() {
-                          //           controllerTabBottomVol = PersistentTabController(initialIndex: 1);
-                          //         });
-                          //         Navigator.of(context, rootNavigator: true).pushReplacement(
-                          //             MaterialPageRoute(builder: (context) => MainScreen()));
-                          //         // Navigator.push(
-                          //         //   context,
-                          //         //   MaterialPageRoute(
-                          //         //       builder: (context) =>
-                          //         //           ApplicationsOfVolunteer()),
-                          //         // );
-                          //       }),
-                          // )
+                                              // VoluntterName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[1]) as String?;
+                                              // RefugeeName = FirebaseFirestore.instance.collection("users").where("id_vol", isEqualTo: users_chat[0]) as String?;
+                                            }),
+                                      ),
+                                      // Container(
+                                      //   width: double.infinity,
+                                      //   height: MediaQuery.of(context).size.height *
+                                      //       0.085,
+                                      //   decoration: buttonInactiveDecoration,
+                                      //   child: TextButton(
+                                      //       child: Text(
+                                      //         "Decline",
+                                      //         style: textInactiveButtonStyle,
+                                      //       ),
+                                      //
+                                      //       onPressed: () {
+                                      //         sendPushMessage();
+                                      //         // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
+                                      //         // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
+                                      //         // print(IdOfChatroom);
+                                      //         FirebaseFirestore.instance
+                                      //             .collection('applications')
+                                      //             .doc(
+                                      //                 streamSnapshot.data?.docs[index].id)
+                                      //             .update({"status": status_declined,
+                                      //           "chatId_vol": "null",
+                                      //           "date": "null"
+                                      //         });
+                                      //
+                                      //         FirebaseFirestore.instance
+                                      //             .collection('applications')
+                                      //             .doc(
+                                      //             streamSnapshot.data?.docs[index].id)
+                                      //             .update({"mess_button_visibility_ref": false});
+                                      //         FirebaseFirestore.instance
+                                      //             .collection('applications')
+                                      //             .doc(
+                                      //             streamSnapshot.data?.docs[index].id)
+                                      //             .update({"mess_button_visibility_vol": true});
+                                      //         FirebaseFirestore.instance
+                                      //             .collection('applications')
+                                      //             .doc(
+                                      //             streamSnapshot.data?.docs[index].id)
+                                      //             .update({"token_vol": "null"});
+                                      //         FirebaseFirestore.instance
+                                      //             .collection('applications')
+                                      //             .doc(
+                                      //             streamSnapshot.data?.docs[index].id)
+                                      //             .update({"volunteerID": "null"});
+                                      //         FirebaseFirestore.instance
+                                      //             .collection('applications')
+                                      //             .doc(
+                                      //             streamSnapshot.data?.docs[index].id)
+                                      //             .update({"volunteer_name": "null"});
+                                      //
+                                      //         // print(streamSnapshot.data?.docs[index].id);
+                                      //         // print(
+                                      //         //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
+                                      //
+                                      //         ID_of_vol_application =
+                                      //             streamSnapshot.data?.docs[index].id;
+                                      //
+                                      //         // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
+                                      //         //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
+                                      //         // });
+                                      //         FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(streamSnapshot.data?.docs[index]["chatId_vol"]).delete();
+                                      //         setState(() {
+                                      //           controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                      //         });
+                                      //         Navigator.of(context, rootNavigator: true).pushReplacement(
+                                      //             MaterialPageRoute(builder: (context) => MainScreen()));
+                                      //         // Navigator.push(
+                                      //         //   context,
+                                      //         //   MaterialPageRoute(
+                                      //         //       builder: (context) =>
+                                      //         //           ApplicationsOfVolunteer()),
+                                      //         // );
+                                      //       }),
+                                      // )
                                     ],
                                   ),
                                 );
@@ -744,7 +887,6 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
                   },
                 ),
               ),
-
             ],
           ),
         ),
@@ -752,7 +894,6 @@ class _SettingsOfApplicationAcceptedState extends State<SettingsOfApplicationAcc
     );
   }
 }
-
 
 // import 'dart:async';
 // import 'dart:convert';

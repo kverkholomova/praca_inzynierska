@@ -338,84 +338,188 @@ class _ManageCategoriesState extends State<ManageCategories> {
             color: blueColor,
           ),
           actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
-                    decoration: buttonActiveDecoration,
-                    child: TextButton(
-                        child: Text(
-                          'Choose category',
-                          style: textActiveButtonStyle,
-                        ),
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                        }),
-                  ),
-                ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonActiveDecoration,
+            //         child: TextButton(
+            //             child: Text(
+            //               'Choose category',
+            //               style: textActiveButtonStyle,
+            //             ),
+            //             onPressed: () async {
+            //               Navigator.of(context).pop();
+            //             }),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height *
+                  0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: blueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Choose category',
+                                  style: textActiveButtonStyle,
+                                ),),
+                            ),
+                          );
+                        }
+                    );
+                  }
               ),
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Choose category'),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
                   0.01,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
-                    decoration: buttonInactiveDecoration,
-                    child: TextButton(
-                        child: Text(
-                          'Leave previous',
-                          style: textInactiveButtonStyle,
-                        ),
-                        onPressed: () async {
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height *
+                  0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    // print(widget.categoriesUpdated);
+                                    // categoriesVolunteer = widget.categoriesUpdated;
+                                    print("Leave previous choiceeeeeeeeeeeee");
+                                    print(categoriesVolunteer);
+                                    print(categoriesUpdated);
+                                    controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+                                  });
 
-                            setState(() {
-                              // print(widget.categoriesUpdated);
-                              // categoriesVolunteer = widget.categoriesUpdated;
-                              print("Leave previous choiceeeeeeeeeeeee");
-                              print(categoriesVolunteer);
-                              print(categoriesUpdated);
-                              controllerTabBottomVol = PersistentTabController(initialIndex: 2);
-                            });
+                                  Future.delayed(Duration(milliseconds: 500),
+                                          () {
 
-                          Future.delayed(Duration(milliseconds: 500),
-                                  () {
-
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (
-                                            context) =>
-                                        MainScreen()));
-                              });
-
-                        }),
-                  ),
-                ),
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (
+                                                    context) =>
+                                                    MainScreen()));
+                                      });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: blueColor,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1,
+                                        color: blueColor
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Leave previous',
+                                  style: textInactiveButtonStyle,
+                                ),),
+                            ),
+                          );
+                        }
+                    );
+                  }
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonInactiveDecoration,
+            //         child: TextButton(
+            //             child: Text(
+            //               'Leave previous',
+            //               style: textInactiveButtonStyle,
+            //             ),
+            //             onPressed: () async {
+            //
+            //                 setState(() {
+            //                   // print(widget.categoriesUpdated);
+            //                   // categoriesVolunteer = widget.categoriesUpdated;
+            //                   print("Leave previous choiceeeeeeeeeeeee");
+            //                   print(categoriesVolunteer);
+            //                   print(categoriesUpdated);
+            //                   controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+            //                 });
+            //
+            //               Future.delayed(Duration(milliseconds: 500),
+            //                       () {
+            //
+            //                     Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                             builder: (
+            //                                 context) =>
+            //                             MainScreen()));
+            //                   });
+            //
+            //             }),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
@@ -463,125 +567,254 @@ class _ManageCategoriesState extends State<ManageCategories> {
             //   },
             // ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
-                    decoration: buttonActiveDecoration,
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id_vol',
-                            isEqualTo:
-                            FirebaseAuth.instance.currentUser?.uid)
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          return ListView.builder(
-                              itemCount: !streamSnapshot.hasData
-                                  ? 1
-                                  : streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
-                                return TextButton(
-                                    child: Text(
-                                      'Save my changes',
-                                      style: textActiveButtonStyle,
-                                    ),
-                                    onPressed: () async {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(builder: (context) => const HomeVol()),);
 
-                                      // if(chosenCategoryList==[]){
-                                      //   dialogBuilder(context);
-                                      // }
-                                      // else if(chosenCategoryList!=[]){
-                                      FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(streamSnapshot
-                                          .data?.docs[index].id)
-                                          .update({
-                                        "category": categoriesUpdated
+       SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height *
+        0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(builder: (context) => const HomeVol()),);
+
+                                  // if(chosenCategoryList==[]){
+                                  //   dialogBuilder(context);
+                                  // }
+                                  // else if(chosenCategoryList!=[]){
+                                  FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(streamSnapshot
+                                      .data?.docs[index].id)
+                                      .update({
+                                    "category": categoriesUpdated
+                                  });
+                                  categoriesVolunteer = categoriesUpdated;
+                                  print("It is workiiiiiiiiiiiiiing");
+                                  print(categoriesVolunteer);
+                                  print(categoriesUpdated);
+                                  categoriesUpdated = [];
+                                  // categoriesVolunteer =
+                                  //     chosenCategoryListChanges;
+                                  // }
+                                  Future.delayed(Duration(seconds: 1),
+                                          () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (
+                                                    context) => MainScreen()));
+
                                       });
-                                      categoriesVolunteer = categoriesUpdated;
-                                      print("It is workiiiiiiiiiiiiiing");
-                                      print(categoriesVolunteer);
-                                      print(categoriesUpdated);
-                                      categoriesUpdated = [];
-                                      // categoriesVolunteer =
-                                      //     chosenCategoryListChanges;
-                                      // }
-                                      Future.delayed(Duration(seconds: 1),
-                                              () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (
-                                                        context) => MainScreen()));
 
-                                          });
-
-                                    });
-                              }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: blueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Save my changes',
+                                  style: textActiveButtonStyle,
+                                ),),
+                            ),
                           );
                         }
-                    ),
-                  ),
-                ),
+                    );
+                  }
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonActiveDecoration,
+            //         child: StreamBuilder(
+            //             stream: FirebaseFirestore.instance
+            //                 .collection('users')
+            //                 .where('id_vol',
+            //                 isEqualTo:
+            //                 FirebaseAuth.instance.currentUser?.uid)
+            //                 .snapshots(),
+            //             builder: (context,
+            //                 AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            //               return ListView.builder(
+            //                   itemCount: !streamSnapshot.hasData
+            //                       ? 1
+            //                       : streamSnapshot.data?.docs.length,
+            //                   itemBuilder: (ctx, index) {
+            //                     return TextButton(
+            //                         child: Text(
+            //                           'Save my changes',
+            //                           style: textActiveButtonStyle,
+            //                         ),
+            //                         onPressed: () async {
+            //                           // Navigator.push(
+            //                           //   context,
+            //                           //   MaterialPageRoute(builder: (context) => const HomeVol()),);
+            //
+            //                           // if(chosenCategoryList==[]){
+            //                           //   dialogBuilder(context);
+            //                           // }
+            //                           // else if(chosenCategoryList!=[]){
+            //                           FirebaseFirestore.instance
+            //                               .collection('users')
+            //                               .doc(streamSnapshot
+            //                               .data?.docs[index].id)
+            //                               .update({
+            //                             "category": categoriesUpdated
+            //                           });
+            //                           categoriesVolunteer = categoriesUpdated;
+            //                           print("It is workiiiiiiiiiiiiiing");
+            //                           print(categoriesVolunteer);
+            //                           print(categoriesUpdated);
+            //                           categoriesUpdated = [];
+            //                           // categoriesVolunteer =
+            //                           //     chosenCategoryListChanges;
+            //                           // }
+            //                           Future.delayed(Duration(seconds: 1),
+            //                                   () {
+            //                                 Navigator.push(
+            //                                     context,
+            //                                     MaterialPageRoute(
+            //                                         builder: (
+            //                                             context) => MainScreen()));
+            //
+            //                               });
+            //
+            //                         });
+            //                   }
+            //               );
+            //             }
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
                   0.01,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 15
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
-                    decoration: buttonInactiveDecoration,
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id_vol',
-                            isEqualTo:
-                            FirebaseAuth.instance.currentUser?.uid)
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          return ListView.builder(
-                              itemCount: !streamSnapshot.hasData
-                                  ? 1
-                                  : streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
-                                return TextButton(
-                                    child: Text(
-                                      'Change my choice',
-                                      style: textInactiveButtonStyle,
+
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height *
+                  0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: blueColor,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1,
+                                        color: blueColor
                                     ),
-                                    onPressed: () async {
-                                      Navigator.of(context).pop();
-                                    });
-                              }
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Change my choice',
+                                  style: textInactiveButtonStyle,
+                                ),),
+                            ),
                           );
                         }
-                    ),
-                  ),
-                ),
+                    );
+                  }
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //       horizontal: 15
+            //   ),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonInactiveDecoration,
+            //         child: StreamBuilder(
+            //             stream: FirebaseFirestore.instance
+            //                 .collection('users')
+            //                 .where('id_vol',
+            //                 isEqualTo:
+            //                 FirebaseAuth.instance.currentUser?.uid)
+            //                 .snapshots(),
+            //             builder: (context,
+            //                 AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            //               return ListView.builder(
+            //                   itemCount: !streamSnapshot.hasData
+            //                       ? 1
+            //                       : streamSnapshot.data?.docs.length,
+            //                   itemBuilder: (ctx, index) {
+            //                     return TextButton(
+            //                         child: Text(
+            //                           'Change my choice',
+            //                           style: textInactiveButtonStyle,
+            //                         ),
+            //                         onPressed: () async {
+            //                           Navigator.of(context).pop();
+            //                         });
+            //                   }
+            //               );
+            //             }
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
@@ -692,3 +925,4 @@ class _ManageCategoriesState extends State<ManageCategories> {
     );
   }
 }
+

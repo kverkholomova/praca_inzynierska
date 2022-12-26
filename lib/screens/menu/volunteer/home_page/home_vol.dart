@@ -592,14 +592,13 @@ class _HomeVolState extends State<HomeVol> {
                                   ? 1
                                   : streamSnapshot.data?.docs.length,
                               itemBuilder: (ctx, index) {
-                                tokenRefNotification = streamSnapshot.data?.docs[index]
-                                ['token_ref'];
+
                                 tokenVol = streamSnapshot.data?.docs[index]
                                     ['token_vol'];
                                 currentNameVol = streamSnapshot
                                     .data?.docs[index]['user_name'];
 
-                                if (streamSnapshot.hasData) {
+                                // if (streamSnapshot.hasData) {
                                   switch (streamSnapshot.connectionState) {
                                     case ConnectionState.waiting:
                                       return const SizedBox(
@@ -1019,7 +1018,7 @@ class _HomeVolState extends State<HomeVol> {
                                               ),
                                             );
                                   }
-                                } else {}
+
                                 return Center(
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 100),
