@@ -61,6 +61,16 @@ class _MessagesVolState extends State<MessagesVol> {
 
   _MessagesVolState({required this.name});
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(scrollControllerVol.hasClients){
+      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+      // scrollControllerVol = ScrollController(initialScrollOffset: scrollControllerVol.positions.last.maxScrollExtent);
+    }
+
+  }
   //
   // Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
   //     .collection('Messages')

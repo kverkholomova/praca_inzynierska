@@ -177,11 +177,16 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                 //           "There aren't any applications in this category"
                                 //       );
                                 // }
+                                print("Jungaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                print(streamSnapshot.hasData);
+                                print(streamSnapshot.hasError);
+                                print(streamSnapshot);
                                 return ListView.builder(
                                     physics: const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: streamSnapshot.data?.docs.length,
                                     itemBuilder: (ctx, index) {
+
                                       // if(!streamSnapshot.hasData){
                                       //   return Text(
                                       //       "There aren't any applications in this category"
@@ -199,7 +204,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                             ),
                                             child: Align(
                                               alignment: Alignment.topCenter,
-                                              child: Text("Waiting for data",
+                                              child: Text("",
                                                   style: GoogleFonts.raleway(
                                                     fontSize: 25,
                                                     color: Colors.white,

@@ -1070,22 +1070,22 @@ class _HomeVolState extends State<HomeVol> {
 
                 SizedBox(
                   height: categoriesVolunteer.length == 1
-                      ? 100
+                      ? MediaQuery.of(context).size.height * 0.15
                       : categoriesVolunteer.length == 2
-                          ? 170
+                          ? MediaQuery.of(context).size.height * 0.2
                           : categoriesVolunteer.length == 3
-                              ? 210
+                              ? MediaQuery.of(context).size.height * 0.3
                               : categoriesVolunteer.length == 4
-                                  ? 300
+                                  ? MediaQuery.of(context).size.height * 0.4
                                   : categoriesVolunteer.length == 5
-                                      ? 350
+                                      ? MediaQuery.of(context).size.height * 0.5
                                       : categoriesVolunteer.length == 6
-                                          ? 400
+                                          ? MediaQuery.of(context).size.height * 0.6
                                           : categoriesVolunteer.length == 7
-                                              ? 500
+                                              ? MediaQuery.of(context).size.height * 0.7
                                               : categoriesVolunteer.length == 8
-                                                  ? 600
-                                                  : 140,
+                                                  ? MediaQuery.of(context).size.height * 0.8
+                                                  : MediaQuery.of(context).size.height * 0.1,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('users')
