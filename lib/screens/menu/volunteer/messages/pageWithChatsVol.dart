@@ -13,7 +13,7 @@ import '../home_page/home_vol.dart';
 import '../home_page/settings/upload_photo.dart';
 import '../main_screen.dart';
 
-ScrollController scrollControllerVolMessages = ScrollController();
+// ScrollController scrollControllerVolMessages = ScrollController();
 ScrollController scrollControllerVol = ScrollController();
 
 

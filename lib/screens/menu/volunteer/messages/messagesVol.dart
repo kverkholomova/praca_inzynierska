@@ -65,10 +65,15 @@ class _MessagesVolState extends State<MessagesVol> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(scrollControllerVol.hasClients){
-      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
-      // scrollControllerVol = ScrollController(initialScrollOffset: scrollControllerVol.positions.last.maxScrollExtent);
-    }
+    // Timer.periodic(Duration(seconds: 5), (timer) {
+    //   SchedulerBinding.instance
+    //       ?.addPostFrameCallback((_) {
+    //     print("AAAAAAAAAAA__________________works");
+    //     scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+    //     // duration: Duration(milliseconds: 400),
+    //     // curve: Curves.fastOutSlowIn);
+    //   });
+    // });
 
   }
   //
@@ -309,6 +314,16 @@ if (messagesNull==true){
     // "user_message": false
   });
 }
+    Future.delayed(const Duration(milliseconds: 200), () {
+      print(DateTime.now());
+      // SchedulerBinding.instance
+      //     ?.addPostFrameCallback((_) {
+      //   print("AAAAAAAAAAA__________________works");
+        scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+        // duration: Duration(milliseconds: 400),
+        // curve: Curves.fastOutSlowIn);
+      // });
+    });
 
     // user = FirebaseAuth.instance.authStateChanges().listen((user) async {
     //   DocumentSnapshot variable = await FirebaseFirestore.instance.
