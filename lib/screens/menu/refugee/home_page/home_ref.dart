@@ -128,15 +128,13 @@ class _HomeRefState extends State<HomeRef> {
                                     ? 1
                                     : streamSnapshot.data?.docs.length,
                                 itemBuilder: (ctx, index) {
-                                  tokenVolApplication =
-                                  streamSnapshot.data?.docs[index]['token_vol'];
 
                                   currentNameRef =
                                   streamSnapshot.data?.docs[index]['user_name'];
 
                                   print("Tokeeeen Refugeeeeeee ApplicaaatiiiiooonHome Rf");
                                   print(tokenRefApplication);
-                                  if (streamSnapshot.hasData) {
+                                  // if (streamSnapshot.hasData) {
                                     switch (streamSnapshot.connectionState) {
                                       case ConnectionState.waiting:
                                         return Column(
@@ -148,7 +146,7 @@ class _HomeRefState extends State<HomeRef> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(top: 16),
-                                                child: Text('Awaiting data...'),
+                                                child: Text(''),
                                               )
                                             ]);
                                       case ConnectionState.active:
@@ -446,7 +444,7 @@ class _HomeRefState extends State<HomeRef> {
                                           ),
                                         );
                                     }
-                                  } else {}
+                                  // } else {}
                                   return Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 100),
@@ -458,7 +456,7 @@ class _HomeRefState extends State<HomeRef> {
                                           ),
                                           Align(
                                             alignment: Alignment.center,
-                                            child: Text("Waiting...",
+                                            child: Text("",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 24,

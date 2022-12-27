@@ -22,7 +22,7 @@ import 'accepted_applications.dart';
 
 String IDVolInfoAcceptedApp = '';
 // String IdApplicationVolInfo = '';
-bool acceptedOrAll = true;
+bool isAcceptedApplicationRefugee = true;
 final FirebaseFirestore _db = FirebaseFirestore.instance;
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
@@ -419,7 +419,7 @@ class _AcceptedPageOfApplicationRefState
                                                   onPressed: () {
 
                                                     setState(() {
-                                                      acceptedOrAll = true;
+                                                      isAcceptedApplicationRefugee = true;
                                                       IdVolInfoAllApp = streamSnapshot
                                                           .data?.docs[index]
                                                       ['volunteerID'];

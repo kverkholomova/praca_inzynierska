@@ -23,8 +23,9 @@ import '../../../../models/categories.dart';
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 
+String idVolunteerOfApplication = '';
 // String IDVolOfApplication = '';
-String IDVolInfo = '';
+// String IDVolInfo = '';
 String IdApplicationVolInfo = '';
 // String? token;
 final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -253,7 +254,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
+                                    child: Text(''),
                                   )
                                 ]);
                               case ConnectionState.active:
@@ -414,12 +415,15 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                               ),
                                                               onPressed: () {
                                                                 setState(() {
-                                                                  acceptedOrAll = false;
-                                                                  IDVolInfo = streamSnapshot
+                                                                  isAcceptedApplicationRefugee = false;
+                                                                  idVolunteerOfApplication = streamSnapshot
                                                                           .data
                                                                           ?.docs[index]
                                                                       [
                                                                       'volunteerID'];
+                                                                  idAppDeleteVol = streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index].id;
                                                                 });
                                                                 IdApplicationVolInfo =
                                                                     streamSnapshot
@@ -428,6 +432,8 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                         [
                                                                         "chatId_vol"];
 
+                                                                print("Deeeeeeleeeete volunteeeeer from this appppliiiicatiooon");
+                                                                print(idAppDeleteVol);
                                                                 Navigator.of(
                                                                         context,
                                                                         rootNavigator:

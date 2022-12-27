@@ -117,6 +117,8 @@ class CategoriesRefState extends State<CategoriesRef> {
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
+                                            tokenVolApplication =
+                                            streamSnapshot.data?.docs[index]['token_vol'];
                                             FirebaseFirestore.instance
                                                   .collection('applications')
                                                   .doc(streamSnapshot.data?.docs[index].id)

@@ -19,7 +19,7 @@ import 'application_info.dart';
 
 final FirebaseFirestore db = FirebaseFirestore.instance;
 final FirebaseMessaging fcm = FirebaseMessaging.instance;
-
+String? idAppDeleteVol;
 class InfoVolforRef extends StatefulWidget {
   const InfoVolforRef({Key? key}) : super(key: key);
 
@@ -29,25 +29,25 @@ class InfoVolforRef extends StatefulWidget {
 
 class _InfoVolforRefState extends State<InfoVolforRef> {
   late StreamSubscription<User?> user;
-  String idAppDeleteVol = '';
-  deleteVolunteer(){
-    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
 
-      DocumentSnapshot variable = await FirebaseFirestore.instance.
-      collection('applications').
-      doc(applicationIDRef).
-      get();
-
-      idAppDeleteVol = variable.id;
-
-    });
-  }
+  // deleteVolunteer(){
+  //   user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+  //
+  //     DocumentSnapshot variable = await FirebaseFirestore.instance.
+  //     collection('applications').
+  //     doc(applicationIDRef).
+  //     get();
+  //
+  //     idAppDeleteVol = variable.id;
+  //
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(acceptedOrAll==true){
+        if(isAcceptedApplicationRefugee==true){
           Navigator.of(context, rootNavigator: true).pushReplacement(
               MaterialPageRoute(
                   builder: (context) => const AcceptedPageOfApplicationRef()));
@@ -78,7 +78,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
               color: blueColor,
             ),
             onPressed: () {
-              if(acceptedOrAll==true){
+              if(isAcceptedApplicationRefugee==true){
                 Navigator.of(context, rootNavigator: true).pushReplacement(
                     MaterialPageRoute(
                         builder: (context) => const AcceptedPageOfApplicationRef()));
@@ -113,7 +113,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                   stream: FirebaseFirestore.instance
                       .collection('users')
                       .where('id_vol',
-                      isEqualTo: IdVolInfoAllApp)
+                      isEqualTo: idVolunteerOfApplication)
                       .snapshots(),
                   builder: (context,
                       AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -667,7 +667,8 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                           setState(() {
                             FirebaseFirestore.instance
                                 .collection('applications')
-                                .doc(idAppDeleteVol).update({"volunteerID": "",
+                                .doc(idAppDeleteVol).update({
+                              "volunteerID": "",
                               "application_accepted": false,
                               "chatId_vol":"",
                               "date":"",
@@ -675,7 +676,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                               "mess_button_visibility_vol": true,
                               "status":"Sent to volunteer",
                               "token_vol": "",
-                              "voluneer_rating":0,
+                              "voluneer_rating":5,
                               "volunteerID":"",
                               "volunteer_name":""
                             });
@@ -684,7 +685,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
 
                           Future.delayed(const Duration(milliseconds: 500), () {
 
-                            if(acceptedOrAll==true){
+                            if(isAcceptedApplicationRefugee==true){
                               Navigator.of(context, rootNavigator: true).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => const AcceptedPageOfApplicationRef()));
