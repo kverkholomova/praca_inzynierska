@@ -128,9 +128,9 @@ class _HomeRefState extends State<HomeRef> {
                                     ? 1
                                     : streamSnapshot.data?.docs.length,
                                 itemBuilder: (ctx, index) {
-
-                                  currentNameRef =
-                                  streamSnapshot.data?.docs[index]['user_name'];
+                                  //
+                                  // currentNameRef =
+                                  // streamSnapshot.data?.docs[index]['user_name'];
 
                                   print("Tokeeeen Refugeeeeeee ApplicaaatiiiiooonHome Rf");
                                   print(tokenRefApplication);
@@ -481,22 +481,97 @@ class _HomeRefState extends State<HomeRef> {
                 MediaQuery.of(context).size.height *
                     0.1,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: TextButton.icon(
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Application()));
+              SizedBox(
+                height:
+                MediaQuery.of(context).size.height *
+                    0.1,
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          //
+                          // currentNameRef =
+                          // streamSnapshot.data?.docs[index]['user_name'];
 
+                          print("Tokeeeen Refugeeeeeee ApplicaaatiiiiooonHome Rf");
+                          print(tokenRefApplication);
+                          // if (streamSnapshot.hasData) {
+                          switch (streamSnapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return Column(
+                                  children: const [
+                                    SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Text(''),
+                                    )
+                                  ]);
+                            case ConnectionState.active:
+                              return Align(
+                                alignment: Alignment.center,
+                                child: TextButton.icon(
+                                  onPressed: (){
+                                    tokenRefApplication = streamSnapshot.data?.docs[index]['token_ref'];
+                                    print("toookeeeeeeeeeeen refugeeeeeeeeeeeeeee");
+                                    print(tokenRefApplication);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => Application()));
+
+                                  },
+                                  icon: Icon(Icons.add, color: Colors.black, size: 30,),
+                                  label: Text("Add new application",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              );
+                          }
+                          // } else {}
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 100),
+                              child: Column(
+                                children: const [
+                                  SpinKitChasingDots(
+                                    color: Colors.brown,
+                                    size: 50.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                          color: Colors.black,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        });
                   },
-                  icon: Icon(Icons.add, color: Colors.black, size: 30,),
-                  label: Text("Add new application",
-                    style: GoogleFonts.raleway(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
                 ),
               ),
+
             ],
           ),
         ),

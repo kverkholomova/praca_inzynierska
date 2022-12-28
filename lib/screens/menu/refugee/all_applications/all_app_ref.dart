@@ -259,7 +259,8 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                       ? Icons.check_box
                                                       : Icons.new_label_sharp,
                                                   size: 30,
-                                                  color: Colors.black,
+                                                  color:streamSnapshot.data
+                                                      ?.docs[index]['status']=="done"? Colors.black.withOpacity(0.3):Colors.black,
                                                 ),
                                               ),
                                               SizedBox(
@@ -297,7 +298,8 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                               .raleway(
                                                             fontSize:
                                                             14,
-                                                            color: Colors
+                                                            color: streamSnapshot.data
+                                                                ?.docs[index]['status']=="done"?Colors.black.withOpacity(0.5):Colors
                                                                 .black,
                                                           )),
                                                     ),
@@ -319,7 +321,8 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                         GoogleFonts
                                                             .raleway(
                                                           fontSize: 12,
-                                                          color: Colors
+                                                          color: streamSnapshot.data
+                                                              ?.docs[index]['status']=="done"?Colors.black.withOpacity(0.2): Colors
                                                               .black
                                                               .withOpacity(
                                                               0.5),

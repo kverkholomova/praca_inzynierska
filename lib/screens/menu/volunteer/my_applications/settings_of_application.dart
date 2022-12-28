@@ -480,11 +480,16 @@ class _SettingsOfApplicationAcceptedState
                                                                           index]
                                                                       .id)
                                                               .update({
-                                                            "status":
-                                                                status_declined,
-                                                            "chatId_vol":
-                                                                "null",
-                                                            "date": "null"
+                                                            "status": status_declined,
+                                                            "chatId_vol": "null",
+                                                            "date": "null",
+                                                            "token_vol": "null",
+                                                            "volunteerID": "null",
+                                                            "volunteer_name": "null",
+                                                            "application_accepted": false,
+
+
+
                                                           });
 
                                                           FirebaseFirestore
@@ -515,47 +520,47 @@ class _SettingsOfApplicationAcceptedState
                                                             "mess_button_visibility_vol":
                                                                 true
                                                           });
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'applications')
-                                                              .doc(
-                                                                  streamSnapshot
-                                                                      .data
-                                                                      ?.docs[
-                                                                          index]
-                                                                      .id)
-                                                              .update({
-                                                            "token_vol": "null"
-                                                          });
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'applications')
-                                                              .doc(
-                                                                  streamSnapshot
-                                                                      .data
-                                                                      ?.docs[
-                                                                          index]
-                                                                      .id)
-                                                              .update({
-                                                            "volunteerID":
-                                                                "null"
-                                                          });
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'applications')
-                                                              .doc(
-                                                                  streamSnapshot
-                                                                      .data
-                                                                      ?.docs[
-                                                                          index]
-                                                                      .id)
-                                                              .update({
-                                                            "volunteer_name":
-                                                                "null"
-                                                          });
+                                                          // FirebaseFirestore
+                                                          //     .instance
+                                                          //     .collection(
+                                                          //         'applications')
+                                                          //     .doc(
+                                                          //         streamSnapshot
+                                                          //             .data
+                                                          //             ?.docs[
+                                                          //                 index]
+                                                          //             .id)
+                                                          //     .update({
+                                                          //   "token_vol": "null"
+                                                          // });
+                                                          // FirebaseFirestore
+                                                          //     .instance
+                                                          //     .collection(
+                                                          //         'applications')
+                                                          //     .doc(
+                                                          //         streamSnapshot
+                                                          //             .data
+                                                          //             ?.docs[
+                                                          //                 index]
+                                                          //             .id)
+                                                          //     .update({
+                                                          //   "volunteerID":
+                                                          //       "null"
+                                                          // });
+                                                          // FirebaseFirestore
+                                                          //     .instance
+                                                          //     .collection(
+                                                          //         'applications')
+                                                          //     .doc(
+                                                          //         streamSnapshot
+                                                          //             .data
+                                                          //             ?.docs[
+                                                          //                 index]
+                                                          //             .id)
+                                                          //     .update({
+                                                          //   "volunteer_name":
+                                                          //       "null"
+                                                          // });
 
                                                           // print(streamSnapshot.data?.docs[index].id);
                                                           // print(

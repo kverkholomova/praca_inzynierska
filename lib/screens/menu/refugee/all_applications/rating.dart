@@ -13,6 +13,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/to_delete/messages_ref.dart';
 import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/rating.dart';
@@ -20,6 +21,7 @@ import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
 
 import '../../../../constants.dart';
 import '../accepted_applications/accepted_applications.dart';
+import '../main_screen_ref.dart';
 import 'all_app_ref.dart';
 import 'application_info.dart';
 
@@ -54,7 +56,7 @@ class _RatingState extends State<Rating> {
 
   @override
   void initState() {
-    _ratingController = TextEditingController(text: '3.0');
+    _ratingController = TextEditingController(text: '5.0');
     _rating = _initialRating;
     super.initState();
   }
@@ -179,531 +181,280 @@ class _RatingState extends State<Rating> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.39,
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('applications')
-                            .where('Id', isEqualTo: applicationIDRef)
-                            // .where('category', isEqualTo: card_category_ref)
-                            // .where('comment', isEqualTo: card_comment_ref)
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          return ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: !streamSnapshot.hasData
-                                  ? 1
-                                  : streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
-                                if (streamSnapshot.hasData) {
-                                  switch (streamSnapshot.connectionState) {
-                                    case ConnectionState.waiting:
-                                      return Column(children: [
-                                        SizedBox(
-                                          width: 60,
-                                          height: 60,
-                                          child: CircularProgressIndicator(
-                                            color: background,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('applications')
+                        .where('Id', isEqualTo: applicationIDRef)
+                        // .where('category', isEqualTo: card_category_ref)
+                        // .where('comment', isEqualTo: card_comment_ref)
+                        .snapshots(),
+                    builder: (context,
+                        AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: !streamSnapshot.hasData
+                              ? 1
+                              : streamSnapshot.data?.docs.length,
+                          itemBuilder: (ctx, index) {
+                            if (streamSnapshot.hasData) {
+                              switch (streamSnapshot.connectionState) {
+                                // case ConnectionState.waiting:
+                                //   return Column(children: [
+                                //     SizedBox(
+                                //       width: 60,
+                                //       height: 60,
+                                //       child: CircularProgressIndicator(
+                                //         color: background,
+                                //       ),
+                                //     ),
+                                //   ]);
+                                case ConnectionState.active:
+                                  return Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Center(
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.085,
+                                            decoration:
+                                                buttonActiveDecoration,
+                                            child: TextButton(
+                                                child: Text(
+                                                  "Mark application as done",
+                                                  style:
+                                                      textActiveButtonStyle,
+                                                ),
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            'applications')
+                                                        .doc(streamSnapshot
+                                                            .data
+                                                            ?.docs[index]
+                                                            .id)
+                                                        .update({
+                                                      "voluneer_rating":
+                                                          _rating
+                                                    });
+                                                    // sendPushMessage();
+                                                    //
+                                                    FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            'applications')
+                                                        .doc(streamSnapshot
+                                                            .data
+                                                            ?.docs[index]
+                                                            .id)
+                                                        .update({
+                                                      "status": "done"
+                                                    });
+                                                  });
+
+                                                  Future.delayed(
+                                                      const Duration(
+                                                          milliseconds:
+                                                              500), () {
+                                                    controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+                                                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                        MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+                                                    // Navigator.of(context,
+                                                    //         rootNavigator:
+                                                    //             true)
+                                                    //     .pushReplacement(
+                                                    //         MaterialPageRoute(
+                                                    //             builder:
+                                                    //                 (context) =>
+                                                    //                     PageOfApplicationRef()));
+                                                  });
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           CategoriesRef()),
+                                                  // );
+                                                  //
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           Rating_Page()),
+                                                  // );
+
+                                                  // sendPushMessage();
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection(
+                                                  //         'applications')
+                                                  //     .doc(streamSnapshot.data
+                                                  //         ?.docs[index].id)
+                                                  //     .delete();
+                                                  // setState(() {
+                                                  //   controllerTabBottomRef =
+                                                  //       PersistentTabController(
+                                                  //           initialIndex: 4);
+                                                  // });
+                                                  // Navigator.of(context,
+                                                  //         rootNavigator: true)
+                                                  //     .pushReplacement(
+                                                  //         MaterialPageRoute(
+                                                  //             builder:
+                                                  //                 (context) =>
+                                                  //                     MainScreenRefugee()));
+                                                }),
                                           ),
                                         ),
-                                      ]);
-                                    case ConnectionState.active:
-                                      return Column(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Center(
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.085,
-                                                decoration:
-                                                    buttonInactiveDecoration,
-                                                child: TextButton(
-                                                    child: Text(
-                                                      "Mark application as done",
-                                                      style:
-                                                          textInactiveButtonStyle,
-                                                    ),
-                                                    onPressed: () async {
-                                                      setState(() {
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                'applications')
-                                                            .doc(streamSnapshot
-                                                                .data
-                                                                ?.docs[index]
-                                                                .id)
-                                                            .update({
-                                                          "voluneer_rating":
-                                                              _rating
-                                                        });
-                                                        // sendPushMessage();
-                                                        //
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                'applications')
-                                                            .doc(streamSnapshot
-                                                                .data
-                                                                ?.docs[index]
-                                                                .id)
-                                                            .update({
-                                                          "status": "done"
-                                                        });
-                                                      });
+                                      ),
+                                      // SizedBox(
+                                      //   height: MediaQuery.of(context).size.height * 0.015,
+                                      // ),
+                                      // Align(
+                                      //   alignment: Alignment.topCenter,
+                                      //   child: Center(
+                                      //     child: Container(
+                                      //       width: double.infinity,
+                                      //       height:
+                                      //       MediaQuery.of(context).size.height *
+                                      //           0.085,
+                                      //       decoration: buttonInactiveDecoration,
+                                      //       child: TextButton(
+                                      //           child: Text(
+                                      //             "Delete",
+                                      //             style: textInactiveButtonStyle,
+                                      //           ),
+                                      //           onPressed: () async {
+                                      //             sendPushMessage();
+                                      //             FirebaseFirestore.instance
+                                      //                                               .collection('applications')
+                                      //                                               .doc(streamSnapshot.data?.docs[index].id).delete();
+                                      //             setState(() {
+                                      //               controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+                                      //             });
+                                      //             Navigator.of(context, rootNavigator: true).pushReplacement(
+                                      //                 MaterialPageRoute(builder: (context) => MainScreenRefugee()));
+                                      //           }),
+                                      //     ),
+                                      //   ),
+                                      // ),
 
-                                                      Future.delayed(
-                                                          const Duration(
-                                                              milliseconds:
-                                                                  500), () {
-                                                        Navigator.of(context,
-                                                                rootNavigator:
-                                                                    true)
-                                                            .pushReplacement(
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            PageOfApplicationRef()));
-                                                      });
-                                                      // Navigator.push(
-                                                      //   context,
-                                                      //   MaterialPageRoute(
-                                                      //       builder: (context) =>
-                                                      //           CategoriesRef()),
-                                                      // );
-                                                      //
-                                                      //   context,
-                                                      //   MaterialPageRoute(
-                                                      //       builder: (context) =>
-                                                      //           Rating_Page()),
-                                                      // );
-
-                                                      // sendPushMessage();
-                                                      // FirebaseFirestore.instance
-                                                      //     .collection(
-                                                      //         'applications')
-                                                      //     .doc(streamSnapshot.data
-                                                      //         ?.docs[index].id)
-                                                      //     .delete();
-                                                      // setState(() {
-                                                      //   controllerTabBottomRef =
-                                                      //       PersistentTabController(
-                                                      //           initialIndex: 4);
-                                                      // });
-                                                      // Navigator.of(context,
-                                                      //         rootNavigator: true)
-                                                      //     .pushReplacement(
-                                                      //         MaterialPageRoute(
-                                                      //             builder:
-                                                      //                 (context) =>
-                                                      //                     MainScreenRefugee()));
-                                                    }),
-                                              ),
-                                            ),
-                                          ),
-                                          // SizedBox(
-                                          //   height: MediaQuery.of(context).size.height * 0.015,
-                                          // ),
-                                          // Align(
-                                          //   alignment: Alignment.topCenter,
-                                          //   child: Center(
-                                          //     child: Container(
-                                          //       width: double.infinity,
-                                          //       height:
-                                          //       MediaQuery.of(context).size.height *
-                                          //           0.085,
-                                          //       decoration: buttonInactiveDecoration,
-                                          //       child: TextButton(
-                                          //           child: Text(
-                                          //             "Delete",
-                                          //             style: textInactiveButtonStyle,
-                                          //           ),
-                                          //           onPressed: () async {
-                                          //             sendPushMessage();
-                                          //             FirebaseFirestore.instance
-                                          //                                               .collection('applications')
-                                          //                                               .doc(streamSnapshot.data?.docs[index].id).delete();
-                                          //             setState(() {
-                                          //               controllerTabBottomRef = PersistentTabController(initialIndex: 4);
-                                          //             });
-                                          //             Navigator.of(context, rootNavigator: true).pushReplacement(
-                                          //                 MaterialPageRoute(builder: (context) => MainScreenRefugee()));
-                                          //           }),
-                                          //     ),
-                                          //   ),
-                                          // ),
-
-                                          // Padding(
-                                          //                       padding: const EdgeInsets.only(top: 20),
-                                          //                       child: SizedBox(
-                                          //                         height: 50,
-                                          //                         width: 300,
-                                          //                         child: MaterialButton(
-                                          //                             child: Text(
-                                          //                               "Delete",
-                                          //                               style: TextStyle(color: Colors.white),
-                                          //                             ),
-                                          //                             color: Color.fromRGBO(18, 56, 79, 0.8),
-                                          //                             onPressed: () {
-                                          //
-                                          //
-                                          //                               sendPushMessage();
-                                          //
-                                          //                               FirebaseFirestore.instance
-                                          //                                   .collection('applications')
-                                          //                                   .doc(streamSnapshot.data?.docs[index].id)
-                                          //                                   .update({"status": "deleted"});
-                                          //
-                                          //
-                                          //                             }),
-                                          //                       ),
-                                          //                     ),
-                                          //                     Padding(
-                                          //                       padding: const EdgeInsets.only(top: 10, bottom: 10),
-                                          //                       child: SizedBox(
-                                          //                         height: 50,
-                                          //                         width: 300,
-                                          //                         child: MaterialButton(
-                                          //                             child: Text(
-                                          //                               "Look info about volunteer",
-                                          //                               style: TextStyle(color: Colors.white),
-                                          //                             ),
-                                          //                             color: Color.fromRGBO(18, 56, 79, 0.8),
-                                          //                             onPressed: () {
-                                          //                               IDVolOfApplication = streamSnapshot
-                                          //                                   .data?.docs[index]['volunteerID'] as String;
-                                          //                               print(IDVolOfApplication);
-                                          //                               print(
-                                          //                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                                          //
-                                          //                               Navigator.push(
-                                          //                                 context,
-                                          //                                 MaterialPageRoute(
-                                          //                                     builder: (context) =>
-                                          //                                         PageOfVolunteerRef()),
-                                          //                               );
-                                          //                             }),
-                                          //                       ),
-                                          //                     ),
-                                          //                     // Visibility(
-                                          //                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
-                                          //                     //   child:
-                                          //                       Padding(
-                                          //                         padding: const EdgeInsets.only(top: 10, bottom: 10),
-                                          //                         child: SizedBox(
-                                          //                           height: 50,
-                                          //                           width: 300,
-                                          //                           child: MaterialButton(
-                                          //                               child: Text(
-                                          //                                 "Mark application as done",
-                                          //                                 style: TextStyle(color: Colors.white),
-                                          //                               ),
-                                          //                               color: Color.fromRGBO(18, 56, 79, 0.8),
-                                          //                               onPressed: () {
-                                          //                                 IDVolOfApplication = streamSnapshot
-                                          //                                     .data?.docs[index]['volunteerID'] as String;
-                                          //                                 print(IDVolOfApplication);
-                                          //                                 print(
-                                          //                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                                          //
-                                          //                                 Navigator.push(
-                                          //                                   context,
-                                          //                                   MaterialPageRoute(
-                                          //                                       builder: (context) =>
-                                          //                                           Rating_Page()),
-                                          //                                 );
-                                          //                               }),
-                                          //                         ),
-                                          //                       ),
-                                        ],
-                                      );
-                                  }
-                                }
-                                return Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 100),
-                                    child: Column(
-                                      children: [
-                                        SpinKitChasingDots(
-                                          color: Colors.brown,
-                                          size: 50.0,
-                                        ),
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text("Waiting...",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 24,
-                                                color: Colors.black,
-                                              )),
-                                        ),
-                                      ],
+                                      // Padding(
+                                      //                       padding: const EdgeInsets.only(top: 20),
+                                      //                       child: SizedBox(
+                                      //                         height: 50,
+                                      //                         width: 300,
+                                      //                         child: MaterialButton(
+                                      //                             child: Text(
+                                      //                               "Delete",
+                                      //                               style: TextStyle(color: Colors.white),
+                                      //                             ),
+                                      //                             color: Color.fromRGBO(18, 56, 79, 0.8),
+                                      //                             onPressed: () {
+                                      //
+                                      //
+                                      //                               sendPushMessage();
+                                      //
+                                      //                               FirebaseFirestore.instance
+                                      //                                   .collection('applications')
+                                      //                                   .doc(streamSnapshot.data?.docs[index].id)
+                                      //                                   .update({"status": "deleted"});
+                                      //
+                                      //
+                                      //                             }),
+                                      //                       ),
+                                      //                     ),
+                                      //                     Padding(
+                                      //                       padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                      //                       child: SizedBox(
+                                      //                         height: 50,
+                                      //                         width: 300,
+                                      //                         child: MaterialButton(
+                                      //                             child: Text(
+                                      //                               "Look info about volunteer",
+                                      //                               style: TextStyle(color: Colors.white),
+                                      //                             ),
+                                      //                             color: Color.fromRGBO(18, 56, 79, 0.8),
+                                      //                             onPressed: () {
+                                      //                               IDVolOfApplication = streamSnapshot
+                                      //                                   .data?.docs[index]['volunteerID'] as String;
+                                      //                               print(IDVolOfApplication);
+                                      //                               print(
+                                      //                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                      //
+                                      //                               Navigator.push(
+                                      //                                 context,
+                                      //                                 MaterialPageRoute(
+                                      //                                     builder: (context) =>
+                                      //                                         PageOfVolunteerRef()),
+                                      //                               );
+                                      //                             }),
+                                      //                       ),
+                                      //                     ),
+                                      //                     // Visibility(
+                                      //                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
+                                      //                     //   child:
+                                      //                       Padding(
+                                      //                         padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                      //                         child: SizedBox(
+                                      //                           height: 50,
+                                      //                           width: 300,
+                                      //                           child: MaterialButton(
+                                      //                               child: Text(
+                                      //                                 "Mark application as done",
+                                      //                                 style: TextStyle(color: Colors.white),
+                                      //                               ),
+                                      //                               color: Color.fromRGBO(18, 56, 79, 0.8),
+                                      //                               onPressed: () {
+                                      //                                 IDVolOfApplication = streamSnapshot
+                                      //                                     .data?.docs[index]['volunteerID'] as String;
+                                      //                                 print(IDVolOfApplication);
+                                      //                                 print(
+                                      //                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                      //
+                                      //                                 Navigator.push(
+                                      //                                   context,
+                                      //                                   MaterialPageRoute(
+                                      //                                       builder: (context) =>
+                                      //                                           Rating_Page()),
+                                      //                                 );
+                                      //                               }),
+                                      //                         ),
+                                      //                       ),
+                                    ],
+                                  );
+                              }
+                            }
+                            return Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 100),
+                                child: Column(
+                                  children: [
+                                    SpinKitChasingDots(
+                                      color: Colors.brown,
+                                      size: 50.0,
                                     ),
-                                  ),
-                                );
-                              });
-                        },
-                      ),
-                    ),
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).size.height * 0.015,
-                    // ),
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).size.height * 0.1,
-                    //   child: StreamBuilder(
-                    //     stream: FirebaseFirestore.instance
-                    //         .collection('applications')
-                    //         .where('title', isEqualTo: card_title_vol)
-                    //         .where('category', isEqualTo: card_category_vol)
-                    //         .where('comment', isEqualTo: card_comment_vol)
-                    //         .snapshots(),
-                    //     builder:
-                    //         (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                    //       return ListView.builder(
-                    //           physics: NeverScrollableScrollPhysics(),
-                    //           shrinkWrap: true,
-                    //           itemCount: !streamSnapshot.hasData
-                    //               ? 1
-                    //               : streamSnapshot.data?.docs.length,
-                    //           itemBuilder: (ctx, index) {
-                    //             if (streamSnapshot.hasData) {
-                    //               switch (streamSnapshot.connectionState) {
-                    //                 case ConnectionState.waiting:
-                    //                   return Column(children: [
-                    //                     SizedBox(
-                    //                       width: 60,
-                    //                       height: 60,
-                    //                       child: CircularProgressIndicator(),
-                    //                     ),
-                    //                     Padding(
-                    //                       padding: EdgeInsets.only(top: 16),
-                    //                       child: Text('Awaiting data...'),
-                    //                     )
-                    //                   ]);
-                    //                 case ConnectionState.active:
-                    //                   return Padding(
-                    //                     padding: padding,
-                    //                     child:
-                    //                         // Column(
-                    //                         //   children: [
-                    //                         // SizedBox(
-                    //                         //   height: MediaQuery.of(context)
-                    //                         //       .size
-                    //                         //       .height *
-                    //                         //       0.1,
-                    //                         // ),
-                    //                         // Align(
-                    //                         //   alignment: Alignment.topLeft,
-                    //                         //   child: Text(
-                    //                         //     // "Title",
-                    //                         //     streamSnapshot.data?.docs[index]['title'],
-                    //                         //     style: GoogleFonts.raleway(
-                    //                         //       fontSize: 18,
-                    //                         //       color: Colors.black,
-                    //                         //     ),
-                    //                         //   ),
-                    //                         // ),
-                    //                         // SizedBox(
-                    //                         //   height: MediaQuery.of(context)
-                    //                         //       .size
-                    //                         //       .height *
-                    //                         //       0.015,
-                    //                         // ),
-                    //                         // Align(
-                    //                         //   alignment: Alignment.topLeft,
-                    //                         //   child: Text(
-                    //                         //       streamSnapshot.data?.docs[index]['category'],
-                    //                         //       style: GoogleFonts.raleway(
-                    //                         //         fontSize: 14,
-                    //                         //         color: Colors.black,
-                    //                         //       )),
-                    //                         // ),
-                    //                         // SizedBox(
-                    //                         //   height: MediaQuery.of(context)
-                    //                         //       .size
-                    //                         //       .height *
-                    //                         //       0.1,
-                    //                         // ),
-                    //                         // Align(
-                    //                         //   alignment: Alignment.topLeft,
-                    //                         //   child: Text(streamSnapshot.data?.docs[index]['comment'],
-                    //                         //     style: GoogleFonts.raleway(
-                    //                         //       fontSize: 14,
-                    //                         //       color: Colors.black,
-                    //                         //     ),
-                    //                         //   ),
-                    //                         // ),
-                    //                         // SizedBox(
-                    //                         //   height: MediaQuery.of(context)
-                    //                         //       .size
-                    //                         //       .height *
-                    //                         //       0.3,
-                    //                         // ),
-                    //                         Align(
-                    //                       alignment: Alignment.topCenter,
-                    //                       child: Center(
-                    //                         child: Container(
-                    //                           width: double.infinity,
-                    //                           height:
-                    //                               MediaQuery.of(context).size.height *
-                    //                                   0.085,
-                    //                           decoration: BoxDecoration(
-                    //                               color: Colors.white,
-                    //                               borderRadius:
-                    //                                   BorderRadius.circular(24)),
-                    //                           child: TextButton(
-                    //                               child: Text(
-                    //                                 "Accept application",
-                    //                                 style: textButtonStyle,
-                    //                               ),
-                    //                               onPressed: () async {
-                    //                                 sendPushMessage();
-                    //                                 date = DateTime.now().toString();
-                    //                                 FirebaseFirestore.instance
-                    //                                     .collection('applications')
-                    //                                     .doc(streamSnapshot
-                    //                                         .data?.docs[index].id)
-                    //                                     .update({
-                    //                                   "status": status_updated
-                    //                                 });
-                    //                                 FirebaseFirestore.instance
-                    //                                     .collection('applications')
-                    //                                     .doc(streamSnapshot
-                    //                                         .data?.docs[index].id)
-                    //                                     .update(
-                    //                                         {"volunteerID": volID});
-                    //                                 FirebaseFirestore.instance
-                    //                                     .collection('applications')
-                    //                                     .doc(streamSnapshot
-                    //                                         .data?.docs[index].id)
-                    //                                     .update({"date": date});
-                    //                                 FirebaseFirestore.instance
-                    //                                     .collection('applications')
-                    //                                     .doc(streamSnapshot
-                    //                                         .data?.docs[index].id)
-                    //                                     .update(
-                    //                                         {"token_vol": token_vol});
-                    //                                 FirebaseFirestore.instance
-                    //                                     .collection('applications')
-                    //                                     .doc(streamSnapshot
-                    //                                         .data?.docs[index].id)
-                    //                                     .update({
-                    //                                   "volunteer_name": currentNameVol
-                    //                                 });
-                    //
-                    //                                 FirebaseFirestore.instance
-                    //                                     .collection('applications')
-                    //                                     .doc(streamSnapshot
-                    //                                         .data?.docs[index].id)
-                    //                                     .update({
-                    //                                   "application_accepted": true
-                    //                                 });
-                    //
-                    //                                 Id_Of_current_application =
-                    //                                     streamSnapshot
-                    //                                         .data?.docs[index].id;
-                    //                                 ID_of_vol_application =
-                    //                                     streamSnapshot
-                    //                                         .data?.docs[index].id;
-                    //                                 Navigator.push(
-                    //                                   context,
-                    //                                   MaterialPageRoute(
-                    //                                       builder: (context) =>
-                    //                                           ApplicationsOfVolunteer()),
-                    //                                 );
-                    //                               }),
-                    //                         ),
-                    //                       ),
-                    //                     ),
-                    //                     // MaterialButton(
-                    //                     //     child: Text("Accept",style: TextStyle(color: Colors.white),),
-                    //                     //     color: Color.fromRGBO(18, 56, 79, 0.8),
-                    //                     //
-                    //                     //     onPressed: () {
-                    //                     //       sendPushMessage();
-                    //                     //       date = DateTime.now().toString();
-                    //                     //       FirebaseFirestore.instance
-                    //                     //           .collection('applications')
-                    //                     //           .doc(streamSnapshot.data?.docs[index].id).update({"status": status_updated});
-                    //                     //       FirebaseFirestore.instance
-                    //                     //           .collection('applications')
-                    //                     //           .doc(streamSnapshot.data?.docs[index].id).update({"volunteerID": volID});
-                    //                     //       FirebaseFirestore.instance
-                    //                     //           .collection('applications')
-                    //                     //           .doc(streamSnapshot.data?.docs[index].id).update({"date": date});
-                    //                     //       FirebaseFirestore.instance
-                    //                     //           .collection('applications')
-                    //                     //           .doc(streamSnapshot.data?.docs[index].id).update({"token_vol": token_vol});
-                    //                     //       FirebaseFirestore.instance
-                    //                     //           .collection('applications')
-                    //                     //           .doc(streamSnapshot.data?.docs[index].id).update({"volunteer_name": currentNameVol});
-                    //                     //
-                    //                     //       FirebaseFirestore.instance
-                    //                     //           .collection('applications')
-                    //                     //           .doc(streamSnapshot.data?.docs[index].id).update({"application_accepted": true});
-                    //                     //      //  FirebaseFirestore.instance
-                    //                     //      //      .collection('applications')
-                    //                     //      //      .doc(streamSnapshot.data?.docs[index].id).update({"Id": streamSnapshot.data?.docs[index].id});
-                    //                     //      //  print(streamSnapshot.data?.docs[index].id);
-                    //                     //      // print("AAAAAAAAAAA ${FirebaseFirestore.instance
-                    //                     //      //  .collection('applications').doc().id}");
-                    //                     //
-                    //                     //
-                    //                     //
-                    //                     //      Id_Of_current_application = streamSnapshot.data?.docs[index].id;
-                    //                     //      ID_of_vol_application=streamSnapshot.data?.docs[index].id;
-                    //                     //       Navigator.push(
-                    //                     //         context,
-                    //                     //         MaterialPageRoute(
-                    //                     //             builder: (context) => ApplicationsOfVolunteer()),
-                    //                     //       );
-                    //                     //
-                    //                     // }
-                    //                     // )
-                    //                     //   ],
-                    //                     // ),
-                    //                   );
-                    //               }
-                    //             }
-                    //             return Center(
-                    //               child: Padding(
-                    //                 padding: EdgeInsets.only(top: 10),
-                    //                 child: Column(
-                    //                   children: [
-                    //                     SpinKitChasingDots(
-                    //                       color: Colors.brown,
-                    //                       size: 50.0,
-                    //                     ),
-                    //                     Align(
-                    //                       alignment: Alignment.center,
-                    //                       child: Text("Waiting...",
-                    //                           style: TextStyle(
-                    //                             fontWeight: FontWeight.bold,
-                    //                             fontSize: 24,
-                    //                             color: Colors.black,
-                    //                           )),
-                    //                     ),
-                    //                     Padding(
-                    //                       padding: EdgeInsets.only(top: 20),
-                    //                     )
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             );
-                    //           });
-                    //     },
-                    //   ),
-                    // )
-                  ],
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Waiting...",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24,
+                                            color: Colors.black,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                    },
+                  ),
                 ),
                 // SizedBox(
                 //   height: MediaQuery.of(context).size.height * 0.1,
