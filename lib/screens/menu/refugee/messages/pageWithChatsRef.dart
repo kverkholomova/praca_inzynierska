@@ -11,7 +11,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
 import '../home_page/home_ref.dart';
 import 'messagesRef.dart';
 
-
+ScrollController scrollControllerRef = ScrollController();
 class ListofChatroomsRef extends StatefulWidget {
   const ListofChatroomsRef({Key? key}) : super(key: key);
 
