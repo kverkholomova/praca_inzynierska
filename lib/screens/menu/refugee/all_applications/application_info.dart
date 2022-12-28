@@ -853,7 +853,10 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                             MediaQuery.of(context).size.height *
                                                 0.03,
                                       ),
-                                      Align(
+                                      streamSnapshot
+                                          .data?.docs[index]
+                                      ['application_accepted']
+                                      ?Align(
                                         alignment: Alignment.topCenter,
                                         child: Center(
                                           child: Container(
@@ -917,6 +920,49 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                   //             builder:
                                                   //                 (context) =>
                                                   //                     MainScreenRefugee()));
+                                                }),
+                                          ),
+                                        ),
+                                      )
+                                      :Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Center(
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.085,
+                                            decoration:
+                                            buttonActiveDecoration,
+                                            child: TextButton(
+                                                child: Text(
+                                                  "Edit application",
+                                                  style:
+                                                  textActiveButtonStyle,
+                                                ),
+                                                onPressed: () async {
+
+                                                  // setState(() {
+                                                  //
+                                                  //   IDVolOfApplication =
+                                                  //   streamSnapshot.data
+                                                  //       ?.docs[index]
+                                                  //   ['volunteerID']
+                                                  //   as String;
+                                                  //   print(IDVolOfApplication);
+                                                  //   print(
+                                                  //       "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                                  //
+                                                  //   Navigator.of(context,
+                                                  //       rootNavigator: true)
+                                                  //       .pushReplacement(
+                                                  //       MaterialPageRoute(
+                                                  //           builder:
+                                                  //               (context) =>
+                                                  //               Rating()));
+                                                  // });
+
                                                 }),
                                           ),
                                         ),
