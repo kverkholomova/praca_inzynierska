@@ -11,6 +11,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:wol_pro_1/screens/menu/refugee/all_applications/edit_application.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/volunteer_info_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
@@ -23,6 +24,10 @@ import '../../../../models/categories.dart';
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 
+String editCategory = '';
+String cTitle = '';
+String cCurrentCategory = '';
+String cComment = '';
 String idVolunteerOfApplication = '';
 // String IDVolOfApplication = '';
 // String IDVolInfo = '';
@@ -942,7 +947,14 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                   textActiveButtonStyle,
                                                 ),
                                                 onPressed: () async {
-
+                                                  setState(() {
+                                                    editCategory = streamSnapshot.data?.docs[index]
+                                                    ['category'];
+                                                    cTitle = streamSnapshot.data?.docs[index]
+                                                    ['title'];
+                                                    cComment = streamSnapshot.data?.docs[index]
+                                                    ['comment'];
+                                                  });
                                                   // setState(() {
                                                   //
                                                   //   IDVolOfApplication =
@@ -954,13 +966,13 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                   //   print(
                                                   //       "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
                                                   //
-                                                  //   Navigator.of(context,
-                                                  //       rootNavigator: true)
-                                                  //       .pushReplacement(
-                                                  //       MaterialPageRoute(
-                                                  //           builder:
-                                                  //               (context) =>
-                                                  //               Rating()));
+                                                    Navigator.of(context,
+                                                        rootNavigator: true)
+                                                        .pushReplacement(
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                EditApplication()));
                                                   // });
 
                                                 }),
