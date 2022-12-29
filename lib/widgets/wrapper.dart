@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/register/onboarding_register_vol.dart';
 import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 import 'package:wol_pro_1/to_delete/register_refugee.dart';
@@ -114,7 +115,8 @@ class _WrapperState extends State<Wrapper> {
       return MainScreenRefugee();
     }else if(!optionRefugee){
       // return SettingsHomeVol();
-      return registrationVol?ChooseCategory():!_isLoading?MainScreen():Loading();
+      return registrationVol?ChooseCategory():!_isLoading?OnBoardingVolunteerReg():Loading();
+      // return registrationVol?ChooseCategory():!_isLoading?MainScreen():Loading();
 
     }
     else{

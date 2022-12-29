@@ -11,6 +11,7 @@ import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/refugee/messages/pageWithChatsRef.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
 
+import '../../volunteer/messages/pageWithChatsVol.dart';
 import '../home_page/home_ref.dart';
 import '../main_screen_ref.dart';
 
@@ -497,6 +498,7 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                                         ?.addPostFrameCallback((_) {
                                       print("AAAAAAAAAAA__________________works");
                                       scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+                                      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
                                       // duration: Duration(milliseconds: 400),
                                       // curve: Curves.fastOutSlowIn);
                                     });
