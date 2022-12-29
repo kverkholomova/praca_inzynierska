@@ -175,7 +175,7 @@ packages:
       name: file_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.2"
+    version: "5.2.4"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -210,7 +210,7 @@ packages:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.1"
+    version: "4.5.2"
   firebase_core_web:
     dependency: transitive
     description:
@@ -292,14 +292,14 @@ packages:
       name: flutter_animated_button
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   flutter_custom_clippers:
     dependency: "direct main"
     description:
       name: flutter_custom_clippers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -355,7 +355,7 @@ packages:
       name: flutter_scroll_to_top
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.4"
+    version: "2.3.0"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -376,7 +376,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.5"
+    version: "1.1.6"
   flutter_switch:
     dependency: "direct main"
     description:
@@ -390,7 +390,7 @@ packages:
       name: flutter_tabler_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -407,7 +407,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.1"
+    version: "8.1.2"
   geocoding:
     dependency: "direct main"
     description:
@@ -442,7 +442,7 @@ packages:
       name: geolocator_apple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.3"
   geolocator_platform_interface:
     dependency: transitive
     description:
@@ -477,14 +477,14 @@ packages:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   google_maps_flutter_android:
     dependency: transitive
     description:
       name: google_maps_flutter_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   google_maps_flutter_ios:
     dependency: transitive
     description:
@@ -540,7 +540,7 @@ packages:
       name: image_picker_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+3"
+    version: "0.8.5+4"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -554,7 +554,7 @@ packages:
       name: image_picker_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.6+1"
+    version: "0.8.6+4"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -680,7 +680,7 @@ packages:
       name: path_provider_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.20"
+    version: "2.0.22"
   path_provider_ios:
     dependency: transitive
     description:
@@ -799,14 +799,14 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.4"
+    version: "6.0.5"
   rxdart:
     dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.5"
+    version: "0.27.7"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -834,7 +834,7 @@ packages:
       name: shared_preferences_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   shared_preferences_macos:
     dependency: transitive
     description:
@@ -862,7 +862,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   shimmer:
     dependency: "direct main"
     description:
@@ -875,6 +875,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      name: smooth_page_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+2"
   source_span:
     dependency: transitive
     description:
@@ -902,7 +909,7 @@ packages:
       name: stream_transform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
   string_scanner:
     dependency: transitive
     description:
@@ -923,21 +930,21 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.3.50"
+    version: "20.4.38"
   syncfusion_flutter_datepicker:
     dependency: transitive
     description:
       name: syncfusion_flutter_datepicker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.3.50"
+    version: "20.4.38"
   syncfusion_flutter_maps:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_maps
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.3.50"
+    version: "20.4.38"
   term_glyph:
     dependency: transitive
     description:
@@ -979,14 +986,14 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.6"
+    version: "6.1.7"
   url_launcher_android:
     dependency: transitive
     description:
       name: url_launcher_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.19"
+    version: "6.0.22"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -1042,7 +1049,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.3"
   xdg_directories:
     dependency: transitive
     description:
@@ -1059,4 +1066,4 @@ packages:
     version: "6.1.0"
 sdks:
   dart: ">=2.18.0 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"

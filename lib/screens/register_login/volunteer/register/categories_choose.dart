@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/onboarding_register_vol.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 
 import '../../../../constants.dart';
@@ -774,7 +775,6 @@ class _ChooseCategoryState extends State<ChooseCategory> {
             ),
     );
   }
-
   String listTileBuilder(){
     String listTile = '';
     for(int i = 0;i<categoriesVolunteer.length;i++){
@@ -789,8 +789,8 @@ class _ChooseCategoryState extends State<ChooseCategory> {
 
       }
 
-  }
-  return listTile;
+    }
+    return listTile;
   }
 
   Future<void> dialogBuilderEmpty(BuildContext context) {
@@ -800,150 +800,216 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         return AlertDialog(
           backgroundColor: background,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(15),
           ),
           title: const Text('Choose your categories'),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
             color: blueColor,
           ),
-          content: const Text("You haven't chosen any category, please supply any category"
-              ' or leave your previous preferences'),
+          content: const Text("You haven't chosen any category, please supply any category to continue"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
             color: blueColor,
           ),
           actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(18)),
-                    child: TextButton(
-                        child: Text(
-                          'Choose category',
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            color: blueColor,
-                          ),
-                        ),
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                        }),
-                  ),
-                ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonActiveDecoration,
+            //         child: TextButton(
+            //             child: Text(
+            //               'Choose category',
+            //               style: textActiveButtonStyle,
+            //             ),
+            //             onPressed: () async {
+            //               Navigator.of(context).pop();
+            //             }),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height *
+                  0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: blueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Choose category',
+                                  style: textActiveButtonStyle,
+                                ),),
+                            ),
+                          );
+                        }
+                    );
+                  }
               ),
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Choose category'),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
                   0.01,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(18)),
-                    child: TextButton(
-                        child: Text(
-                          'Leave previous choice',
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            color: blueColor,
-                          ),
-                        ),
-                        onPressed: () async {
-                          Future.delayed(Duration(seconds: 1),
-                                      () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (
-                                              context) =>
-                                          const HomeVol()));
-                                  });
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => MainScreen()),
-                            // if(chosenCategoryList==[]){
-                            //   dialogBuilder(context);
-                            // }
-                            // else if(chosenCategoryList!=[]){
-                            // FirebaseFirestore.instance
-                            //     .collection('users')
-                            //     .doc(streamSnapshot
-                            //     .data?.docs[index].id)
-                            //     .update({
-                            //   "category": chosenCategoryList
-                            // });
-                            // categoriesVolunteer =
-                            //     chosenCategoryList;
-                            // }
-                            // Future.delayed(Duration(seconds: 1),
-                            //         () {
-                            //   if(chosenCategoryList == []){
-                            //     dialogBuilder(context);
-                            //     print("IIIIIIIIIIIIII");
-                            //   }
-                            //   else {
-                            //     print("SSSSSSSSSSSSSSS");
-                            //     print(chosenCategoryList);
-                            //     Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (
-                            //                 context) =>
-                            //             const HomeVol()));
-                            //   }
-                            //     });
-                          // );
-                        }),
-                  ),
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   width: double.infinity,
+            //   height: MediaQuery.of(context).size.height *
+            //       0.085,
+            //   child: StreamBuilder(
+            //       stream: FirebaseFirestore.instance
+            //           .collection('users')
+            //           .where('id_vol',
+            //           isEqualTo:
+            //           FirebaseAuth.instance.currentUser?.uid)
+            //           .snapshots(),
+            //       builder: (context,
+            //           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            //         return ListView.builder(
+            //             itemCount: !streamSnapshot.hasData
+            //                 ? 1
+            //                 : streamSnapshot.data?.docs.length,
+            //             itemBuilder: (ctx, index) {
+            //               return Padding(
+            //                 padding: const EdgeInsets.symmetric(horizontal: 15),
+            //                 child: SizedBox(
+            //                   width: double.infinity,
+            //                   height: MediaQuery.of(context).size.height *
+            //                       0.085,
+            //                   child: ElevatedButton(
+            //                     onPressed: () {
+            //                       setState(() {
+            //                         // Future.delayed(Duration(seconds: 1),
+            //                         //                                         () {
+            //                         //                                     Navigator.push(
+            //                         //                                         context,
+            //                         //                                         MaterialPageRoute(
+            //                         //                                             builder: (
+            //                         //                                                 context) =>
+            //                         //                                             const HomeVol()));
+            //                         //                                     });
+            //                         // print(widget.categoriesUpdated);
+            //                         // categoriesVolunteer = widget.categoriesUpdated;
+            //                         print("Leave previous choiceeeeeeeeeeeee");
+            //                         print(categoriesVolunteer);
+            //                         // print(categoriesVolunteer);
+            //                         controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+            //                       });
+            //
+            //                       Future.delayed(Duration(milliseconds: 500),
+            //                               () {
+            //
+            //                             Navigator.push(
+            //                                 context,
+            //                                 MaterialPageRoute(
+            //                                     builder: (
+            //                                         context) =>
+            //                                         MainScreen()));
+            //                           });
+            //                     },
+            //                     style: ElevatedButton.styleFrom(
+            //                       foregroundColor: blueColor,
+            //                       backgroundColor: Colors.white,
+            //                       shape: RoundedRectangleBorder(
+            //                         side: BorderSide(
+            //                             width: 1,
+            //                             color: blueColor
+            //                         ),
+            //                         borderRadius: BorderRadius.circular(15.0),
+            //                       ),
+            //                     ),
+            //                     child: Text(
+            //                       'Leave previous',
+            //                       style: textInactiveButtonStyle,
+            //                     ),),
+            //                 ),
+            //               );
+            //             }
+            //         );
+            //       }
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonInactiveDecoration,
+            //         child: TextButton(
+            //             child: Text(
+            //               'Leave previous',
+            //               style: textInactiveButtonStyle,
+            //             ),
+            //             onPressed: () async {
+            //
+            //                 setState(() {
+            //                   // print(widget.categoriesUpdated);
+            //                   // categoriesVolunteer = widget.categoriesUpdated;
+            //                   print("Leave previous choiceeeeeeeeeeeee");
+            //                   print(categoriesVolunteer);
+            //                   print(categoriesUpdated);
+            //                   controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+            //                 });
+            //
+            //               Future.delayed(Duration(milliseconds: 500),
+            //                       () {
+            //
+            //                     Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                             builder: (
+            //                                 context) =>
+            //                             MainScreen()));
+            //                   });
+            //
+            //             }),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
                   0.02,
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Leave my categories'),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const HomeVol()),
-            //     );
-            //   },
-            // ),
+
           ],
         );
       },
@@ -957,7 +1023,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
         return AlertDialog(
           backgroundColor: background,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(15),
           ),
           title: const Text('Verify your choice'),
           titleTextStyle: GoogleFonts.raleway(
@@ -974,54 +1040,7 @@ class _ChooseCategoryState extends State<ChooseCategory> {
             //   padding: const EdgeInsets.symmetric(horizontal: 20),
             //   child: Text(listTileBuilder()),
             // ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(18)),
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id_vol',
-                            isEqualTo:
-                            FirebaseAuth.instance.currentUser?.uid)
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          return ListView.builder(
-                              itemCount: !streamSnapshot.hasData
-                                  ? 1
-                                  : streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
-                            return TextButton(
-                                child: Text(
-                                  'Change my choice',
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 16,
-                                    color: blueColor,
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  Navigator.of(context).pop();
-                                });
-                          }
-                        );
-                      }
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             // TextButton(
             //   style: TextButton.styleFrom(
             //     textStyle: Theme.of(context).textTheme.labelLarge,
@@ -1031,84 +1050,259 @@ class _ChooseCategoryState extends State<ChooseCategory> {
             //     Navigator.of(context).pop();
             //   },
             // ),
+
+
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height *
+                  0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(builder: (context) => const HomeVol()),);
+
+                                  // if(chosenCategoryList==[]){
+                                  //   dialogBuilder(context);
+                                  // }
+                                  // else if(chosenCategoryList!=[]){
+                                  FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(streamSnapshot
+                                      .data?.docs[index].id)
+                                      .update({
+                                    "category": categoriesVolunteer,
+                                    // "image": ""
+                                  });
+                                  // categoriesVolunteer = categoriesUpdated;
+                                  print("It is workiiiiiiiiiiiiiing");
+                                  print(categoriesVolunteer);
+                                  // print(categoriesUpdated);
+                                  // categoriesUpdated = [];
+                                  // categoriesVolunteer =
+                                  //     chosenCategoryListChanges;
+                                  // }
+                                  setState(() {
+                                    controllerTabBottomVol = PersistentTabController(initialIndex: 2);
+                                  });
+                                  Future.delayed(Duration(seconds: 2),
+                                          () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (
+                                                    context) => OnBoardingVolunteerReg()));
+
+                                      });
+
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: blueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Save my changes',
+                                  style: textActiveButtonStyle,
+                                ),),
+                            ),
+                          );
+                        }
+                    );
+                  }
+              ),
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonActiveDecoration,
+            //         child: StreamBuilder(
+            //             stream: FirebaseFirestore.instance
+            //                 .collection('users')
+            //                 .where('id_vol',
+            //                 isEqualTo:
+            //                 FirebaseAuth.instance.currentUser?.uid)
+            //                 .snapshots(),
+            //             builder: (context,
+            //                 AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            //               return ListView.builder(
+            //                   itemCount: !streamSnapshot.hasData
+            //                       ? 1
+            //                       : streamSnapshot.data?.docs.length,
+            //                   itemBuilder: (ctx, index) {
+            //                     return TextButton(
+            //                         child: Text(
+            //                           'Save my changes',
+            //                           style: textActiveButtonStyle,
+            //                         ),
+            //                         onPressed: () async {
+            //                           // Navigator.push(
+            //                           //   context,
+            //                           //   MaterialPageRoute(builder: (context) => const HomeVol()),);
+            //
+            //                           // if(chosenCategoryList==[]){
+            //                           //   dialogBuilder(context);
+            //                           // }
+            //                           // else if(chosenCategoryList!=[]){
+            //                           FirebaseFirestore.instance
+            //                               .collection('users')
+            //                               .doc(streamSnapshot
+            //                               .data?.docs[index].id)
+            //                               .update({
+            //                             "category": categoriesUpdated
+            //                           });
+            //                           categoriesVolunteer = categoriesUpdated;
+            //                           print("It is workiiiiiiiiiiiiiing");
+            //                           print(categoriesVolunteer);
+            //                           print(categoriesUpdated);
+            //                           categoriesUpdated = [];
+            //                           // categoriesVolunteer =
+            //                           //     chosenCategoryListChanges;
+            //                           // }
+            //                           Future.delayed(Duration(seconds: 1),
+            //                                   () {
+            //                                 Navigator.push(
+            //                                     context,
+            //                                     MaterialPageRoute(
+            //                                         builder: (
+            //                                             context) => MainScreen()));
+            //
+            //                               });
+            //
+            //                         });
+            //                   }
+            //               );
+            //             }
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
                   0.01,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.075,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(18)),
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id_vol',
-                            isEqualTo:
-                            FirebaseAuth.instance.currentUser?.uid)
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          return ListView.builder(
-                              itemCount: !streamSnapshot.hasData
-                                  ? 1
-                                  : streamSnapshot.data?.docs.length,
-                              itemBuilder: (ctx, index) {
-                            return TextButton(
-                                child: Text(
-                                  'Save my changes',
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 16,
-                                    color: blueColor,
+
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height *
+                  0.085,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .where('id_vol',
+                      isEqualTo:
+                      FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    return ListView.builder(
+                        itemCount: !streamSnapshot.hasData
+                            ? 1
+                            : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height *
+                                  0.085,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: blueColor,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        width: 1,
+                                        color: blueColor
+                                    ),
+                                    borderRadius: BorderRadius.circular(15.0),
                                   ),
                                 ),
-                                onPressed: () async {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => const HomeVol()),);
-
-                                    // if(chosenCategoryList==[]){
-                                    //   dialogBuilder(context);
-                                    // }
-                                    // else if(chosenCategoryList!=[]){
-                                    FirebaseFirestore.instance
-                                        .collection('users')
-                                        .doc(streamSnapshot
-                                        .data?.docs[index].id)
-                                        .update({
-                                      "category": categoriesVolunteer
-                                    });
-                                    // categoriesVolunteer =
-                                    //     chosenCategoryListChanges;
-                                    // }
-                                    Future.delayed(Duration(seconds: 1),
-                                            () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (
-                                                    context) => MainScreen()));
-
-                                        });
-
-                                });
-                          }
-                        );
-                      }
-                    ),
-                  ),
-                ),
+                                child: Text(
+                                  'Change my choice',
+                                  style: textInactiveButtonStyle,
+                                ),),
+                            ),
+                          );
+                        }
+                    );
+                  }
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //       horizontal: 15
+            //   ),
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: Center(
+            //       child: Container(
+            //         width: double.infinity,
+            //         height: MediaQuery.of(context).size.height *
+            //             0.085,
+            //         decoration: buttonInactiveDecoration,
+            //         child: StreamBuilder(
+            //             stream: FirebaseFirestore.instance
+            //                 .collection('users')
+            //                 .where('id_vol',
+            //                 isEqualTo:
+            //                 FirebaseAuth.instance.currentUser?.uid)
+            //                 .snapshots(),
+            //             builder: (context,
+            //                 AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            //               return ListView.builder(
+            //                   itemCount: !streamSnapshot.hasData
+            //                       ? 1
+            //                       : streamSnapshot.data?.docs.length,
+            //                   itemBuilder: (ctx, index) {
+            //                     return TextButton(
+            //                         child: Text(
+            //                           'Change my choice',
+            //                           style: textInactiveButtonStyle,
+            //                         ),
+            //                         onPressed: () async {
+            //                           Navigator.of(context).pop();
+            //                         });
+            //                   }
+            //               );
+            //             }
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height:
               MediaQuery.of(context).size.height *
@@ -1137,11 +1331,17 @@ class _ChooseCategoryState extends State<ChooseCategory> {
     return GestureDetector(
       onTap: () {
         setState(() {
+
           if (categoriesVolunteer.contains(text)) {
+            print(text);
+            print(categoriesVolunteer);
             categoriesVolunteer.remove(text);
           } else {
             categoriesVolunteer.add(text);
           }
+          print("KKKKKKKKKKKUpdateeeeeeeeeeeeeeeee");
+          print(categoriesVolunteer);
+          print(categoriesVolunteer);
         });
       },
       child: AnimatedContainer(
@@ -1194,22 +1394,459 @@ class _ChooseCategoryState extends State<ChooseCategory> {
             ),
 
             categoriesVolunteer.contains(text)
-            ? Padding(
+                ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(
-                Icons.check_rounded,
-                size: 30,
-                color: blueColor
+                  Icons.check_rounded,
+                  size: 30,
+                  color: blueColor
                 // categoriesVolunteer.contains(text)
                 //     ? Colors.white
                 //     :
                 // Colors.black,
               ),
             )
-            :Container(),
+                :Container(),
           ],
         ),
       ),
     );
   }
+  // String listTileBuilder(){
+  //   String listTile = '';
+  //   for(int i = 0;i<categoriesVolunteer.length;i++){
+  //     if(categoriesVolunteer.length==1){
+  //       listTile += categoriesVolunteer[i];
+  //     } else {
+  //       if (categoriesVolunteer.length-1==i){
+  //         listTile += categoriesVolunteer[i];
+  //       } else {
+  //         listTile += "${categoriesVolunteer[i]}\n";
+  //       }
+  //
+  //     }
+  //
+  // }
+  // return listTile;
+  // }
+  //
+  // Future<void> dialogBuilderEmpty(BuildContext context) {
+  //   return showDialog<void>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         backgroundColor: background,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(24),
+  //         ),
+  //         title: const Text('Choose your categories'),
+  //         titleTextStyle: GoogleFonts.raleway(
+  //           fontSize: 16,
+  //           color: blueColor,
+  //         ),
+  //         content: const Text("You haven't chosen any category, please supply any category"
+  //             ' or leave your previous preferences'),
+  //         contentTextStyle: GoogleFonts.raleway(
+  //           fontSize: 14,
+  //           color: blueColor,
+  //         ),
+  //         actions: <Widget>[
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 15),
+  //             child: Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: Center(
+  //                 child: Container(
+  //                   width: double.infinity,
+  //                   height: MediaQuery.of(context).size.height *
+  //                       0.075,
+  //                   decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius:
+  //                       BorderRadius.circular(18)),
+  //                   child: TextButton(
+  //                       child: Text(
+  //                         'Choose category',
+  //                         style: GoogleFonts.raleway(
+  //                           fontSize: 16,
+  //                           color: blueColor,
+  //                         ),
+  //                       ),
+  //                       onPressed: () async {
+  //                         Navigator.of(context).pop();
+  //                       }),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           // TextButton(
+  //           //   style: TextButton.styleFrom(
+  //           //     textStyle: Theme.of(context).textTheme.labelLarge,
+  //           //   ),
+  //           //   child: const Text('Choose category'),
+  //           //   onPressed: () {
+  //           //     Navigator.of(context).pop();
+  //           //   },
+  //           // ),
+  //           SizedBox(
+  //             height:
+  //             MediaQuery.of(context).size.height *
+  //                 0.01,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 15),
+  //             child: Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: Center(
+  //                 child: Container(
+  //                   width: double.infinity,
+  //                   height: MediaQuery.of(context).size.height *
+  //                       0.075,
+  //                   decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius:
+  //                       BorderRadius.circular(18)),
+  //                   child: TextButton(
+  //                       child: Text(
+  //                         'Leave previous choice',
+  //                         style: GoogleFonts.raleway(
+  //                           fontSize: 16,
+  //                           color: blueColor,
+  //                         ),
+  //                       ),
+  //                       onPressed: () async {
+  //                         Future.delayed(Duration(seconds: 1),
+  //                                     () {
+  //                                 Navigator.push(
+  //                                     context,
+  //                                     MaterialPageRoute(
+  //                                         builder: (
+  //                                             context) =>
+  //                                         const HomeVol()));
+  //                                 });
+  //                         // Navigator.push(
+  //                         //   context,
+  //                         //   MaterialPageRoute(builder: (context) => MainScreen()),
+  //                           // if(chosenCategoryList==[]){
+  //                           //   dialogBuilder(context);
+  //                           // }
+  //                           // else if(chosenCategoryList!=[]){
+  //                           // FirebaseFirestore.instance
+  //                           //     .collection('users')
+  //                           //     .doc(streamSnapshot
+  //                           //     .data?.docs[index].id)
+  //                           //     .update({
+  //                           //   "category": chosenCategoryList
+  //                           // });
+  //                           // categoriesVolunteer =
+  //                           //     chosenCategoryList;
+  //                           // }
+  //                           // Future.delayed(Duration(seconds: 1),
+  //                           //         () {
+  //                           //   if(chosenCategoryList == []){
+  //                           //     dialogBuilder(context);
+  //                           //     print("IIIIIIIIIIIIII");
+  //                           //   }
+  //                           //   else {
+  //                           //     print("SSSSSSSSSSSSSSS");
+  //                           //     print(chosenCategoryList);
+  //                           //     Navigator.push(
+  //                           //         context,
+  //                           //         MaterialPageRoute(
+  //                           //             builder: (
+  //                           //                 context) =>
+  //                           //             const HomeVol()));
+  //                           //   }
+  //                           //     });
+  //                         // );
+  //                       }),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           SizedBox(
+  //             height:
+  //             MediaQuery.of(context).size.height *
+  //                 0.02,
+  //           ),
+  //           // TextButton(
+  //           //   style: TextButton.styleFrom(
+  //           //     textStyle: Theme.of(context).textTheme.labelLarge,
+  //           //   ),
+  //           //   child: const Text('Leave my categories'),
+  //           //   onPressed: () {
+  //           //     Navigator.push(
+  //           //       context,
+  //           //       MaterialPageRoute(builder: (context) => const HomeVol()),
+  //           //     );
+  //           //   },
+  //           // ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+  //
+  // Future<String?> dialogBuilder(BuildContext context) {
+  //   return showDialog<String?>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         backgroundColor: background,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(18),
+  //         ),
+  //         title: const Text('Verify your choice'),
+  //         titleTextStyle: GoogleFonts.raleway(
+  //           fontSize: 16,
+  //           color: blueColor,
+  //         ),
+  //         content:  Text("You chose categories that refer to:\n\n${listTileBuilder()}\n"),
+  //         contentTextStyle: GoogleFonts.raleway(
+  //           fontSize: 14,
+  //           color: blueColor,
+  //         ),
+  //         actions: [
+  //           // Padding(
+  //           //   padding: const EdgeInsets.symmetric(horizontal: 20),
+  //           //   child: Text(listTileBuilder()),
+  //           // ),
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(
+  //               horizontal: 15
+  //             ),
+  //             child: Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: Center(
+  //                 child: Container(
+  //                   width: double.infinity,
+  //                   height: MediaQuery.of(context).size.height *
+  //                       0.075,
+  //                   decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius:
+  //                       BorderRadius.circular(18)),
+  //                   child: StreamBuilder(
+  //                       stream: FirebaseFirestore.instance
+  //                           .collection('users')
+  //                           .where('id_vol',
+  //                           isEqualTo:
+  //                           FirebaseAuth.instance.currentUser?.uid)
+  //                           .snapshots(),
+  //                       builder: (context,
+  //                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+  //                         return ListView.builder(
+  //                             itemCount: !streamSnapshot.hasData
+  //                                 ? 1
+  //                                 : streamSnapshot.data?.docs.length,
+  //                             itemBuilder: (ctx, index) {
+  //                           return TextButton(
+  //                               child: Text(
+  //                                 'Change my choice',
+  //                                 style: GoogleFonts.raleway(
+  //                                   fontSize: 16,
+  //                                   color: blueColor,
+  //                                 ),
+  //                               ),
+  //                               onPressed: () async {
+  //                                 Navigator.of(context).pop();
+  //                               });
+  //                         }
+  //                       );
+  //                     }
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           // TextButton(
+  //           //   style: TextButton.styleFrom(
+  //           //     textStyle: Theme.of(context).textTheme.labelLarge,
+  //           //   ),
+  //           //   child: const Text('Choose category'),
+  //           //   onPressed: () {
+  //           //     Navigator.of(context).pop();
+  //           //   },
+  //           // ),
+  //           SizedBox(
+  //             height:
+  //             MediaQuery.of(context).size.height *
+  //                 0.01,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 15),
+  //             child: Align(
+  //               alignment: Alignment.bottomCenter,
+  //               child: Center(
+  //                 child: Container(
+  //                   width: double.infinity,
+  //                   height: MediaQuery.of(context).size.height *
+  //                       0.075,
+  //                   decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius:
+  //                       BorderRadius.circular(18)),
+  //                   child: StreamBuilder(
+  //                       stream: FirebaseFirestore.instance
+  //                           .collection('users')
+  //                           .where('id_vol',
+  //                           isEqualTo:
+  //                           FirebaseAuth.instance.currentUser?.uid)
+  //                           .snapshots(),
+  //                       builder: (context,
+  //                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+  //                         return ListView.builder(
+  //                             itemCount: !streamSnapshot.hasData
+  //                                 ? 1
+  //                                 : streamSnapshot.data?.docs.length,
+  //                             itemBuilder: (ctx, index) {
+  //                           return TextButton(
+  //                               child: Text(
+  //                                 'Save my changes',
+  //                                 style: GoogleFonts.raleway(
+  //                                   fontSize: 16,
+  //                                   color: blueColor,
+  //                                 ),
+  //                               ),
+  //                               onPressed: () async {
+  //                                 // Navigator.push(
+  //                                 //   context,
+  //                                 //   MaterialPageRoute(builder: (context) => const HomeVol()),);
+  //
+  //                                   // if(chosenCategoryList==[]){
+  //                                   //   dialogBuilder(context);
+  //                                   // }
+  //                                   // else if(chosenCategoryList!=[]){
+  //                                   FirebaseFirestore.instance
+  //                                       .collection('users')
+  //                                       .doc(streamSnapshot
+  //                                       .data?.docs[index].id)
+  //                                       .update({
+  //                                     "category": categoriesVolunteer
+  //                                   });
+  //                                   // categoriesVolunteer =
+  //                                   //     chosenCategoryListChanges;
+  //                                   // }
+  //                                   Future.delayed(Duration(seconds: 1),
+  //                                           () {
+  //                                       Navigator.push(
+  //                                           context,
+  //                                           MaterialPageRoute(
+  //                                               builder: (
+  //                                                   context) => MainScreen()));
+  //
+  //                                       });
+  //
+  //                               });
+  //                         }
+  //                       );
+  //                     }
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           SizedBox(
+  //             height:
+  //             MediaQuery.of(context).size.height *
+  //                 0.02,
+  //           ),
+  //           // TextButton(
+  //           //   style: TextButton.styleFrom(
+  //           //     textStyle: Theme.of(context).textTheme.labelLarge,
+  //           //   ),
+  //           //   child: const Text('Leave my categories'),
+  //           //   onPressed: () {
+  //           //     Navigator.push(
+  //           //       context,
+  //           //       MaterialPageRoute(builder: (context) => const HomeVol()),
+  //           //     );
+  //           //   },
+  //           // ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+  //
+  // GestureDetector buildCategory(
+  //     BuildContext context, String text, IconData icon) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         if (categoriesVolunteer.contains(text)) {
+  //           categoriesVolunteer.remove(text);
+  //         } else {
+  //           categoriesVolunteer.add(text);
+  //         }
+  //       });
+  //     },
+  //     child: AnimatedContainer(
+  //       height: MediaQuery.of(context).size.height * 0.085,
+  //       duration: const Duration(milliseconds: 500),
+  //       decoration: BoxDecoration(
+  //         border: Border.all(
+  //           color: categoriesVolunteer.contains(text) ? blueColor : Colors.white,
+  //           width: 2,
+  //
+  //         ),
+  //         // color: categoriesVolunteer.contains(text) ? blueColor : Colors.white,
+  //         borderRadius: const BorderRadius.all(
+  //           Radius.circular(18),
+  //
+  //         ),
+  //       ),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Row(
+  //             children: [
+  //               Padding(
+  //                 padding: EdgeInsets.only(
+  //                   left: MediaQuery.of(context).size.width * 0.05,
+  //                   right: MediaQuery.of(context).size.width * 0.04,
+  //                 ),
+  //                 child: Icon(
+  //                   icon,
+  //                   size: 30,
+  //                   color:
+  //                   // categoriesVolunteer.contains(text)
+  //                   //     ? Colors.white
+  //                   //     :
+  //                   Colors.black,
+  //                 ),
+  //               ),
+  //               Text(
+  //                 text,
+  //                 style: GoogleFonts.raleway(
+  //                   fontSize: 15,
+  //                   color:
+  //                   // categoriesVolunteer.contains(text)
+  //                   //     ? Colors.white
+  //                   //     :
+  //                   Colors.black,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //
+  //           categoriesVolunteer.contains(text)
+  //           ? Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 10),
+  //             child: Icon(
+  //               Icons.check_rounded,
+  //               size: 30,
+  //               color: blueColor
+  //               // categoriesVolunteer.contains(text)
+  //               //     ? Colors.white
+  //               //     :
+  //               // Colors.black,
+  //             ),
+  //           )
+  //           :Container(),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

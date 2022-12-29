@@ -19,6 +19,7 @@ import 'package:wol_pro_1/widgets/loading.dart';
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
 import '../../../../service/local_push_notifications.dart';
+import '../../../../widgets/wrapper.dart';
 import '../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../messages/pageWithChatsVol.dart';
 import 'categories/update_categories.dart';
@@ -83,18 +84,18 @@ class _HomeVolState extends State<HomeVol> {
   // String token = '';
   //
 
-  loadImage(String image_url) async {
-    //select the image url
-    Reference ref =
-        FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
-
-    //get image url from firebase storage
-    var url = await ref.getDownloadURL();
-    // put the URL in the state, so that the UI gets rerendered
-    setState(() {
-      url_image = url;
-    });
-  }
+  // loadImage(String image_url) async {
+  //   //select the image url
+  //   Reference ref =
+  //       FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
+  //
+  //   //get image url from firebase storage
+  //   var url = await ref.getDownloadURL();
+  //   // put the URL in the state, so that the UI gets rerendered
+  //   setState(() {
+  //     url_image = url;
+  //   });
+  // }
 
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
@@ -117,6 +118,8 @@ class _HomeVolState extends State<HomeVol> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("AAAAAAAAAAAAAAAAAAAAA IIIImageeeeeeeeeeeeeeeeee");
+    print(url_image);
     // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);
     FirebaseMessaging.instance.getInitialMessage();
@@ -134,7 +137,7 @@ class _HomeVolState extends State<HomeVol> {
         collection('users').
         doc(FirebaseAuth.instance.currentUser!.uid).
         get();
-        print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCApp");
+        // print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCApp");
         print(variable["category"]);
         var cList = variable["category"];
         cList.forEach((element) {
@@ -144,7 +147,7 @@ class _HomeVolState extends State<HomeVol> {
         //     .add(variable["category"][0]);
         print("UUUUUUUUUUUpadaaaaaaaaateeeeed");
         print(categoriesUpdated);
-        print(categoriesVolunteer);
+        // print(categoriesVolunteer);
 
 
       });
@@ -684,7 +687,7 @@ class _HomeVolState extends State<HomeVol> {
                                                                 .size
                                                                 .width *
                                                             0.4,
-                                                    child: url_image == null
+                                                    child: url_image == ""
                                                         ? const Image(
                                                             image: AssetImage(
                                                                 "assets/user.png"))
@@ -719,12 +722,12 @@ class _HomeVolState extends State<HomeVol> {
                                                             color: Colors.white,
                                                           ),
                                                           onPressed: () {
-                                                            loadImage(
-                                                                streamSnapshot
-                                                                            .data
-                                                                            ?.docs[
-                                                                        index]
-                                                                    ['image']);
+                                                            // loadImage(
+                                                            //     streamSnapshot
+                                                            //                 .data
+                                                            //                 ?.docs[
+                                                            //             index]
+                                                            //         ['image']);
                                                             Future.delayed(
                                                                 const Duration(
                                                                     milliseconds:

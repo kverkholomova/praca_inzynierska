@@ -72,7 +72,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
   }
 
 
-  loadImage() async {
+  loadImageRef() async {
     //select the image url
     Reference ref = FirebaseStorage.instance
         .ref()
@@ -170,7 +170,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                     decoration: buttonActiveDecoration,
                     child: TextButton(
                         onPressed: () {
-                          loadImage();
+                          loadImageRef();
                           Future.delayed(const Duration(milliseconds: 500), () {
                             print(
                                 "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");

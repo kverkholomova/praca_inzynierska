@@ -17,9 +17,10 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../../../../../constants.dart';
+import '../../../../../widgets/wrapper.dart';
 import '../../main_screen.dart';
 
-String? url_image;
+
 String image_url_volunteer = '';
 firebase_storage.FirebaseStorage storage =
     firebase_storage.FirebaseStorage.instance;

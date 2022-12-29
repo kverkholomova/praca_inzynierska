@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/settings_ref_info.dart';
+import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/upload_picture_refugee.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
 
@@ -35,7 +36,7 @@ class _HomeRefState extends State<HomeRef> {
 
 
 
-  loadImage(String image_url) async{
+  loadImageRef(String image_url) async{
 
     //select the image url
     Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
@@ -47,7 +48,7 @@ class _HomeRefState extends State<HomeRef> {
     print(url);
     // put the URL in the state, so that the UI gets rerendered
     setState(() {
-      url_image = url;
+      url_image_ref = url;
     });
   }
   storeNotificationToken() async {
@@ -161,11 +162,11 @@ class _HomeRefState extends State<HomeRef> {
                                                     .size
                                                     .width *
                                                     0.4,
-                                                child: url_image==null?Image(
+                                                child: url_image_ref==null?Image(
                                                     image:AssetImage("assets/user.png")
                                                 ): CircleAvatar(
                                                     radius: 80.0,
-                                                    backgroundImage: NetworkImage(url_image.toString())),
+                                                    backgroundImage: NetworkImage(url_image_ref.toString())),
                                               ),
                                               Align(
                                                 alignment: Alignment.topCenter,

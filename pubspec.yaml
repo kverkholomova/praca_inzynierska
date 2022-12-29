@@ -82,6 +82,7 @@ dependencies:
   file_picker: ^5.2.2
   cool_dropdown: ^1.4.2
   email_auth: ^1.0.0
+  smooth_page_indicator: ^1.0.0+2
 
 
 
@@ -117,6 +118,10 @@ flutter:
     - assets/images/2.jpg
     - assets/images/3.jpg
     - assets/images/4.jpg
+    - assets/onboarding/1.jpg
+    - assets/onboarding/2.jpg
+    - assets/onboarding/3.jpg
+    - assets/onboarding/4.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

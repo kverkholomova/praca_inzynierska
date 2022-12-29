@@ -14,6 +14,7 @@ import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
 
+import '../../../../../widgets/wrapper.dart';
 import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../../services/auth.dart';
 

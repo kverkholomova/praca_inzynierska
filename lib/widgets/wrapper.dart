@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wol_pro_1/screens/menu/welcome_screen.dart';
+import 'package:wol_pro_1/screens/register_login/volunteer/onboarding_register_vol.dart';
 import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 import 'package:wol_pro_1/to_delete/register_refugee.dart';
@@ -20,14 +22,14 @@ import '../models/user.dart';
 import '../screens/menu/volunteer/home_page/home_vol.dart';
 import '../screens/menu/volunteer/home_page/settings/upload_photo.dart';
 
-
+String url_image = '';
 class Wrapper extends StatefulWidget {
   Wrapper({Key? key}) : super(key: key);
 
   @override
   State<Wrapper> createState() => _WrapperState();
 }
-
+bool _isLoading = true;
 class _WrapperState extends State<Wrapper> {
 
   loadImage() async{
@@ -52,21 +54,29 @@ class _WrapperState extends State<Wrapper> {
       url_image = url;
     });
   }
-  bool _isLoading = true;
+
+
   late StreamSubscription<User?> user;
   void initState(){
     super.initState();
 
-    if(justSignedIn){
-
-    }
+    // if(justSignedIn){
+    //
+    // }
     user = FirebaseAuth.instance.authStateChanges().listen((user) async {
-      loadImage();
+
       DocumentSnapshot variable = await FirebaseFirestore.instance.
       collection('users').
       doc(FirebaseAuth.instance.currentUser!.uid).
       get();
-
+      var image = variable["image"];
+      print("IIIIIIIIIIIImageeeeeeeeeeeeeee");
+      print(image);
+      if(image!=''){
+        print("IIIIIIIIIIIImageeeeeeeeeeeeeee2222222222222");
+        print(image);
+        loadImage();
+      }
       var currentRole = variable['role'];
       print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCWraper");
       print(variable["category"]);
@@ -114,7 +124,8 @@ class _WrapperState extends State<Wrapper> {
       return MainScreenRefugee();
     }else if(!optionRefugee){
       // return SettingsHomeVol();
-      return registrationVol?ChooseCategory():!_isLoading?MainScreen():Loading();
+      return registrationVol?ChooseCategory():!_isLoading?WelcomeScreen():Loading();
+      // return registrationVol?ChooseCategory():!_isLoading?MainScreen():Loading();
 
     }
     else{
