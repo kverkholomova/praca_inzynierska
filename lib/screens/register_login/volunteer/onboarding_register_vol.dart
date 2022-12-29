@@ -132,21 +132,27 @@ class _OnBoardingVolunteerRegState extends State<OnBoardingVolunteerReg> {
           children: [
             buildPage(
               color: Colors.white,
+            buildSizedBox: false,
             image: "assets/onboarding/1.jpg",
-              title: "Help refugees",
-              subtitle: "This app can help you to assist any refugees",
+              title: "Choose refugee's application",
+              subtitle: "This app can help you to assist any refugees by choosing application, where people are asking for different kind of an assistance. ",
+              gap: MediaQuery.of(context).size.height * 0.1,
             ),
             buildPage(
+              buildSizedBox: true,
               color:  Colors.white,
               image: "assets/onboarding/2.jpg",
-              title: "Donate freely",
-              subtitle: "You can donate for refugees, contact with them and assist them.",
+              title: "Contact to refugee",
+              subtitle: "You can contact with refugees right in this app to find out more about their application and kind of an assistance that they ask you for.",
+              gap: MediaQuery.of(context).size.height * 0.15,
             ),
             buildPage(
+              buildSizedBox: false,
               color: Colors.white,
               image: "assets/onboarding/3.jpg",
-              title: "Perfect app for volunteers",
-              subtitle: "Use this app to help others and communicate with refugees",
+              title: "Get feedback of your assistance",
+              subtitle: "After every assistance you will be rated to let other users know more about you as a wonderful volunteer.",
+              gap: MediaQuery.of(context).size.height * 0.06,
             ),
           ],
         ),
@@ -219,8 +225,10 @@ class buildPage extends StatelessWidget {
   String image;
   String title;
   String subtitle;
+  double gap;
+  bool buildSizedBox;
   buildPage({
-    Key? key, required this.color, required this.image, required this.title, required this.subtitle
+    Key? key, required this.color, required this.image, required this.title, required this.subtitle, required this.gap, required this.buildSizedBox
   }) : super(key: key);
 
   @override
@@ -232,16 +240,23 @@ class buildPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            buildSizedBox?
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ):SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
             Image.asset(image,
             fit: BoxFit.cover,
               width: double.infinity,),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
+              height: gap,
             ),
             Text(title, style: GoogleFonts.raleway(
               fontSize: 20,
               color: Colors.black,
             ),
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.05,
