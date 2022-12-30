@@ -152,7 +152,7 @@ class _SettingsVolState extends State<SettingsVol> {
                                     child: SizedBox(
                                         height:
                                             MediaQuery.of(context).size.width * 0.5,
-                                        child: url_image == null
+                                        child: url_image == ""
                                             ? Stack(
                                               children: [
                                                 const Image(
