@@ -150,6 +150,7 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
+                                    changeContainerHeight = false;
                                     // scrollControllerVol.jumpTo(
                                     //     scrollControllerVol
                                     //         .positions.last.maxScrollExtent);

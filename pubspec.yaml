@@ -83,6 +83,7 @@ dependencies:
   cool_dropdown: ^1.4.2
   email_auth: ^1.0.0
   smooth_page_indicator: ^1.0.0+2
+  flutter_share: ^2.0.0
 
 
 

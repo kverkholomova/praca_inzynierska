@@ -754,6 +754,7 @@ class _SettingsOfApplicationAcceptedState
                                                 ["chatId_vol"]=="null");
 
                                                 setState(() {
+                                                  changeContainerHeight = false;
                                                   messagesNull = false;
                                                   print("QQQQQQQQQQQQQQQTATATATA2222222222.............");
                                                   print(messagesNull);

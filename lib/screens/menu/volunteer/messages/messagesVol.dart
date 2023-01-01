@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/app.dart';
@@ -138,7 +139,7 @@ class _MessagesVolState extends State<MessagesVol> {
             child: Column(
               children: [
                SizedBox(
-                 height: MediaQuery.of(context).size.height * 0.75,
+                 height: changeContainerHeight?MediaQuery.of(context).size.height * 0.4: MediaQuery.of(context).size.height * 0.75,
                  child: StreamBuilder(
                    stream: FirebaseFirestore.instance
                        .collection("USERS_COLLECTION")
@@ -236,9 +237,8 @@ class _MessagesVolState extends State<MessagesVol> {
                                            ),
                                          ),
                                          Text(
-                                           d.hour.toString() +
-                                               ":" +
-                                               d.minute.toString(),
+                                           "${d.hour}" +
+                                               ":" + "${d.minute}",
                                          )
                                        ],
                                      ),
@@ -273,6 +273,42 @@ bool? messagesNull;
 // String id_users_col = FirebaseFirestore.instance.collection("USERS_COLLECTION").doc().id;
 class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
   // String id_users_col = FirebaseFirestore.instance.collection("USERS_COLLECTION").doc().id;
+
+  Position? currentPosition;
+  void getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best,
+    ).then((Position position) {
+      setState(() {
+        currentPosition = position;
+        print("Current positioooooooon");
+        print(currentPosition);
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  //  void share(){
+  //   Share.share('https://www.google.com/maps/search/?api=1&query=${currentPosition?.latitude},${currentPosition?.longitude}');
+  // }
+  // void checkCurrentPosition() {
+  //   if (_currentPosition != null) {
+  //     markers.add(Marker(
+  //         markerId: const MarkerId('Home'),
+  //         icon: BitmapDescriptor.defaultMarkerWithHue(
+  //           BitmapDescriptor.hueAzure,
+  //         ),
+  //         position: LatLng(_currentPosition?.latitude ?? 0.0,
+  //             _currentPosition?.longitude ?? 0.0)));
+  //     mapController
+  //         ?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+  //       target: LatLng(_currentPosition?.latitude ?? 0.0,
+  //           _currentPosition?.longitude ?? 0.0),
+  //       zoom: 15.0,
+  //     )));
+  //   }
+  // }
 
   writeMessages() {
     FirebaseFirestore.instance
@@ -364,75 +400,84 @@ if (messagesNull==true){
             MaterialPageRoute(builder: (context) => MainScreen()));
         return true;
       },
-      child: Scaffold(
-        backgroundColor: background,
-        // resizeToAvoidBottomInset: true,
-        // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        // floatingActionButton: IconButton(
-        //   icon: Icon(
-        //     Icons.arrow_back_ios_new_rounded,
-        //     size: 30,
-        //     color: blueColor,
-        //   ),
-        //   onPressed: () {
-        //     setState(() {
-        //       controllerTabBottomVol = PersistentTabController(initialIndex: 0);
-        //     });
-        //     Navigator.of(context, rootNavigator: true).pushReplacement(
-        //         MaterialPageRoute(builder: (context) => MainScreen()));
-        //   },
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        // floatingActionButton: IconButton(
-        //   icon: Icon(
-        //     Icons.arrow_back_ios_new_rounded,
-        //     size: 30,
-        //     color: blueColor,
-        //   ),
-        //   onPressed: () {
-        //     setState(() {
-        //       controllerTabBottom = PersistentTabController(initialIndex: 1);
-        //     });
-        //     Navigator.of(context, rootNavigator: true).pushReplacement(
-        //         MaterialPageRoute(builder: (context) => MainScreen()));
-        //
-        //   },
-        // ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              //     firstMessage?
-              // Container(
-              //       height: MediaQuery.of(context).size.height * 0.91,)
-              //     :
-              // messagesNull?
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.9,
-              //   child: Container(
-              //       height: MediaQuery.of(context).size.height * 0.5,
-              //     width: MediaQuery.of(context).size.height * 0.6,
-              //     color: blueColor.withOpacity(0.2),
-              //     child: Text(
-              //       "No messages here yet",
-              //       style: GoogleFonts.raleway(
-              //         fontSize: 12,
-              //         color: Colors.black,
-              //       ),
-              //     ),
-              //   ),
-              // )
-              // :
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: MessagesVol(
-                  name: currentName,
+      child: GestureDetector(
+        onTap: () {
+          changeContainerHeight = false;
+          FocusManager.instance.primaryFocus?.unfocus();
+          Future.delayed(const Duration(milliseconds: 200), () {
+            print(DateTime.now());
+
+            scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+
+          });
+        },
+        child: Scaffold(
+          backgroundColor: background,
+          // resizeToAvoidBottomInset: true,
+          // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+          // floatingActionButton: IconButton(
+          //   icon: Icon(
+          //     Icons.arrow_back_ios_new_rounded,
+          //     size: 30,
+          //     color: blueColor,
+          //   ),
+          //   onPressed: () {
+          //     setState(() {
+          //       controllerTabBottomVol = PersistentTabController(initialIndex: 0);
+          //     });
+          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+          //         MaterialPageRoute(builder: (context) => MainScreen()));
+          //   },
+          // ),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+          // floatingActionButton: IconButton(
+          //   icon: Icon(
+          //     Icons.arrow_back_ios_new_rounded,
+          //     size: 30,
+          //     color: blueColor,
+          //   ),
+          //   onPressed: () {
+          //     setState(() {
+          //       controllerTabBottom = PersistentTabController(initialIndex: 1);
+          //     });
+          //     Navigator.of(context, rootNavigator: true).pushReplacement(
+          //         MaterialPageRoute(builder: (context) => MainScreen()));
+          //
+          //   },
+          // ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                //     firstMessage?
+                // Container(
+                //       height: MediaQuery.of(context).size.height * 0.91,)
+                //     :
+                // messagesNull?
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.9,
+                //   child: Container(
+                //       height: MediaQuery.of(context).size.height * 0.5,
+                //     width: MediaQuery.of(context).size.height * 0.6,
+                //     color: blueColor.withOpacity(0.2),
+                //     child: Text(
+                //       "No messages here yet",
+                //       style: GoogleFonts.raleway(
+                //         fontSize: 12,
+                //         color: Colors.black,
+                //       ),
+                //     ),
+                //   ),
+                // )
+                // :
+                SizedBox(
+                  height: changeContainerHeight?MediaQuery.of(context).size.height * 0.54:MediaQuery.of(context).size.height * 0.9,
+                  child: MessagesVol(
+                    name: currentName,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 0),
-                child: SizedBox(
+                SizedBox(
                   // color: background,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Align(
@@ -448,6 +493,12 @@ if (messagesNull==true){
 
                                 controller: message,
                                 decoration: InputDecoration(
+
+                                  // suffixIcon: IconButton(onPressed: (){
+                                  //   getCurrentLocation();
+                                  //
+                                  // }, icon: Icon(Icons.attach_file_rounded)),
+                                  // suffixIconColor: blueColor,
                                   filled: true,
                                   fillColor: Colors.white,
                                   hintText: 'Message',
@@ -459,7 +510,7 @@ if (messagesNull==true){
                                         new BorderSide(color: blueColor),
                                     borderRadius: new BorderRadius.circular(15),
                                   ),
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide:
                                         new BorderSide(color: blueColor),
                                     borderRadius: new BorderRadius.circular(15),
@@ -471,8 +522,22 @@ if (messagesNull==true){
                                 },
                                 onTap: (){
                                   setState(() {
-                                    changeContainerHeight=true;
+                                    changeContainerHeight = true;
                                   });
+                                  Future.delayed(const Duration(milliseconds: 200), () {
+                                    print(DateTime.now());
+                                    // SchedulerBinding.instance
+                                    //     ?.addPostFrameCallback((_) {
+                                    //   print("AAAAAAAAAAA__________________works");
+                                    scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+                                    // duration: Duration(milliseconds: 400),
+                                    // curve: Curves.fastOutSlowIn);
+                                    // });
+                                  });
+
+                                    // duration: Duration(milliseconds: 400),
+                                    // curve: Curves.fastOutSlowIn);
+
                                 },
                               ),
                             ),
@@ -495,7 +560,7 @@ if (messagesNull==true){
                                     });
 
                                   await Future.delayed(
-                                      Duration(milliseconds: 500), (){
+                                      Duration(milliseconds: 200), (){
                                     messagesNull = false;
                                     SchedulerBinding.instance
                                         ?.addPostFrameCallback((_) {
@@ -520,8 +585,8 @@ if (messagesNull==true){
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
