@@ -8,6 +8,7 @@ import 'package:wol_pro_1/widgets/loading.dart';
 import 'package:wol_pro_1/widgets/wrapper.dart';
 
 import '../../../../../widgets/text_form_field.dart';
+import 'forgot_password.dart';
 
 TextEditingController controllerTextFieldEmailVol = TextEditingController();
 TextEditingController controllerTextFieldPasswordVol = TextEditingController();
@@ -224,7 +225,12 @@ class _SignInVolState extends State<SignInVol> {
                                   ),
                                 )),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                                            MaterialPageRoute(builder: (context) => ForgotPasswordVol()));
+
+
+                                },
                                 child: Text(
                                   "Forgot password",
                                   style: GoogleFonts.raleway(

@@ -141,11 +141,20 @@ class _HomeVolState extends State<HomeVol> {
         print(variable["category"]);
         var cList = variable["category"];
         cList.forEach((element) {
-          categoriesUpdated.add(element);
+          if (categoriesUpdated.contains(element)) {
+            print(element);
+            print(categoriesUpdated);
+            // categoriesUpdated.remove(e);
+          } else {
+            categoriesUpdated.add(element);
+          }
+          print("KKKKKKKKKKKUpdateeeeeeeeeeeeeeeeeIHopeitworks");
+          print(categoriesUpdated);
+          // categoriesUpdated.add(element);
         });
         // categoriesVolunteer
         //     .add(variable["category"][0]);
-        print("UUUUUUUUUUUpadaaaaaaaaateeeeed");
+        print("UUUUUUUUUUUpadaaaaaaaaateeeeed222");
         print(categoriesUpdated);
         // print(categoriesVolunteer);
 
@@ -448,11 +457,13 @@ class _HomeVolState extends State<HomeVol> {
                 // ),
                 ClipPath(
                   clipper: OvalBottomBorderClipper(),
-                  child: AnimatedContainer(
-                    height: scrolled
-                        ? MediaQuery.of(context).size.height * 0.3
-                        : MediaQuery.of(context).size.height * 0.43,
-                    duration: const Duration(milliseconds: 10000000),
+                  child: Container(
+                    height:
+                    // scrolled
+                    //     ? MediaQuery.of(context).size.height * 0.3
+                    //     :
+                    MediaQuery.of(context).size.height * 0.43,
+                    // duration: const Duration(milliseconds: 10000000),
                     decoration: BoxDecoration(
                       color: blueColor,
                     ),
@@ -615,65 +626,68 @@ class _HomeVolState extends State<HomeVol> {
                                             // print(
                                             //     "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
                                             // print(categoriesVolunteer.length);
-                                            return scrolled
-                                                ? Padding(
-                                                  padding: padding,
-                                                  child: Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        height:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .width *
-                                                                0.3,
-                                                        child: url_image == ""
-                                                            ? const Image(
-                                                                image: AssetImage(
-                                                                    "assets/user.png"))
-                                                            : CircleAvatar(
-                                                                radius: 60.0,
-                                                                backgroundImage:
-                                                                    NetworkImage(
-                                                                        url_image
-                                                                            .toString())),
-                                                      ),
-                                                      Padding(
-                                                        padding: padding,
-                                                        child: Align(
-                                                          alignment:
-                                                              Alignment.topLeft,
-                                                          child: Column(
-                                                            children: [
-                                                              Text(
-                                                                  streamSnapshot.data
-                                                                          ?.docs[index]
-                                                                      ['user_name'],
-                                                                  style: GoogleFonts
-                                                                      .raleway(
-                                                                    fontSize: 24,
-                                                                    color:
-                                                                        Colors.white,
-                                                                  )),
-                                                              // Align(
-                                                              //   alignment:
-                                                              //       Alignment.topLeft,
-                                                              //   child: Text(
-                                                              //       "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
-                                                              //       style: GoogleFonts
-                                                              //           .raleway(
-                                                              //         fontSize: 18,
-                                                              //         color: Colors
-                                                              //             .white,
-                                                              //       )),
-                                                              // ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                                : Padding(
+                                            return
+                                              // scrolled
+                                              //   ? Padding(
+                                              //     padding: padding,
+                                              //     child: Row(
+                                              //       children: [
+                                              //         SizedBox(
+                                              //           height:
+                                              //               MediaQuery.of(context)
+                                              //                       .size
+                                              //                       .width *
+                                              //                   0.3,
+                                              //           child: url_image == ""
+                                              //               ? const Image(
+                                              //                   image: AssetImage(
+                                              //                       "assets/user.png"))
+                                              //               : CircleAvatar(
+                                              //                   radius: 60.0,
+                                              //                   backgroundImage:
+                                              //                       NetworkImage(
+                                              //                           url_image
+                                              //                               .toString())),
+                                              //         ),
+                                              //         Padding(
+                                              //           padding: padding,
+                                              //           child: Align(
+                                              //             alignment:
+                                              //                 Alignment.topLeft,
+                                              //             child: Column(
+                                              //               children: [
+                                              //                 Text(
+                                              //                     streamSnapshot.data
+                                              //                             ?.docs[index]
+                                              //                         ['user_name'],
+                                              //                     style: GoogleFonts
+                                              //                         .raleway(
+                                              //                       fontSize: 24,
+                                              //                       color:
+                                              //                           Colors.white,
+                                              //                     )),
+                                              //                 // Align(
+                                              //                 //   alignment:
+                                              //                 //       Alignment.topLeft,
+                                              //                 //   child: Text(
+                                              //                 //       "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Please add your age" : streamSnapshot.data?.docs[index]['age']}",
+                                              //                 //       style: GoogleFonts
+                                              //                 //           .raleway(
+                                              //                 //         fontSize: 18,
+                                              //                 //         color: Colors
+                                              //                 //             .white,
+                                              //                 //       )),
+                                              //                 // ),
+                                              //               ],
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ],
+                                              //     ),
+                                              //   )
+                                              //   :
+
+                                            Padding(
                                                     padding: const EdgeInsets.only(
                                                         top: 20),
                                                     child: Column(
@@ -765,7 +779,7 @@ class _HomeVolState extends State<HomeVol> {
                                                                 "${streamSnapshot.data?.docs[index]['age'] == 0 ? "Your profile isn't completed" : streamSnapshot.data?.docs[index]['age']}",
                                                                 style: GoogleFonts
                                                                     .raleway(
-                                                                  fontSize: 16,
+                                                                  fontSize: 15,
                                                                   color: Colors.white,
                                                                 )),
                                                           ),
@@ -1249,10 +1263,10 @@ class _HomeVolState extends State<HomeVol> {
                       : categoriesVolunteer.length == 2
                           ? MediaQuery.of(context).size.height * 0.012
                           : categoriesVolunteer.length == 3
-                              ? MediaQuery.of(context).size.height * 0.2
+                              ? MediaQuery.of(context).size.height * 0.012
                               : categoriesVolunteer.length == 4
-                                  ? MediaQuery.of(context).size.height * 0.025
-                                  : MediaQuery.of(context).size.height * 0.05,
+                                  ? MediaQuery.of(context).size.height * 0.012
+                                  : MediaQuery.of(context).size.height * 0.012,
                 ),
               ],
             ),

@@ -10,7 +10,62 @@ import 'package:wol_pro_1/services/database.dart';
 import 'package:http/http.dart' as http;
 import '../screens/register_login/volunteer/login/sign_in_volunteer.dart';
 
+enum AuthStatus {
+  successful,
+  wrongPassword,
+  emailAlreadyExists,
+  invalidEmail,
+  weakPassword,
+  unknown,
+}
+
+class AuthExceptionHandler {
+  static handleAuthException(FirebaseAuthException e) {
+    AuthStatus status;
+    switch (e.code) {
+      case "invalid-email":
+        status = AuthStatus.invalidEmail;
+        break;
+      case "wrong-password":
+        status = AuthStatus.wrongPassword;
+        break;
+      case "weak-password":
+        status = AuthStatus.weakPassword;
+        break;
+      case "email-already-in-use":
+        status = AuthStatus.emailAlreadyExists;
+        break;
+      default:
+        status = AuthStatus.unknown;
+    }
+    return status;
+  }
+  static String generateErrorMessage(error) {
+    String errorMessage;
+    switch (error) {
+      case AuthStatus.invalidEmail:
+        errorMessage = "Your email address appears to be malformed.";
+        break;
+      case AuthStatus.weakPassword:
+        errorMessage = "Your password should be at least 6 characters.";
+        break;
+      case AuthStatus.wrongPassword:
+        errorMessage = "Your email or password is wrong.";
+        break;
+      case AuthStatus.emailAlreadyExists:
+        errorMessage =
+        "The email address is already in use by another account.";
+        break;
+      default:
+        errorMessage = "An error occured. Please try again later.";
+    }
+    return errorMessage;
+  }
+}
+
 class AuthService {
+
+  static late AuthStatus status;
   String? tokenFirst;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -121,4 +176,13 @@ Future signOut() async{
       print(e.toString());
     }
 }
+
+  Future resetPassword({required String email}) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    // await _auth
+    //     .sendPasswordResetEmail(email: email)
+    //     .then((value) => status = AuthStatus.successful)
+    //     .catchError((e) => status = AuthExceptionHandler.handleAuthException(e));
+    // return status;
+  }
 }

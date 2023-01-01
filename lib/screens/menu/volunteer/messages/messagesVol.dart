@@ -17,7 +17,7 @@ import 'pageWithChatsVol.dart';
 
 bool firstChat = true;
 String color = "blue";
-
+bool changeContainerHeight = false;
 class MessagesVol extends StatefulWidget {
   //
   String? name;
@@ -445,6 +445,7 @@ if (messagesNull==true){
                             child: Padding(
                               padding: const EdgeInsets.only(right: 5),
                               child: TextFormField(
+
                                 controller: message,
                                 decoration: InputDecoration(
                                   filled: true,
@@ -467,6 +468,11 @@ if (messagesNull==true){
                                 validator: (value) {},
                                 onSaved: (value) {
                                   message.text = value!;
+                                },
+                                onTap: (){
+                                  setState(() {
+                                    changeContainerHeight=true;
+                                  });
                                 },
                               ),
                             ),

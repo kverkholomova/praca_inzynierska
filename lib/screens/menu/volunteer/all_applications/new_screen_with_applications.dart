@@ -147,7 +147,7 @@ class CategoriesState extends State<Categories> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.17,
-                      bottom: MediaQuery.of(context).size.height * 0.04
+                      // bottom: MediaQuery.of(context).size.height * 0.04
                       ),
                       child: SingleChildScrollView(
                         child: Padding(
