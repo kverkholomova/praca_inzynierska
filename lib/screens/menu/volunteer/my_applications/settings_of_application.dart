@@ -1,35 +1,24 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/messages/messages_first.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/pageWithChatsVol.dart';
-
 import '../../../../models/categories.dart';
-import '../../../../to_delete/message.dart';
-import '../all_applications/page_of_application_vol.dart';
 import '../main_screen.dart';
-
 import '../home_page/home_vol.dart';
 import '../my_applications/applications_vol.dart';
 
 String roomExist = '';
-// bool isvisible = true;
 bool firstMessage = false;
-// String? IdOfChatroom = '';
 
 String VoluntterName = '';
 String RefugeeName = '';
@@ -101,7 +90,7 @@ class _SettingsOfApplicationAcceptedState
   //     print("error push notification");
   //   }
   // }
-  void sendPushMessage() async {
+  void sendPushMessageDeclinedApplication() async {
     print(
         "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
     try {
@@ -115,8 +104,8 @@ class _SettingsOfApplicationAcceptedState
         body: jsonEncode(
           <String, dynamic>{
             'notification': <String, dynamic>{
-              'body': 'The volunteer has chosen your application to help you.',
-              'title': 'Application is accepted'
+              'body': 'The volunteer has declined your application. Your application has sent to other volunteers.',
+              'title': 'Application is declined by volunteer'
             },
             'priority': 'high',
             'data': <String, dynamic>{
@@ -465,7 +454,7 @@ class _SettingsOfApplicationAcceptedState
                                                           color: blueColor,
                                                         ),
                                                         onPressed: () {
-                                                          sendPushMessage();
+                                                          sendPushMessageDeclinedApplication();
                                                           // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
                                                           // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
                                                           // print(IdOfChatroom);

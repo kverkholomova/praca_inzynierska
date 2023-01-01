@@ -572,13 +572,13 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                               padding: EdgeInsets.only(top: 100),
                               child: Column(
                                 children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
+                                  // SpinKitChasingDots(
+                                  //   color: Colors.brown,
+                                  //   size: 50.0,
+                                  // ),
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text("Waiting...",
+                                    child: Text("",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,

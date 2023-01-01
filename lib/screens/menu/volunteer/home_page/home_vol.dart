@@ -123,7 +123,7 @@ class _HomeVolState extends State<HomeVol> {
     // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);
     FirebaseMessaging.instance.getInitialMessage();
-    FirebaseMessaging.onMessage.listen((event) {});
+    // FirebaseMessaging.onMessage.listen((event) {});
     storeNotificationToken();
     FirebaseMessaging.instance.subscribeToTopic('subscription');
     FirebaseMessaging.onMessage.listen((event) {
@@ -1038,13 +1038,13 @@ class _HomeVolState extends State<HomeVol> {
                                           padding: const EdgeInsets.only(top: 100),
                                           child: Column(
                                             children: const [
-                                              SpinKitChasingDots(
-                                                color: Colors.brown,
-                                                size: 50.0,
-                                              ),
+                                              // SpinKitChasingDots(
+                                              //   color: Colors.brown,
+                                              //   size: 50.0,
+                                              // ),
                                               Align(
                                                 alignment: Alignment.center,
-                                                child: Text("Waiting...",
+                                                child: Text("",
                                                     style: TextStyle(
                                                       fontWeight: FontWeight.bold,
                                                       fontSize: 24,
