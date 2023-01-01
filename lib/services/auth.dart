@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wol_pro_1/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
-import 'package:wol_pro_1/screens/register_login/refugee/register_refugee.dart';
+import 'package:wol_pro_1/screens/register_login/refugee/register/register_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/database.dart';
 import 'package:http/http.dart' as http;

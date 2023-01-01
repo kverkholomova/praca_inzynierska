@@ -125,7 +125,7 @@ class _HomeVolState extends State<HomeVol> {
     FirebaseMessaging.instance.getInitialMessage();
     // FirebaseMessaging.onMessage.listen((event) {});
     storeNotificationToken();
-    FirebaseMessaging.instance.subscribeToTopic('subscription');
+    // FirebaseMessaging.instance.subscribeToTopic('subscription');
     FirebaseMessaging.onMessage.listen((event) {
       LocalNotificationService.display(event);
     });

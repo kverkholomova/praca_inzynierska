@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/widgets/text_form_field.dart';
 
-import '../../../../constants.dart';
-import '../../../../services/auth.dart';
-import '../../../widgets/loading.dart';
-import '../../intro_screen/option.dart';
+import '../../../../../constants.dart';
+import '../../../../../services/auth.dart';
+import '../../../../widgets/loading.dart';
+import '../../../intro_screen/option.dart';
+import '../login/sign_in_refugee.dart';
 
 bool registrationRef = false;
 
@@ -211,6 +212,9 @@ class _RegisterRefState extends State<RegisterRef> {
                                 style: textActiveButtonStyle,
                               ),
                               onPressed: () async {
+                                setState(() {
+                                  signInRef = false;
+                                });
                                 registrationRef = true;
                                 if (controllerTextFieldNameRef.text.isEmpty) {
                                   setState(() {

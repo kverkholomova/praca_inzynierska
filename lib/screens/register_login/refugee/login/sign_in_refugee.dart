@@ -5,7 +5,8 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
 
-import '../../../../widgets/text_form_field.dart';
+import '../../../../../widgets/text_form_field.dart';
+import 'forgot_password_ref.dart';
 
 TextEditingController controllerTextFieldEmailRef = TextEditingController();
 TextEditingController controllerTextFieldPasswordRef = TextEditingController();
@@ -13,7 +14,7 @@ bool isVisibleRef = false;
 bool errorEmptyRef = false;
 String emailRefLog = '';
 String passwordRefLog = '';
-
+bool signInRef = true;
 class SignInRef extends StatefulWidget {
   final Function toggleView;
 
@@ -50,16 +51,14 @@ class _SignInRefState extends State<SignInRef> {
           resizeToAvoidBottomInset: true,
           backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
           appBar: AppBar(
-            title: Padding(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.1),              child: Text(
-                "Refugee",
-                style: GoogleFonts.sairaStencilOne(
-                  fontSize: 25,
-                  color: Colors.black.withOpacity(0.7),
+            title: Text(
+              "Refugee",
+              style: GoogleFonts.sairaStencilOne(
+                fontSize: 25,
+                color: Colors.black.withOpacity(0.7),
 
-                ),
-                textAlign: TextAlign.center,
               ),
+              textAlign: TextAlign.center,
             ),
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -181,6 +180,9 @@ class _SignInRefState extends State<SignInRef> {
                             style: textActiveButtonStyle,
                           ),
                           onPressed: () async {
+                            setState(() {
+                              signInRef = true;
+                            });
                             if (controllerTextFieldEmailRef.text.isEmpty) {
                               setState(() {
                                 errorEmptyRef = true;
@@ -216,6 +218,9 @@ class _SignInRefState extends State<SignInRef> {
                     children: [
                       TextButton(
                           onPressed: () {
+                            setState(() {
+
+                            });
                             widget.toggleView();
                           },
                           child: Text(
@@ -226,7 +231,11 @@ class _SignInRefState extends State<SignInRef> {
                             ),
                           )),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                MaterialPageRoute(builder: (context) => ForgotPasswordRef()));
+                          },
                           child: Text(
                             "Forgot password",
                             style: GoogleFonts.raleway(

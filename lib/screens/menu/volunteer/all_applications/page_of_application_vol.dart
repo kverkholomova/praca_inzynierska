@@ -3,26 +3,22 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:wol_pro_1/screens/menu/volunteer/all_applications/your_app_vol.dart';
 
 import '../../../../models/categories.dart';
-import '../../refugee/home_page/create_application/create_application.dart';
+
 import '../main_screen.dart';
 import 'chosen_category_applications.dart';
 import 'new_screen_with_applications.dart';
 import '../home_page/home_vol.dart';
-import '../my_applications/applications_vol.dart';
 
 String date = '';
 
@@ -59,7 +55,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
     // FirebaseMessaging.instance.subscribeToTopic("Animal");
   }
 
-  void sendPushMessageAccepted() async {
+  void sendPushMessageAccepted(String nameApplic) async {
     print(
         "Send Info that application is accepted");
     try {
@@ -68,19 +64,20 @@ class _PageOfApplicationState extends State<PageOfApplication> {
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization':
-              'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+              'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L',
         },
         body: jsonEncode(
           <String, dynamic>{
             'notification': <String, dynamic>{
-              'body': 'The volunteer has chosen your application to help you.',
+              'body': 'The volunteer has chosen your application $nameApplic to help you.',
               'title': 'Application is accepted'
             },
             'priority': 'high',
             'data': <String, dynamic>{
               'click_action': 'FLUTTER_NOTIFICATION_CLICK',
               'id': '1',
-              'status': 'done'
+              'status': 'done',
+
             },
             "to": "$tokenRefNotification",
           },
@@ -260,14 +257,14 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return Column(children: [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
-                                  ),
+                                  // SizedBox(
+                                  //   width: 60,
+                                  //   height: 60,
+                                  //   child: CircularProgressIndicator(),
+                                  // ),
                                   Padding(
                                     padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
+                                    child: Text(''),
                                   )
                                 ]);
                               case ConnectionState.active:
@@ -505,47 +502,53 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                   style: textActiveButtonStyle,
                                                 ),
                                                 onPressed: () async {
-                                                  sendPushMessageAccepted();
+                                                  sendPushMessageAccepted(streamSnapshot
+                                                      .data?.docs[index]["title"]);
                                                   date = DateTime.now().toString();
                                                   FirebaseFirestore.instance
                                                       .collection('applications')
                                                       .doc(streamSnapshot
                                                       .data?.docs[index].id)
                                                       .update({
-                                                    "status": status_updated
+                                                    "status": status_updated,
+                                                    "volunteerID": volID,
+                                                    "date": date,
+                                                    "token_vol": tokenVol,
+                                                    "volunteer_name": currentNameVol,
+                                                    "application_accepted": true,
                                                   });
-                                                  FirebaseFirestore.instance
-                                                      .collection('applications')
-                                                      .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                      .update(
-                                                      {"volunteerID": volID});
-                                                  FirebaseFirestore.instance
-                                                      .collection('applications')
-                                                      .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                      .update({"date": date});
-                                                  FirebaseFirestore.instance
-                                                      .collection('applications')
-                                                      .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                      .update(
-                                                      {"token_vol": tokenVol});
-                                                  FirebaseFirestore.instance
-                                                      .collection('applications')
-                                                      .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                      .update({
-                                                    "volunteer_name": currentNameVol
-                                                  });
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection('applications')
+                                                  //     .doc(streamSnapshot
+                                                  //     .data?.docs[index].id)
+                                                  //     .update(
+                                                  //     {"volunteerID": volID});
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection('applications')
+                                                  //     .doc(streamSnapshot
+                                                  //     .data?.docs[index].id)
+                                                  //     .update({"date": date});
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection('applications')
+                                                  //     .doc(streamSnapshot
+                                                  //     .data?.docs[index].id)
+                                                  //     .update(
+                                                  //     {"token_vol": tokenVol});
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection('applications')
+                                                  //     .doc(streamSnapshot
+                                                  //     .data?.docs[index].id)
+                                                  //     .update({
+                                                  //   "volunteer_name": currentNameVol
+                                                  // });
 
-                                                  FirebaseFirestore.instance
-                                                      .collection('applications')
-                                                      .doc(streamSnapshot
-                                                      .data?.docs[index].id)
-                                                      .update({
-                                                    "application_accepted": true
-                                                  });
+                                                  // FirebaseFirestore.instance
+                                                  //     .collection('applications')
+                                                  //     .doc(streamSnapshot
+                                                  //     .data?.docs[index].id)
+                                                  //     .update({
+                                                  //   "application_accepted": true
+                                                  // });
 
                                                   Id_Of_current_application =
                                                       streamSnapshot

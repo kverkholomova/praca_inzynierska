@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/register_login/refugee/register_refugee.dart';
-import 'package:wol_pro_1/screens/register_login/refugee/sign_in_refugee.dart';
+import 'package:wol_pro_1/screens/register_login/refugee/register/register_refugee.dart';
+import 'package:wol_pro_1/screens/register_login/refugee/login/sign_in_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 
