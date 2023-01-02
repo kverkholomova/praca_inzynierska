@@ -5,15 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wol_pro_1/screens/menu/welcome_screen.dart';
+import 'package:wol_pro_1/screens/menu/refugee/welcome_screen_ref.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/welcome_screen.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/login/sign_in_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/onboarding_ref.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/onboarding_register_vol.dart';
-import 'package:wol_pro_1/to_delete/SettingRefugee.dart';
-import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
-import 'package:wol_pro_1/to_delete/register_refugee.dart';
-import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/widgets/authenticate.dart';
@@ -21,10 +16,10 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../models/user.dart';
-import '../screens/menu/volunteer/home_page/home_vol.dart';
-import '../screens/menu/volunteer/home_page/settings/upload_photo.dart';
+
 
 String url_image = '';
+String urlImageRefugee = '';
 class Wrapper extends StatefulWidget {
   Wrapper({Key? key}) : super(key: key);
 
@@ -33,6 +28,29 @@ class Wrapper extends StatefulWidget {
 }
 bool _isLoading = true;
 class _WrapperState extends State<Wrapper> {
+
+  loadImageRef() async{
+
+    DocumentSnapshot variable = await FirebaseFirestore.instance.
+    collection('users').
+    doc(FirebaseAuth.instance.currentUser!.uid).
+    get();
+
+    //a list of images names (i need only one)
+    var img_urlRef = variable['image'];
+    //select the image url
+    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(img_urlRef);
+
+    //get image url from firebase storage
+    var urlRef = await ref.getDownloadURL();
+
+    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    print(urlRef);
+    // put the URL in the state, so that the UI gets rerendered
+    setState(() {
+      urlImageRefugee = urlRef;
+    });
+  }
 
   loadImage() async{
 
@@ -58,6 +76,8 @@ class _WrapperState extends State<Wrapper> {
   }
 
 
+
+
   late StreamSubscription<User?> user;
   void initState(){
     super.initState();
@@ -78,6 +98,7 @@ class _WrapperState extends State<Wrapper> {
         print("IIIIIIIIIIIImageeeeeeeeeeeeeee2222222222222");
         print(image);
         loadImage();
+        loadImageRef();
       }
       var currentRole = variable['role'];
       print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCWraper");
@@ -123,7 +144,7 @@ class _WrapperState extends State<Wrapper> {
     if (user==null){
       return Authenticate();
     } else if(optionRefugee){
-      return signInRef?WelcomeScreen():OnBoardingRefugee();
+      return signInRef?WelcomeScreenRefugee():OnBoardingRefugee();
     }else if(!optionRefugee){
       // return SettingsHomeVol();
       return registrationVol?ChooseCategory():!_isLoading?WelcomeScreen():Loading();

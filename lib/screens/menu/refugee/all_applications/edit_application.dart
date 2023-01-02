@@ -64,7 +64,7 @@ class _EditApplicationState extends State<EditApplication> {
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
               size: 30,
-              color: blueColor,
+              color: redColor,
             ),
             onPressed: () {
               // currentCategory='';
@@ -79,7 +79,7 @@ class _EditApplicationState extends State<EditApplication> {
         ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         // floatingActionButton: ,
-        backgroundColor: background,
+        backgroundColor: backgroundRefugee,
         resizeToAvoidBottomInset: false,
 
         body: SingleChildScrollView(
@@ -172,7 +172,7 @@ class _EditApplicationState extends State<EditApplication> {
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
-                                            color: blueColor,
+                                            color: redColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
                                             width: 1.5,
                                           ),
@@ -224,19 +224,19 @@ class _EditApplicationState extends State<EditApplication> {
                                       dropdownItemMainAxis:MainAxisAlignment.start,
                                       resultHeight: MediaQuery.of(context).size.height * 0.09,
                                       resultBD: BoxDecoration(
-                                          color: background,
+                                          color: backgroundRefugee,
                                           borderRadius: borderRadiusApplication,
                                           border:
-                                          Border.all(width: 0.5, color: blueColor)),
+                                          Border.all(width: 0.5, color: redColor)),
                                       resultTS: TextStyle(
-                                          color: blueColor, fontSize: 14),
+                                          color: redColor, fontSize: 14),
                                       placeholderTS: TextStyle(
-                                          color: background,
+                                          color: backgroundRefugee,
                                           fontSize: 14),
                                       selectedItemTS: TextStyle(
-                                          color: blueColor, fontSize: 14),
+                                          color: redColor, fontSize: 14),
                                       selectedItemBD: BoxDecoration(
-                                          color: background),
+                                          color: backgroundRefugee),
                                       dropdownBD: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: borderRadiusApplication,
@@ -299,6 +299,9 @@ class _EditApplicationState extends State<EditApplication> {
                                   TextFormField(
                                     maxLines: height ~/ 10,
                                     onChanged: (val) {
+                                      setState(() {
+                                        numChartEdit = val.length;
+                                      });
                                       changedComment = val;
                                     },
                                     // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
@@ -322,7 +325,7 @@ class _EditApplicationState extends State<EditApplication> {
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
-                                            color: blueColor,
+                                            color: redColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
                                             width: 1.5,
                                           ),
@@ -349,7 +352,7 @@ class _EditApplicationState extends State<EditApplication> {
                                     height:
                                     MediaQuery.of(context).size.height * 0.015,
                                   ),
-                                  Divider(color: blueColor),
+                                  Divider(color: redColor),
                                   SizedBox(
                                     height:
                                     MediaQuery.of(context).size.height * 0.03,
@@ -362,11 +365,11 @@ class _EditApplicationState extends State<EditApplication> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonActiveDecoration,
+                                        decoration: buttonActiveDecorationRefugee,
                                         child: TextButton(
                                             child: Text(
                                               "Save changes",
-                                              style: textActiveButtonStyle,
+                                              style: textActiveButtonStyleRefugee,
                                             ),
                                             onPressed: () async {
                                               if(changedTitle==''&&changedComment==''&&changedCurrentCategory == ''){
@@ -435,19 +438,19 @@ class _EditApplicationState extends State<EditApplication> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadiusApplication,
           ),
           title: const Text("You haven't provide any changes"),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
-            color: blueColor,
+            color: redColor,
           ),
           content: const Text("You haven't provide any changes, please change something if you want to change data"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
-            color: blueColor,
+            color: redColor,
           ),
           actions: <Widget>[
             Padding(
@@ -468,7 +471,7 @@ class _EditApplicationState extends State<EditApplication> {
                           'Change the data',
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {
@@ -510,7 +513,7 @@ class _EditApplicationState extends State<EditApplication> {
                           "Leave previous data",
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
 
                         ),
@@ -602,19 +605,19 @@ class _EditApplicationState extends State<EditApplication> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadiusApplication,
           ),
           title: const Text('Fill the comment form properly'),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
-            color: blueColor,
+            color: redColor,
           ),
           content: const Text("You haven't filled the comment form properly, please supply more characters to detail your application"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
-            color: blueColor,
+            color: redColor,
           ),
           actions: <Widget>[
             Padding(
@@ -635,7 +638,7 @@ class _EditApplicationState extends State<EditApplication> {
                           'Supply the data',
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {
@@ -682,19 +685,19 @@ class _EditApplicationState extends State<EditApplication> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadiusApplication,
           ),
           title: const Text("Change your application data?"),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
-            color: blueColor,
+            color: redColor,
           ),
           content: const Text("You have provided some changes. Would you like to save these changes?"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
-            color: blueColor,
+            color: redColor,
           ),
           actions: <Widget>[
             Padding(
@@ -715,13 +718,15 @@ class _EditApplicationState extends State<EditApplication> {
                           'Leave previous data',
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {
-                          changedTitle = '';
-                          changedComment = '';
-                          numChartEdit = 0;
+                          setState(() {
+                            changedTitle = '';
+                            changedComment = '';
+                            numChartEdit = 0;
+                          });
                           Future.delayed(Duration(milliseconds: 500),
                                   () {
                                 // controllerTabBottomRef = PersistentTabController(initialIndex: 2);
@@ -766,13 +771,11 @@ class _EditApplicationState extends State<EditApplication> {
                           "Save changes",
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {
-                          // changedTitle = '';
-                          // changedComment = '';
-                          // numChartEdit = 0;
+
                           setState(() {
                             FirebaseFirestore.instance
                                 .collection('applications')
@@ -785,7 +788,11 @@ class _EditApplicationState extends State<EditApplication> {
                           });
                           Future.delayed(Duration(milliseconds: 500),
                                   () {
-
+                                    setState(() {
+                                      changedTitle = '';
+                                      changedComment = '';
+                                      numChartEdit = 0;
+                                    });
                                 // controllerTabBottomRef = PersistentTabController(initialIndex: 2);
                                 Navigator.of(context, rootNavigator: true).pushReplacement(
                                     MaterialPageRoute(builder: (context) => PageOfApplicationRef()));

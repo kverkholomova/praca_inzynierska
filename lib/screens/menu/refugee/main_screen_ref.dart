@@ -58,8 +58,8 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
           fontSize: 11,
           color: Colors.white,
         ),
-        activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+        activeColorPrimary: redColor,
+        inactiveColorPrimary: redColor.withOpacity(0.7),
       ),
       PersistentBottomNavBarItem(
         inactiveIcon:  const Icon(Icons.folder_special_rounded, size: 24,),
@@ -72,8 +72,8 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
           fontSize: 11,
           color: Colors.white,
         ),
-        activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+        activeColorPrimary: redColor,
+        inactiveColorPrimary: redColor.withOpacity(0.7),
       ),
 
       PersistentBottomNavBarItem(
@@ -85,8 +85,8 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
           fontSize: 11,
           color: Colors.white,
         ),
-        activeColorPrimary: blueColor.withOpacity(1),
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+        activeColorPrimary: redColor.withOpacity(1),
+        inactiveColorPrimary: backgroundRefugee,
       ),
       PersistentBottomNavBarItem(
         inactiveIcon:  const Icon(Icons.map, size: 24,),
@@ -99,8 +99,8 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
           fontSize: 11,
           color: Colors.white,
         ),
-        activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+        activeColorPrimary: redColor,
+        inactiveColorPrimary: redColor.withOpacity(0.7),
       ),
       PersistentBottomNavBarItem(
         inactiveIcon: const Icon(Icons.note_alt_rounded, size: 24,),
@@ -113,8 +113,8 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
           fontSize: 11,
           color: Colors.white,
         ),
-        activeColorPrimary: Colors.white,
-        inactiveColorPrimary: Colors.white.withOpacity(0.5),
+        activeColorPrimary: redColor,
+        inactiveColorPrimary: redColor.withOpacity(0.7),
       ),
       // PersistentBottomNavBarItem(
       //   inactiveIcon: const Icon(Icons.note_add_rounded, size: 24,),
@@ -168,16 +168,16 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
               screens: _buildScreens(),
               items: navBarsItemsRefugee(),
               confineInSafeArea: true,
-              backgroundColor: blueColor, // Default is Colors.white.
+              backgroundColor: backgroundRefugee, // Default is Colors.white.
               handleAndroidBackButtonPress: true, // Default is true.
               resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
               stateManagement: true, // Default is true.
               hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
               decoration: NavBarDecoration(
                 boxShadow: <BoxShadow>[
-                  const BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 5,
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 2,
                   ),
                 ],
                 borderRadius: BorderRadius.circular(0),
@@ -194,7 +194,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
                 curve: Curves.ease,
                 duration: Duration(milliseconds: 200),
               ),
-              navBarStyle: NavBarStyle.style15, // Choose the nav bar style with this property.
+              navBarStyle: NavBarStyle.style17, // Choose the nav bar style with this property.
             )));
   }
 }

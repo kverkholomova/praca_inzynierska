@@ -209,13 +209,13 @@ class _AcceptedPageOfApplicationRefState
         return true;
       },
       child: Scaffold(
-        backgroundColor: background,
+        backgroundColor: backgroundRefugee,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         floatingActionButton: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 30,
-            color: blueColor,
+            color: redColor,
           ),
           onPressed: () {
             setState(() {
@@ -414,7 +414,7 @@ class _AcceptedPageOfApplicationRefState
                                                         .info_outline_rounded,
                                                     size: 30,
                                                     color:
-                                                    blueColor,
+                                                    redColor,
                                                   ),
                                                   onPressed: () {
 
@@ -450,7 +450,7 @@ class _AcceptedPageOfApplicationRefState
                                                         .delete_forever,
                                                     size: 30,
                                                     color:
-                                                    blueColor,
+                                                    redColor,
                                                   ),
                                                   onPressed: () {
                                                     sendPushMessageDeletedByRefugee();
@@ -536,12 +536,12 @@ class _AcceptedPageOfApplicationRefState
                                                   .height *
                                               0.085,
                                           decoration:
-                                              buttonActiveDecoration,
+                                              buttonActiveDecorationRefugee,
                                           child: TextButton(
                                               child: Text(
                                                 "Mark application as done",
                                                 style:
-                                                    textActiveButtonStyle,
+                                                    textActiveButtonStyleRefugee,
                                               ),
                                               onPressed: () async {
                                                 sendPushMessageMarkedAsDone();

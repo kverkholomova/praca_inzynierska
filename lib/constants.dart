@@ -14,6 +14,16 @@ TextStyle textActiveButtonStyle = GoogleFonts.raleway(
   color: Colors.white,
 );
 
+BoxDecoration buttonActiveDecorationRefugee = BoxDecoration(
+    color: redColor,
+    borderRadius: BorderRadius.circular(15)
+);
+
+TextStyle textActiveButtonStyleRefugee = GoogleFonts.raleway(
+  fontSize: 18,
+  color: Colors.white,
+);
+
 BoxDecoration buttonInactiveDecoration = BoxDecoration(
     color: Colors.white,
     border: Border.all(
@@ -26,6 +36,23 @@ TextStyle textInactiveButtonStyle = GoogleFonts.raleway(
   fontSize: 18,
   color: blueColor,
 );
+
+BoxDecoration buttonInactiveDecorationRefugee = BoxDecoration(
+    color: Colors.white,
+    border: Border.all(
+        color: redColor
+    ),
+    borderRadius: BorderRadius.circular(15)
+);
+
+TextStyle textInactiveButtonStyleRefugee = GoogleFonts.raleway(
+  fontSize: 18,
+  color: redColor,
+);
+
+Color redColor = Color.fromRGBO(238, 117, 117, 8);
+
+Color backgroundRefugee = Color.fromRGBO(255, 247, 247, 8);
 
 Color blueColor = const Color.fromRGBO(2, 62, 99, 20);
 

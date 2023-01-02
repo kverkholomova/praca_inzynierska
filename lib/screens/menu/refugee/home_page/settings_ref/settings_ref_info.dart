@@ -77,13 +77,13 @@ class _SettingsRefState extends State<SettingsRef> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: background,
+        backgroundColor: backgroundRefugee,
         floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         floatingActionButton: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 30,
-            color: background,
+            color: backgroundRefugee,
           ),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pushReplacement(
@@ -121,7 +121,7 @@ class _SettingsRefState extends State<SettingsRef> {
                             clipper: OvalBottomBorderClipper(),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: blueColor,
+                                color: redColor,
                                 boxShadow: const <BoxShadow>[
                                   BoxShadow(
                                     color: Colors.black,
@@ -171,7 +171,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                                     icon: CircleAvatar(
                                                         backgroundColor: Colors.white,
                                                         radius: 10,
-                                                        child: Icon(Icons.add, color: blueColor,))),
+                                                        child: Icon(Icons.add, color: redColor,))),
                                               )
                                             ])
                                             : Stack(
@@ -195,7 +195,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                                               builder: (context) =>
                                                                   ImageUploadsRef()));
                                                     },
-                                                    icon: Icon(Icons.add_circle, color: background, size: 35,)),
+                                                    icon: Icon(Icons.add_circle, color: backgroundRefugee, size: 40,)),
                                               ),
                                             ])),
                                   ),
@@ -269,7 +269,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
-                                            color: blueColor,
+                                            color: redColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
                                             width: 1.5,
                                           ),
@@ -514,7 +514,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                         focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
                                           borderSide: BorderSide(
-                                            color: blueColor,
+                                            color: redColor,
                                             // color: Color.fromRGBO(2, 62, 99, 20),
                                             width: 1.5,
                                           ),
@@ -582,7 +582,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                           focusedBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(15),
                                             borderSide: BorderSide(
-                                              color: blueColor,
+                                              color: redColor,
                                               // color: Color.fromRGBO(2, 62, 99, 20),
                                               width: 1.5,
                                             ),
@@ -610,7 +610,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                     height:
                                     MediaQuery.of(context).size.height * 0.015,
                                   ),
-                                  Divider(color: blueColor),
+                                  Divider(color: redColor),
                                   SizedBox(
                                     height:
                                     MediaQuery.of(context).size.height * 0.015,
@@ -679,11 +679,11 @@ class _SettingsRefState extends State<SettingsRef> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonActiveDecoration,
+                                        decoration: buttonActiveDecorationRefugee,
                                         child: TextButton(
                                             child: Text(
                                               "Save changes",
-                                              style: textActiveButtonStyle,
+                                              style: textActiveButtonStyleRefugee,
                                             ),
                                             onPressed: () async {
                                               setState(() {
@@ -719,11 +719,11 @@ class _SettingsRefState extends State<SettingsRef> {
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
                                             0.085,
-                                        decoration: buttonInactiveDecoration,
+                                        decoration: buttonInactiveDecorationRefugee,
                                         child: TextButton(
                                             child: Text(
                                               "Sign Out",
-                                              style: textInactiveButtonStyle,
+                                              style: textInactiveButtonStyleRefugee,
                                             ),
                                             onPressed: () async {
                                               await _auth.signOut();
@@ -874,7 +874,7 @@ class _SettingsRefState extends State<SettingsRef> {
         height: MediaQuery.of(context).size.height * 0.075,
         duration: const Duration(milliseconds: 500),
         decoration: BoxDecoration(
-          color: chosenCategoryListChanges.contains(text) ? blueColor : Colors.white,
+          color: chosenCategoryListChanges.contains(text) ? redColor : Colors.white,
           borderRadius: const BorderRadius.all(
             Radius.circular(24),
           ),

@@ -270,7 +270,7 @@ class _ForgotPasswordRefState extends State<ForgotPasswordRef> {
                           style: textActiveButtonStyle,
                         ),
                         onPressed: () async {
-                          optionRefugee = false;
+                          optionRefugee = true;
                           Navigator.of(context, rootNavigator: true).pushReplacement(
                               MaterialPageRoute(builder: (context) => new Wrapper()));
                           // Navigator.of(context).pop();

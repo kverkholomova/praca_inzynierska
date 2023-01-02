@@ -133,7 +133,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: blueColor,
+          backgroundColor: redColor,
           child: const Icon(
             Icons.location_searching,
             color: Colors.white,
@@ -154,7 +154,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
       markers.add(Marker(
           markerId: const MarkerId('Home'),
           icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueAzure,
+            BitmapDescriptor.hueRed,
           ),
           position: LatLng(_currentPosition?.latitude ?? 0.0,
               _currentPosition?.longitude ?? 0.0)));
@@ -245,7 +245,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
           child: ElevatedButton(
 
               style: ElevatedButton.styleFrom(
-                primary: blueColor,
+                primary: redColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(15),
@@ -259,7 +259,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
                 _customInfoWindowController.addInfoWindow!(
                   Container(
                     decoration: BoxDecoration(
-                      color: blueColor,
+                      color: redColor,
                       borderRadius: BorderRadius.circular(18),
                     ),
                     width: double.infinity,
@@ -343,7 +343,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
     PolylineId id = const PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
-      color: blueColor,
+      color: redColor,
       points: polylineCoordinates,
       width: 5,
     );
@@ -428,7 +428,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
           // snippet: "aleja Henryka Sienkiewicza 6, 76-200 Słupsk",
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueBlue
+            BitmapDescriptor.hueOrange
         ),
         onTap: () {
           showModalBottomSheet(

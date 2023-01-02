@@ -15,6 +15,7 @@ import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/settings_r
 import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/upload_picture_refugee.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/categories_choose.dart';
+import 'package:wol_pro_1/widgets/wrapper.dart';
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
@@ -36,21 +37,21 @@ class _HomeRefState extends State<HomeRef> {
 
 
 
-  loadImageRef(String image_url) async{
-
-    //select the image url
-    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
-
-    //get image url from firebase storage
-    var url = await ref.getDownloadURL();
-
-    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-    print(url);
-    // put the URL in the state, so that the UI gets rerendered
-    setState(() {
-      url_image_ref = url;
-    });
-  }
+  // loadImageRef(String image_url) async{
+  //
+  //   //select the image url
+  //   Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(image_url);
+  //
+  //   //get image url from firebase storage
+  //   var url = await ref.getDownloadURL();
+  //
+  //   print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+  //   print(url);
+  //   // put the URL in the state, so that the UI gets rerendered
+  //   setState(() {
+  //     url_image_ref = url;
+  //   });
+  // }
   storeNotificationToken() async {
     String? token_v = await FirebaseMessaging.instance.getToken();
     print(
@@ -95,7 +96,7 @@ class _HomeRefState extends State<HomeRef> {
       child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           body: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -103,7 +104,7 @@ class _HomeRefState extends State<HomeRef> {
                 clipper: OvalBottomBorderClipper(),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: blueColor,
+                    color: redColor,
                     boxShadow: const <BoxShadow>[
                       BoxShadow(
                         color: Colors.black,
@@ -162,11 +163,12 @@ class _HomeRefState extends State<HomeRef> {
                                                     .size
                                                     .width *
                                                     0.4,
-                                                child: url_image_ref==null?Image(
+                                                child: urlImageRefugee==""?Image(
                                                     image:AssetImage("assets/user.png")
                                                 ): CircleAvatar(
+                                                  backgroundColor: Color.fromRGBO(182, 33, 53, 90),
                                                     radius: 80.0,
-                                                    backgroundImage: NetworkImage(url_image_ref.toString())),
+                                                    backgroundImage: NetworkImage(urlImageRefugee.toString())),
                                               ),
                                               Align(
                                                 alignment: Alignment.topCenter,

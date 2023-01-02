@@ -90,7 +90,7 @@ class _ApplicationState extends State<Application> {
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 30,
-            color: blueColor,
+            color: redColor,
           ),
           onPressed: () {
             currentCategory='';
@@ -102,7 +102,7 @@ class _ApplicationState extends State<Application> {
                 MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
           },
         ),
-        backgroundColor: background,
+        backgroundColor: backgroundRefugee,
         resizeToAvoidBottomInset: false,
         // appBar: AppBar(
         //   title: const Text('Home'),
@@ -283,19 +283,19 @@ class _ApplicationState extends State<Application> {
                     dropdownItemMainAxis:MainAxisAlignment.start,
                   resultHeight: MediaQuery.of(context).size.height * 0.09,
                   resultBD: BoxDecoration(
-                      color: background,
+                      color: backgroundRefugee,
                       borderRadius: borderRadiusApplication,
                       border:
-                      Border.all(width: 0.5, color: blueColor)),
+                      Border.all(width: 0.5, color: redColor)),
                   resultTS: TextStyle(
-                      color: blueColor, fontSize: 14),
+                      color: redColor, fontSize: 14),
                   placeholderTS: TextStyle(
-                      color: background,
+                      color: backgroundRefugee,
                       fontSize: 14),
                   selectedItemTS: TextStyle(
-                      color: blueColor, fontSize: 14),
+                      color: redColor, fontSize: 14),
                   selectedItemBD: BoxDecoration(
-                      color: background),
+                      color: backgroundRefugee),
                   dropdownBD: BoxDecoration(
                     color: Colors.white,
                     borderRadius: borderRadiusApplication,
@@ -435,7 +435,7 @@ class _ApplicationState extends State<Application> {
                   onChanged: (val) {
 
                     setState(() {
-                      numChart +=1;
+                      numChart = val.length;
                       comment= val;
                     } );
                   },
@@ -453,11 +453,11 @@ class _ApplicationState extends State<Application> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
                         0.085,
-                    decoration: buttonActiveDecoration,
+                    decoration: buttonActiveDecorationRefugee,
                     child: TextButton(
                         child: Text(
                           "Add new application",
-                          style: textActiveButtonStyle,
+                          style: textActiveButtonStyleRefugee,
                         ),
                         onPressed: () async {
                           if ( (title == '')||(comment == '')){
@@ -600,19 +600,19 @@ class _ApplicationState extends State<Application> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadiusApplication,
           ),
           title: const Text('Fill the form'),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
-            color: blueColor,
+            color: redColor,
           ),
           content: const Text("You haven't filled the form, please supply the data"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
-            color: blueColor,
+            color: redColor,
           ),
           actions: <Widget>[
             Padding(
@@ -633,7 +633,7 @@ class _ApplicationState extends State<Application> {
                           'Supply the data',
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {
@@ -675,7 +675,7 @@ class _ApplicationState extends State<Application> {
                           "Don't need any help",
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {
@@ -756,19 +756,19 @@ class _ApplicationState extends State<Application> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadiusApplication,
           ),
           title: const Text('Fill the comment form'),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
-            color: blueColor,
+            color: redColor,
           ),
           content: const Text("You haven't filled the comment form properly, please supply more characters to detail your application"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
-            color: blueColor,
+            color: redColor,
           ),
           actions: <Widget>[
             Padding(
@@ -789,7 +789,7 @@ class _ApplicationState extends State<Application> {
                           'Supply the data',
                           style: GoogleFonts.raleway(
                             fontSize: 16,
-                            color: blueColor,
+                            color: redColor,
                           ),
                         ),
                         onPressed: () async {

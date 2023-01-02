@@ -189,13 +189,13 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: background,
+        backgroundColor: backgroundRefugee,
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
               size: 30,
-              color: blueColor,
+              color: redColor,
             ),
             onPressed: () {
               setState(() {
@@ -252,11 +252,11 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return Column(children: [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
-                                  ),
+                                  // SizedBox(
+                                  //   width: 60,
+                                  //   height: 60,
+                                  //   child: CircularProgressIndicator(),
+                                  // ),
                                   Padding(
                                     padding: EdgeInsets.only(top: 16),
                                     child: Text(''),
@@ -416,7 +416,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     .info_outline_rounded,
                                                                 size: 30,
                                                                 color:
-                                                                    blueColor,
+                                                                    redColor,
                                                               ),
                                                               onPressed: () {
                                                                 setState(() {
@@ -482,7 +482,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     .delete_forever,
                                                                 size: 30,
                                                                 color:
-                                                                    blueColor,
+                                                                    redColor,
                                                               ),
                                                               onPressed: () {
                                                                 sendPushMessage();
@@ -634,7 +634,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     .delete_forever,
                                                                 size: 30,
                                                                 color:
-                                                                    blueColor,
+                                                                    redColor,
                                                               ),
                                                               onPressed: () {
                                                                 sendPushMessage();
@@ -871,12 +871,12 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                     .height *
                                                 0.085,
                                             decoration:
-                                                buttonActiveDecoration,
+                                                buttonActiveDecorationRefugee,
                                             child: TextButton(
                                                 child: Text(
                                                   "Mark application as done",
                                                   style:
-                                                      textActiveButtonStyle,
+                                                      textActiveButtonStyleRefugee,
                                                 ),
                                                 onPressed: () async {
 
@@ -939,12 +939,12 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                 .height *
                                                 0.085,
                                             decoration:
-                                            buttonActiveDecoration,
+                                            buttonActiveDecorationRefugee,
                                             child: TextButton(
                                                 child: Text(
                                                   "Edit application",
                                                   style:
-                                                  textActiveButtonStyle,
+                                                  textActiveButtonStyleRefugee,
                                                 ),
                                                 onPressed: () async {
                                                   setState(() {
@@ -1103,13 +1103,13 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                               padding: EdgeInsets.only(top: 100),
                               child: Column(
                                 children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
+                                  // SpinKitChasingDots(
+                                  //   color: Colors.brown,
+                                  //   size: 50.0,
+                                  // ),
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text("Waiting...",
+                                    child: Text("",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,

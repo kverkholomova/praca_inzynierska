@@ -14,9 +14,9 @@ import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/main_screen.dart';
 
-import '../../widgets/wrapper.dart';
-import '../intro_screen/option.dart';
-import '../register_login/volunteer/login/sign_in_volunteer.dart';
+import '../../../widgets/wrapper.dart';
+import '../../intro_screen/option.dart';
+import '../../register_login/volunteer/login/sign_in_volunteer.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
