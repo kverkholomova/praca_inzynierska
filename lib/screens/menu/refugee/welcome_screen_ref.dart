@@ -152,11 +152,11 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height *
                     0.085,
-                decoration: buttonActiveDecoration,
+                decoration: buttonActiveDecorationRefugee,
                 child: TextButton(
                     child: Text(
                       "Get started",
-                      style: textActiveButtonStyle,
+                      style: textActiveButtonStyleRefugee,
                     ),
                     onPressed: () {
 

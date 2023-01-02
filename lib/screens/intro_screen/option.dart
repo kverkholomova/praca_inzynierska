@@ -48,7 +48,7 @@ class _OptionChooseState extends State<OptionChoose> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      backgroundColor: background,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Align(
@@ -81,7 +81,7 @@ class _OptionChooseState extends State<OptionChoose> {
               child: Shimmer.fromColors(
                 period: const Duration(seconds: 5),
                 baseColor: Colors.black,
-                highlightColor: background,
+                highlightColor: Colors.white,
                 child: Text("Get ready now",
                 style: GoogleFonts.raleway(
                   fontSize: 24,
@@ -94,14 +94,14 @@ class _OptionChooseState extends State<OptionChoose> {
           Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.7),
             child: Column(
-              children: const [
+              children:  [
                 Center(
-                  child: StartButton(buttonName: 'Refugee', optionRef: true,),
+                  child: StartButton(buttonName: 'Refugee', optionRef: true, decor: buttonActiveDecorationRefugee, styletxt: textActiveButtonStyleRefugee,),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: Center(
-                    child: StartButton(buttonName: 'Volunteer', optionRef: false,)
+                    child: StartButton(buttonName: 'Volunteer', optionRef: false,decor: buttonActiveDecoration, styletxt: textActiveButtonStyle,)
                   ),
                 ),
               ],
@@ -115,10 +115,12 @@ class _OptionChooseState extends State<OptionChoose> {
 }
 
 class StartButton extends StatelessWidget {
+  final BoxDecoration decor;
+  final TextStyle styletxt;
   final String buttonName;
   final bool optionRef;
   const StartButton({
-    Key? key, required this.buttonName, required this.optionRef
+    Key? key, required this.buttonName, required this.optionRef, required this.decor, required this.styletxt
   }) : super(key: key);
 
   @override
@@ -128,10 +130,10 @@ class StartButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.085,
-        decoration: buttonActiveDecoration,
+        decoration: decor,
         child: TextButton(
         child: Text(buttonName,
-          style: textActiveButtonStyle,
+          style: styletxt,
         ),
         onPressed: () async{
           optionRefugee=optionRef;

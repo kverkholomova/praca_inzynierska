@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,13 +7,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/refugee/accepted_applications/application_info_accepted.dart';
 
+import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 import 'application_info.dart';
 
@@ -20,6 +22,8 @@ import 'application_info.dart';
 final FirebaseFirestore db = FirebaseFirestore.instance;
 final FirebaseMessaging fcm = FirebaseMessaging.instance;
 String? idAppDeleteVol;
+
+
 class InfoVolforRef extends StatefulWidget {
   const InfoVolforRef({Key? key}) : super(key: key);
 
@@ -29,6 +33,39 @@ class InfoVolforRef extends StatefulWidget {
 
 class _InfoVolforRefState extends State<InfoVolforRef> {
   late StreamSubscription<User?> user;
+
+  void sendPushMessageDeclinedVolunteer() async {
+    print(
+        "Send Notification that app is done");
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+          'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body':
+              'The application was marked as done by refugee, so your help is not necessary anymore.',
+              'title': 'Refugee marked an applicationas done'
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": "$tokenVolApplication",
+          },
+        ),
+      );
+    } catch (e) {
+      print("error push notification");
+    }
+  }
 
   // deleteVolunteer(){
   //   user = FirebaseAuth.instance.authStateChanges().listen((user) async {
@@ -129,14 +166,14 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                           switch (streamSnapshot.connectionState) {
                             case ConnectionState.waiting:
                               return Column(children: const [
-                                SizedBox(
-                                  width: 60,
-                                  height: 60,
-                                  child: CircularProgressIndicator(),
-                                ),
+                                // SizedBox(
+                                //   width: 60,
+                                //   height: 60,
+                                //   child: CircularProgressIndicator(),
+                                // ),
                                 Padding(
                                   padding: EdgeInsets.only(top: 16),
-                                  child: Text('Awaiting data...'),
+                                  child: Text(''),
                                 )
                               ]);
                             case ConnectionState.active:
@@ -168,7 +205,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                           MediaQuery
                                               .of(context)
                                               .size
-                                              .height * 0.015,
+                                              .height * 0.05,
                                         ),
                                         Align(
                                           alignment: Alignment.topLeft,
@@ -185,7 +222,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ['user_name'],
                                               style: GoogleFonts.raleway(
                                                 fontSize: 24,
-                                                color:  redColor,
+                                                color:  Colors.black,
                                               ),
                                             ),
                                           ),
@@ -421,7 +458,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               ['phone_number'],
                                               style: GoogleFonts.raleway(
                                                 fontSize: 14,
-                                                color:  redColor,
+                                                color:  Colors.black,
                                               ),
                                             ),
                                           ),
@@ -654,11 +691,11 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
                         0.085,
-                    decoration: buttonActiveDecoration,
+                    decoration: buttonActiveDecorationRefugee,
                     child: TextButton(
                         child: Text(
                           'Keep volunteer',
-                          style: textActiveButtonStyle,
+                          style: textActiveButtonStyleRefugee,
                         ),
                         onPressed: () async {
                           Navigator.of(context).pop();
@@ -682,14 +719,15 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
                         0.085,
-                    decoration: buttonInactiveDecoration,
+                    decoration: buttonInactiveDecorationRefugee,
                     child: TextButton(
                         child: Text(
                           "Decline volunteer",
-                          style: textInactiveButtonStyle,
+                          style: textInactiveButtonStyleRefugee,
                         ),
                         onPressed: () async {
                           setState(() {
+
                             FirebaseFirestore.instance
                                 .collection('applications')
                                 .doc(idAppDeleteVol).update({

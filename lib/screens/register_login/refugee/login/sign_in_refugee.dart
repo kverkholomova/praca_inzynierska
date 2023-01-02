@@ -49,7 +49,7 @@ class _SignInRefState extends State<SignInRef> {
       child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
+          backgroundColor: backgroundRefugee,
           appBar: AppBar(
             title: Text(
               "Refugee",
@@ -72,7 +72,7 @@ class _SignInRefState extends State<SignInRef> {
                     MaterialPageRoute(builder: (context) => const OptionChoose()),
                   );
                 },
-                icon: Icon(Icons.arrow_back_ios_new_rounded, color: blueColor,)),
+                icon: Icon(Icons.arrow_back_ios_new_rounded, color: redColor,)),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -173,7 +173,7 @@ class _SignInRefState extends State<SignInRef> {
                     child: Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.075,
-                      decoration: buttonActiveDecoration,
+                      decoration: buttonActiveDecorationRefugee,
                       child: TextButton(
                           child: Text(
                             "Sign In",

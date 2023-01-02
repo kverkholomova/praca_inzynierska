@@ -33,7 +33,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: background,
+        backgroundColor: backgroundRefugee,
         // appBar: AppBar(
         //   title: const Text('Chats'),
         //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
@@ -56,7 +56,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                 clipper: OvalBottomBorderClipper(),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: blueColor,
+                    color: redColor,
                     boxShadow: const <BoxShadow>[
                       BoxShadow(
                         color: Colors.black,

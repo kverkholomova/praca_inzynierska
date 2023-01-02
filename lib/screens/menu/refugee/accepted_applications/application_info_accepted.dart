@@ -16,6 +16,7 @@ import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
 import '../all_applications/all_app_ref.dart';
+import '../all_applications/application_info.dart';
 import '../all_applications/rating.dart';
 import '../home_page/home_ref.dart';
 import 'accepted_applications.dart';
@@ -419,8 +420,9 @@ class _AcceptedPageOfApplicationRefState
                                                   onPressed: () {
 
                                                     setState(() {
+
                                                       isAcceptedApplicationRefugee = true;
-                                                      IdVolInfoAllApp = streamSnapshot
+                                                      idVolunteerOfApplication = streamSnapshot
                                                           .data?.docs[index]
                                                       ['volunteerID'];
                                                     });
