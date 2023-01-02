@@ -75,7 +75,7 @@ class _OnBoardingRefugeeState extends State<OnBoardingRefugee> {
           ? Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.1,
-        color: blueColor,
+        color: redColor,
         child: TextButton(
 
           child: Text("Get started",
@@ -103,7 +103,7 @@ class _OnBoardingRefugeeState extends State<OnBoardingRefugee> {
           children: [
             TextButton(onPressed: (){
               controllerPageView.jumpToPage(2);
-            }, child: Text("Skip", style: textInactiveButtonStyle,)),
+            }, child: Text("Skip", style: textInactiveButtonStyleRefugee,)),
             Center(
               child: SmoothPageIndicator(
                 controller: controllerPageView,
@@ -111,7 +111,7 @@ class _OnBoardingRefugeeState extends State<OnBoardingRefugee> {
                 effect: WormEffect(
                     spacing: 16,
                     dotColor: background,
-                    activeDotColor: blueColor
+                    activeDotColor: redColor
                 ),
                 onDotClicked: (index){
                   controllerPageView.animateToPage(
@@ -125,7 +125,7 @@ class _OnBoardingRefugeeState extends State<OnBoardingRefugee> {
               controllerPageView.nextPage(
                   duration: Duration(milliseconds: 500),
                   curve: Curves.easeInOut);
-            }, child: Text("Next", style: textInactiveButtonStyle,)),
+            }, child: Text("Next", style: textInactiveButtonStyleRefugee,)),
           ],
         ),
       ),
@@ -178,8 +178,8 @@ class buildPage extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(subtitle, style: GoogleFonts.raleway(
-                fontSize: 16,
-                color: blueColor,
+                fontSize: 15,
+                color: Colors.black,
               ),
                 textAlign: TextAlign.center,
               ),

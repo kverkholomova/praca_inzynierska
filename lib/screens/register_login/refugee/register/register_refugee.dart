@@ -28,12 +28,19 @@ class RegisterRef extends StatefulWidget {
 }
 
 class _RegisterRefState extends State<RegisterRef> {
-
+bool passwordVisible = false;
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passwordVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +61,7 @@ class _RegisterRefState extends State<RegisterRef> {
       child: loading ? Loading() : SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
+          backgroundColor: backgroundRefugee,
           appBar: AppBar(
             title: Padding(
               padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.1),
@@ -172,7 +179,7 @@ class _RegisterRefState extends State<RegisterRef> {
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(24),
+                                Radius.circular(15),
                               )),
                           elevation: errorEmptyRegister==true? 0:5,
                           child: CustomTextFormFieldRegisterRef(
@@ -189,27 +196,107 @@ class _RegisterRefState extends State<RegisterRef> {
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(24),
+                                Radius.circular(15),
                               )),
                           elevation: errorEmptyRegister==true? 0:5,
-                          child: CustomTextFormFieldRegisterRef(
+                          child:
+                          // TextFormField(
+                          //   controller:
+                          //   controllerTextFieldPasswordRef,
+                          //   obscureText: true,
+                          //   decoration: InputDecoration(
+                          //     focusedErrorBorder: OutlineInputBorder(
+                          //       borderRadius: BorderRadius.circular(15),
+                          //       borderSide: const BorderSide(
+                          //         color: Colors.red,
+                          //         width: 1.5,
+                          //       ),
+                          //     ),
+                          //     errorBorder: OutlineInputBorder(
+                          //       borderRadius: BorderRadius.circular(15),
+                          //       borderSide: const BorderSide(
+                          //         color: Colors.red,
+                          //         width: 1.5,
+                          //       ),
+                          //     ),
+                          //     errorStyle: const TextStyle(
+                          //         color: Colors.red
+                          //     ),
+                          //     focusedBorder: OutlineInputBorder(
+                          //       borderRadius: BorderRadius.circular(15),
+                          //       borderSide: BorderSide(
+                          //         color: Colors.black.withOpacity(0.7),
+                          //         width: 1.5,
+                          //       ),
+                          //     ),
+                          //
+                          //     enabledBorder: OutlineInputBorder(
+                          //       borderRadius: BorderRadius.circular(15),
+                          //       borderSide: const BorderSide(
+                          //         color: Colors.white,
+                          //         width: 0,
+                          //       ),
+                          //     ),
+                          //     filled: true,
+                          //     fillColor: Colors.white,
+                          //     hintStyle: GoogleFonts.raleway(
+                          //       fontSize: 16,
+                          //       color: Colors.black.withOpacity(0.5),
+                          //     ),
+                          //     labelText: "Password",
+                          //     labelStyle: GoogleFonts.raleway(
+                          //       fontSize: 16,
+                          //       color: Colors.black.withOpacity(0.7),
+                          //     ),
+                          //     // hintText: widget.customHintText,
+                          //     suffixIcon: IconButton(
+                          //       icon: Icon(
+                          //         // Based on passwordVisible state choose the icon
+                          //         passwordVisible
+                          //             ? Icons.visibility
+                          //             : Icons.visibility_off,
+                          //         color: redColor,
+                          //       ),
+                          //       onPressed: () {
+                          //         // Update the state i.e. toogle the state of passwordVisible variable
+                          //         setState(() {
+                          //           // widget.hide = passwordVisible;
+                          //           passwordVisible = !passwordVisible;
+                          //         });
+                          //       },
+                          //     ),
+                          //   ),
+                          //   validator: (val) =>val!.isEmpty ? 'Enter a password' : null,
+                          //   onChanged: (val) {
+                          //     setState(() {
+                          //
+                          //       passwordRefLog = val;
+                          //
+                          //
+                          //     });
+                          //     // setState(() => email = val);
+                          //   },
+                          //
+                          // ),
+
+                          CustomTextFormFieldRegisterRef(
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
                             hide: true,
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
-                            ?MediaQuery.of(context).size.height * 0.070
+                            ?MediaQuery.of(context).size.height * 0.055
                             :MediaQuery.of(context).size.height * 0.015,),
 
                         Container(
                           width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.075,
-                          decoration: buttonActiveDecoration,
+                          height: MediaQuery.of(context).size.height * 0.085,
+                          decoration: buttonActiveDecorationRefugee,
                           child: TextButton(
                               child: Text(
                                 "Sign Up",
-                                style: textActiveButtonStyle,
+                                style: textActiveButtonStyleRefugee,
                               ),
                               onPressed: () async {
                                 setState(() {

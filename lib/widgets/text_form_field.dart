@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/register/register_refugee.dart';
 import 'package:wol_pro_1/screens/register_login/refugee/login/sign_in_refugee.dart';
@@ -127,6 +128,124 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   }
 }
 
+class CustomTextFormFieldRefugee extends StatefulWidget {
+  final String customHintText;
+  final String customErrorText;
+  bool hide;
+
+  CustomTextFormFieldRefugee({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
+      : super(key: key);
+
+  @override
+  State<CustomTextFormFieldRefugee> createState() => _CustomTextFormFieldRefugeeState();
+}
+
+class _CustomTextFormFieldRefugeeState extends State<CustomTextFormFieldRefugee> {
+  bool passwordVisible = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passwordVisible = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.customHintText == "Email"
+          ?optionRefugee
+          ?controllerTextFieldEmailRef
+          :controllerTextFieldEmailVol
+          :optionRefugee
+          ?controllerTextFieldPasswordRef
+          :controllerTextFieldPasswordVol,
+      obscureText: widget.hide ==true?true:false,
+      decoration: InputDecoration(
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        errorStyle: const TextStyle(
+            color: Colors.red
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Colors.black.withOpacity(0.7),
+            width: 1.5,
+          ),
+        ),
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 0,
+          ),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        hintStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.5),
+        ),
+        labelText: widget.customHintText,
+        labelStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.7),
+        ),
+        // hintText: widget.customHintText,
+        suffixIcon: widget.customHintText=="Password"?IconButton(
+          icon: Icon(
+            // Based on passwordVisible state choose the icon
+            passwordVisible
+                ? Icons.visibility
+                : Icons.visibility_off,
+            color: redColor,
+          ),
+          onPressed: () {
+            // Update the state i.e. toogle the state of passwordVisible variable
+            setState(() {
+              widget.hide = passwordVisible;
+              passwordVisible = !passwordVisible;
+            });
+          },
+        ):null,
+      ),
+      validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
+      onChanged: (val) {
+        setState(() {
+          if( widget.customHintText == "Email"){
+            if(optionRefugee){
+              emailRefLog = val;
+            } else {
+              emailVolLog = val;
+            }
+          } else if(widget.customHintText == "Password"){
+            if(optionRefugee){
+              passwordRefLog = val;
+            } else {
+              passwordVolLog = val;
+            }
+          }
+        });
+        // setState(() => email = val);
+      },
+
+    );
+  }
+}
 
 String emailRegisterVol = '';
 String passwordRegisterVol = '';
@@ -294,14 +413,14 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
       obscureText: widget.hide ==true?true:false,
       decoration: InputDecoration(
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(
             color: Colors.red,
             width: 1.5,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(
             color: Colors.red,
             width: 1.5,
@@ -311,9 +430,9 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
             color: Colors.red
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
-            color: Colors.black.withOpacity(0.7),
+            color: redColor.withOpacity(0.7),
             // color: Color.fromRGBO(2, 62, 99, 20),
             width: 1.5,
           ),
@@ -324,7 +443,7 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
           color: Colors.black.withOpacity(0.7),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(
             color: Colors.white,
             width: 0,
@@ -343,7 +462,7 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
             passwordVisible
                 ? Icons.visibility
                 : Icons.visibility_off,
-            color: const Color.fromRGBO(2, 62, 99, 20),
+            color: redColor,
           ),
           onPressed: () {
             // Update the state i.e. toogle the state of passwordVisible variable
