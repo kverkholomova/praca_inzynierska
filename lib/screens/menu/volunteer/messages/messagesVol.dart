@@ -11,6 +11,7 @@ import 'package:wol_pro_1/app.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
 
+import '../../refugee/messages/pageWithChatsRef.dart';
 import '../home_page/home_vol.dart';
 import '../main_screen.dart';
 import 'pageWithChatsVol.dart';
@@ -289,6 +290,37 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
     });
   }
 
+  void scrollToLastMessageSmall(){
+    setState(() {
+      changeContainerHeight = true;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      print(DateTime.now());
+      // SchedulerBinding.instance
+      //     ?.addPostFrameCallback((_) {
+      //   print("AAAAAAAAAAA__________________works");
+      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+      // duration: Duration(milliseconds: 400),
+      // curve: Curves.fastOutSlowIn);
+      // });
+    });
+  }
+
+  void scrollToLastMessageBig(){
+    setState(() {
+      changeContainerHeight = false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      print(DateTime.now());
+      // SchedulerBinding.instance
+      //     ?.addPostFrameCallback((_) {
+      //   print("AAAAAAAAAAA__________________works");
+      scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+      // duration: Duration(milliseconds: 400),
+      // curve: Curves.fastOutSlowIn);
+      // });
+    });
+  }
   //  void share(){
   //   Share.share('https://www.google.com/maps/search/?api=1&query=${currentPosition?.latitude},${currentPosition?.longitude}');
   // }
@@ -389,6 +421,7 @@ if (messagesNull==true){
 
   @override
   Widget build(BuildContext context) {
+    MediaQuery.of(context).viewInsets.bottom>0?scrollToLastMessageSmall():scrollToLastMessageBig();
     print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKSSSSSSSSSSSK");
     print(firstMessage);
     return WillPopScope(
@@ -565,13 +598,16 @@ if (messagesNull==true){
                                     SchedulerBinding.instance
                                         ?.addPostFrameCallback((_) {
                                       print("AAAAAAAAAAA__________________works");
+                                      // scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
                                       scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
                                       // duration: Duration(milliseconds: 400),
                                       // curve: Curves.fastOutSlowIn);
                                     });
                                     message.clear();
                                   });
-
+                                  setState(() {
+                                    scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+                                  });
                                 }
                               },
                               icon: Icon(

@@ -124,7 +124,7 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New refugee','2', userNameRef, phoneNumberRef,[], user.uid, 0, 0, '', "");
+      await DatabaseService(uid: user!.uid).updateUserData('New refugee','2', userNameRef, phoneNumberRef,[], user.uid, 0, 0, '', "", 0);
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());
@@ -138,7 +138,7 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategoryListChanges, user.uid, volunteerRate, volunteerAge, image_url_volunteer, "");
+      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategoryListChanges, user.uid, volunteerRate, volunteerAge, image_url_volunteer, "", 0);
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());

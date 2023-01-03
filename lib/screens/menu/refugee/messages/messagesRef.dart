@@ -14,10 +14,12 @@ import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/messages/pageWithChatsRef.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_application.dart';
 
+import '../../volunteer/messages/pageWithChatsVol.dart';
+
 
 bool firstChat = true;
 String color = "red";
-bool changeContainerHeight = false;
+bool changeContainerHeightRefugee = false;
 class MessagesRef extends StatefulWidget {
   //
   String? name;
@@ -138,7 +140,7 @@ class _MessagesRefState extends State<MessagesRef> {
             child: Column(
               children: [
                 SizedBox(
-                  height: changeContainerHeight?MediaQuery.of(context).size.height * 0.4: MediaQuery.of(context).size.height * 0.75,
+                  height: changeContainerHeightRefugee?MediaQuery.of(context).size.height * 0.4: MediaQuery.of(context).size.height * 0.75,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("USERS_COLLECTION")
@@ -328,27 +330,43 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
 
   late StreamSubscription<User?> user;
 
+  void scrollToLastMessageSmall(){
+    setState(() {
+      changeContainerHeightRefugee = true;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      print(DateTime.now());
+      // SchedulerBinding.instance
+      //     ?.addPostFrameCallback((_) {
+      //   print("AAAAAAAAAAA__________________works");
+      scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+      // duration: Duration(milliseconds: 400),
+      // curve: Curves.fastOutSlowIn);
+      // });
+    });
+  }
+
+  void scrollToLastMessageBig(){
+    setState(() {
+      changeContainerHeightRefugee = false;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      print(DateTime.now());
+      // SchedulerBinding.instance
+      //     ?.addPostFrameCallback((_) {
+      //   print("AAAAAAAAAAA__________________works");
+      scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+      // duration: Duration(milliseconds: 400),
+      // curve: Curves.fastOutSlowIn);
+      // });
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("Null message test ................");
-    print(messagesNull);
-    if (messagesNull==true){
-      FirebaseFirestore.instance
-          .collection("USERS_COLLECTION")
-          .doc(IdOfChatroomRef)
-          .collection("CHATROOMS_COLLECTION")
-          .doc()
-          .set({
-        'message': "Hello👋",
-        'time': DateTime.now(),
-        'name': currentNameRef,
-        'id_message': "null",
-        "id_user": FirebaseAuth.instance.currentUser?.uid,
-        // "user_message": false
-      });
-    }
+
     Future.delayed(const Duration(milliseconds: 200), () {
       print(DateTime.now());
       // SchedulerBinding.instance
@@ -388,8 +406,10 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
 
   @override
   Widget build(BuildContext context) {
-    print("HHHHHHHHHJJJJJJJJJJJJJKKKKKKKKKKKKSSSSSSSSSSSK");
-    print(firstMessage);
+    MediaQuery.of(context).viewInsets.bottom>0?scrollToLastMessageSmall():scrollToLastMessageBig();
+    MediaQuery.of(context).viewInsets.bottom==0?print("No keyboard ${MediaQuery.of(context).viewInsets.bottom}"):
+    print(MediaQuery.of(context).viewInsets.bottom);
+    print("keyboard");
     return WillPopScope(
       onWillPop: () async {
         setState(() {
@@ -401,7 +421,7 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
       },
       child: GestureDetector(
         onTap: () {
-          changeContainerHeight = false;
+          changeContainerHeightRefugee = false;
           FocusManager.instance.primaryFocus?.unfocus();
           Future.delayed(const Duration(milliseconds: 200), () {
             print(DateTime.now());
@@ -471,7 +491,7 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                 // )
                 // :
                 SizedBox(
-                  height: changeContainerHeight?MediaQuery.of(context).size.height * 0.54:MediaQuery.of(context).size.height * 0.9,
+                  height: MediaQuery.of(context).viewInsets.bottom>0?MediaQuery.of(context).size.height * 0.54:MediaQuery.of(context).size.height * 0.9,
                   child: MessagesRef(
                     name: currentName,
                   ),
@@ -519,25 +539,26 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                                 onSaved: (value) {
                                   message.text = value!;
                                 },
-                                onTap: (){
-                                  setState(() {
-                                    changeContainerHeight = true;
-                                  });
-                                  Future.delayed(const Duration(milliseconds: 200), () {
-                                    print(DateTime.now());
-                                    // SchedulerBinding.instance
-                                    //     ?.addPostFrameCallback((_) {
-                                    //   print("AAAAAAAAAAA__________________works");
-                                    scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
-                                    // duration: Duration(milliseconds: 400),
-                                    // curve: Curves.fastOutSlowIn);
-                                    // });
-                                  });
-
-                                  // duration: Duration(milliseconds: 400),
-                                  // curve: Curves.fastOutSlowIn);
-
-                                },
+                                // onTap: (){
+                                //   setState(() {
+                                //     changeContainerHeight = true;
+                                //
+                                //   });
+                                //   Future.delayed(const Duration(milliseconds: 200), () {
+                                //     print(DateTime.now());
+                                //     // SchedulerBinding.instance
+                                //     //     ?.addPostFrameCallback((_) {
+                                //     //   print("AAAAAAAAAAA__________________works");
+                                //     scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+                                //     // duration: Duration(milliseconds: 400),
+                                //     // curve: Curves.fastOutSlowIn);
+                                //     // });
+                                //   });
+                                //
+                                //   // duration: Duration(milliseconds: 400),
+                                //   // curve: Curves.fastOutSlowIn);
+                                //
+                                // },
                               ),
                             ),
                           ),
@@ -564,6 +585,7 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                                     SchedulerBinding.instance
                                         ?.addPostFrameCallback((_) {
                                       print("AAAAAAAAAAA__________________works");
+                                      // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
                                       scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
                                       // duration: Duration(milliseconds: 400),
                                       // curve: Curves.fastOutSlowIn);
@@ -571,11 +593,29 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                                     message.clear();
                                   });
 
+                                  setState(() {
+                                    scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+
+                                  });
+                                  // await Future.delayed(
+                                  //     Duration(milliseconds: 200), (){
+                                  //   messagesNull = false;
+                                  //   SchedulerBinding.instance
+                                  //       ?.addPostFrameCallback((_) {
+                                  //     print("AAAAAAAAAAA__________________works");
+                                  //     scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+                                  //     // scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+                                  //     // duration: Duration(milliseconds: 400),
+                                  //     // curve: Curves.fastOutSlowIn);
+                                  //   });
+                                  //   message.clear();
+                                  // });
+
                                 }
                               },
                               icon: Icon(
                                 Icons.send_sharp,
-                                color: background,
+                                color: backgroundRefugee,
                               ),
                             ),
                           ),

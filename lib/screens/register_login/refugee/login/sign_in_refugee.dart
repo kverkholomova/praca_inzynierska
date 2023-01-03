@@ -88,7 +88,7 @@ class _SignInRefState extends State<SignInRef> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 65),
+                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.08),
                     child: Column(
                       children: [
 
@@ -140,10 +140,8 @@ class _SignInRefState extends State<SignInRef> {
                       children: <Widget>[
                         Material(
                           color: Colors.transparent,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              )),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRef==true? 0:5,
                           child: CustomTextFormField(
                             customHintText: 'Email',
@@ -156,10 +154,8 @@ class _SignInRefState extends State<SignInRef> {
                             :MediaQuery.of(context).size.height * 0.015,),
                         Material(
                           color: Colors.transparent,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              )),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRef==true? 0:5,
                           child:
                           //   TextFormField(
@@ -257,7 +253,7 @@ class _SignInRefState extends State<SignInRef> {
                   Padding(
                     padding: EdgeInsets.only(
                         top: !errorEmptyRef
-                            ?MediaQuery.of(context).size.height * 0.16
+                            ?MediaQuery.of(context).size.height * 0.17
                             : MediaQuery.of(context).size.height * 0.02),
                     child: Container(
                       width: double.infinity,

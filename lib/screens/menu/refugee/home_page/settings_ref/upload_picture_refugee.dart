@@ -8,11 +8,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/settings_ref_info.dart';
 
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../../../../../constants.dart';
+import '../../main_screen_ref.dart';
 
 String? url_image_ref;
 String image_url_volunteer = '';
@@ -175,10 +177,11 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                             print(
                                 "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
                             print(url_image_ref);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsRef()));
+                            setState(() {
+                              controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+                            });
+                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                           });
                         },
                         child: Text(

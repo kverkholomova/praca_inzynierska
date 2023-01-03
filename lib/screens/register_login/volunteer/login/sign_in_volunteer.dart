@@ -40,6 +40,8 @@ class _SignInVolState extends State<SignInVol> {
         ? Loading()
         : WillPopScope(
       onWillPop: () async {
+        controllerTextFieldEmailVol.clear();
+        controllerTextFieldPasswordVol.clear();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const OptionChoose()),
@@ -49,7 +51,7 @@ class _SignInVolState extends State<SignInVol> {
           child: SafeArea(
             child: Scaffold(
                 resizeToAvoidBottomInset: true,
-                backgroundColor: const Color.fromRGBO(233, 242, 253, 8),
+                backgroundColor: background,
                 appBar: AppBar(
                   title: Text(
                     "Volunteer",
@@ -64,6 +66,8 @@ class _SignInVolState extends State<SignInVol> {
                   backgroundColor: Colors.transparent,
                   leading: IconButton(
                       onPressed: (){
+                        controllerTextFieldEmailVol.clear();
+                        controllerTextFieldPasswordVol.clear();
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const OptionChoose()),
@@ -91,15 +95,18 @@ class _SignInVolState extends State<SignInVol> {
                                   textAlign: TextAlign.left,
                                 ),
                               ),
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "Sign in to continue",
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 18,
-                                    color: Colors.black,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 7),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Sign in to continue",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                    ),
+                                    textAlign: TextAlign.left,
                                   ),
-                                  textAlign: TextAlign.left,
                                 ),
                               ),
                             ],

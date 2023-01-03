@@ -53,38 +53,7 @@ class _AcceptedPageOfApplicationRefState
   //   //
   //   // listenFCM();
   // }
-  void sendPushMessageMarkedAsDone() async {
-    print(
-        "Send Notification that app is done");
-    try {
-      await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization':
-          'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body':
-              'The application was marked as done by refugee, so your help is not necessary anymore.',
-              'title': 'Refugee marked an applicationas done'
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
-            "to": "$tokenVolApplication",
-          },
-        ),
-      );
-    } catch (e) {
-      print("error push notification");
-    }
-  }
+
   void sendPushMessageDeletedByRefugee() async {
     print(
         "Send Notification that app is deleted");
@@ -546,17 +515,21 @@ class _AcceptedPageOfApplicationRefState
                                                     textActiveButtonStyleRefugee,
                                               ),
                                               onPressed: () async {
-                                                sendPushMessageMarkedAsDone();
-                                                FirebaseFirestore.instance
-                                                    .collection(
-                                                        'applications')
-                                                    .doc(streamSnapshot.data
-                                                        ?.docs[index].id)
-                                                    .delete();
+                                                // sendPushMessageMarkedAsDone();
+
+                                                // FirebaseFirestore.instance
+                                                //     .collection(
+                                                //         'applications')
+                                                //     .doc(streamSnapshot.data
+                                                //         ?.docs[index].id)
+                                                //     .delete();
+                                                // setState(() {
+                                                //   controllerTabBottomRef =
+                                                //       PersistentTabController(
+                                                //           initialIndex: 4);
+                                                // });
                                                 setState(() {
-                                                  controllerTabBottomRef =
-                                                      PersistentTabController(
-                                                          initialIndex: 4);
+                                                  isAcceptedApplicationRefugee = true;
                                                 });
                                                 Navigator.of(context,
                                                         rootNavigator: true)
@@ -564,7 +537,7 @@ class _AcceptedPageOfApplicationRefState
                                                         MaterialPageRoute(
                                                             builder:
                                                                 (context) =>
-                                                                    MainScreenRefugee()));
+                                                                    Rating()));
                                               }),
                                         ),
                                       ),
