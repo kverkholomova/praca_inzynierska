@@ -281,7 +281,7 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                                                           ? Icons.check_box
                                                                                           : Icons.new_label_sharp,
                                                       size: 30,
-                                                      color: Colors.black,
+                                                      color: streamSnapshot.data?.docs[index]['status']=="done"?Colors.black.withOpacity(0.3):Colors.black,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -311,7 +311,7 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                             style: GoogleFonts
                                                                 .raleway(
                                                               fontSize: 14,
-                                                              color:
+                                                              color:streamSnapshot.data?.docs[index]['status']=="done"?Colors.black.withOpacity(0.3):
                                                                   Colors.black,
                                                             )),
                                                         // Text(
@@ -325,7 +325,7 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                           style: GoogleFonts
                                                               .raleway(
                                                             fontSize: 13,
-                                                            color: Colors.black
+                                                            color: streamSnapshot.data?.docs[index]['status']=="done"?Colors.black.withOpacity(0.2):Colors.black
                                                                 .withOpacity(
                                                                     0.5),
                                                           ),

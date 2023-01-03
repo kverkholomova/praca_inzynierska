@@ -84,76 +84,91 @@ class _DatePickerRefugeeState extends State<DatePickerRefugee> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 30, color: background,),
-        onPressed: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SettingsVol()));
-        },
-      ),
-        body: Stack(
-          children: [
-            SfCalendar(
-              onSelectionChanged: selectionChanged,
-              appointmentTextStyle: TextStyle(color: blueColor),
-          // headerStyle: CalendarHeaderStyle(
-          //     textAlign: TextAlign.center,
-          //     backgroundColor: Color(0xFF7fcd91),
-          //     textStyle: TextStyle(
-          //         fontSize: 25,
-          //         fontStyle: FontStyle.normal,
-          //         letterSpacing: 5,
-          //         color: Color(0xFFff5eaea),
-          //         fontWeight: FontWeight.w500)),
+    return WillPopScope(
+      onWillPop: () async {
+        // setState(() {
+        //   controllerTabBottomVol = PersistentTabController(initialIndex: 0);
+        // });
+        Navigator.of(context, rootNavigator: true).pushReplacement(
+            MaterialPageRoute(builder: (context) => SettingsRef()));
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: redColor,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded, size: 30, color: backgroundRefugee,),
+            onPressed: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SettingsRef()));
+            },
+          )
+        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        // floatingActionButton: ,
+          body: Stack(
+            children: [
+              SfCalendar(
+                onSelectionChanged: selectionChanged,
+                appointmentTextStyle: TextStyle(color: redColor),
+            // headerStyle: CalendarHeaderStyle(
+            //     textAlign: TextAlign.center,
+            //     backgroundColor: Color(0xFF7fcd91),
+            //     textStyle: TextStyle(
+            //         fontSize: 25,
+            //         fontStyle: FontStyle.normal,
+            //         letterSpacing: 5,
+            //         color: Color(0xFFff5eaea),
+            //         fontWeight: FontWeight.w500)),
 
-              viewHeaderStyle: ViewHeaderStyle(
-                  dateTextStyle: TextStyle(color: Colors.white),
-                  dayTextStyle: TextStyle(
+                viewHeaderStyle: ViewHeaderStyle(
+                    dateTextStyle: TextStyle(color: Colors.white),
+                    dayTextStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    backgroundColor: redColor),
+                viewNavigationMode: ViewNavigationMode.none,
+                showCurrentTimeIndicator: false,
+                allowViewNavigation: false,
+                showDatePickerButton: true,
+                maxDate: DateTime.now(),
+                selectionDecoration: BoxDecoration(
+                  // color: Colors.transparent,
+                  border: Border.all(color: redColor, width: 2),
+                  shape: BoxShape.rectangle,
+                ),
+                firstDayOfWeek: 1,
+                todayTextStyle: TextStyle(color: redColor),
+                headerStyle: CalendarHeaderStyle(
+                  textStyle: GoogleFonts.raleway(
+                    fontSize: 22,
                     color: Colors.white,
                   ),
-                  backgroundColor: blueColor),
-              viewNavigationMode: ViewNavigationMode.none,
-              showCurrentTimeIndicator: false,
-              allowViewNavigation: false,
-              showDatePickerButton: true,
-              maxDate: DateTime.now(),
-              selectionDecoration: BoxDecoration(
-                // color: Colors.transparent,
-                border: Border.all(color: blueColor, width: 2),
-                shape: BoxShape.rectangle,
-              ),
-              firstDayOfWeek: 1,
-              todayTextStyle: TextStyle(color: blueColor),
-              headerStyle: CalendarHeaderStyle(
-                textStyle: GoogleFonts.raleway(
-                  fontSize: 22,
-                  color: Colors.white,
+                  backgroundColor: redColor,
                 ),
-                backgroundColor: blueColor,
+                // blackoutDatesTextStyle: const TextStyle(color: Colors.orangeAccent),
+                headerHeight: 150,
+                todayHighlightColor: backgroundRefugee,
+                cellBorderColor: redColor,
+                view: CalendarView.month,
               ),
-              // blackoutDatesTextStyle: const TextStyle(color: Colors.orangeAccent),
-              headerHeight: 150,
-              todayHighlightColor: background,
-              cellBorderColor: blueColor,
-              view: CalendarView.month,
-            ),
-            // Padding(
-            //   padding:
-            //   EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
-            //   child: IconButton(
-            //     icon: Icon(Icons.close),
-            //     onPressed: () {
-            //       // userInput = '0.00';
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => SettingsVol()),
-            //       );
-            //     },
-            //   ),
-            // ),
-          ],
-        ));
+              // Padding(
+              //   padding:
+              //   EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+              //   child: IconButton(
+              //     icon: Icon(Icons.close),
+              //     onPressed: () {
+              //       // userInput = '0.00';
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(builder: (context) => SettingsVol()),
+              //       );
+              //     },
+              //   ),
+              // ),
+            ],
+          )),
+    );
   }
 }

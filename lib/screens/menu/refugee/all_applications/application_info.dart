@@ -270,7 +270,10 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                       Container(
                                         width: double.infinity,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                        streamSnapshot.data?.docs[index]['status']=="done"
+                                      ?MediaQuery.of(context).size.height *
+                                            0.83
+                                            :MediaQuery.of(context).size.height *
                                                 0.7,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
@@ -398,7 +401,134 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                               Align(
                                                 alignment:
                                                     Alignment.bottomCenter,
-                                                child: streamSnapshot
+                                                child:
+                                                streamSnapshot.data?.docs[index]['status']=="done"
+                                                    ?Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                                  children: [
+                                                    // Padding(
+                                                    //   padding:
+                                                    //   const EdgeInsets.all(
+                                                    //       15.0),
+                                                    //   child: IconButton(
+                                                    //     icon: Icon(
+                                                    //       Icons
+                                                    //           .info_outline_rounded,
+                                                    //       size: 30,
+                                                    //       color: blueColor,
+                                                    //     ),
+                                                    //     onPressed: () {
+                                                    //       setState(() {
+                                                    //         IDVolInfo = streamSnapshot
+                                                    //             .data
+                                                    //             ?.docs[
+                                                    //         index][
+                                                    //         'volunteerID'];
+                                                    //       });
+                                                    //       IdApplicationVolInfo =
+                                                    //       streamSnapshot
+                                                    //           .data
+                                                    //           ?.docs[
+                                                    //       index][
+                                                    //       "chatId_vol"];
+                                                    //
+                                                    //       Navigator.of(
+                                                    //           context,
+                                                    //           rootNavigator:
+                                                    //           true)
+                                                    //           .pushReplacement(
+                                                    //           MaterialPageRoute(
+                                                    //               builder:
+                                                    //                   (context) =>
+                                                    //                   InfoVolforRef()));
+                                                    //     },
+                                                    //   ),
+                                                    // ),
+                                                    // Padding(
+                                                    //   padding:
+                                                    //   const EdgeInsets.all(
+                                                    //       15.0),
+                                                    //   child: Visibility(
+                                                    //     visible: streamSnapshot
+                                                    //         .data
+                                                    //         ?.docs[index][
+                                                    //     'application_accepted'],
+                                                    //     child: IconButton(
+                                                    //       icon: Icon(
+                                                    //         Icons
+                                                    //             .message_rounded,
+                                                    //         size: 30,
+                                                    //         color: blueColor,
+                                                    //       ),
+                                                    //       onPressed: () {
+                                                    //
+                                                    //       },
+                                                    //     ),
+                                                    //   ),
+                                                    // ),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .all(15.0),
+                                                      child:
+                                                        Icon(
+                                                          Icons
+                                                              .check_circle,
+                                                          size: 45,
+                                                          color:
+                                                          redColor,
+                                                        ),
+
+                                                    ),
+                                                    // Padding(
+                                                    //   padding: const EdgeInsets.all(15.0),
+                                                    //   child: IconButton(
+                                                    //     icon: Icon(
+                                                    //       Icons.check_circle,
+                                                    //       size: 30,
+                                                    //       color: blueColor,
+                                                    //     ),
+                                                    //     onPressed: () {
+                                                    //
+                                                    //
+                                                    //     },
+                                                    //   ),
+                                                    // ),
+                                                    // IconButton(
+                                                    //   icon: Icon(
+                                                    //     Icons.message_rounded,
+                                                    //     size: 30,
+                                                    //     color: blueColor,
+                                                    //   ),
+                                                    //   onPressed: () {
+                                                    //     setState(() {
+                                                    //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                    //     });
+                                                    //     Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                    //         MaterialPageRoute(builder: (context) => MainScreen()));
+                                                    //
+                                                    //   },
+                                                    // ),
+                                                    // IconButton(
+                                                    //   icon: Icon(
+                                                    //     Icons.delete_forever,
+                                                    //     size: 30,
+                                                    //     color: blueColor,
+                                                    //   ),
+                                                    //   onPressed: () {
+                                                    //     setState(() {
+                                                    //       controllerTabBottomVol = PersistentTabController(initialIndex: 1);
+                                                    //     });
+                                                    //     Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                    //         MaterialPageRoute(builder: (context) => MainScreen()));
+                                                    //
+                                                    //   },
+                                                    // )
+                                                  ],
+                                                )
+                                                :streamSnapshot
                                                             .data?.docs[index]
                                                         ['application_accepted']
                                                     ? Row(
@@ -858,7 +988,9 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                             MediaQuery.of(context).size.height *
                                                 0.03,
                                       ),
-                                      streamSnapshot
+                                      streamSnapshot.data?.docs[index]['status']=="done"
+                                      ?Container()
+                                      :streamSnapshot
                                           .data?.docs[index]
                                       ['application_accepted']
                                       ?Align(

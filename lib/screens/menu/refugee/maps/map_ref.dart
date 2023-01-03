@@ -212,7 +212,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
     return ListView(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 20 / 12.5,
+          aspectRatio: 20 / 13.5,
           child: Image.asset(
             imageURL,
             fit: BoxFit.fill,
