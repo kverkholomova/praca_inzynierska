@@ -9,6 +9,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../models/categories.dart';
 import '../../volunteer/all_applications/new_screen_with_applications.dart';
@@ -162,6 +163,12 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                         child: GestureDetector(
                                           onTap: () {
                                             setState(() {
+                                              IdApplicationVolInfo =
+                                              streamSnapshot
+                                                  .data
+                                                  ?.docs[index]
+                                              [
+                                              "chatId_vol"];
                                               IdVolInfoAllApp = streamSnapshot
                                                   .data
                                                   ?.docs[index]['volunteerID'];
@@ -379,31 +386,32 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                   );
                               }
                             }
-                            return Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 100),
-                                child: Column(
-                                  children: [
-                                    // SpinKitChasingDots(
-                                    //   color: Colors.brown,
-                                    //   size: 50.0,
-                                    // ),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text("",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 24,
-                                            color: Colors.black,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 20),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
+                            return LoadingRefugee();
+                            //   Center(
+                            //   child: Padding(
+                            //     padding: EdgeInsets.only(top: 100),
+                            //     child: Column(
+                            //       children: [
+                            //         // SpinKitChasingDots(
+                            //         //   color: Colors.brown,
+                            //         //   size: 50.0,
+                            //         // ),
+                            //         Align(
+                            //           alignment: Alignment.center,
+                            //           child: Text("",
+                            //               style: TextStyle(
+                            //                 fontWeight: FontWeight.bold,
+                            //                 fontSize: 24,
+                            //                 color: Colors.black,
+                            //               )),
+                            //         ),
+                            //         Padding(
+                            //           padding: EdgeInsets.only(top: 20),
+                            //         )
+                            //       ],
+                            //     ),
+                            //   ),
+                            // );
                           });
                     },
                   ),

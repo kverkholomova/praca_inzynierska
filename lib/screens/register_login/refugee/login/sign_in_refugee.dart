@@ -143,12 +143,32 @@ class _SignInRefState extends State<SignInRef> {
                           shape: RoundedRectangleBorder(
                               borderRadius: borderRadiusApplication),
                           elevation: errorEmptyRef==true? 0:5,
-                          child: CustomTextFormField(
+                          child: CustomTextFormFieldRefugee(
                             customHintText: 'Email',
                             customErrorText: 'Enter an email',
                             hide: false,
                           ),
                         ),
+                        Visibility(
+                          visible: emailErrorSignInRef,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your email should contain @gmail.com",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
                         SizedBox(height: !errorEmptyRef
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
@@ -245,6 +265,25 @@ class _SignInRefState extends State<SignInRef> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: passwordErrorSignInRef,
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height *
+                              0.005,
+                        ),
+                        child: Text(
+                          "Your password should contain 9 signs or more",
+                          style: GoogleFonts.raleway(
+                            fontSize: 12,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   // Center(

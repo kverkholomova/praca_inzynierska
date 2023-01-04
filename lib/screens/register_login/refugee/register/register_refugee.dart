@@ -11,6 +11,12 @@ import '../login/sign_in_refugee.dart';
 
 bool registrationRef = false;
 
+bool nameRef = false;
+bool phoneRef = false;
+bool phoneLength = false;
+bool emailRef = false;
+bool passwordRef = false;
+
 String userNameRef = '';
 String phoneNumberRef = '';
 TextEditingController controllerTextFieldNameRef = TextEditingController();
@@ -63,17 +69,14 @@ bool passwordVisible = false;
           resizeToAvoidBottomInset: true,
           backgroundColor: backgroundRefugee,
           appBar: AppBar(
-            title: Padding(
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.1),
-              child: Text(
-              "Refugee",
-              style: GoogleFonts.sairaStencilOne(
-                fontSize: 25,
-                color: Colors.black.withOpacity(0.7),
+            title: Text(
+            "Refugee",
+            style: GoogleFonts.sairaStencilOne(
+              fontSize: 25,
+              color: Colors.black.withOpacity(0.7),
 
-              ),
-              textAlign: TextAlign.center,
             ),
+            textAlign: TextAlign.left,
             ),
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -104,7 +107,7 @@ bool passwordVisible = false;
                       children: <Widget>[
 
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 20),
                           child: Column(
                             children: [
 
@@ -156,6 +159,25 @@ bool passwordVisible = false;
                             hide: false,
                           ),
                         ),
+                        Visibility(
+                          visible: nameRef,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your name should contain only letters",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
@@ -170,6 +192,27 @@ bool passwordVisible = false;
                             customHintText: 'Phone number',
                             customErrorText: 'Enter your phone number',
                             hide: false,
+                          ),
+                        ),
+                        Visibility(
+                          visible: phoneRef,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                phoneLength?
+                                "Your phone number should contain only 9 numbers"
+                                :"Your phone number should contain only numbers",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
@@ -188,6 +231,26 @@ bool passwordVisible = false;
                             hide: false,
                           ),
                         ),
+                        Visibility(
+                          visible: emailRef,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your email should contain @gmail.com",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
@@ -283,6 +346,25 @@ bool passwordVisible = false;
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
                             hide: true,
+                          ),
+                        ),
+                        Visibility(
+                          visible: passwordRef,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your password should contain 9 signs or more",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister

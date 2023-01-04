@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/volunteer_info_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 import '../../../../constants.dart';
 import '../../../../models/categories.dart';
 import '../all_applications/all_app_ref.dart';
@@ -431,6 +432,7 @@ class _AcceptedPageOfApplicationRefState
                                                         .doc(streamSnapshot
                                                         .data?.docs[index].id)
                                                         .delete();
+                                                    FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
                                                     setState(() {
                                                       controllerTabBottomRef =
                                                           PersistentTabController(
@@ -576,28 +578,29 @@ class _AcceptedPageOfApplicationRefState
                             );
                         }
                       }
-                      return Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 100),
-                          child: Column(
-                            children: [
-                              SpinKitChasingDots(
-                                color: Colors.brown,
-                                size: 50.0,
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text("Waiting...",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24,
-                                      color: Colors.black,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                      return LoadingRefugee();
+                      //   Center(
+                      //   child: Padding(
+                      //     padding: EdgeInsets.only(top: 100),
+                      //     child: Column(
+                      //       children: [
+                      //         SpinKitChasingDots(
+                      //           color: Colors.brown,
+                      //           size: 50.0,
+                      //         ),
+                      //         Align(
+                      //           alignment: Alignment.center,
+                      //           child: Text("Waiting...",
+                      //               style: TextStyle(
+                      //                 fontWeight: FontWeight.bold,
+                      //                 fontSize: 24,
+                      //                 color: Colors.black,
+                      //               )),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
                     });
               },
             ),

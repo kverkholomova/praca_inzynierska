@@ -8,6 +8,11 @@ import 'package:wol_pro_1/screens/register_login/volunteer/register/register_vol
 import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunteer.dart';
 
 bool errorEmpty = false;
+bool emailErrorSignInRef = false;
+bool passwordErrorSignInRef = false;
+
+
+// String errorTxt = "";
 
 class CustomTextFormField extends StatefulWidget {
   final String customHintText;
@@ -106,16 +111,49 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
         onChanged: (val) {
+
           setState(() {
             if( widget.customHintText == "Email"){
               if(optionRefugee){
-                emailRefLog = val;
+
+                  emailRefLog = val;
+
               } else {
                 emailVolLog = val;
               }
             } else if(widget.customHintText == "Password"){
               if(optionRefugee){
-                passwordRefLog = val;
+
+                  passwordRefLog = val;
+
+            //   if(optionRefugee){
+            //     if (!(val.contains('@gmail.com'))){
+            //       setState(() {
+            //         emailErrorSignInRef = true;
+            //       });
+            //     } else if (val.contains('@gmail.com')){
+            //       setState(() {
+            //         emailErrorSignInRef = false;
+            //       });
+            //       emailRefLog = val;
+            //     }
+            //
+            //   } else {
+            //     emailVolLog = val;
+            //   }
+            // } else if(widget.customHintText == "Password"){
+            //   if(optionRefugee){
+            //     if(val.length<=8){
+            //       setState(() {
+            //         passwordErrorSignInRef=true;
+            //       });
+            //     } else{
+            //       setState(() {
+            //         passwordErrorSignInRef=false;
+            //       });
+            //       passwordRefLog = val;
+            //     }
+
               } else {
                 passwordVolLog = val;
               }
@@ -226,15 +264,62 @@ class _CustomTextFormFieldRefugeeState extends State<CustomTextFormFieldRefugee>
       validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
         setState(() {
+    // if(optionRefugee){
+    // if (!(val.contains('@gmail.com'))){
+    // setState(() {
+    // emailErrorSignInRef = true;
+    // });
+    // } else if (val.contains('@gmail.com')){
+    // setState(() {
+    // emailErrorSignInRef = false;
+    // });
+    // emailRefLog = val;
+    // }
+    //
+    // } else {
+    // emailVolLog = val;
+    // }
+    // } else if(widget.customHintText == "Password"){
+    // if(optionRefugee){
+    // if(val.length<=8){
+    // setState(() {
+    // passwordErrorSignInRef=true;
+    // });
+    // } else{
+    // setState(() {
+    // passwordErrorSignInRef=false;
+    // });
+    // passwordRefLog = val;
+    // }
           if( widget.customHintText == "Email"){
             if(optionRefugee){
-              emailRefLog = val;
+              if (!val.contains("@gmail.com")){
+                 setState(() {
+                   emailErrorSignInRef = true;
+                 });
+              } else{
+                setState(() {
+                  emailErrorSignInRef = false;
+                });
+                emailRefLog = val;
+              }
+
             } else {
               emailVolLog = val;
             }
           } else if(widget.customHintText == "Password"){
             if(optionRefugee){
-              passwordRefLog = val;
+              if (val.length<=8){
+                setState(() {
+                  passwordErrorSignInRef = true;
+                });
+              } else{
+                setState(() {
+                  passwordErrorSignInRef = false;
+                });
+                passwordRefLog = val;
+              }
+
             } else {
               passwordVolLog = val;
             }
@@ -358,6 +443,7 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
       onChanged: (val) {
         setState(() {
          if(widget.customHintText=="Name"){
+
            userName = val;
          } else if( widget.customHintText == "Phone number"){
            phoneNumber = val;
@@ -401,6 +487,34 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
+      // onFieldSubmitted: (val){
+      //   if(widget.customHintText=="Name"){
+      //
+      //     if(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]'))){
+      //       setState(() {
+      //         nameRef = false;
+      //         print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+      //         print(nameRef);
+      //       });
+      //       userNameRef = val;
+      //     }
+      //     else if (!(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]')))){
+      //       setState(() {
+      //         nameRef= true;
+      //         print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+      //         print(nameRef);
+      //       });}
+      //
+      //
+      //   } else if( widget.customHintText == "Phone number"){
+      //     phoneNumberRef = val;
+      //   } else if( widget.customHintText == "Email"){
+      //     emailRegisterRef = val;
+      //   } else if(widget.customHintText == "Password"){
+      //     passwordRegisterRef = val;
+      //   }
+      // },
       controller: widget.customHintText == "Name"
           ?controllerTextFieldNameRef
           : widget.customHintText == "Phone number"
@@ -476,14 +590,96 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
       validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
         setState(() {
-          if(widget.customHintText=="Name"){
+          // if(widget.customHintText=="Name"){
+
+            // if(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]'))){
+            // setState(() {
+            // nameRef = false;
+            // print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+            // print(nameRef);
+            // });
             userNameRef = val;
-          } else if( widget.customHintText == "Phone number"){
-            phoneNumberRef = val;
+            // }
+            // else if (!(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]')))){
+            // setState(() {
+            // nameRef= true;
+            // print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+            // print(nameRef);
+            // });}
+
+
+          // }
+            if(widget.customHintText=="Name"){
+
+              if (val.contains(RegExp(r'[0-9]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+                setState(() {
+                  nameRef= true;
+                  print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+                  print(nameRef);
+                });}
+              else {
+                setState(() {
+                  nameRef = false;
+                  print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+                  print(nameRef);
+                });
+                userNameRef = val;
+              }
+            }
+          else if( widget.customHintText == "Phone number"){
+
+              if (val.contains(RegExp(r'[A-Z]'))||val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+                setState(() {
+                  phoneRef= true;
+                  print("Phoooooneeeeeee");
+                  print(phoneRef);
+                });}
+              else {
+                if(val.length==9){
+                  setState(() {
+                    phoneRef = false;
+                    print("Phooooneeeeeeee");
+                    print(phoneRef);
+                  });
+                  phoneNumberRef = val;
+                } else {
+                  setState(() {
+                    phoneLength = true;
+                    phoneRef = true;
+                    print("Phooooneeeeeeee");
+                    print(phoneRef);
+                  });
+                }
+                // userNameRef = val;
+              }
+
+            // phoneNumberRef = val;
           } else if( widget.customHintText == "Email"){
-            emailRegisterRef = val;
+
+            if(!val.contains("@gmail.com")){
+              setState(() {
+                emailRef=true;
+              });
+            } else{
+              setState(() {
+                emailRef = false;
+              });
+              emailRegisterRef = val;
+            }
+
+
           } else if(widget.customHintText == "Password"){
-            passwordRegisterRef = val;
+            if(val.length<=8){
+              setState(() {
+                passwordRef = true;
+              });
+            } else{
+              setState(() {
+                passwordRef = false;
+              });
+              passwordRegisterRef = val;
+            }
+
           }
         });
 

@@ -15,6 +15,7 @@ import 'package:wol_pro_1/screens/menu/refugee/all_applications/edit_application
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/volunteer_info_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../accepted_applications/application_info_accepted.dart';
 import 'rating.dart';
@@ -560,12 +561,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                       .data
                                                                       ?.docs[index].id;
                                                                 });
-                                                                IdApplicationVolInfo =
-                                                                    streamSnapshot
-                                                                            .data
-                                                                            ?.docs[index]
-                                                                        [
-                                                                        "chatId_vol"];
+
 
                                                                 print("Deeeeeeleeeete volunteeeeer from this appppliiiicatiooon");
                                                                 print(idAppDeleteVol);
@@ -626,6 +622,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                             index]
                                                                         .id)
                                                                     .delete();
+                                                                FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
                                                                 setState(() {
                                                                   controllerTabBottomRef =
                                                                       PersistentTabController(
@@ -778,6 +775,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                             index]
                                                                         .id)
                                                                     .delete();
+                                                                FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
                                                                 setState(() {
                                                                   controllerTabBottomRef =
                                                                       PersistentTabController(
@@ -1230,28 +1228,29 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                 );
                             }
                           }
-                          return Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 100),
-                              child: Column(
-                                children: [
-                                  // SpinKitChasingDots(
-                                  //   color: Colors.brown,
-                                  //   size: 50.0,
-                                  // ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text("",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return LoadingRefugee();
+                          //   Center(
+                          //   child: Padding(
+                          //     padding: EdgeInsets.only(top: 100),
+                          //     child: Column(
+                          //       children: [
+                          //         // SpinKitChasingDots(
+                          //         //   color: Colors.brown,
+                          //         //   size: 50.0,
+                          //         // ),
+                          //         Align(
+                          //           alignment: Alignment.center,
+                          //           child: Text("",
+                          //               style: TextStyle(
+                          //                 fontWeight: FontWeight.bold,
+                          //                 fontSize: 24,
+                          //                 color: Colors.black,
+                          //               )),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // );
                         });
                   },
                 ),

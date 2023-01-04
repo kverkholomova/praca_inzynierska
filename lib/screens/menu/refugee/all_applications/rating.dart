@@ -18,6 +18,7 @@ import 'package:wol_pro_1/to_delete/messages_ref.dart';
 import 'package:wol_pro_1/to_delete/pageWithChats.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/rating.dart';
 import 'package:wol_pro_1/to_delete/info_volunteer_accepted_application.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../constants.dart';
 import '../accepted_applications/accepted_applications.dart';
@@ -380,28 +381,29 @@ class _RatingState extends State<Rating> {
                                 );
                             }
                           }
-                          return Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 100),
-                              child: Column(
-                                children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text("Waiting...",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return LoadingRefugee();
+                          //   Center(
+                          //   child: Padding(
+                          //     padding: EdgeInsets.only(top: 100),
+                          //     child: Column(
+                          //       children: [
+                          //         SpinKitChasingDots(
+                          //           color: Colors.brown,
+                          //           size: 50.0,
+                          //         ),
+                          //         Align(
+                          //           alignment: Alignment.center,
+                          //           child: Text("Waiting...",
+                          //               style: TextStyle(
+                          //                 fontWeight: FontWeight.bold,
+                          //                 fontSize: 24,
+                          //                 color: Colors.black,
+                          //               )),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // );
                         });
                   },
                 ),

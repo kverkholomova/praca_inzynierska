@@ -10,6 +10,7 @@ import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../models/categories.dart';
 import '../../volunteer/all_applications/new_screen_with_applications.dart';
@@ -48,7 +49,7 @@ class CategoriesRefState extends State<CategoriesRef> {
 //             MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
         return true;
       },
-      child:  Scaffold(
+      child: Scaffold(
         backgroundColor: backgroundRefugee,
         body: SingleChildScrollView(
           child: Column(
@@ -103,10 +104,10 @@ class CategoriesRefState extends State<CategoriesRef> {
                     stream: FirebaseFirestore.instance
                         .collection('applications')
                         .where('userID',
-                        isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                            isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                         .where("status", isEqualTo: 'Application is accepted')
-                    // .where("volunteerID", isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                    // .where("status", isEqualTo: 'Application is accepted')
+                        // .where("volunteerID", isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                        // .where("status", isEqualTo: 'Application is accepted')
 
                         .snapshots(),
                     builder:
@@ -138,75 +139,87 @@ class CategoriesRefState extends State<CategoriesRef> {
                                         padding: padding,
                                         child: GestureDetector(
                                           onTap: () {
-    setState(() {
-                                          tokenVolApplication =
-                                          streamSnapshot.data?.docs[index]['token_vol'];
-                                          FirebaseFirestore.instance
-                                                .collection('applications')
-                                                .doc(streamSnapshot.data?.docs[index].id)
-                                                .update({"Id": streamSnapshot.data?.docs[index].id});
-                                          // card_title_ref =
-                                          //     streamSnapshot.data?.docs[index]
-                                          //         ['title'] as String;
-                                          // card_category_ref =
-                                          //     streamSnapshot.data?.docs[index]
-                                          //         ['category'] as String;
-                                          // card_comment_ref =
-                                          //     streamSnapshot.data?.docs[index]
-                                          //         ['comment'] as String;
-                                          applicationIDRefInfo =
-                                              "${streamSnapshot.data?.docs[index]
-                                              .id}";
-                                          tokenVolApplication =
-                                              streamSnapshot.data?.docs[index]
-                                                  ["token_vol"] as String;
-                                          // print(card_title_ref);
-                                          print("LLLLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOOO");
-                                          print(applicationIDRefInfo);
-                                          Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .pushReplacement(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      new AcceptedPageOfApplicationRef()));
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           AcceptedPageOfApplicationRef()),
-                                          // );
-                                          // print("print ${streamSnapshot.data?.docs[index][id]}");
-                                        });
-                                        // setState(() {
-                                        //   FirebaseFirestore.instance
-                                        //       .collection('applications')
-                                        //       .doc(streamSnapshot.data?.docs[index].id)
-                                        //       .update({"Id": streamSnapshot.data?.docs[index].id});
-                                        //   print("IIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDD");
-                                        //   print(streamSnapshot.data?.docs[index].id);
-                                        //   applicationIDRef =
-                                        //   "${
-                                        //       streamSnapshot
-                                        //           .data?.docs[index].id
-                                        //   }";
-                                        //   //
-                                        //   // id_card = streamSnapshot.data?.docs[index].id;
-                                        //   card_title_vol =
-                                        //   streamSnapshot.data
-                                        //       ?.docs[index]
-                                        //   ['title'];
-                                        //   card_category_vol =
-                                        //   streamSnapshot.data
-                                        //       ?.docs[index]
-                                        //   ['category'];
-                                        //   card_comment_vol =
-                                        //   streamSnapshot.data
-                                        //       ?.docs[index]
-                                        //   ['comment'];
-                                        //   // controllerTabBottomRef = PersistentTabController(initialIndex: 3);
-                                        //   Navigator.of(context, rootNavigator: true).pushReplacement(
-                                        //       MaterialPageRoute(builder: (context) => new PageOfApplicationRef()));
-                                        //
-                                        // });
+                                            setState(() {
+                                              IdApplicationVolInfo =
+                                                  streamSnapshot
+                                                          .data?.docs[index]
+                                                      ["chatId_vol"];
+                                              tokenVolApplication =
+                                                  streamSnapshot
+                                                          .data?.docs[index]
+                                                      ['token_vol'];
+                                              FirebaseFirestore.instance
+                                                  .collection('applications')
+                                                  .doc(streamSnapshot
+                                                      .data?.docs[index].id)
+                                                  .update({
+                                                "Id": streamSnapshot
+                                                    .data?.docs[index].id
+                                              });
+                                              // card_title_ref =
+                                              //     streamSnapshot.data?.docs[index]
+                                              //         ['title'] as String;
+                                              // card_category_ref =
+                                              //     streamSnapshot.data?.docs[index]
+                                              //         ['category'] as String;
+                                              // card_comment_ref =
+                                              //     streamSnapshot.data?.docs[index]
+                                              //         ['comment'] as String;
+                                              applicationIDRefInfo =
+                                                  "${streamSnapshot.data?.docs[index].id}";
+                                              tokenVolApplication =
+                                                  streamSnapshot
+                                                          .data?.docs[index]
+                                                      ["token_vol"] as String;
+                                              // print(card_title_ref);
+                                              print(
+                                                  "LLLLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOOO");
+                                              print(applicationIDRefInfo);
+                                              Navigator.of(context,
+                                                      rootNavigator: true)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              new AcceptedPageOfApplicationRef()));
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           AcceptedPageOfApplicationRef()),
+                                              // );
+                                              // print("print ${streamSnapshot.data?.docs[index][id]}");
+                                            });
+                                            // setState(() {
+                                            //   FirebaseFirestore.instance
+                                            //       .collection('applications')
+                                            //       .doc(streamSnapshot.data?.docs[index].id)
+                                            //       .update({"Id": streamSnapshot.data?.docs[index].id});
+                                            //   print("IIIIIIIIIIIIIIIDDDDDDDDDDDDDDDDDDDDD");
+                                            //   print(streamSnapshot.data?.docs[index].id);
+                                            //   applicationIDRef =
+                                            //   "${
+                                            //       streamSnapshot
+                                            //           .data?.docs[index].id
+                                            //   }";
+                                            //   //
+                                            //   // id_card = streamSnapshot.data?.docs[index].id;
+                                            //   card_title_vol =
+                                            //   streamSnapshot.data
+                                            //       ?.docs[index]
+                                            //   ['title'];
+                                            //   card_category_vol =
+                                            //   streamSnapshot.data
+                                            //       ?.docs[index]
+                                            //   ['category'];
+                                            //   card_comment_vol =
+                                            //   streamSnapshot.data
+                                            //       ?.docs[index]
+                                            //   ['comment'];
+                                            //   // controllerTabBottomRef = PersistentTabController(initialIndex: 3);
+                                            //   Navigator.of(context, rootNavigator: true).pushReplacement(
+                                            //       MaterialPageRoute(builder: (context) => new PageOfApplicationRef()));
+                                            //
+                                            // });
 
                                             // setState(() {
                                             //   IdVolInfoAllApp = streamSnapshot
@@ -250,7 +263,6 @@ class CategoriesRefState extends State<CategoriesRef> {
                                             //   // );
                                             //   // print("print ${streamSnapshot.data?.docs[index][id]}");
                                             // });
-
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -259,76 +271,76 @@ class CategoriesRefState extends State<CategoriesRef> {
                                             decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius:
-                                                BorderRadius.circular(18)),
+                                                    BorderRadius.circular(18)),
                                             child: Align(
                                               alignment: Alignment.center,
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                    MainAxisAlignment
+                                                        .spaceAround,
                                                 children: [
                                                   Padding(
                                                     padding: EdgeInsets.only(
                                                         left: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
+                                                                    context)
+                                                                .size
+                                                                .height *
                                                             0.015),
                                                     child: Icon(
                                                       streamSnapshot.data?.docs[index]
-                                                      ['category']
-                                                      as String ==
-                                                          categoriesListAll[
-                                                          3]
+                                                                      ['category']
+                                                                  as String ==
+                                                              categoriesListAll[
+                                                                  3]
                                                           ? Icons.pets_rounded
                                                           : streamSnapshot.data?.docs[index]
-                                                      ['category']
-                                                      as String ==
-                                                          categoriesListAll[
-                                                          4]
-                                                          ? Icons
-                                                          .local_grocery_store
-                                                          : streamSnapshot.data?.docs[index]
-                                                      ['category']
-                                                      as String ==
-                                                          categoriesListAll[
-                                                          2]
-                                                          ? Icons
-                                                          .emoji_transportation_rounded
-                                                          : streamSnapshot
-                                                          .data
-                                                          ?.docs[index]['category'] as String ==
-                                                          categoriesListAll[1]
-                                                          ? Icons.house
-                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
-                                                          ? Icons.sign_language_rounded
-                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
-                                                          ? Icons.child_care_outlined
-                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
-                                                          ? Icons.menu_book
-                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
-                                                          ? Icons.medical_information_outlined
-                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
-                                                          ? Icons.check_box
-                                                          : Icons.new_label_sharp,
+                                                                          ['category']
+                                                                      as String ==
+                                                                  categoriesListAll[
+                                                                      4]
+                                                              ? Icons
+                                                                  .local_grocery_store
+                                                              : streamSnapshot.data?.docs[index]
+                                                                              ['category']
+                                                                          as String ==
+                                                                      categoriesListAll[
+                                                                          2]
+                                                                  ? Icons
+                                                                      .emoji_transportation_rounded
+                                                                  : streamSnapshot
+                                                                              .data
+                                                                              ?.docs[index]['category'] as String ==
+                                                                          categoriesListAll[1]
+                                                                      ? Icons.house
+                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[6]
+                                                                          ? Icons.sign_language_rounded
+                                                                          : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[5]
+                                                                              ? Icons.child_care_outlined
+                                                                              : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[7]
+                                                                                  ? Icons.menu_book
+                                                                                  : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[8]
+                                                                                      ? Icons.medical_information_outlined
+                                                                                      : streamSnapshot.data?.docs[index]['category'] as String == categoriesListAll[0]
+                                                                                          ? Icons.check_box
+                                                                                          : Icons.new_label_sharp,
                                                       size: 30,
                                                       color: Colors.black,
                                                     ),
                                                   ),
                                                   SizedBox(
                                                     width:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                        0.65,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.65,
                                                     height:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.12,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.12,
                                                     child: Align(
                                                       alignment:
-                                                      Alignment.center,
+                                                          Alignment.center,
                                                       child: ListTile(
                                                         // mainAxisAlignment: MainAxisAlignment.start,
                                                         // contentPadding:
@@ -336,29 +348,29 @@ class CategoriesRefState extends State<CategoriesRef> {
                                                         //     vertical: 10),
                                                         title: Text(
                                                             streamSnapshot.data
-                                                                ?.docs[index]
-                                                            ['title']
-                                                            as String,
+                                                                        ?.docs[index]
+                                                                    ['title']
+                                                                as String,
                                                             style: GoogleFonts
                                                                 .raleway(
                                                               fontSize: 14,
                                                               color:
-                                                              Colors.black,
+                                                                  Colors.black,
                                                             )),
                                                         // Text(
                                                         //     streamSnapshot.data?.docs[index]['category'] as String,
                                                         //     style: TextStyle(color: Colors.grey)),
                                                         subtitle: Text(
                                                           "${streamSnapshot.data?.docs[index]['comment']}"
-                                                              .substring(
-                                                              0, 30) +
+                                                                  .substring(
+                                                                      0, 30) +
                                                               "...",
                                                           style: GoogleFonts
                                                               .raleway(
                                                             fontSize: 13,
                                                             color: Colors.black
                                                                 .withOpacity(
-                                                                0.5),
+                                                                    0.5),
                                                           ),
                                                         ),
                                                       ),
@@ -403,38 +415,39 @@ class CategoriesRefState extends State<CategoriesRef> {
                                       ),
                                       SizedBox(
                                         height:
-                                        MediaQuery.of(context).size.height *
-                                            0.015,
+                                            MediaQuery.of(context).size.height *
+                                                0.015,
                                       ),
                                     ],
                                   );
                               }
                             }
-                            return Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(top: 100),
-                                child: Column(
-                                  children: [
-                                    // SpinKitChasingDots(
-                                    //   color: Colors.brown,
-                                    //   size: 50.0,
-                                    // ),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Text("",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 24,
-                                            color: Colors.black,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 20),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
+                            return LoadingRefugee();
+                            // return Center(
+                            //   child: Padding(
+                            //     padding: EdgeInsets.only(top: 100),
+                            //     child: Column(
+                            //       children: [
+                            //         // SpinKitChasingDots(
+                            //         //   color: Colors.brown,
+                            //         //   size: 50.0,
+                            //         // ),
+                            //         Align(
+                            //           alignment: Alignment.center,
+                            //           child: Text("",
+                            //               style: TextStyle(
+                            //                 fontWeight: FontWeight.bold,
+                            //                 fontSize: 24,
+                            //                 color: Colors.black,
+                            //               )),
+                            //         ),
+                            //         Padding(
+                            //           padding: EdgeInsets.only(top: 20),
+                            //         )
+                            //       ],
+                            //     ),
+                            //   ),
+                            // );
                           });
                     },
                   ),
@@ -1116,10 +1129,6 @@ class CategoriesRefState extends State<CategoriesRef> {
         //   ],
         // ),
       ),
-
-
-
-
 
       // Scaffold(
       //     backgroundColor: background,

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
@@ -13,12 +14,16 @@ import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/upload_pic
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
+import 'package:wol_pro_1/widgets/wrapper.dart';
 import '../../../../../../service/local_push_notifications.dart';
+
 
 import '../../../../../widgets/datepicker_ref.dart';
 import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../../services/auth.dart';
-
+bool visErrorName = false;
+bool visErrorPhoneNum = false;
+bool phoneLengthEnough = false;
 var currentStreamSnapshotRef;
 String dateOfBirthRefugee =
 DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
@@ -52,6 +57,8 @@ class _SettingsRefState extends State<SettingsRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    visErrorName = false;
+    visErrorPhoneNum = false;
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {});
     storeNotificationToken();
@@ -147,7 +154,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                     child: SizedBox(
                                         height:
                                         MediaQuery.of(context).size.width * 0.5,
-                                        child: url_image_ref == null
+                                        child: urlImageRefugee == ""
                                             ? Stack(
                                             children: [
                                               Image(
@@ -158,8 +165,8 @@ class _SettingsRefState extends State<SettingsRef> {
                                                   top: MediaQuery.of(context).size.height * 0.125,
                                                   left: MediaQuery.of(context).size.width * 0.3,
                                                 ),
-                                                child: IconButton(
-                                                    onPressed: (){
+                                                child: GestureDetector(
+                                                    onTap: (){
                                                       currentStreamSnapshotRef =
                                                           streamSnapshot.data?.docs[index].id;
                                                       Navigator.push(
@@ -168,10 +175,15 @@ class _SettingsRefState extends State<SettingsRef> {
                                                               builder: (context) =>
                                                                   ImageUploadsRef()));
                                                     },
-                                                    icon: CircleAvatar(
-                                                        backgroundColor: Colors.white,
-                                                        radius: 10,
-                                                        child: Icon(Icons.add, color: redColor,))),
+                                                    child: Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                        decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: backgroundRefugee
+                                                        ),
+                                                        child: Center(
+                                                            child: Icon(Icons.add_rounded, color: redColor, size: 30,)))),
                                               )
                                             ])
                                             : Stack(
@@ -179,14 +191,14 @@ class _SettingsRefState extends State<SettingsRef> {
                                               CircleAvatar(
                                                   radius: 70.0,
                                                   backgroundImage: NetworkImage(
-                                                      url_image_ref.toString())),
+                                                      urlImageRefugee.toString())),
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                   top: MediaQuery.of(context).size.height * 0.125,
                                                   left: MediaQuery.of(context).size.width * 0.3,
                                                 ),
-                                                child: IconButton(
-                                                    onPressed: (){
+                                                child: GestureDetector(
+                                                    onTap: (){
                                                       currentStreamSnapshotRef =
                                                           streamSnapshot.data?.docs[index].id;
                                                       Navigator.push(
@@ -195,7 +207,15 @@ class _SettingsRefState extends State<SettingsRef> {
                                                               builder: (context) =>
                                                                   ImageUploadsRef()));
                                                     },
-                                                    icon: Icon(Icons.add_circle, color: backgroundRefugee, size: 40,)),
+                                                    child: Container(
+                                                      width: 40,
+                                                        height: 40,
+                                                        decoration: BoxDecoration(
+                                                          shape: BoxShape.circle,
+                                                          color: backgroundRefugee
+                                                        ),
+                                                        child: Center(
+                                                            child: Icon(Icons.add_rounded, color: redColor, size: 35,)))),
                                               ),
                                             ])),
                                   ),
@@ -245,8 +265,26 @@ class _SettingsRefState extends State<SettingsRef> {
                                     height:
                                     MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
+                                      // validator: (val){
+                                      //   if((val!.contains(RegExp(r'[0-9]')))||(val!.contains(RegExp(r'[#?!@$%^&*-]')))){
+                                      //     setState(() {
+                                      //       visErrorName=true;
+                                      //     });
+                                      //   }
+                                      // },
                                       onChanged: (val) {
-                                        changedName = val;
+                                        if((val!.contains(RegExp(r'[0-9]')))||(val!.contains(RegExp(r'[#?!@$%^&*-]')))){
+                                          setState(() {
+                                            visErrorName=true;
+                                          });
+                                        }
+                                        else {
+                                          setState(() {
+                                            visErrorName=false;
+                                          });
+                                          changedName = val;
+                                        }
+
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                       decoration: InputDecoration(
@@ -286,6 +324,25 @@ class _SettingsRefState extends State<SettingsRef> {
                                         hintText: streamSnapshot.data?.docs[index]
                                         ['user_name'],
                                         hintStyle: hintStyleText,
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: visErrorName,
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context).size.height *
+                                              0.005,
+                                        ),
+                                        child: Text(
+                                          "Your name should contain only letters (A-Z,a-z)",
+                                          style: GoogleFonts.raleway(
+                                            fontSize: 12,
+                                            color: Colors.red,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -484,6 +541,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                     MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
+
                                         changedAge = currentAgeVolunteer;
                                       },
                                       onTap: () {
@@ -559,7 +617,29 @@ class _SettingsRefState extends State<SettingsRef> {
                                     MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
-                                        changedPhone = val;
+                                        print("Phone");
+                                        print(changedPhone);
+                                        if(!(val.contains(RegExp(r'[0-9]')))){
+                                          setState(() {
+                                            visErrorPhoneNum=true;
+                                          });
+                                        }
+                                        else {
+                                          if (val.length!=9){
+                                            setState(() {
+                                              phoneLengthEnough = true;
+                                            });
+                                          } else{
+
+                                            setState(() {
+                                              phoneLengthEnough=false;
+                                              visErrorPhoneNum=false;
+                                            });
+                                            changedPhone = val;
+                                          }
+
+                                        }
+
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                       decoration: InputDecoration(
@@ -603,6 +683,25 @@ class _SettingsRefState extends State<SettingsRef> {
                                         //   fontSize: 14,
                                         //   color: Colors.black.withOpacity(0.7),
                                         // ),
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: visErrorPhoneNum,
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context).size.height *
+                                              0.005,
+                                        ),
+                                        child: Text(
+                                          "Your phone should contain only numbers (0-9)",
+                                          style: GoogleFonts.raleway(
+                                            fontSize: 12,
+                                            color: Colors.red,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -686,24 +785,29 @@ class _SettingsRefState extends State<SettingsRef> {
                                               style: textActiveButtonStyleRefugee,
                                             ),
                                             onPressed: () async {
-                                              setState(() {
-                                                FirebaseFirestore.instance
-                                                    .collection('users')
-                                                    .doc(streamSnapshot
-                                                    .data?.docs[index].id)
-                                                    .update({
-                                                  "category": changedCategories!=[]?changedCategories:streamSnapshot
-                                                      .data?.docs[index]['category'],
-                                                  "user_name": changedName!=""?changedName:streamSnapshot
-                                                      .data?.docs[index]['user_name'],
-                                                  "age": currentAgeRefugee!=0?currentAgeRefugee:streamSnapshot
-                                                      .data?.docs[index]['age'],
-                                                  "phone_number": changedPhone!=""?changedPhone:streamSnapshot
-                                                      .data?.docs[index]['phone_number']
+                                              if(visErrorName||visErrorPhoneNum){
+                                                dialogBuilderError(context);
+                                              } else{
+                                                setState(() {
+                                                  FirebaseFirestore.instance
+                                                      .collection('users')
+                                                      .doc(streamSnapshot
+                                                      .data?.docs[index].id)
+                                                      .update({
+                                                    "category": changedCategories!=[]?changedCategories:streamSnapshot
+                                                        .data?.docs[index]['category'],
+                                                    "user_name": changedName!=""?changedName:streamSnapshot
+                                                        .data?.docs[index]['user_name'],
+                                                    "age": currentAgeRefugee!=0?currentAgeRefugee:streamSnapshot
+                                                        .data?.docs[index]['age'],
+                                                    "phone_number": changedPhone!=""?changedPhone:streamSnapshot
+                                                        .data?.docs[index]['phone_number']
+                                                  });
                                                 });
-                                              });
-                                              Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                  MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+                                                Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                    MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+                                              }
+
                                             }),
                                       ),
                                     ),
@@ -908,4 +1012,160 @@ class _SettingsRefState extends State<SettingsRef> {
       ),
     );
   }
+
+
+  Future<void> dialogBuilderError(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: backgroundRefugee,
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadiusApplication,
+          ),
+          title: const Text('You provided wrong data'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: redColor,
+          ),
+          content: const Text("You have provided wrong data, so please supply correct data or leave previous data"),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            color: redColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        borderRadiusApplication),
+                    child: TextButton(
+                        child: Text(
+                          'Supply the data',
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            color: redColor,
+                          ),
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Choose category'),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.circular(15)),
+                    child: TextButton(
+                        child: Text(
+                          "Leave previous data",
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            color: redColor,
+                          ),
+                        ),
+                        onPressed: () async {
+
+                          Future.delayed(Duration(seconds: 1),
+                                  () {
+                                controllerTabBottomRef = PersistentTabController(initialIndex: 2);
+                                Navigator.of(context, rootNavigator: true).pushReplacement(
+                                    MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+                              });
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => MainScreen()),
+                          // if(chosenCategoryList==[]){
+                          //   dialogBuilder(context);
+                          // }
+                          // else if(chosenCategoryList!=[]){
+                          // FirebaseFirestore.instance
+                          //     .collection('users')
+                          //     .doc(streamSnapshot
+                          //     .data?.docs[index].id)
+                          //     .update({
+                          //   "category": chosenCategoryList
+                          // });
+                          // categoriesVolunteer =
+                          //     chosenCategoryList;
+                          // }
+                          // Future.delayed(Duration(seconds: 1),
+                          //         () {
+                          //   if(chosenCategoryList == []){
+                          //     dialogBuilder(context);
+                          //     print("IIIIIIIIIIIIII");
+                          //   }
+                          //   else {
+                          //     print("SSSSSSSSSSSSSSS");
+                          //     print(chosenCategoryList);
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (
+                          //                 context) =>
+                          //             const HomeVol()));
+                          //   }
+                          //     });
+                          // );
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+            // TextButton(
+            //   style: TextButton.styleFrom(
+            //     textStyle: Theme.of(context).textTheme.labelLarge,
+            //   ),
+            //   child: const Text('Leave my categories'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const HomeVol()),
+            //     );
+            //   },
+            // ),
+          ],
+        );
+      },
+    );
+  }
+
 }

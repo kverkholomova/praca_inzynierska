@@ -19,6 +19,7 @@ import 'package:wol_pro_1/widgets/wrapper.dart';
 
 import '../../../../constants.dart';
 import '../../../../service/local_push_notifications.dart';
+import '../../../../widgets/loading.dart';
 import 'create_application/create_application.dart';
 
 String? currentNameRef = '';
@@ -139,18 +140,19 @@ class _HomeRefState extends State<HomeRef> {
                                   // if (streamSnapshot.hasData) {
                                     switch (streamSnapshot.connectionState) {
                                       case ConnectionState.waiting:
-                                        return Column(
-                                            children: const [
-                                              SizedBox(
-                                                width: 60,
-                                                height: 60,
-                                                child: CircularProgressIndicator(),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(top: 16),
-                                                child: Text(''),
-                                              )
-                                            ]);
+                                        return LoadingRefugee();
+                                          // Column(
+                                          //   children: const [
+                                          //     SizedBox(
+                                          //       width: 60,
+                                          //       height: 60,
+                                          //       child: CircularProgressIndicator(),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding: EdgeInsets.only(top: 16),
+                                          //       child: Text(''),
+                                          //     )
+                                          //   ]);
                                       case ConnectionState.active:
                                         currentNameRef = streamSnapshot
                                             .data?.docs[index]['user_name'];
@@ -448,31 +450,32 @@ class _HomeRefState extends State<HomeRef> {
                                         );
                                     }
                                   // } else {}
-                                  return Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 100),
-                                      child: Column(
-                                        children: const [
-                                          SpinKitChasingDots(
-                                            color: Colors.brown,
-                                            size: 50.0,
-                                          ),
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text("",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 24,
-                                                  color: Colors.black,
-                                                )),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 20),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return LoadingRefugee();
+                                  //   Center(
+                                  //   child: Padding(
+                                  //     padding: const EdgeInsets.only(top: 100),
+                                  //     child: Column(
+                                  //       children: const [
+                                  //         SpinKitChasingDots(
+                                  //           color: Colors.brown,
+                                  //           size: 50.0,
+                                  //         ),
+                                  //         Align(
+                                  //           alignment: Alignment.center,
+                                  //           child: Text("",
+                                  //               style: TextStyle(
+                                  //                 fontWeight: FontWeight.bold,
+                                  //                 fontSize: 24,
+                                  //                 color: Colors.black,
+                                  //               )),
+                                  //         ),
+                                  //         Padding(
+                                  //           padding: EdgeInsets.only(top: 20),
+                                  //         )
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // );
                                 });
                           },
                         ),

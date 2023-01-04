@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
+import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../home_page/home_ref.dart';
 import 'messagesRef.dart';
@@ -119,20 +120,21 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                           if (streamSnapshot.hasData){
                             switch (streamSnapshot.connectionState){
                               case ConnectionState.waiting:
-                                return  Column(
-                                    children: [
-                                      SizedBox(
-                                        width: 60,
-                                        height: 60,
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      // Padding(
-                                      //   padding: EdgeInsets.only(top: 16),
-                                      //   child: Text('Awaiting data...'),
-                                      // )
-                                    ]
-
-                                );
+                                return  LoadingRefugee();
+                                //   Column(
+                                //     children: [
+                                //       SizedBox(
+                                //         width: 60,
+                                //         height: 60,
+                                //         child: CircularProgressIndicator(),
+                                //       ),
+                                //       // Padding(
+                                //       //   padding: EdgeInsets.only(top: 16),
+                                //       //   child: Text('Awaiting data...'),
+                                //       // )
+                                //     ]
+                                //
+                                // );
 
                               case ConnectionState.active:
                                 return Column(
@@ -306,27 +308,28 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                     ),
                                   ],
                                 );}}
-                          return Center(
-                            child: Padding(padding: EdgeInsets.only(top: 100),
-                              child: Column(
-                                children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                        "Waiting...",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(top: 20),)
-                                ],
-                              ),
-                            ),
-                          );
+                          return LoadingRefugee();
+                          //   Center(
+                          //   child: Padding(padding: EdgeInsets.only(top: 100),
+                          //     child: Column(
+                          //       children: [
+                          //         SpinKitChasingDots(
+                          //           color: Colors.brown,
+                          //           size: 50.0,
+                          //         ),
+                          //         Align(
+                          //           alignment: Alignment.center,
+                          //           child: Text(
+                          //               "Waiting...",
+                          //               style: TextStyle(
+                          //                 fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+                          //           ),
+                          //         ),
+                          //         Padding(padding: EdgeInsets.only(top: 20),)
+                          //       ],
+                          //     ),
+                          //   ),
+                          // );
                         });
                   },
                 ),
