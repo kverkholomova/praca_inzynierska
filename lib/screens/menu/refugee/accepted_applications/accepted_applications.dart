@@ -138,6 +138,7 @@ class CategoriesRefState extends State<CategoriesRef> {
                                       Padding(
                                         padding: padding,
                                         child: GestureDetector(
+
                                           onTap: () {
                                             setState(() {
                                               IdApplicationVolInfo =
