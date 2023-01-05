@@ -189,11 +189,12 @@ class _MessagesRefState extends State<MessagesRef> {
                             index_message =  snapshot.data!.docs.length-1;
 
                             snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"]!=FirebaseAuth.instance.currentUser!.uid?toMe=true:toMe=false;
-                            // currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["message"];
-                            currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"];
+                            currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["message"];
+                            // currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"];
                             print("Message laaaaaaaaaaaast");
 
                             print(currentLastMsg);
+                            print(last_message);
                             print(toMe);
                             print(index_message);
 
@@ -361,10 +362,12 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
   void scrollToMe (){
     if(currentLastMsg!=FirebaseAuth.instance.currentUser!.uid){
       print("tomeeeeeeee");
+      print("scrrroooollllllll ta ta 1 time");
       Future.delayed(const Duration(milliseconds: 200), () {
         print("tomeeeeeeee scrooooll");
         scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
 
+        last_message=currentLastMsg;
         // print("indddddddeeeeeeeeeeeex");
         // print(index_message);
         // print(ind = index_message+1);
@@ -418,15 +421,41 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
     });
   }
 
+  // _scrollListener() {
+  //   if (scrollControllerRef.offset >= scrollControllerRef.position.maxScrollExtent &&
+  //       !scrollControllerRef.position.outOfRange) {
+  //     setState(() {
+  //
+  //       // message = "reach the bottom";
+  //     });
+  //   }
+  //   if (scrollControllerRef.offset <= scrollControllerRef.position.minScrollExtent &&
+  //       !scrollControllerRef.position.outOfRange) {
+  //     setState(() {
+  //       // message = "reach the top";
+  //     });
+  //   }
+  // }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     Timer.periodic(
-      const Duration(milliseconds: 500),
+      const Duration(milliseconds: 200),
           (timer) {
-        scrollToMe();
+
+        if(last_message!=currentLastMsg){
+          scrollToMe();
+        }
+
+        print("Message laaaaaaaaaaaast 222222222222");
+
+        print(currentLastMsg);
+        print(last_message);
+        // print(scrollControllerRef.offset.);
+        // print("HAHAHHAHAHAHHA");
         // if(index_message){
         //   scrollToMe();
         // } else{
