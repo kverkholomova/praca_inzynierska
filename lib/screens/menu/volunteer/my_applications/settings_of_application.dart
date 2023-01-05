@@ -704,6 +704,7 @@ class _SettingsOfApplicationAcceptedState
                                                   'Application_Name':
                                                       streamSnapshot.data
                                                           ?.docs[index]['title'],
+                                                  'last_msg':""
                                                   // "user_message": true
                                                 });
 

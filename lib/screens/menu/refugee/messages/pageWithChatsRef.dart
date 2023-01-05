@@ -144,8 +144,10 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                                       child: GestureDetector(
                                         onTap: () {
                                           setState(() {
+
                                             listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
                                             IdOfChatroomRef = streamSnapshot.data?.docs[index]["chatId"];
+                                            last_message = streamSnapshot.data?.docs[index]["last_msg"];
                                             // isVisibleTabBar = false;
                                             // print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
                                             // print(isVisibleTabBar);

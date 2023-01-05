@@ -356,6 +356,13 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
       "id_user": FirebaseAuth.instance.currentUser?.uid,
       // "user_message": true
     });
+    FirebaseFirestore.instance
+        .collection("USERS_COLLECTION")
+        .doc(IdOfChatroomRef)
+        .update({
+      'last_msg': message.text.trim(),
+      // "user_message": true
+    });
 
   }
 
@@ -380,6 +387,14 @@ if (messagesNull==true){
     'id_message': "null",
     "id_user": FirebaseAuth.instance.currentUser?.uid,
     // "user_message": false
+  });
+
+  FirebaseFirestore.instance
+      .collection("USERS_COLLECTION")
+      .doc(IdOfChatroomRef)
+      .update({
+    'last_msg': "Hello👋",
+    // "user_message": true
   });
 }
     Future.delayed(const Duration(milliseconds: 200), () {

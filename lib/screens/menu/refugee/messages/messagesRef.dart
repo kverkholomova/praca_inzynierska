@@ -16,7 +16,12 @@ import 'package:wol_pro_1/screens/menu/volunteer/my_applications/settings_of_app
 
 import '../../volunteer/messages/pageWithChatsVol.dart';
 
-
+bool stop = false;
+ double index_message = 0;
+ double ind =0;
+bool toMe = false;
+String currentLastMsg = '';
+String last_message='';
 bool firstChat = true;
 String color = "red";
 bool changeContainerHeightRefugee = false;
@@ -63,18 +68,22 @@ class _MessagesRefState extends State<MessagesRef> {
 
   _MessagesRefState({required this.name});
 
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // Timer.periodic(Duration(seconds: 5), (timer) {
-    //   SchedulerBinding.instance
-    //       ?.addPostFrameCallback((_) {
-    //     print("AAAAAAAAAAA__________________works");
-    //     scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
-    //     // duration: Duration(milliseconds: 400),
-    //     // curve: Curves.fastOutSlowIn);
-    //   });
+    //
+    //
+    //   // SchedulerBinding.instance
+    //   //     ?.addPostFrameCallback((_) {
+    //   //   print("AAAAAAAAAAA__________________works");
+    //   //   scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+    //   //   // duration: Duration(milliseconds: 400),
+    //   //   // curve: Curves.fastOutSlowIn);
+    //   // });
     // });
 
   }
@@ -151,6 +160,7 @@ class _MessagesRefState extends State<MessagesRef> {
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
+
                       // print(
                       //     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
                       // print(FirebaseAuth.instance.currentUser?.uid);
@@ -176,6 +186,17 @@ class _MessagesRefState extends State<MessagesRef> {
                           shrinkWrap: true,
                           // primary: true,
                           itemBuilder: (_, index) {
+                            index_message =  snapshot.data!.docs.length-1;
+
+                            snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"]!=FirebaseAuth.instance.currentUser!.uid?toMe=true:toMe=false;
+                            // currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["message"];
+                            currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"];
+                            print("Message laaaaaaaaaaaast");
+
+                            print(currentLastMsg);
+                            print(toMe);
+                            print(index_message);
+
                             QueryDocumentSnapshot qs =
                             snapshot.data!.docs[index];
                             Timestamp t = qs['time'];
@@ -238,8 +259,7 @@ class _MessagesRefState extends State<MessagesRef> {
                                             ),
                                           ),
                                           Text(
-                                            "${d.hour}" +
-                                                ":" + "${d.minute}",
+                                            DateTime.now().toString().substring(10,16),
                                           )
                                         ],
                                       ),
@@ -312,6 +332,7 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
   // }
 
   writeMessages() {
+    last_message= message.text.trim();
     FirebaseFirestore.instance
         .collection("USERS_COLLECTION")
         .doc(IdOfChatroomRef)
@@ -323,12 +344,47 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
       'name': currentNameRef,
       'id_message': "null",
       "id_user": FirebaseAuth.instance.currentUser?.uid,
+
       // "user_message": true
     });
-
+    FirebaseFirestore.instance
+        .collection("USERS_COLLECTION")
+        .doc(IdOfChatroomRef)
+        .update({
+      'last_msg': message.text.trim(),
+      // "user_message": true
+    });
   }
 
   late StreamSubscription<User?> user;
+
+  void scrollToMe (){
+    if(currentLastMsg!=FirebaseAuth.instance.currentUser!.uid){
+      print("tomeeeeeeee");
+      Future.delayed(const Duration(milliseconds: 200), () {
+        print("tomeeeeeeee scrooooll");
+        scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+
+        // print("indddddddeeeeeeeeeeeex");
+        // print(index_message);
+        // print(ind = index_message+1);
+
+        // setState(() {
+        //   toMe = false;
+        // });
+        // currentLastMsg = 'null';
+      });
+      // setState(() {
+      //   toMe = false;
+      // });
+      // setState(() {
+      //   stop= true;
+      // });
+    }else{
+      print("fromm meeeeeeeeee");
+
+    }
+  }
 
   void scrollToLastMessageSmall(){
     setState(() {
@@ -367,6 +423,21 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
     // TODO: implement initState
     super.initState();
 
+    Timer.periodic(
+      const Duration(milliseconds: 500),
+          (timer) {
+        scrollToMe();
+        // if(index_message){
+        //   scrollToMe();
+        // } else{
+        //   print("do not move");
+        // }
+
+        print("scroolled");
+
+        // Update user about remaining time
+      },
+    );
     Future.delayed(const Duration(milliseconds: 200), () {
       print(DateTime.now());
       // SchedulerBinding.instance
@@ -406,6 +477,18 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
 
   @override
   Widget build(BuildContext context) {
+    // scrollToMe();
+      // scrollControllerRef.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+
+   // print("Messageeeeeeeeees teeeeeeeest ");
+   // print(last_message);
+   // print(currentLastMsg);
+   // print(toMe);
+   // last_message!=currentLastMsg?scrollToMe():null;
+   // scrollToMe();
+   //  setState(() {
+   //    scrollToMe();
+   //  });
     MediaQuery.of(context).viewInsets.bottom>0?scrollToLastMessageSmall():scrollToLastMessageBig();
     MediaQuery.of(context).viewInsets.bottom==0?print("No keyboard ${MediaQuery.of(context).viewInsets.bottom}"):
     print(MediaQuery.of(context).viewInsets.bottom);
@@ -535,7 +618,7 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                                     borderRadius: new BorderRadius.circular(15),
                                   ),
                                 ),
-                                validator: (value) {},
+                                // validator: (value) {},
                                 onSaved: (value) {
                                   message.text = value!;
                                 },
@@ -593,10 +676,10 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                                     message.clear();
                                   });
 
-                                  setState(() {
-                                    scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
-
-                                  });
+                                  // setState(() {
+                                  //   scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+                                  //
+                                  // });
                                   // await Future.delayed(
                                   //     Duration(milliseconds: 200), (){
                                   //   messagesNull = false;
