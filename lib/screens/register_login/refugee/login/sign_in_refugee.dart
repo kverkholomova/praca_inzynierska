@@ -42,7 +42,7 @@ class _SignInRefState extends State<SignInRef> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? LoadingRefugee()
         : WillPopScope(
       onWillPop: () async {
         controllerTextFieldEmailRef.clear();

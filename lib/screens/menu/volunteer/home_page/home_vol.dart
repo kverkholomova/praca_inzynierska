@@ -43,7 +43,28 @@ class HomeVol extends StatefulWidget {
 
 class _HomeVolState extends State<HomeVol> {
   ScrollController scrollController = ScrollController();
+  loadImage() async{
 
+    DocumentSnapshot variable = await FirebaseFirestore.instance.
+    collection('users').
+    doc(FirebaseAuth.instance.currentUser!.uid).
+    get();
+
+    //a list of images names (i need only one)
+    var img_url = variable['image'];
+    //select the image url
+    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(img_url);
+
+    //get image url from firebase storage
+    var url = await ref.getDownloadURL();
+
+    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    print(url);
+    // put the URL in the state, so that the UI gets rerendered
+    setState(() {
+      url_image = url;
+    });
+  }
   // final Stream<int> _bids = (() {
   //   late final StreamController<int> controller;
   //   controller = StreamController<int>(
@@ -120,6 +141,7 @@ class _HomeVolState extends State<HomeVol> {
     super.initState();
     print("AAAAAAAAAAAAAAAAAAAAA IIIImageeeeeeeeeeeeeeeeee");
     print(url_image);
+    loadImage();
     // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);
     FirebaseMessaging.instance.getInitialMessage();

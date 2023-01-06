@@ -36,7 +36,28 @@ class HomeRef extends StatefulWidget {
 
 class _HomeRefState extends State<HomeRef> {
 
+  loadImageRef() async{
 
+    DocumentSnapshot variable = await FirebaseFirestore.instance.
+    collection('users').
+    doc(FirebaseAuth.instance.currentUser!.uid).
+    get();
+
+    //a list of images names (i need only one)
+    var img_urlRef = variable['image'];
+    //select the image url
+    Reference  ref = FirebaseStorage.instance.ref().child("user_pictures/").child(img_urlRef);
+
+    //get image url from firebase storage
+    var urlRef = await ref.getDownloadURL();
+
+    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    print(urlRef);
+    // put the URL in the state, so that the UI gets rerendered
+    setState(() {
+      urlImageRefugee = urlRef;
+    });
+  }
 
   // loadImageRef(String image_url) async{
   //
@@ -71,6 +92,7 @@ class _HomeRefState extends State<HomeRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadImageRef();
     storeNotificationToken();
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((event) {});

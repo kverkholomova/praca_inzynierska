@@ -107,14 +107,14 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
               size: 30,
-              color: blueColor,
+              color: redColor,
             ),
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SettingsRef()));
             },
           ),
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           body: Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context)
                 .size
@@ -148,14 +148,14 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.075,
-                    decoration: buttonActiveDecoration,
+                    decoration: buttonActiveDecorationRefugee,
                     child: TextButton(
                         onPressed: () {
                           selectFile();
                         },
                         child: Text(
                           "Select file",
-                          style: textActiveButtonStyle,
+                          style: textActiveButtonStyleRefugee,
                         )),
                   ),
                 ),
@@ -169,7 +169,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.075,
-                    decoration: buttonActiveDecoration,
+                    decoration: buttonActiveDecorationRefugee,
                     child: TextButton(
                         onPressed: () {
                           loadImageRef();
@@ -178,7 +178,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                                 "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
                             print(url_image_ref);
                             setState(() {
-                              controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+                              controllerTabBottomRef = PersistentTabController(initialIndex: 2);
                             });
                             Navigator.of(context, rootNavigator: true).pushReplacement(
                                 MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
@@ -186,7 +186,7 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                         },
                         child: Text(
                           "Done",
-                          style: textActiveButtonStyle,
+                          style: textActiveButtonStyleRefugee,
                         )),
                   ),
                 ),

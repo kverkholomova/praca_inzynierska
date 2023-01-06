@@ -35,7 +35,7 @@ class _ForgotPasswordRefState extends State<ForgotPasswordRef> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? LoadingRefugee()
         : WillPopScope(
       onWillPop: () async {
         Navigator.push(

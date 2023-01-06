@@ -708,7 +708,7 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
             // print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
             // print(nameRef);
             // });
-            userNameRef = val;
+            // userNameRef = val;
             // }
             // else if (!(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]')))){
             // setState(() {
@@ -732,8 +732,9 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
                   nameRef = false;
                   print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
                   print(nameRef);
+                  userNameRef = val;
                 });
-                userNameRef = val;
+
               }
             }
           else if( widget.customHintText == "Phone number"){

@@ -64,7 +64,7 @@ bool passwordVisible = false;
         );
         return true;
       },
-      child: loading ? Loading() : SafeArea(
+      child: loading ? LoadingRefugee() : SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: backgroundRefugee,
