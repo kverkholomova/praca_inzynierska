@@ -16,7 +16,10 @@ import '../home_page/home_vol.dart';
 import '../main_screen.dart';
 import 'pageWithChatsVol.dart';
 
-
+bool stopVol = false;
+bool toMeVol = false;
+String currentLastMsgVol = '';
+String lastMessageVol = '';
 bool firstChat = true;
 String color = "blue";
 bool changeContainerHeight = false;
@@ -151,6 +154,10 @@ class _MessagesVolState extends State<MessagesVol> {
                        .snapshots(),
                    builder: (BuildContext context,
                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                     // index_message =  snapshot.data!.docs.length-1;
+
+
+                     // print(index_message);
                      // print(
                      //     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
                      // print(FirebaseAuth.instance.currentUser?.uid);
@@ -176,6 +183,15 @@ class _MessagesVolState extends State<MessagesVol> {
                          shrinkWrap: true,
                          // primary: true,
                          itemBuilder: (_, index) {
+
+                           snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"]!=FirebaseAuth.instance.currentUser!.uid?toMeVol=true:toMeVol=false;
+                           currentLastMsgVol = snapshot.data!.docs[snapshot.data!.docs.length-1]["message"];
+                           // currentLastMsg = snapshot.data!.docs[snapshot.data!.docs.length-1]["id_user"];
+                           print("Message laaaaaaaaaaaast");
+
+                           print(currentLastMsgVol);
+                           print(lastMessageVol);
+                           print(toMeVol);
                            QueryDocumentSnapshot qs =
                                snapshot.data!.docs[index];
                            Timestamp t = qs['time'];
@@ -238,8 +254,7 @@ class _MessagesVolState extends State<MessagesVol> {
                                            ),
                                          ),
                                          Text(
-                                           "${d.hour}" +
-                                               ":" + "${d.minute}",
+                                           DateTime.now().toString().substring(10,16),
                                          )
                                        ],
                                      ),
@@ -288,6 +303,36 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
     }).catchError((e) {
       print(e);
     });
+  }
+
+  void scrollToMeVolunteer (){
+    if(currentLastMsgVol!=FirebaseAuth.instance.currentUser!.uid){
+      print("tomeeeeeeee");
+      print("scrrroooollllllll ta ta 1 time");
+      Future.delayed(const Duration(milliseconds: 200), () {
+        print("tomeeeeeeee scrooooll");
+        scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
+
+        lastMessageVol=currentLastMsgVol;
+        // print("indddddddeeeeeeeeeeeex");
+        // print(index_message);
+        // print(ind = index_message+1);
+
+        // setState(() {
+        //   toMe = false;
+        // });
+        // currentLastMsg = 'null';
+      });
+      // setState(() {
+      //   toMe = false;
+      // });
+      // setState(() {
+      //   stop= true;
+      // });
+    }else{
+      print("fromm meeeeeeeeee");
+
+    }
   }
 
   void scrollToLastMessageSmall(){
@@ -358,7 +403,7 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
     });
     FirebaseFirestore.instance
         .collection("USERS_COLLECTION")
-        .doc(IdOfChatroomRef)
+        .doc(IdOfChatroomVol)
         .update({
       'last_msg': message.text.trim(),
       // "user_message": true
@@ -391,12 +436,40 @@ if (messagesNull==true){
 
   FirebaseFirestore.instance
       .collection("USERS_COLLECTION")
-      .doc(IdOfChatroomRef)
+      .doc(IdOfChatroomVol)
       .update({
     'last_msg': "Hello👋",
     // "user_message": true
   });
+  setState(() {
+    messagesNull=false;
+  });
 }
+    Timer.periodic(
+      const Duration(milliseconds: 200),
+          (timer) {
+
+        if(lastMessageVol!=currentLastMsgVol){
+          scrollToMeVolunteer();
+        }
+
+        print("Message laaaaaaaaaaaast 222222222222");
+
+        print(currentLastMsgVol);
+        print(lastMessageVol);
+        // print(scrollControllerRef.offset.);
+        // print("HAHAHHAHAHAHHA");
+        // if(index_message){
+        //   scrollToMe();
+        // } else{
+        //   print("do not move");
+        // }
+
+        print("scroolled");
+
+        // Update user about remaining time
+      },
+    );
     Future.delayed(const Duration(milliseconds: 200), () {
       print(DateTime.now());
       // SchedulerBinding.instance
@@ -620,9 +693,9 @@ if (messagesNull==true){
                                     });
                                     message.clear();
                                   });
-                                  setState(() {
-                                    scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
-                                  });
+                                  // setState(() {
+                                  //   scrollControllerRef.jumpTo(scrollControllerRef.positions.last.maxScrollExtent);
+                                  // });
                                 }
                               },
                               icon: Icon(

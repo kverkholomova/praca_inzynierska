@@ -196,14 +196,14 @@ class YourCategoriesState extends State<YourCategories> {
                           case ConnectionState.waiting:
                             return  Column(
                                 children: [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
-                                  ),
+                                  // SizedBox(
+                                  //   width: 60,
+                                  //   height: 60,
+                                  //   child: CircularProgressIndicator(),
+                                  // ),
                                   Padding(
                                     padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
+                                    child: Text(''),
                                   )
                                 ]
 
@@ -414,14 +414,14 @@ class YourCategoriesState extends State<YourCategories> {
                           child: Padding(padding: EdgeInsets.only(top: 100),
                             child: Column(
                               children: [
-                                SpinKitChasingDots(
-                                  color: Colors.brown,
-                                  size: 50.0,
-                                ),
+                                // SpinKitChasingDots(
+                                //   color: Colors.brown,
+                                //   size: 50.0,
+                                // ),
                                 Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                      "Waiting...",
+                                      "",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
                                   ),

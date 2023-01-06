@@ -331,6 +331,9 @@ class _SignInRefState extends State<SignInRef> {
                                   error =
                                   'Could not sign in with those credentials';
                                 });
+                              } else{
+                                controllerTextFieldEmailRef.clear();
+                                controllerTextFieldPasswordRef.clear();
                               }
                             }
                           }),

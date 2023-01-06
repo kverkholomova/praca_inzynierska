@@ -15,9 +15,12 @@ import 'package:wol_pro_1/widgets/datepicker.dart';
 import '../../../../../../service/local_push_notifications.dart';
 
 import '../../../../../widgets/wrapper.dart';
-import '../../../../register_login/volunteer/register/register_volunteer_1.dart';
 import '../../../../../services/auth.dart';
 
+
+bool visErrorNameVol = false;
+bool visErrorPhoneNumVol = false;
+bool phoneLengthEnoughVol = false;
 var currentStreamSnapshot;
 String dateOfBirth =
     DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
@@ -163,8 +166,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                                     top: MediaQuery.of(context).size.height * 0.125,
                                                     left: MediaQuery.of(context).size.width * 0.3,
                                                   ),
-                                                  child: IconButton(
-                                                      onPressed: (){
+                                                  child: GestureDetector(
+                                                      onTap: (){
                                                         currentStreamSnapshot =
                                                             streamSnapshot.data?.docs[index].id;
                                                         Navigator.push(
@@ -173,10 +176,14 @@ class _SettingsVolState extends State<SettingsVol> {
                                                                 builder: (context) =>
                                                                     ImageUploads()));
                                                       },
-                                                      icon: CircleAvatar(
-                                                        backgroundColor: Colors.white,
-                                                        radius: 10,
-                                                          child: Icon(Icons.add, color: blueColor,))),
+                                                      child: Container(
+                                                          width: 50,
+                                                          height: 50,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: background
+                                                          ),
+                                                          child: Center(child: Icon(Icons.add_rounded, color: blueColor,)))),
                                                 )
                                             ])
                                             : Stack(
@@ -190,8 +197,8 @@ class _SettingsVolState extends State<SettingsVol> {
                                                     top: MediaQuery.of(context).size.height * 0.125,
                                                   left: MediaQuery.of(context).size.width * 0.3,
                                                   ),
-                                                  child: IconButton(
-                                                      onPressed: (){
+                                                  child: GestureDetector(
+                                                      onTap: (){
                                                         currentStreamSnapshot =
                                                             streamSnapshot.data?.docs[index].id;
                                                         Navigator.push(
@@ -200,7 +207,14 @@ class _SettingsVolState extends State<SettingsVol> {
                                                                 builder: (context) =>
                                                                     ImageUploads()));
                                                       },
-                                                      icon: Icon(Icons.add_circle, color: background, size: 35,)),
+                                                      child: Container(
+                                                          width: 40,
+                                                          height: 40,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: background
+                                                          ),
+                                                          child: Center(child: Icon(Icons.add_rounded, color: blueColor, size: 35,)))),
                                                 ),
                                             ])),
                                   ),
@@ -251,7 +265,20 @@ class _SettingsVolState extends State<SettingsVol> {
                                     MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
-                                        changedName = val;
+
+                                        if((val.contains(RegExp(r'[0-9]')))||(val.contains(RegExp(r'[#?!@$%^&*-]')))){
+                                          setState(() {
+                                            visErrorNameVol=true;
+                                          });
+                                        }
+                                        else {
+                                          setState(() {
+                                            visErrorNameVol=false;
+                                          });
+                                          changedName = val;
+                                        }
+
+                                        // changedName = val;
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                       decoration: InputDecoration(
@@ -291,6 +318,25 @@ class _SettingsVolState extends State<SettingsVol> {
                                         hintText: streamSnapshot.data?.docs[index]
                                         ['user_name'],
                                         hintStyle: hintStyleText,
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: visErrorNameVol,
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context).size.height *
+                                              0.005,
+                                        ),
+                                        child: Text(
+                                          "Your name should contain only letters (A-Z,a-z)",
+                                          style: GoogleFonts.raleway(
+                                            fontSize: 12,
+                                            color: Colors.red,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -575,7 +621,46 @@ class _SettingsVolState extends State<SettingsVol> {
                                     MediaQuery.of(context).size.height * 0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
-                                        changedPhone = val;
+                                        print("Phone");
+                                        print(changedPhone);
+
+                                        if(val.contains(RegExp(r'[A-Z]'))||val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[#?!@$%^&()*-]'))){
+                                          setState(() {
+                                            visErrorPhoneNumVol=true;
+                                          });
+                                        }else {
+                                          if(val.length>9){
+                                            setState(() {
+                                              visErrorPhoneNumVol=true;
+                                              phoneLengthEnoughVol = true;
+                                            });
+                                          } else{
+                                            setState(() {
+                                              visErrorPhoneNumVol=false;
+                                            });
+                                          }
+                                        }
+                                        // if(!(val.contains(RegExp(r'[0-9]')))||val.length!=9){
+                                        //   setState(() {
+                                        //     visErrorPhoneNumVol=true;
+                                        //   });
+                                        // }
+                                        // else {
+                                        //   if (val.length!=9){
+                                        //     setState(() {
+                                        //       phoneLengthEnoughVol = true;
+                                        //     });
+                                        //   } else{
+                                        //
+                                        //     setState(() {
+                                        //       phoneLengthEnoughVol=false;
+                                        //       visErrorPhoneNumVol=false;
+                                        //     });
+                                        //     changedPhone = val;
+                                        //   }
+                                        //
+                                        // }
+                                        // changedPhone = val;
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                       decoration: InputDecoration(
@@ -619,6 +704,27 @@ class _SettingsVolState extends State<SettingsVol> {
                                         //   fontSize: 14,
                                         //   color: Colors.black.withOpacity(0.7),
                                         // ),
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: visErrorPhoneNumVol,
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context).size.height *
+                                              0.005,
+                                        ),
+                                        child: Text(
+                                          phoneLengthEnoughVol
+                                              ?"Your phone should contain only 9 numbers"
+                                              :"Your phone should contain only numbers (0-9)",
+                                          style: GoogleFonts.raleway(
+                                            fontSize: 12,
+                                            color: Colors.red,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),

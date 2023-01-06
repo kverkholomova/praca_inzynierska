@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,11 +34,11 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeVol()),
-        );
+        SystemNavigator.pop();
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => HomeVol()),
+        // );
         return true;
       },
       child: Scaffold(
@@ -156,6 +157,8 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                                     //         .positions.last.maxScrollExtent);
                                     listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
                                     IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
+
+                                    lastMessageVol = streamSnapshot.data?.docs[index]["last_msg"];
                                     isVisibleTabBar = false;
                                     print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
                                     print(isVisibleTabBar);

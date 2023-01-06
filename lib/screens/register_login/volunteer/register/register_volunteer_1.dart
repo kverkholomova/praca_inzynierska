@@ -9,6 +9,12 @@ import '../../../../widgets/loading.dart';
 import '../../../intro_screen/option.dart';
 import '../../../menu/volunteer/home_page/home_vol.dart';
 
+bool nameVol = false;
+bool phoneVol = false;
+bool phoneLengthVol = false;
+bool emailVol = false;
+bool passwordVol = false;
+
 int volunteerAge = 0;
 bool registrationVol = false;
 double volunteerRate = 5;
@@ -101,7 +107,7 @@ class _RegisterVol1State extends State<RegisterVol1> {
                       children: <Widget>[
 
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 20),
                           child: Column(
                             children: [
 
@@ -151,6 +157,25 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             hide: false,
                           ),
                         ),
+                        Visibility(
+                          visible: nameVol,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your name should contain only letters",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
@@ -163,6 +188,27 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customHintText: 'Phone number',
                             customErrorText: 'Enter your phone number',
                             hide: false,
+                          ),
+                        ),
+                        Visibility(
+                          visible: phoneVol,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                phoneLengthVol?
+                                "Your phone number should contain only 9 numbers"
+                                    :"Your phone number should contain only numbers",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister
@@ -179,6 +225,25 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             hide: false,
                           ),
                         ),
+                        Visibility(
+                          visible: emailVol,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your email should contain @gmail.com",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         SizedBox(height: !errorEmptyRegister
                             ?MediaQuery.of(context).size.height * 0.02
                             :MediaQuery.of(context).size.height * 0.015,),
@@ -192,6 +257,25 @@ class _RegisterVol1State extends State<RegisterVol1> {
                             customHintText: 'Password',
                             customErrorText: 'Enter a password',
                             hide: true,
+                          ),
+                        ),
+                        Visibility(
+                          visible: passwordVol,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your password should contain 9 signs or more",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(height: !errorEmptyRegister

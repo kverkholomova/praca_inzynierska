@@ -9,7 +9,9 @@ import 'package:wol_pro_1/screens/register_login/volunteer/login/sign_in_volunte
 
 bool errorEmpty = false;
 bool emailErrorSignInRef = false;
+bool emailErrorSignInVol = false;
 bool passwordErrorSignInRef = false;
+bool passwordErrorSignInVol = false;
 
 
 // String errorTxt = "";
@@ -101,6 +103,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               color: const Color.fromRGBO(2, 62, 99, 20),
             ),
             onPressed: () {
+
               // Update the state i.e. toogle the state of passwordVisible variable
               setState(() {
                 widget.hide = passwordVisible;
@@ -112,53 +115,82 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
         onChanged: (val) {
 
-          setState(() {
-            if( widget.customHintText == "Email"){
-              if(optionRefugee){
-
-                  emailRefLog = val;
-
-              } else {
+          if( widget.customHintText == "Email"){
+              if (!val.contains("@gmail.com")){
+                setState(() {
+                  emailErrorSignInVol = true;
+                });
+              } else{
+                setState(() {
+                  emailErrorSignInVol = false;
+                });
                 emailVolLog = val;
               }
-            } else if(widget.customHintText == "Password"){
-              if(optionRefugee){
+              // emailVolLog = val;
 
-                  passwordRefLog = val;
+          } else if(widget.customHintText == "Password"){
 
-            //   if(optionRefugee){
-            //     if (!(val.contains('@gmail.com'))){
-            //       setState(() {
-            //         emailErrorSignInRef = true;
-            //       });
-            //     } else if (val.contains('@gmail.com')){
-            //       setState(() {
-            //         emailErrorSignInRef = false;
-            //       });
-            //       emailRefLog = val;
-            //     }
-            //
-            //   } else {
-            //     emailVolLog = val;
-            //   }
-            // } else if(widget.customHintText == "Password"){
-            //   if(optionRefugee){
-            //     if(val.length<=8){
-            //       setState(() {
-            //         passwordErrorSignInRef=true;
-            //       });
-            //     } else{
-            //       setState(() {
-            //         passwordErrorSignInRef=false;
-            //       });
-            //       passwordRefLog = val;
-            //     }
-
-              } else {
+              if (val.length<=8){
+                setState(() {
+                  passwordErrorSignInVol = true;
+                });
+              } else{
+                setState(() {
+                  passwordErrorSignInVol = false;
+                });
                 passwordVolLog = val;
               }
-            }
-          });
+              // passwordVolLog = val;
+
+          }
+
+          // setState(() {
+          //   if( widget.customHintText == "Email"){
+          //     if(optionRefugee){
+          //
+          //         emailRefLog = val;
+          //
+          //     } else {
+          //       emailVolLog = val;
+          //     }
+          //   } else if(widget.customHintText == "Password"){
+          //     if(optionRefugee){
+          //
+          //         passwordRefLog = val;
+          //
+          //   //   if(optionRefugee){
+          //   //     if (!(val.contains('@gmail.com'))){
+          //   //       setState(() {
+          //   //         emailErrorSignInRef = true;
+          //   //       });
+          //   //     } else if (val.contains('@gmail.com')){
+          //   //       setState(() {
+          //   //         emailErrorSignInRef = false;
+          //   //       });
+          //   //       emailRefLog = val;
+          //   //     }
+          //   //
+          //   //   } else {
+          //   //     emailVolLog = val;
+          //   //   }
+          //   // } else if(widget.customHintText == "Password"){
+          //   //   if(optionRefugee){
+          //   //     if(val.length<=8){
+          //   //       setState(() {
+          //   //         passwordErrorSignInRef=true;
+          //   //       });
+          //   //     } else{
+          //   //       setState(() {
+          //   //         passwordErrorSignInRef=false;
+          //   //       });
+          //   //       passwordRefLog = val;
+          //   //     }
+          //
+          //     } else {
+          //       passwordVolLog = val;
+          //     }
+          //   }
+          // });
           // setState(() => email = val);
         },
 
@@ -442,17 +474,95 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
       validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
         setState(() {
-         if(widget.customHintText=="Name"){
 
-           userName = val;
-         } else if( widget.customHintText == "Phone number"){
-           phoneNumber = val;
-         } else if( widget.customHintText == "Email"){
-           emailRegisterVol = val;
-         } else if(widget.customHintText == "Password"){
-           passwordRegisterVol = val;
-         }
+          // userNameVol = val;
+
+          if(widget.customHintText=="Name"){
+
+            if (val.contains(RegExp(r'[0-9]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+              setState(() {
+                nameVol= true;
+                print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+                print(nameVol);
+              });}
+            else {
+              setState(() {
+                nameVol = false;
+                print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
+                print(nameVol);
+              });
+              userName = val;
+              // userNameVol = val;
+            }
+          }
+          else if( widget.customHintText == "Phone number"){
+
+            if (val.contains(RegExp(r'[A-Z]'))||val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+              setState(() {
+                phoneVol= true;
+                print("Phoooooneeeeeee");
+                print(phoneVol);
+              });}
+            else {
+              if(val.length==9){
+                setState(() {
+                  phoneVol = false;
+                  print("Phooooneeeeeeee");
+                  print(phoneVol);
+                });
+                phoneNumber = val;
+              } else {
+                setState(() {
+                  phoneLengthVol = true;
+                  phoneVol = true;
+                  print("Phooooneeeeeeee");
+                  print(phoneVol);
+                });
+              }
+              // userNameRef = val;
+            }
+
+            // phoneNumberRef = val;
+          } else if( widget.customHintText == "Email"){
+
+            if(!val.contains("@gmail.com")){
+              setState(() {
+                emailVol=true;
+              });
+            } else{
+              setState(() {
+                emailVol = false;
+              });
+              emailRegisterVol = val;
+            }
+
+
+          } else if(widget.customHintText == "Password"){
+            if(val.length<=8){
+              setState(() {
+                passwordVol = true;
+              });
+            } else{
+              setState(() {
+                passwordVol = false;
+              });
+              passwordRegisterVol = val;
+            }
+
+          }
         });
+        // setState(() {
+        //  if(widget.customHintText=="Name"){
+        //
+        //    userName = val;
+        //  } else if( widget.customHintText == "Phone number"){
+        //    phoneNumber = val;
+        //  } else if( widget.customHintText == "Email"){
+        //    emailRegisterVol = val;
+        //  } else if(widget.customHintText == "Password"){
+        //    passwordRegisterVol = val;
+        //  }
+        // });
 
       },
     );

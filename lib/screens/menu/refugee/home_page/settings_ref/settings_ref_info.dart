@@ -9,9 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/intro_screen/option.dart';
-import 'package:wol_pro_1/screens/menu/refugee/home_page/home_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/home_page/settings_ref/upload_picture_refugee.dart';
 import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
+import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/upload_photo.dart';
 import 'package:wol_pro_1/widgets/datepicker.dart';
 import 'package:wol_pro_1/widgets/wrapper.dart';
@@ -619,26 +619,42 @@ class _SettingsRefState extends State<SettingsRef> {
                                       onChanged: (val) {
                                         print("Phone");
                                         print(changedPhone);
-                                        if(!(val.contains(RegExp(r'[0-9]')))){
+                                        if(val.contains(RegExp(r'[A-Z]'))||val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[#?!@$%^&()*-]'))){
                                           setState(() {
                                             visErrorPhoneNum=true;
                                           });
-                                        }
-                                        else {
-                                          if (val.length!=9){
+                                        }else {
+                                          if(val.length>9){
                                             setState(() {
+                                              visErrorPhoneNum=true;
                                               phoneLengthEnough = true;
                                             });
                                           } else{
-
                                             setState(() {
-                                              phoneLengthEnough=false;
                                               visErrorPhoneNum=false;
                                             });
-                                            changedPhone = val;
                                           }
-
                                         }
+                                        // if(!(val.contains(RegExp(r'[0-9]')))){
+                                        //   setState(() {
+                                        //     visErrorPhoneNum=true;
+                                        //   });
+                                        // }
+                                        // else {
+                                        //   if (val.length!=9){
+                                        //     setState(() {
+                                        //       phoneLengthEnough = true;
+                                        //     });
+                                        //   } else{
+                                        //
+                                        //     setState(() {
+                                        //       phoneLengthEnough=false;
+                                        //       visErrorPhoneNum=false;
+                                        //     });
+                                        //     changedPhone = val;
+                                        //   }
+                                        //
+                                        // }
 
                                       },
                                       // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
@@ -696,7 +712,9 @@ class _SettingsRefState extends State<SettingsRef> {
                                               0.005,
                                         ),
                                         child: Text(
-                                          "Your phone should contain only numbers (0-9)",
+                                          phoneLengthEnough
+                                              ?"Your phone should contain only 9 numbers"
+                                          :"Your phone should contain only numbers (0-9)",
                                           style: GoogleFonts.raleway(
                                             fontSize: 12,
                                             color: Colors.red,

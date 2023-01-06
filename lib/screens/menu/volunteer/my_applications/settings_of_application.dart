@@ -278,14 +278,14 @@ class _SettingsOfApplicationAcceptedState
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return Column(children: [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
-                                  ),
+                                  // SizedBox(
+                                  //   width: 60,
+                                  //   height: 60,
+                                  //   child: CircularProgressIndicator(),
+                                  // ),
                                   Padding(
                                     padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
+                                    child: Text(''),
                                   )
                                 ]);
                               case ConnectionState.active:
@@ -669,7 +669,9 @@ class _SettingsOfApplicationAcceptedState
                                                           .data?.docs[index]
                                                       ["chatId_vol"] ==
                                                   "null") {
-                                                messagesNull = true;
+                                                setState(() {
+                                                  messagesNull = true;
+                                                });
                                                 print("QQQQQQQQQQQQQQQTATATATA");
                                                 print(messagesNull);
                                                 IdOfChatroomVol = FirebaseFirestore
@@ -872,13 +874,13 @@ class _SettingsOfApplicationAcceptedState
                               padding: EdgeInsets.only(top: 100),
                               child: Column(
                                 children: [
-                                  SpinKitChasingDots(
-                                    color: Colors.brown,
-                                    size: 50.0,
-                                  ),
+                                  // SpinKitChasingDots(
+                                  //   color: Colors.brown,
+                                  //   size: 50.0,
+                                  // ),
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Text("Waiting...",
+                                    child: Text("",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,

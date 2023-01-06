@@ -141,6 +141,25 @@ class _SignInVolState extends State<SignInVol> {
                                   hide: false,
                                 ),
                               ),
+                              Visibility(
+                                visible: emailErrorSignInVol,
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context).size.height *
+                                          0.005,
+                                    ),
+                                    child: Text(
+                                      "Your email should contain @gmail.com",
+                                      style: GoogleFonts.raleway(
+                                        fontSize: 12,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                           SizedBox(height: !errorEmpty
                                   ?MediaQuery.of(context).size.height * 0.02
                               :MediaQuery.of(context).size.height * 0.015,),
@@ -157,6 +176,25 @@ class _SignInVolState extends State<SignInVol> {
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: passwordErrorSignInVol,
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005,
+                              ),
+                              child: Text(
+                                "Your password should contain 9 signs or more",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 12,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         // Center(
@@ -206,6 +244,8 @@ class _SignInVolState extends State<SignInVol> {
                                             'Could not sign in with those credentials';
                                       });
                                     } else{
+                                      controllerTextFieldEmailVol.clear();
+                                      controllerTextFieldPasswordVol.clear();
                                       justSignedIn = true;
     // Future.delayed(const Duration(milliseconds: 500), () {
     //                                   Navigator.of(context, rootNavigator: true).pushReplacement(

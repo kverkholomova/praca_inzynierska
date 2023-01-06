@@ -292,7 +292,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                       Container(
                                         width: double.infinity,
                                         height: MediaQuery.of(context).size.height *
-                                            0.47,
+                                            0.7,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
@@ -485,7 +485,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.27,
+                                        height: MediaQuery.of(context).size.height * 0.04,
                                       ),
                                       Align(
                                         alignment: Alignment.topCenter,

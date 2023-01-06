@@ -150,7 +150,7 @@ bool passwordVisible = false;
                           color: Colors.transparent,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(24),
+                                Radius.circular(15),
                               )),
                           elevation: errorEmptyRegister==true? 0:5,
                           child: CustomTextFormFieldRegisterRef(

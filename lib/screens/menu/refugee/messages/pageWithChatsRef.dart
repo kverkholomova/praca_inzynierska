@@ -13,6 +13,7 @@ import '../home_page/home_ref.dart';
 import 'messagesRef.dart';
 
 ScrollController scrollControllerRef = ScrollController();
+
 class ListofChatroomsRef extends StatefulWidget {
   const ListofChatroomsRef({Key? key}) : super(key: key);
 
@@ -83,7 +84,7 @@ class _ListofChatroomsRefState extends State<ListofChatroomsRef> {
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
-                                "Contact with refugees",
+                                "Contact with volunteers",
                                 style: GoogleFonts.raleway(
                                   fontSize: 16,
                                   color: Colors.white,
