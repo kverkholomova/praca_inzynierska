@@ -15,6 +15,7 @@ import 'package:wol_pro_1/widgets/loading.dart';
 import '../../../../models/categories.dart';
 import '../../volunteer/all_applications/new_screen_with_applications.dart';
 
+import '../all_applications/all_app_ref.dart';
 import '../all_applications/application_info.dart';
 import '../main_screen_ref.dart';
 import 'application_info_accepted.dart';
@@ -141,6 +142,8 @@ class CategoriesRefState extends State<CategoriesRef> {
 
                                           onTap: () {
                                             setState(() {
+                                              applicationIDRef =
+                                              "${streamSnapshot.data?.docs[index].id}";
                                               IdApplicationVolInfo =
                                                   streamSnapshot
                                                           .data?.docs[index]
@@ -175,7 +178,7 @@ class CategoriesRefState extends State<CategoriesRef> {
                                               // print(card_title_ref);
                                               print(
                                                   "LLLLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPOOOOOOOOOOOOOOOOOO");
-                                              print(applicationIDRefInfo);
+                                              print(IdApplicationVolInfo);
                                               Navigator.of(context,
                                                       rootNavigator: true)
                                                   .pushReplacement(

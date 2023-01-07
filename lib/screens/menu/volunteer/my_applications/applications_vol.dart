@@ -126,14 +126,14 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                             case ConnectionState.waiting:
                               return Column(
                                   children: [
-                                    SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: CircularProgressIndicator(),
-                                    ),
+                                    // SizedBox(
+                                    //   width: 60,
+                                    //   height: 60,
+                                    //   child: CircularProgressIndicator(),
+                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(top: 16),
-                                      child: Text('Awaiting data...'),
+                                      child: Text(''),
                                     )
                                   ]
 
@@ -146,6 +146,8 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                     padding: padding,
                                     child: GestureDetector(
                                       onTap: (){
+                                        tokenRefNotification = streamSnapshot.data?.docs[index]
+                                        ['token_ref'];
                                         Id_Of_current_application= streamSnapshot.data?.docs[index].id;
                                         print("GGGGGGGGGGGGGGG________________GGGGGGGGGFFFFFFFFFFFFFFF");
                                         print(Id_Of_current_application);

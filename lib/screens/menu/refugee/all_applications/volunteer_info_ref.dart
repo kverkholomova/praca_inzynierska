@@ -10,11 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/refugee/accepted_applications/application_info_accepted.dart';
+import 'package:wol_pro_1/screens/menu/refugee/main_screen_ref.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
 
+import '../../volunteer/main_screen.dart';
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 import 'application_info.dart';
@@ -35,9 +38,10 @@ class InfoVolforRef extends StatefulWidget {
 class _InfoVolforRefState extends State<InfoVolforRef> {
   late StreamSubscription<User?> user;
 
-  void sendPushMessageDeclinedVolunteer() async {
+
+  void sendPushMessage() async {
     print(
-        "Send Notification that app is done");
+        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD volunteer decliiined");
     try {
       await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -48,17 +52,25 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
         },
         body: jsonEncode(
           <String, dynamic>{
-            'notification': <String, dynamic>{
+            'notification':
+
+            <String, dynamic>{
               'body':
-              'The application was marked as done by refugee, so your help is not necessary anymore.',
-              'title': 'Refugee marked an applicationas done'
+              'The refugee preferred to wait another volunteer, so your assistance is not necessary anymore.',
+              'title': 'The refugee preferred to wait another volunteer'
             },
+            'sound': 'default',
             'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
+            // 'data': {
+            //   'title': 'Refugee deleted an application',
+            //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
+            // },
+
+            // <String, dynamic>{
+            //   'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            //   'id': '1',
+            //   'status': 'done'
+            // },
             "to": "$tokenVolApplication",
           },
         ),
@@ -67,6 +79,74 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
       print("error push notification");
     }
   }
+
+
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void foregroundMessage(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+  // void sendPushMessageDeclinedVolunteer() async {
+  //   print(
+  //       "Send Notification that app is done");
+  //   try {
+  //     await http.post(
+  //       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //         'Authorization':
+  //         'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+  //       },
+  //       body: jsonEncode(
+  //         <String, dynamic>{
+  //           'notification': <String, dynamic>{
+  //             'body':
+  //             'The application was marked as done by refugee, so your help is not necessary anymore.',
+  //             'title': 'Refugee marked an application as done'
+  //           },
+  //           'priority': 'high',
+  //           'data': <String, dynamic>{
+  //             'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+  //             'id': '1',
+  //             'status': 'done'
+  //           },
+  //           "to": "$tokenVolApplication",
+  //         },
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print("error push notification");
+  //   }
+  // }
 
   // deleteVolunteer(){
   //   user = FirebaseAuth.instance.authStateChanges().listen((user) async {
@@ -728,37 +808,46 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                           style: textInactiveButtonStyleRefugee,
                         ),
                         onPressed: () async {
-                          setState(() {
+                          sendPushMessage();
+                            setState(() {
+
+
+                              controllerTabBottomRef = PersistentTabController(initialIndex: 4);
+
+
 
                             FirebaseFirestore.instance
                                 .collection('applications')
-                                .doc(idAppDeleteVol).update({
+                                .doc(applicationIDRef).update({
                               "volunteerID": "",
                               "application_accepted": false,
-                              "chatId_vol":"",
+                              "chatId_vol":"null",
                               "date":"",
                               "mess_button_visibility_ref": false,
                               "mess_button_visibility_vol": true,
                               "status":"Sent to volunteer",
                               "token_vol": "",
                               "voluneer_rating":5,
-                              "volunteerID":"",
                               "volunteer_name":""
                             });
-                            FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
-                          });
 
+                              IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
+                            // FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
+
+        });
                           Future.delayed(const Duration(milliseconds: 500), () {
 
-                            if(isAcceptedApplicationRefugee==true){
+                            // if(isAcceptedApplicationRefugee==true){
+                            //   Navigator.of(context, rootNavigator: true).pushReplacement(
+                            //       MaterialPageRoute(
+                            //           builder: (context) => const AcceptedPageOfApplicationRef()));
+                            // } else{
                               Navigator.of(context, rootNavigator: true).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => const AcceptedPageOfApplicationRef()));
-                            } else{
-                              Navigator.of(context, rootNavigator: true).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => const PageOfApplicationRef()));
-                            }});
+                                      builder: (context) => MainScreenRefugee()));
+                            // }
+
+                          });
 
                         }),
                   ),

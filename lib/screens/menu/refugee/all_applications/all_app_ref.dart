@@ -13,6 +13,7 @@ import 'package:wol_pro_1/widgets/loading.dart';
 
 import '../../../../models/categories.dart';
 import '../../volunteer/all_applications/new_screen_with_applications.dart';
+import '../home_page/home_ref.dart';
 import 'application_info.dart';
 import '../main_screen_ref.dart';
 
@@ -144,11 +145,11 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                               switch (streamSnapshot.connectionState) {
                                 case ConnectionState.waiting:
                                   return Column(children: [
-                                    SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: CircularProgressIndicator(),
-                                    ),
+                                    // SizedBox(
+                                    //   width: 60,
+                                    //   height: 60,
+                                    //   child: CircularProgressIndicator(),
+                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(top: 16),
                                       child: Text(''),
@@ -163,6 +164,13 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                         child: GestureDetector(
                                           onTap: () {
                                             setState(() {
+
+                                              tokenVolApplication =streamSnapshot
+                                                  .data
+                                                  ?.docs[index]
+                                              [
+                                              "token_vol"];
+
                                               IdApplicationVolInfo =
                                               streamSnapshot
                                                   .data

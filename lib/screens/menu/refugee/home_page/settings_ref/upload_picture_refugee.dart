@@ -172,14 +172,14 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                     decoration: buttonActiveDecorationRefugee,
                     child: TextButton(
                         onPressed: () {
-                          loadImageRef();
+
+                          setState(() {
+                            loadImageRef();
+                            controllerTabBottomRef = PersistentTabController(initialIndex: 2);
+                          });
+
                           Future.delayed(const Duration(milliseconds: 500), () {
-                            print(
-                                "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG2222222222222222222");
-                            print(url_image_ref);
-                            setState(() {
-                              controllerTabBottomRef = PersistentTabController(initialIndex: 2);
-                            });
+
                             Navigator.of(context, rootNavigator: true).pushReplacement(
                                 MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                           });

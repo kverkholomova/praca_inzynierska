@@ -55,30 +55,38 @@ class _PageOfApplicationState extends State<PageOfApplication> {
     // FirebaseMessaging.instance.subscribeToTopic("Animal");
   }
 
-  void sendPushMessageAccepted(String nameApplic) async {
+  void sendPushMessage() async {
     print(
-        "Send Info that application is accepted");
+        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD volunteer decliiined");
     try {
       await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization':
-              'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L',
+          'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
         },
         body: jsonEncode(
           <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body': 'The volunteer has chosen your application $nameApplic to help you.',
-              'title': 'Application is accepted'
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done',
+            'notification':
 
+            <String, dynamic>{
+              'body':
+              'Your application was accepted by the volunteer.',
+              'title': 'Your application was accepted'
             },
+            'sound': 'default',
+            'priority': 'high',
+            // 'data': {
+            //   'title': 'Refugee deleted an application',
+            //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
+            // },
+
+            // <String, dynamic>{
+            //   'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            //   'id': '1',
+            //   'status': 'done'
+            // },
             "to": "$tokenRefNotification",
           },
         ),
@@ -87,6 +95,8 @@ class _PageOfApplicationState extends State<PageOfApplication> {
       print("error push notification");
     }
   }
+
+
 
   void requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -111,59 +121,126 @@ class _PageOfApplicationState extends State<PageOfApplication> {
     }
   }
 
-  void listenFCM() async {
+  void foregroundMessage(){
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null && !kIsWeb) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              // TODO add a proper drawable resource to android, for now using
-              //      one that already exists in example app.
-              icon: 'launch_background',
-            ),
-          ),
-        );
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
   }
 
-  void loadFCM() async {
-    if (!kIsWeb) {
-      channel = const AndroidNotificationChannel(
-        'high_importance_channel', // id
-        'High Importance Notifications', // title
-        importance: Importance.high,
-        enableVibration: true,
-      );
+  // void sendPushMessageAccepted(String nameApplic) async {
+  //   print(
+  //       "Send Info that application is accepted");
+  //   try {
+  //     await http.post(
+  //       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //         'Authorization':
+  //             'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L',
+  //       },
+  //       body: jsonEncode(
+  //         <String, dynamic>{
+  //           'notification': <String, dynamic>{
+  //             'body': 'The volunteer has chosen your application $nameApplic to help you.',
+  //             'title': 'Application is accepted'
+  //           },
+  //           'priority': 'high',
+  //           'data': <String, dynamic>{
+  //             'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+  //             'id': '1',
+  //             'status': 'done',
+  //
+  //           },
+  //           "to": "$tokenRefNotification",
+  //         },
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print("error push notification");
+  //   }
+  // }
 
-      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-      /// Create an Android Notification Channel.
-      ///
-      /// We use this channel in the `AndroidManifest.xml` file to override the
-      /// default FCM channel to enable heads up notifications.
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel);
-
-      /// Update the iOS foreground notification presentation options to allow
-      /// heads up notifications.
-      await FirebaseMessaging.instance
-          .setForegroundNotificationPresentationOptions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
-    }
-  }
+  // void requestPermission() async {
+  //   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  //
+  //   NotificationSettings settings = await messaging.requestPermission(
+  //     alert: true,
+  //     announcement: false,
+  //     badge: true,
+  //     carPlay: false,
+  //     criticalAlert: false,
+  //     provisional: false,
+  //     sound: true,
+  //   );
+  //
+  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+  //     print('User granted permission');
+  //   } else if (settings.authorizationStatus ==
+  //       AuthorizationStatus.provisional) {
+  //     print('User granted provisional permission');
+  //   } else {
+  //     print('User declined or has not accepted permission');
+  //   }
+  // }
+  //
+  // void listenFCM() async {
+  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //     RemoteNotification? notification = message.notification;
+  //     AndroidNotification? android = message.notification?.android;
+  //     if (notification != null && android != null && !kIsWeb) {
+  //       flutterLocalNotificationsPlugin.show(
+  //         notification.hashCode,
+  //         notification.title,
+  //         notification.body,
+  //         NotificationDetails(
+  //           android: AndroidNotificationDetails(
+  //             channel.id,
+  //             channel.name,
+  //             // TODO add a proper drawable resource to android, for now using
+  //             //      one that already exists in example app.
+  //             icon: 'launch_background',
+  //           ),
+  //         ),
+  //       );
+  //     }
+  //   });
+  // }
+  //
+  // void loadFCM() async {
+  //   if (!kIsWeb) {
+  //     channel = const AndroidNotificationChannel(
+  //       'high_importance_channel', // id
+  //       'High Importance Notifications', // title
+  //       importance: Importance.high,
+  //       enableVibration: true,
+  //     );
+  //
+  //     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  //
+  //     /// Create an Android Notification Channel.
+  //     ///
+  //     /// We use this channel in the `AndroidManifest.xml` file to override the
+  //     /// default FCM channel to enable heads up notifications.
+  //     await flutterLocalNotificationsPlugin
+  //         .resolvePlatformSpecificImplementation<
+  //             AndroidFlutterLocalNotificationsPlugin>()
+  //         ?.createNotificationChannel(channel);
+  //
+  //     /// Update the iOS foreground notification presentation options to allow
+  //     /// heads up notifications.
+  //     await FirebaseMessaging.instance
+  //         .setForegroundNotificationPresentationOptions(
+  //       alert: true,
+  //       badge: true,
+  //       sound: true,
+  //     );
+  //   }
+  // }
 
   final CollectionReference applications =
       FirebaseFirestore.instance.collection('applications');
@@ -502,8 +579,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                                                   style: textActiveButtonStyle,
                                                 ),
                                                 onPressed: () async {
-                                                  sendPushMessageAccepted(streamSnapshot
-                                                      .data?.docs[index]["title"]);
+                                                  sendPushMessage();
                                                   date = DateTime.now().toString();
                                                   FirebaseFirestore.instance
                                                       .collection('applications')

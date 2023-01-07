@@ -38,5 +38,12 @@
        <meta-data
            android:name="com.google.firebase.messaging.default_notifications_channel_id"
            android:value="mychanel" />
-    </application>
+       <meta-data
+           android:name="firebase_messaging_auto_init_enabled"
+           android:value="false" />
+       <meta-data
+           android:name="firebase_analytics_collection_enabled"
+           android:value="false" />
+
+   </application>
 </manifest>

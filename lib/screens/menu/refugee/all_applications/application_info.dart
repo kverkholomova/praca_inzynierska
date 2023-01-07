@@ -45,6 +45,9 @@ class PageOfApplicationRef extends StatefulWidget {
 }
 
 class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
+
+
+
   late AndroidNotificationChannel channel;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
@@ -67,7 +70,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
 
   void sendPushMessage() async {
     print(
-        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
+        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD  notificaaaation");
     try {
       await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -78,17 +81,25 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
         },
         body: jsonEncode(
           <String, dynamic>{
-            'notification': <String, dynamic>{
+            'notification':
+
+            <String, dynamic>{
               'body':
                   'The application was deleted by refugee, so your help is not necessary anymore.',
               'title': 'Refugee deleted an application'
             },
+            'sound': 'default',
             'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
+            // 'data': {
+            //   'title': 'Refugee deleted an application',
+            //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
+            // },
+
+            // <String, dynamic>{
+            //   'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            //   'id': '1',
+            //   'status': 'done'
+            // },
             "to": "$tokenVolApplication",
           },
         ),
@@ -98,28 +109,43 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
     }
   }
 
-  // void requestPermission() async {
-  //   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  //
-  //   NotificationSettings settings = await messaging.requestPermission(
-  //     alert: true,
-  //     announcement: false,
-  //     badge: true,
-  //     carPlay: false,
-  //     criticalAlert: false,
-  //     provisional: false,
-  //     sound: true,
-  //   );
-  //
-  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-  //     print('User granted permission');
-  //   } else if (settings.authorizationStatus ==
-  //       AuthorizationStatus.provisional) {
-  //     print('User granted provisional permission');
-  //   } else {
-  //     print('User declined or has not accepted permission');
-  //   }
-  // }
+
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void foregroundMessage(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+
+
   //
   // void listenFCM() async {
   //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -611,6 +637,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     redColor,
                                                               ),
                                                               onPressed: () {
+                                                                setState(() {
                                                                 sendPushMessage();
                                                                 FirebaseFirestore
                                                                     .instance
@@ -622,21 +649,26 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                             index]
                                                                         .id)
                                                                     .delete();
-                                                                FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
-                                                                setState(() {
+                                                                IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
+
                                                                   controllerTabBottomRef =
                                                                       PersistentTabController(
                                                                           initialIndex:
                                                                               4);
                                                                 });
-                                                                Navigator.of(
-                                                                        context,
-                                                                        rootNavigator:
-                                                                            true)
-                                                                    .pushReplacement(MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                MainScreenRefugee()));
+                                                                Future.delayed(const Duration(milliseconds: 500), () {
+
+                                                                  // if(isAcceptedApplicationRefugee==true){
+                                                                  //   Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                                  //       MaterialPageRoute(
+                                                                  //           builder: (context) => const AcceptedPageOfApplicationRef()));
+                                                                  // } else{
+                                                                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) => MainScreenRefugee()));
+                                                                  // }
+
+                                                                });
                                                               },
                                                             ),
                                                           ),

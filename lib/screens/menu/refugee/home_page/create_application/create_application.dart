@@ -311,6 +311,7 @@ class _ApplicationState extends State<Application> {
                   resultWidth: double.infinity,
                   dropdownWidth: MediaQuery.of(context).size.width * 0.8,
                   dropdownList: dropdownItemList,
+
                   onChange: (newVal) {
                     setState(() {
                       valueChosen = newVal["value"];
