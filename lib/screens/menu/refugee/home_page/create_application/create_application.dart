@@ -472,7 +472,7 @@ class _ApplicationState extends State<Application> {
                                   .collection('applications')
                                   .add({
                                 'title': (title == Null)?("Title"):(title),
-                                'category': (currentCategory=='')?("Category"):(currentCategory),
+                                'category': (currentCategory=='')?(valueChosen):(currentCategory),
                                 'comment': (comment==Null)?("Comment"):(comment),
                                 'status': status,
                                 'userID': ID,

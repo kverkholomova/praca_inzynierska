@@ -55,38 +55,38 @@ class _AcceptedPageOfApplicationRefState
   //   // listenFCM();
   // }
 
-  void sendPushMessageDeletedByRefugee() async {
-    print(
-        "Send Notification that app is deleted");
-    try {
-      await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization':
-              'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body':
-                  'The application was deleted by refugee, so your help is not necessary anymore.',
-              'title': 'Refugee deleted an application'
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
-            "to": "$tokenVolApplication",
-          },
-        ),
-      );
-    } catch (e) {
-      print("error push notification");
-    }
-  }
+  // void sendPushMessageDeletedByRefugee() async {
+  //   print(
+  //       "Send Notification that app is deleted");
+  //   try {
+  //     await http.post(
+  //       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json',
+  //         'Authorization':
+  //             'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+  //       },
+  //       body: jsonEncode(
+  //         <String, dynamic>{
+  //           'notification': <String, dynamic>{
+  //             'body':
+  //                 'The application was deleted by refugee, so your help is not necessary anymore.',
+  //             'title': 'Refugee deleted an application'
+  //           },
+  //           'priority': 'high',
+  //           'data': <String, dynamic>{
+  //             'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+  //             'id': '1',
+  //             'status': 'done'
+  //           },
+  //           "to": "$tokenVolApplication",
+  //         },
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print("error push notification");
+  //   }
+  // }
 
   // void requestPermission() async {
   //   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -164,6 +164,96 @@ class _AcceptedPageOfApplicationRefState
   //     );
   //   }
   // }
+
+
+  void sendPushMessage() async {
+    print(
+        "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD  notificaaaation");
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+          'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
+        },
+        body: jsonEncode(
+          <String, dynamic>
+            {
+            //   "message":{
+            //     "token": "$tokenVolApplication",
+            //     "data":{
+            //       "Nick" : "Mario",
+            //       "body" : "great match!",
+            //       "Room" : "PortugalVSDenmark"
+            //     }
+            //   }
+            // }
+
+
+            'notification':
+
+            <String, dynamic>{
+              'body':
+              'The application was deleted by refugee, so your help is not necessary anymore.',
+              'title': 'Refugee deleted an application'
+            },
+            'sound': 'default',
+            'priority': 'high',
+            // 'data': {
+            //   'title': 'Refugee deleted an application',
+            //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
+            // },
+
+            // <String, dynamic>{
+            //   'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            //   'id': '1',
+            //   'status': 'done'
+            // },
+            "to": "$tokenVolApplication",
+          },
+        ),
+      );
+    } catch (e) {
+      print("error push notification");
+    }
+  }
+
+
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void foregroundMessage(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
 
   final CollectionReference applications =
       FirebaseFirestore.instance.collection('applications');
@@ -425,7 +515,7 @@ class _AcceptedPageOfApplicationRefState
                                                     redColor,
                                                   ),
                                                   onPressed: () {
-                                                    sendPushMessageDeletedByRefugee();
+                                                    sendPushMessage();
                                                     FirebaseFirestore.instance
                                                         .collection(
                                                         'applications')

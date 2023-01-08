@@ -179,7 +179,6 @@ class _ImageUploadsRefState extends State<ImageUploadsRef> {
                           });
 
                           Future.delayed(const Duration(milliseconds: 500), () {
-
                             Navigator.of(context, rootNavigator: true).pushReplacement(
                                 MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                           });
