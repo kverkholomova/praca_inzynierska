@@ -34,6 +34,19 @@ class _HomeMapState extends State<HomeMap> {
   LatLng? startLocation;
   LatLng? endLocation;
 
+
+
+  void foregroundMessage(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+
+  }
   @override
   void dispose() {
     _customInfoWindowController.dispose();
@@ -357,27 +370,7 @@ class _HomeMapState extends State<HomeMap> {
         cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
   }
-  void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
-        print(_message);
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
-      }
-    });
 
-  }
   getDirections(PointLatLng pointLatLng) async {
     List<LatLng> polylineCoordinates = [];
 
@@ -427,9 +420,9 @@ class _HomeMapState extends State<HomeMap> {
 
   @override
   void initState() {
-    foregroundMessage();
     addMarkers();
     super.initState();
+    foregroundMessage();
     setState(() {
       _determinePosition();
     });

@@ -112,7 +112,7 @@ foregroundMessage();
               'title': 'Your application was declined by volunteer'
             },
             'sound': 'default',
-            'priority': 'high',
+            // 'priority': 'high',
             // 'data': {
             //   'title': 'Refugee deleted an application',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
@@ -158,40 +158,14 @@ foregroundMessage();
   }
 
   void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
-    // FirebaseMessaging.onMessageOpenedApp.listen((message) {
-    //   if(message.notification!=null )// isNotified doesn't matter
-    //       {
-    //     // print("Terminated Notification $isNotified:${message.notification!.title}");
-    //     final route=message.data["route"];
-    //     // navigateTo(route);
-    //     // isNotified=true;
-    //   }
-    // });
-
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   print('Got a message whilst in the foreground!');
-    //   print('Message data: ${message.data}');
-    //
-    //   if (message.notification != null) {
-    //     print('Message also contained a notification: ${message.notification}');
-    //   }
-    // });
   }
   // void sendPushMessageDeclinedApplication() async {
   //   print(

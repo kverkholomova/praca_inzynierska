@@ -122,6 +122,7 @@ class _RatingState extends State<Rating> {
     }
   }
 
+
   void foregroundMessage(){
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
@@ -132,7 +133,6 @@ class _RatingState extends State<Rating> {
       }
     });
   }
-
   // void sendPushMessageMarkedAsDone() async {
   //   print(
   //       "Send Notification that app is done");
@@ -176,6 +176,8 @@ class _RatingState extends State<Rating> {
     super.initState();
     foregroundMessage();
   }
+
+
 
   final CollectionReference applications =
       FirebaseFirestore.instance.collection('applications');

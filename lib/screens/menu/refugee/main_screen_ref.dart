@@ -149,6 +149,7 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
   //   ),
   // ];
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -157,22 +158,12 @@ class _MainScreenRefugeeState extends State<MainScreenRefugee> {
   }
 
   void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
-        print(_message);
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
 

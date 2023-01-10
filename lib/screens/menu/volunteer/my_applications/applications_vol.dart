@@ -30,28 +30,6 @@ class ApplicationsOfVolunteer extends StatefulWidget {
 
 class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
 
-  void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
-        print(_message);
-
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
-      }
-    });
-
-  }
 
   @override
   void initState() {
@@ -60,10 +38,20 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
     foregroundMessage();
   }
 
+  void foregroundMessage(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -74,20 +62,6 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
       },
       child: Scaffold(
         backgroundColor: background,
-        // appBar: AppBar(
-        //
-        //   elevation: 0.0,
-        //   leading: IconButton(onPressed: () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => SettingsHomeVol()),
-        //     );
-        //   }, icon: Icon(Icons.arrow_back),
-        //
-        //   ),
-        //   title: Text('Your applications',style: TextStyle(fontSize: 16),),
-        //
-        // ),
         body: SingleChildScrollView(
           child: Column(
             children: [

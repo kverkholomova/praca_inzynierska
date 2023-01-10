@@ -33,14 +33,11 @@ class _HomeMapRefState extends State<HomeMapRef> {
   LatLng? startLocation;
   LatLng? endLocation;
 
-
-
   @override
   void dispose() {
     _customInfoWindowController.dispose();
     super.dispose();
   }
-
 
   String googleApiKey = "AIzaSyAKVnGLSP7WI562vb4hn1_roG8YwTkmNCE";
   GoogleMapController? mapController;
@@ -49,23 +46,14 @@ class _HomeMapRefState extends State<HomeMapRef> {
   String mapStyle = '';
   Position? _currentPosition;
 
+
   void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
-        print(_message);
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
 

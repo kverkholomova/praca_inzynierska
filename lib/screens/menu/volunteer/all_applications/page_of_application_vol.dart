@@ -43,7 +43,8 @@ class _PageOfApplicationState extends State<PageOfApplication> {
   @override
   void initState() {
     super.initState();
-foregroundMessage();
+
+    foregroundMessage();
     // requestPermission();
     //
     // loadFCM();
@@ -68,27 +69,45 @@ foregroundMessage();
         },
         body: jsonEncode(
           <String, dynamic>{
-            'notification':
 
-            <String, dynamic>{
-              'body':
-              'Your application was accepted by the volunteer.',
-              'title': 'Your application was accepted'
-            },
-            'sound': 'default',
-            'priority': 'high',
-            // 'data': {
-            //   'title': 'Refugee deleted an application',
-            //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
-            // },
+              "to":"$tokenRefNotification",
+              // remove this
+              "notification": {
+                'body':
+                    'Your application was accepted by the volunteer.',
+                    'title': 'Your application was accepted'
+              },
+              "type": "post_like",
+              // "data": {
+              //   "model":{"id":"dsaflkdskfklgdkgjdksakdk"},
+              //   "body": "this is subtitle",
+              //   "title": "this is title",
+              //   "click_action": "FLUTTER_NOTIFICATION_CLICK"
+              // },
+              "priority": "normal"
+            }
 
-            // <String, dynamic>{
-            //   'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            //   'id': '1',
-            //   'status': 'done'
-            // },
-            "to": "$tokenRefNotification",
-          },
+          //   'notification':
+          //
+          //   <String, dynamic>{
+          //     'body':
+          //     'Your application was accepted by the volunteer.',
+          //     'title': 'Your application was accepted'
+          //   },
+          //   'sound': 'default',
+          //   // 'priority': 'high',
+          //   // 'data': {
+          //   //   'title': 'Refugee deleted an application',
+          //   //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
+          //   // },
+          //
+          //   // <String, dynamic>{
+          //   //   'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          //   //   'id': '1',
+          //   //   'status': 'done'
+          //   // },
+          //   "to": "$tokenRefNotification",
+          // },
         ),
       );
     } catch (e) {
@@ -122,20 +141,12 @@ foregroundMessage();
   }
 
   void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
     // FirebaseMessaging.onMessageOpenedApp.listen((message) {

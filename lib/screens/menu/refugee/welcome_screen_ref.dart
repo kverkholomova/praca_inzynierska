@@ -76,10 +76,21 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
   // }
   bool _isLoading = true;
   late StreamSubscription<User?> user;
+
+  void foregroundMessage(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+
+  }
   void initState(){
     super.initState();
     foregroundMessage();
-
     if(justSignedIn){
 
     }
@@ -125,48 +136,7 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
 
   }
 
-  void requestPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
-    } else {
-      print('User declined or has not accepted permission');
-    }
-  }
-
-  void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
-        print(_message);
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
-      }
-    });}
 
   @override
   void dispose(){
@@ -210,7 +180,6 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
                       });
                       Future.delayed(const Duration(
                           milliseconds: 500), () {
-                        foregroundMessage();
                         Navigator.of(context, rootNavigator: true).pushReplacement(
                             MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                         // Navigator.push(

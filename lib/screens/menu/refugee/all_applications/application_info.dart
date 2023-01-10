@@ -53,16 +53,20 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
 
   String? token = " ";
 
-  @override
-  void initState() {
-    super.initState();
-
-   foregroundMessage();
-
-    // getToken();
-
-    // FirebaseMessaging.instance.subscribeToTopic("Animal");
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   requestPermission();
+  //
+  //   loadFCM();
+  //
+  //   listenFCM();
+  //
+  //   // getToken();
+  //
+  //   // FirebaseMessaging.instance.subscribeToTopic("Animal");
+  // }
 
   void sendPushMessage() async {
     print(
@@ -85,7 +89,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
               'title': 'Refugee deleted an application'
             },
             'sound': 'default',
-            'priority': 'high',
+            // 'priority': 'high',
             // 'data': {
             //   'title': 'Refugee deleted an application',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
@@ -112,11 +116,11 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
 
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
-      announcement: false,
+      // announcement: false,
       badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
+      // carPlay: false,
+      // criticalAlert: false,
+      // provisional: false,
       sound: true,
     );
 
@@ -129,41 +133,24 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
       print('User declined or has not accepted permission');
     }
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    foregroundMessage();
+  }
+
   void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
-    // FirebaseMessaging.onMessageOpenedApp.listen((message) {
-    //   if(message.notification!=null )// isNotified doesn't matter
-    //       {
-    //     // print("Terminated Notification $isNotified:${message.notification!.title}");
-    //     final route=message.data["route"];
-    //     // navigateTo(route);
-    //     // isNotified=true;
-    //   }
-    // });
 
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   print('Got a message whilst in the foreground!');
-    //   print('Message data: ${message.data}');
-    //
-    //   if (message.notification != null) {
-    //     print('Message also contained a notification: ${message.notification}');
-    //   }
-    // });
   }
 
 

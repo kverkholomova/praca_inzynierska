@@ -111,6 +111,7 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
     }
   }
 
+
   void foregroundMessage(){
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');

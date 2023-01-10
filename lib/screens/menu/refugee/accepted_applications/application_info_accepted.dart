@@ -43,18 +43,17 @@ class _AcceptedPageOfApplicationRefState
 
   // String? token = " ";
   //
-  @override
-  void initState() {
-    super.initState();
-    print("Straaaaaaaaaaaaaaaaaaaaangeeeeeeeeeeeeeeeeeeeeeee");
-    print(applicationIDRefInfo);
-    foregroundMessage();
-    // requestPermission();
-    //
-    // loadFCM();
-    //
-    // listenFCM();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   print("Straaaaaaaaaaaaaaaaaaaaangeeeeeeeeeeeeeeeeeeeeeee");
+  //   print(applicationIDRefInfo);
+  //   // requestPermission();
+  //   //
+  //   // loadFCM();
+  //   //
+  //   // listenFCM();
+  // }
 
   // void sendPushMessageDeletedByRefugee() async {
   //   print(
@@ -187,7 +186,7 @@ class _AcceptedPageOfApplicationRefState
               'title': 'Refugee deleted an application'
             },
             'sound': 'default',
-            'priority': 'high',
+            // 'priority': 'high',
             // 'data': {
             //   'title': 'Refugee deleted an application',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
@@ -233,22 +232,12 @@ class _AcceptedPageOfApplicationRefState
   }
 
   void foregroundMessage(){
-    FirebaseMessaging.instance.getInitialMessage().then((_message){
-      if(_message!=null)
-      {
-        // print("Background Notification");
-        // final route=_message.data["route"];
-        // navigateTo(route);
-      } else{
-        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
-        print(_message);
-        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-          // if(message.notification!=null)
-          // {
-          //   // print("Foreground Notification :${message.notification!.title}");
-          //   // FCM.init(message);
-          // }
-        });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
       }
     });
     // FirebaseMessaging.onMessageOpenedApp.listen((message) {
