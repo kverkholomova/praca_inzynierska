@@ -174,6 +174,7 @@ class _RatingState extends State<Rating> {
     _ratingController = TextEditingController(text: '5.0');
     _rating = _initialRating;
     super.initState();
+    foregroundMessage();
   }
 
   final CollectionReference applications =

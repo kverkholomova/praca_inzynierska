@@ -5,6 +5,7 @@ import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,6 +78,7 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
   late StreamSubscription<User?> user;
   void initState(){
     super.initState();
+    foregroundMessage();
 
     if(justSignedIn){
 
@@ -123,6 +125,49 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
 
   }
 
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });}
+
   @override
   void dispose(){
     controllerPageView.dispose();
@@ -165,6 +210,7 @@ class _WelcomeScreenRefugeeState extends State<WelcomeScreenRefugee> {
                       });
                       Future.delayed(const Duration(
                           milliseconds: 500), () {
+                        foregroundMessage();
                         Navigator.of(context, rootNavigator: true).pushReplacement(
                             MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                         // Navigator.push(

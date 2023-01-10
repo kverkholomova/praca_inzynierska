@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -32,11 +33,14 @@ class _HomeMapRefState extends State<HomeMapRef> {
   LatLng? startLocation;
   LatLng? endLocation;
 
+
+
   @override
   void dispose() {
     _customInfoWindowController.dispose();
     super.dispose();
   }
+
 
   String googleApiKey = "AIzaSyAKVnGLSP7WI562vb4hn1_roG8YwTkmNCE";
   GoogleMapController? mapController;
@@ -44,6 +48,28 @@ class _HomeMapRefState extends State<HomeMapRef> {
 
   String mapStyle = '';
   Position? _currentPosition;
+
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -355,6 +381,7 @@ class _HomeMapRefState extends State<HomeMapRef> {
   void initState() {
     addMarkers();
     super.initState();
+    foregroundMessage();
     setState(() {
       _determinePosition();
     });

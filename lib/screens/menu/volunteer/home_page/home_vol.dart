@@ -133,7 +133,27 @@ class _HomeVolState extends State<HomeVol> {
   }
 
   bool scrolled = false;
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
 
+  }
   late StreamSubscription<User?> user;
   @override
   void initState() {
@@ -141,6 +161,7 @@ class _HomeVolState extends State<HomeVol> {
     super.initState();
     print("AAAAAAAAAAAAAAAAAAAAA IIIImageeeeeeeeeeeeeeeeee");
     print(url_image);
+    foregroundMessage();
     loadImage();
     // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);

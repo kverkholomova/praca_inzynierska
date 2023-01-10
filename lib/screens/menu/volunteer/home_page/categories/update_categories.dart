@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,14 +33,34 @@ class _ManageCategoriesState extends State<ManageCategories> {
   bool loading = false;
   bool chosen = false;
 
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
+
+  }
   // text field state
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //
-  //
-  // }
+  @override
+  void initState() {
+    super.initState();
+    foregroundMessage();
+
+  }
 
   @override
   Widget build(BuildContext context) {

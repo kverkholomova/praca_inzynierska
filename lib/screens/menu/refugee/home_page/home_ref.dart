@@ -36,6 +36,28 @@ class HomeRef extends StatefulWidget {
 
 class _HomeRefState extends State<HomeRef> {
 
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
+
+  }
+
   loadImageRef() async{
 
     DocumentSnapshot variable = await FirebaseFirestore.instance.
@@ -92,6 +114,7 @@ class _HomeRefState extends State<HomeRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    foregroundMessage();
     loadImageRef();
     storeNotificationToken();
     FirebaseMessaging.instance.getInitialMessage();

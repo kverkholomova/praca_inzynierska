@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -28,7 +29,33 @@ String? IdOfChatroomVol = '';
 List<String?> listOfRefugeesVol_ = [];
 class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
 
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
 
+  }
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    foregroundMessage();
+  }
 
   @override
   Widget build(BuildContext context) {

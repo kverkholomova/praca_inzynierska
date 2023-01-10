@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -36,15 +37,33 @@ class CategoriesState extends State<Categories> {
   bool loading = false;
   final AuthService _auth = AuthService();
   final CollectionReference applications = FirebaseFirestore.instance.collection("applications");
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
 
+  }
 
-  // @override
-  //
-  // void initState() {
-  //   print("UUUUUUUUUUUpadaaaaaaaaateeeeed222222222222");
-  //
-  //   print(categoriesVolunteer);
-  // }
+  @override
+
+  void initState() {
+    foregroundMessage();
+  }
   Widget build(BuildContext context) {
 
     print(userID_vol);

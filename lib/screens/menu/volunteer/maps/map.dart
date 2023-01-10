@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -356,7 +357,27 @@ class _HomeMapState extends State<HomeMap> {
         cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
   }
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
 
+  }
   getDirections(PointLatLng pointLatLng) async {
     List<LatLng> polylineCoordinates = [];
 
@@ -406,6 +427,7 @@ class _HomeMapState extends State<HomeMap> {
 
   @override
   void initState() {
+    foregroundMessage();
     addMarkers();
     super.initState();
     setState(() {

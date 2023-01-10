@@ -38,6 +38,12 @@ class InfoVolforRef extends StatefulWidget {
 class _InfoVolforRefState extends State<InfoVolforRef> {
   late StreamSubscription<User?> user;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    foregroundMessage();
+  }
 
   void sendPushMessage() async {
     print(

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'dart:io';
@@ -33,10 +34,33 @@ class ImageUploads extends StatefulWidget {
 }
 
 class _ImageUploadsState extends State<ImageUploads> {
+
+  void foregroundMessage(){
+    FirebaseMessaging.instance.getInitialMessage().then((_message){
+      if(_message!=null)
+      {
+        // print("Background Notification");
+        // final route=_message.data["route"];
+        // navigateTo(route);
+      } else{
+        print("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEELP");
+        print(_message);
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+          // if(message.notification!=null)
+          // {
+          //   // print("Foreground Notification :${message.notification!.title}");
+          //   // FCM.init(message);
+          // }
+        });
+      }
+    });
+
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    foregroundMessage();
   }
 
   PlatformFile? file;
