@@ -89,7 +89,7 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
               'title': 'Refugee deleted an application'
             },
             'sound': 'default',
-            // 'priority': 'high',
+            'priority': 'high',
             // 'data': {
             //   'title': 'Refugee deleted an application',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
@@ -138,20 +138,25 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    foregroundMessage();
+    // foregroundMessage();
   }
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-
-  }
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  //
+  // }
 
 
   //

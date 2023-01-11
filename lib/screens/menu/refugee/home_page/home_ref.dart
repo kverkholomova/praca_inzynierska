@@ -90,31 +90,36 @@ class _HomeRefState extends State<HomeRef> {
 
 
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-
-  }
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  //
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    foregroundMessage();
+    // foregroundMessage();
     loadImageRef();
     storeNotificationToken();
     FirebaseMessaging.instance.getInitialMessage();
-    FirebaseMessaging.onMessage.listen((event) {});
+    // FirebaseMessaging.onMessage.listen((event) {});
     // storeNotificationToken();
     FirebaseMessaging.instance.subscribeToTopic('subscription');
-    FirebaseMessaging.onMessage.listen((event) {
-      LocalNotificationService.display(event);
-    });
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   LocalNotificationService.display(event);
+    // });
   }
 
   // final AuthService _auth = AuthService();

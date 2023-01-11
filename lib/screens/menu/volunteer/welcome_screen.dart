@@ -30,17 +30,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   final controllerPageView = PageController();
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-
-  }
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  //
+  // }
   loadImage() async{
 
     DocumentSnapshot variable = await FirebaseFirestore.instance.
@@ -68,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState(){
     super.initState();
 
-    foregroundMessage();
+    // foregroundMessage();
     if(justSignedIn){
 
     }

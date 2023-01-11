@@ -44,7 +44,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
   void initState() {
     super.initState();
 
-    foregroundMessage();
+    // foregroundMessage();
     // requestPermission();
     //
     // loadFCM();
@@ -84,7 +84,7 @@ class _PageOfApplicationState extends State<PageOfApplication> {
               //   "title": "this is title",
               //   "click_action": "FLUTTER_NOTIFICATION_CLICK"
               // },
-              "priority": "normal"
+              "priority": "high"
             }
 
           //   'notification':
@@ -140,34 +140,39 @@ class _PageOfApplicationState extends State<PageOfApplication> {
     }
   }
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-    // FirebaseMessaging.onMessageOpenedApp.listen((message) {
-    //   if(message.notification!=null )// isNotified doesn't matter
-    //       {
-    //     // print("Terminated Notification $isNotified:${message.notification!.title}");
-    //     final route=message.data["route"];
-    //     // navigateTo(route);
-    //     // isNotified=true;
-    //   }
-    // });
-
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   print('Got a message whilst in the foreground!');
-    //   print('Message data: ${message.data}');
-    //
-    //   if (message.notification != null) {
-    //     print('Message also contained a notification: ${message.notification}');
-    //   }
-    // });
-  }
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  //   // FirebaseMessaging.onMessageOpenedApp.listen((message) {
+  //   //   if(message.notification!=null )// isNotified doesn't matter
+  //   //       {
+  //   //     // print("Terminated Notification $isNotified:${message.notification!.title}");
+  //   //     final route=message.data["route"];
+  //   //     // navigateTo(route);
+  //   //     // isNotified=true;
+  //   //   }
+  //   // });
+  //
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  // }
 
   // void sendPushMessageAccepted(String nameApplic) async {
   //   print(

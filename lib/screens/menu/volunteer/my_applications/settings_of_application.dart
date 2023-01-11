@@ -46,7 +46,7 @@ class _SettingsOfApplicationAcceptedState
   @override
   void initState() {
     super.initState();
-foregroundMessage();
+// foregroundMessage();
     // requestPermission();
     //
     // loadFCM();
@@ -112,7 +112,7 @@ foregroundMessage();
               'title': 'Your application was declined by volunteer'
             },
             'sound': 'default',
-            // 'priority': 'high',
+            'priority': 'high',
             // 'data': {
             //   'title': 'Refugee deleted an application',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
@@ -157,16 +157,24 @@ foregroundMessage();
     }
   }
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
 
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-  }
+
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  // }
   // void sendPushMessageDeclinedApplication() async {
   //   print(
   //       "SSSSSSSSSSSSSSSSSSSsEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD");
@@ -532,6 +540,11 @@ foregroundMessage();
                                                         ),
                                                         onPressed: () {
                                                           sendPushMessage();
+                                                          // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+                                                          //
+                                                          //   print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+                                                          //   print(message.sentTime);
+                                                          // });
                                                           // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
                                                           // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
                                                           // print(IdOfChatroom);

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -55,31 +56,36 @@ class _SettingsRefState extends State<SettingsRef> {
 
 
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-
-  }
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  //
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    foregroundMessage();
+    // foregroundMessage();
     visErrorName = false;
     visErrorPhoneNum = false;
     FirebaseMessaging.instance.getInitialMessage();
-    FirebaseMessaging.onMessage.listen((event) {});
+    // FirebaseMessaging.onMessage.listen((event) {});
     storeNotificationToken();
     FirebaseMessaging.instance.subscribeToTopic('subscription');
-    FirebaseMessaging.onMessage.listen((event) {
-      LocalNotificationService.display(event);
-    });
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   LocalNotificationService.display(event);
+    // });
   }
 
   final AuthService _auth = AuthService();
@@ -863,8 +869,9 @@ class _SettingsRefState extends State<SettingsRef> {
                                             ),
                                             onPressed: () async {
                                               await _auth.signOut();
-                                              Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                  MaterialPageRoute(builder: (context) => OptionChoose()));
+                                              SystemNavigator.pop();
+                                              // Navigator.of(context, rootNavigator: true).pushReplacement(
+                                              //     MaterialPageRoute(builder: (context) => OptionChoose()));
                                               // Navigator.push(
                                               //     context,
                                               //     MaterialPageRoute(

@@ -136,22 +136,27 @@ class _HomeVolState extends State<HomeVol> {
 
   late StreamSubscription<User?> user;
 
-  void foregroundMessage(){
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-      }
-    });
-
-  }
+  // void foregroundMessage(){
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //
+  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+  //     print(message.sentTime);
+  //   });
+  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   //   print('Got a message whilst in the foreground!');
+  //   //   print('Message data: ${message.data}');
+  //   //
+  //   //   if (message.notification != null) {
+  //   //     print('Message also contained a notification: ${message.notification}');
+  //   //   }
+  //   // });
+  //
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    foregroundMessage();
+    // foregroundMessage();
     print("AAAAAAAAAAAAAAAAAAAAA IIIImageeeeeeeeeeeeeeeeee");
     print(url_image);
     loadImage();
@@ -161,9 +166,9 @@ class _HomeVolState extends State<HomeVol> {
     // FirebaseMessaging.onMessage.listen((event) {});
     storeNotificationToken();
     // FirebaseMessaging.instance.subscribeToTopic('subscription');
-    FirebaseMessaging.onMessage.listen((event) {
-      LocalNotificationService.display(event);
-    });
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   LocalNotificationService.display(event);
+    // });
     setState(() {
       user = FirebaseAuth.instance.authStateChanges().listen((user) async {
 
