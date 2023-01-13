@@ -19,7 +19,7 @@ String card_title_accepted='';
 String card_category_accepted='';
 String card_comment_accepted='';
 // String current_name = '';
-
+String chatIdDialog = '';
 
 class ApplicationsOfVolunteer extends StatefulWidget {
   const ApplicationsOfVolunteer({Key? key}) : super(key: key);
@@ -161,6 +161,11 @@ class _ApplicationsOfVolunteerState extends State<ApplicationsOfVolunteer> {
                                         print("GGGGGGGGGGGGGGG________________GGGGGGGGGFFFFFFFFFFFFFFF");
                                         print(Id_Of_current_application);
 
+                                        chatIdDialog = streamSnapshot
+                                            .data
+                                            ?.docs[
+                                        index][
+                                        "chatId_vol"];
                                         card_title_accepted=streamSnapshot.data?.docs[index]['title'] as String;
                                         card_category_accepted=streamSnapshot.data?.docs[index]['category'] as String;
                                         card_comment_accepted=streamSnapshot.data?.docs[index]['comment'] as String;

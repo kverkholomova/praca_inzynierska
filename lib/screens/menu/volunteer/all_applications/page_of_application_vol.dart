@@ -73,9 +73,10 @@ class _PageOfApplicationState extends State<PageOfApplication> {
               "to":"$tokenRefNotification",
               // remove this
               "notification": {
+                'title': 'Your application was accepted',
                 'body':
                     'Your application was accepted by the volunteer.',
-                    'title': 'Your application was accepted'
+
               },
               "type": "post_like",
               // "data": {

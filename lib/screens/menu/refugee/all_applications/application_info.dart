@@ -650,38 +650,8 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     redColor,
                                                               ),
                                                               onPressed: () {
-                                                                setState(() {
-                                                                sendPushMessage();
-                                                                FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'applications')
-                                                                    .doc(streamSnapshot
-                                                                        .data
-                                                                        ?.docs[
-                                                                            index]
-                                                                        .id)
-                                                                    .delete();
-                                                                IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
+                                                                dialogBuilderDeleteApplication(context);
 
-                                                                  controllerTabBottomRef =
-                                                                      PersistentTabController(
-                                                                          initialIndex:
-                                                                              4);
-                                                                });
-                                                                Future.delayed(const Duration(milliseconds: 500), () {
-
-                                                                  // if(isAcceptedApplicationRefugee==true){
-                                                                  //   Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                                  //       MaterialPageRoute(
-                                                                  //           builder: (context) => const AcceptedPageOfApplicationRef()));
-                                                                  // } else{
-                                                                  Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) => MainScreenRefugee()));
-                                                                  // }
-
-                                                                });
                                                               },
                                                             ),
                                                           ),
@@ -809,32 +779,33 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
                                                                     redColor,
                                                               ),
                                                               onPressed: () {
-                                                                sendPushMessage();
-                                                                FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'applications')
-                                                                    .doc(streamSnapshot
-                                                                        .data
-                                                                        ?.docs[
-                                                                            index]
-                                                                        .id)
-                                                                    .delete();
-                                                                FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
-                                                                setState(() {
-                                                                  controllerTabBottomRef =
-                                                                      PersistentTabController(
-                                                                          initialIndex:
-                                                                              4);
-                                                                });
-                                                                Navigator.of(
-                                                                        context,
-                                                                        rootNavigator:
-                                                                            true)
-                                                                    .pushReplacement(MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                MainScreenRefugee()));
+                                                                dialogBuilderDeleteApplication(context);
+                                                                // sendPushMessage();
+                                                                // FirebaseFirestore
+                                                                //     .instance
+                                                                //     .collection(
+                                                                //         'applications')
+                                                                //     .doc(streamSnapshot
+                                                                //         .data
+                                                                //         ?.docs[
+                                                                //             index]
+                                                                //         .id)
+                                                                //     .delete();
+                                                                // FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
+                                                                // setState(() {
+                                                                //   controllerTabBottomRef =
+                                                                //       PersistentTabController(
+                                                                //           initialIndex:
+                                                                //               4);
+                                                                // });
+                                                                // Navigator.of(
+                                                                //         context,
+                                                                //         rootNavigator:
+                                                                //             true)
+                                                                //     .pushReplacement(MaterialPageRoute(
+                                                                //         builder:
+                                                                //             (context) =>
+                                                                //                 MainScreenRefugee()));
                                                               },
                                                             ),
                                                           ),
@@ -1555,283 +1526,137 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
       ),
     );
   }
-// @override
-// Widget build(BuildContext context) {
-//   return WillPopScope(
-//     onWillPop: () async {
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(builder: (context) => CategoriesRef()),
-//       );
-//       return true;
-//     },
-//     child: Scaffold(
-//       backgroundColor: background,
-//       // appBar: AppBar(
-//       //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
-//       //   elevation: 0.0,
-//       //   title: Text(
-//       //     'Application Info',
-//       //     style: TextStyle(fontSize: 16),
-//       //   ),
-//       //   leading: IconButton(
-//       //     icon: const Icon(Icons.arrow_back,color: Colors.white,),
-//       //     onPressed: () async {
-//       //       // await _auth.signOut();
-//       //       Navigator.push(
-//       //         context,
-//       //         MaterialPageRoute(builder: (context) => CategoriesRef()),
-//       //       );
-//       //     },
-//       //   ),
-//       // ),
-//       body: StreamBuilder (
-//         stream: FirebaseFirestore.instance
-//             .collection('applications')
-//             .where('title', isEqualTo: card_title_ref)
-//             .where('category', isEqualTo: card_category_ref)
-//             .where('comment', isEqualTo: card_comment_ref)
-//             .snapshots(),
-//         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-//           return ListView.builder(
-//               itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
-//               itemBuilder: (ctx, index) {
-//
-//                 User? user = FirebaseAuth.instance.currentUser;
-//                 final docId = streamSnapshot.data!.docs[index]["volunteerID"];
-//                 print("IIIIIIIIIIIIIIII_______________HHHHHHHHHHHHHHH");
-//                 print(streamSnapshot.data?.docs[index]['title']);
-//                 if (streamSnapshot.hasData){
-//                   switch (streamSnapshot.connectionState){
-//                     case ConnectionState.waiting:
-//                       return  Column(
-//                         children: [
-//                           SizedBox(
-//                           width: 60,
-//                           height: 60,
-//                           child: CircularProgressIndicator(),
-//                           ),
-//                           Padding(
-//                           padding: EdgeInsets.only(top: 16),
-//                           child: Text('Awaiting data...'),
-//                           )
-//                 ]
-//
-//                 );
-//
-//                 case ConnectionState.active:
-//                 return Column(
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 30,left: 10,right: 10,bottom: 10),
-//                       child: Align(
-//                         alignment: Alignment.topLeft,
-//                         child: Text(
-//                           streamSnapshot.data?.docs[index]['title'],
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.bold,
-//                             fontSize: 18,
-//                             color: Colors.black,
-//                           ),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.all(10.0),
-//                       child: Align(
-//                         alignment: Alignment.topLeft,
-//                         child: Text(
-//                           streamSnapshot.data?.docs[index]['status'],
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.bold,
-//                             fontSize: 14,
-//                             color: Colors.grey,
-//                           ),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.all(10.0),
-//                       child: Align(
-//                         alignment: Alignment.topLeft,
-//                         child: Text(
-//                           streamSnapshot.data?.docs[index]['category'],
-//                           style: TextStyle(color: Colors.grey, fontSize: 14),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.all(10.0),
-//                       child: Align(
-//                         alignment: Alignment.topLeft,
-//                         child: Text(
-//                           streamSnapshot.data?.docs[index]['comment'],
-//                           style: TextStyle(color: Colors.black, fontSize: 15),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.all(10.0),
-//                       child: Align(
-//                         alignment: Alignment.topLeft,
-//                         child: Text(
-//                           streamSnapshot.data?.docs[index]['date'],
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.bold,
-//                             fontSize: 12,
-//                             color: Colors.grey[900],
-//                           ),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                       ),
-//                     ),
-//                     Visibility(
-//                       visible: streamSnapshot.data?.docs[index]["mess_button_visibility_ref"],
-//                       child: Padding(
-//                         padding: const EdgeInsets.only(top: 20, bottom: 10),
-//                         child: SizedBox(
-//                           height: 50,
-//                           width: 300,
-//                           child: MaterialButton(
-//                               child: Text(
-//                                 "Message",
-//                                 style: TextStyle(color: Colors.white),
-//                               ),
-//                               color: Color.fromRGBO(18, 56, 79, 0.8),
-//                               onPressed: () {
-//                                 FirebaseFirestore.instance
-//                                     .collection('applications')
-//                                     .doc(
-//                                     streamSnapshot.data?.docs[index].id)
-//                                     .update({"mess_button_visibility_ref": false});
-//                                // IdOfChatroomRef = streamSnapshot.data?.docs[index]['chatId_vol'];
-//                                   // Navigator.push(
-//                                   //   context,
-//                                   //   MaterialPageRoute(
-//                                   //       builder: (context) =>
-//                                   //           SelectedChatroom_Ref()),
-//                                   // );
-//
-//
-//                                 //}
-//                               }),
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 20),
-//                       child: SizedBox(
-//                         height: 50,
-//                         width: 300,
-//                         child: MaterialButton(
-//                             child: Text(
-//                               "Delete",
-//                               style: TextStyle(color: Colors.white),
-//                             ),
-//                             color: Color.fromRGBO(18, 56, 79, 0.8),
-//                             onPressed: () {
-//
-//
-//                               sendPushMessage();
-//
-//                               FirebaseFirestore.instance
-//                                   .collection('applications')
-//                                   .doc(streamSnapshot.data?.docs[index].id)
-//                                   .update({"status": "deleted"});
-//
-//
-//                             }),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(top: 10, bottom: 10),
-//                       child: SizedBox(
-//                         height: 50,
-//                         width: 300,
-//                         child: MaterialButton(
-//                             child: Text(
-//                               "Look info about volunteer",
-//                               style: TextStyle(color: Colors.white),
-//                             ),
-//                             color: Color.fromRGBO(18, 56, 79, 0.8),
-//                             onPressed: () {
-//                               IDVolOfApplication = streamSnapshot
-//                                   .data?.docs[index]['volunteerID'] as String;
-//                               print(IDVolOfApplication);
-//                               print(
-//                                   "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-//
-//                               Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) =>
-//                                         PageOfVolunteerRef()),
-//                               );
-//                             }),
-//                       ),
-//                     ),
-//                     // Visibility(
-//                     //   visible: streamSnapshot.data?.docs[index]["application_accepted"],
-//                     //   child:
-//                       Padding(
-//                         padding: const EdgeInsets.only(top: 10, bottom: 10),
-//                         child: SizedBox(
-//                           height: 50,
-//                           width: 300,
-//                           child: MaterialButton(
-//                               child: Text(
-//                                 "Mark application as done",
-//                                 style: TextStyle(color: Colors.white),
-//                               ),
-//                               color: Color.fromRGBO(18, 56, 79, 0.8),
-//                               onPressed: () {
-//                                 IDVolOfApplication = streamSnapshot
-//                                     .data?.docs[index]['volunteerID'] as String;
-//                                 print(IDVolOfApplication);
-//                                 print(
-//                                     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-//
-//                                 Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                       builder: (context) =>
-//                                           Rating_Page()),
-//                                 );
-//                               }),
-//                         ),
-//                       ),
-//                     // )
-//                   ],
-//                 );}}
-//                 return Center(
-//                   child: Padding(padding: EdgeInsets.only(top: 100),
-//                     child: Column(
-//                       children: [
-//                         SpinKitChasingDots(
-//                           color: Colors.brown,
-//                           size: 50.0,
-//                         ),
-//                         Align(
-//                           alignment: Alignment.center,
-//                           child: Text(
-//                               "Waiting...",
-//                               style: TextStyle(
-//                                 fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-//                           ),
-//                         ),
-//                         Padding(padding: EdgeInsets.only(top: 20),)
-//                       ],
-//                     ),
-//                   ),
-//                 );
-//               });
-//         },
-//       ),
-//     ),
-//   );
-// }
+
+
+  Future<void> dialogBuilderDeleteApplication(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: backgroundRefugee,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text('Delete application?'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: redColor,
+          ),
+          content: const Text("You are about to delete this application. Are you sure you want to do it?"),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 13,
+            color: redColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonActiveDecorationRefugee,
+                    child: TextButton(
+                        child: Text(
+                          'Keep application',
+                          style: textActiveButtonStyleRefugee,
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonInactiveDecorationRefugee,
+                    child: TextButton(
+                        child: Text(
+                          "Delete application",
+                          style: textInactiveButtonStyleRefugee,
+                        ),
+                        onPressed: () async {
+                          setState(() {
+                            sendPushMessage();
+                            FirebaseFirestore
+                                .instance
+                                .collection(
+                                'applications')
+                                .doc(applicationIDRef)
+                                .delete();
+                            IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
+
+                            controllerTabBottomRef =
+                                PersistentTabController(
+                                    initialIndex:
+                                    4);
+                          });
+                          Future.delayed(const Duration(milliseconds: 500), () {
+
+                            // if(isAcceptedApplicationRefugee==true){
+                            //   Navigator.of(context, rootNavigator: true).pushReplacement(
+                            //       MaterialPageRoute(
+                            //           builder: (context) => const AcceptedPageOfApplicationRef()));
+                            // } else{
+                            Navigator.of(context, rootNavigator: true).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => MainScreenRefugee()));
+                            // }
+
+                          });
+                          // sendPushMessage();
+                          // FirebaseFirestore
+                          //     .instance
+                          //     .collection(
+                          //     'applications')
+                          //     .doc(applicationIDRef)
+                          //     .delete();
+                          // FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete();
+                          // setState(() {
+                          //   controllerTabBottomRef =
+                          //       PersistentTabController(
+                          //           initialIndex:
+                          //           4);
+                          // });
+                          // Navigator.of(
+                          //     context,
+                          //     rootNavigator:
+                          //     true)
+                          //     .pushReplacement(MaterialPageRoute(
+                          //     builder:
+                          //         (context) =>
+                          //         MainScreenRefugee()));
+
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+
+          ],
+        );
+      },
+    );
+  }
 }

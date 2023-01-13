@@ -181,12 +181,11 @@ class _AcceptedPageOfApplicationRefState
             'notification':
 
             <String, dynamic>{
-              'body':
-              'The application was deleted by refugee, so your help is not necessary anymore.',
+              'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
               'title': 'Refugee deleted an application'
             },
             'sound': 'default',
-            // 'priority': 'high',
+            'priority': 'high',
             // 'data': {
             //   'title': 'Refugee deleted an application',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
@@ -526,25 +525,26 @@ class _AcceptedPageOfApplicationRefState
                                                     redColor,
                                                   ),
                                                   onPressed: () {
-                                                    sendPushMessage();
-                                                    FirebaseFirestore.instance
-                                                        .collection(
-                                                        'applications')
-                                                        .doc(streamSnapshot
-                                                        .data?.docs[index].id)
-                                                        .delete();
-                                                    IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
-                                                    setState(() {
-                                                      controllerTabBottomRef =
-                                                          PersistentTabController(
-                                                              initialIndex: 4);
-                                                    });
-                                                    Navigator.of(context,
-                                                        rootNavigator: true)
-                                                        .pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                MainScreenRefugee()));
+                                                    dialogBuilderDeleteApplication(context);
+                                                    // sendPushMessage();
+                                                    // FirebaseFirestore.instance
+                                                    //     .collection(
+                                                    //     'applications')
+                                                    //     .doc(streamSnapshot
+                                                    //     .data?.docs[index].id)
+                                                    //     .delete();
+                                                    // IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
+                                                    // setState(() {
+                                                    //   controllerTabBottomRef =
+                                                    //       PersistentTabController(
+                                                    //           initialIndex: 4);
+                                                    // });
+                                                    // Navigator.of(context,
+                                                    //     rootNavigator: true)
+                                                    //     .pushReplacement(
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             MainScreenRefugee()));
                                                   },
                                                 ),
                                               ),
@@ -709,6 +709,106 @@ class _AcceptedPageOfApplicationRefState
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> dialogBuilderDeleteApplication(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: backgroundRefugee,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text('Delete application?'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: redColor,
+          ),
+          content: const Text("You are about to delete this application. Are you sure you want to do it?"),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 13,
+            color: redColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonActiveDecorationRefugee,
+                    child: TextButton(
+                        child: Text(
+                          'Keep application',
+                          style: textActiveButtonStyleRefugee,
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonInactiveDecorationRefugee,
+                    child: TextButton(
+                        child: Text(
+                          "Delete application",
+                          style: textInactiveButtonStyleRefugee,
+                        ),
+                        onPressed: () async {
+                          sendPushMessage();
+                          FirebaseFirestore.instance
+                              .collection(
+                              'applications')
+                              .doc(applicationIDRef)
+                              .delete();
+                          IdApplicationVolInfo!=""?FirebaseFirestore.instance.collection('USERS_COLLECTION').doc(IdApplicationVolInfo).delete():null;
+                          setState(() {
+                            controllerTabBottomRef =
+                                PersistentTabController(
+                                    initialIndex: 4);
+                          });
+                          Navigator.of(context,
+                              rootNavigator: true)
+                              .pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MainScreenRefugee()));
+
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+
+          ],
+        );
+      },
     );
   }
 }

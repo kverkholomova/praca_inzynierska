@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/pageWithChatsVol.dart';
 import '../../../../models/categories.dart';
+import '../all_applications/page_of_application_vol.dart';
 import '../main_screen.dart';
 import '../home_page/home_vol.dart';
 import '../my_applications/applications_vol.dart';
@@ -105,16 +106,19 @@ class _SettingsOfApplicationAcceptedState
         body: jsonEncode(
           <String, dynamic>{
             'notification':
-
-            <String, dynamic>{
-              'body':
-              'The volunteer has declined your application.',
-              'title': 'Your application was declined by volunteer'
+            {
+              'title': 'Your application was declined by volunteer',
+              'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
             },
+            // <String, dynamic>{
+              // 'body':
+              // 'The volunteer has declined your application.',
+
+            // },
             'sound': 'default',
             'priority': 'high',
             // 'data': {
-            //   'title': 'Refugee deleted an application',
+            //   'title': 'Your application was declined by volunteer',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
             // },
 
@@ -539,66 +543,39 @@ class _SettingsOfApplicationAcceptedState
                                                           color: blueColor,
                                                         ),
                                                         onPressed: () {
-                                                          sendPushMessage();
-                                                          // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+                                                          dialogBuilderDeclineApplication(context);
+                                                          // sendPushMessage();
+                                                          // // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+                                                          // //
+                                                          // //   print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+                                                          // //   print(message.sentTime);
+                                                          // // });
+                                                          // // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
+                                                          // // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
+                                                          // // print(IdOfChatroom);
+                                                          // FirebaseFirestore
+                                                          //     .instance
+                                                          //     .collection(
+                                                          //         'applications')
+                                                          //     .doc(
+                                                          //         streamSnapshot
+                                                          //             .data
+                                                          //             ?.docs[
+                                                          //                 index]
+                                                          //             .id)
+                                                          //     .update({
+                                                          //   "status": status_declined,
+                                                          //   "chatId_vol": "null",
+                                                          //   "date": "null",
+                                                          //   "token_vol": "null",
+                                                          //   "volunteerID": "null",
+                                                          //   "volunteer_name": "null",
+                                                          //   "application_accepted": false,
                                                           //
-                                                          //   print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
-                                                          //   print(message.sentTime);
+                                                          //
+                                                          //
                                                           // });
-                                                          // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
-                                                          // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
-                                                          // print(IdOfChatroom);
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'applications')
-                                                              .doc(
-                                                                  streamSnapshot
-                                                                      .data
-                                                                      ?.docs[
-                                                                          index]
-                                                                      .id)
-                                                              .update({
-                                                            "status": status_declined,
-                                                            "chatId_vol": "null",
-                                                            "date": "null",
-                                                            "token_vol": "null",
-                                                            "volunteerID": "null",
-                                                            "volunteer_name": "null",
-                                                            "application_accepted": false,
-
-
-
-                                                          });
-
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'applications')
-                                                              .doc(
-                                                                  streamSnapshot
-                                                                      .data
-                                                                      ?.docs[
-                                                                          index]
-                                                                      .id)
-                                                              .update({
-                                                            "mess_button_visibility_ref":
-                                                                false
-                                                          });
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'applications')
-                                                              .doc(
-                                                                  streamSnapshot
-                                                                      .data
-                                                                      ?.docs[
-                                                                          index]
-                                                                      .id)
-                                                              .update({
-                                                            "mess_button_visibility_vol":
-                                                                true
-                                                          });
+                                                          //
                                                           // FirebaseFirestore
                                                           //     .instance
                                                           //     .collection(
@@ -610,7 +587,8 @@ class _SettingsOfApplicationAcceptedState
                                                           //                 index]
                                                           //             .id)
                                                           //     .update({
-                                                          //   "token_vol": "null"
+                                                          //   "mess_button_visibility_ref":
+                                                          //       false
                                                           // });
                                                           // FirebaseFirestore
                                                           //     .instance
@@ -623,67 +601,94 @@ class _SettingsOfApplicationAcceptedState
                                                           //                 index]
                                                           //             .id)
                                                           //     .update({
-                                                          //   "volunteerID":
-                                                          //       "null"
+                                                          //   "mess_button_visibility_vol":
+                                                          //       true
                                                           // });
+                                                          // // FirebaseFirestore
+                                                          // //     .instance
+                                                          // //     .collection(
+                                                          // //         'applications')
+                                                          // //     .doc(
+                                                          // //         streamSnapshot
+                                                          // //             .data
+                                                          // //             ?.docs[
+                                                          // //                 index]
+                                                          // //             .id)
+                                                          // //     .update({
+                                                          // //   "token_vol": "null"
+                                                          // // });
+                                                          // // FirebaseFirestore
+                                                          // //     .instance
+                                                          // //     .collection(
+                                                          // //         'applications')
+                                                          // //     .doc(
+                                                          // //         streamSnapshot
+                                                          // //             .data
+                                                          // //             ?.docs[
+                                                          // //                 index]
+                                                          // //             .id)
+                                                          // //     .update({
+                                                          // //   "volunteerID":
+                                                          // //       "null"
+                                                          // // });
+                                                          // // FirebaseFirestore
+                                                          // //     .instance
+                                                          // //     .collection(
+                                                          // //         'applications')
+                                                          // //     .doc(
+                                                          // //         streamSnapshot
+                                                          // //             .data
+                                                          // //             ?.docs[
+                                                          // //                 index]
+                                                          // //             .id)
+                                                          // //     .update({
+                                                          // //   "volunteer_name":
+                                                          // //       "null"
+                                                          // // });
+                                                          //
+                                                          // // print(streamSnapshot.data?.docs[index].id);
+                                                          // // print(
+                                                          // //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
+                                                          //
+                                                          // ID_of_vol_application =
+                                                          //     streamSnapshot
+                                                          //         .data
+                                                          //         ?.docs[index]
+                                                          //         .id;
+                                                          //
+                                                          // // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
+                                                          // //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
+                                                          // // });
                                                           // FirebaseFirestore
                                                           //     .instance
                                                           //     .collection(
-                                                          //         'applications')
-                                                          //     .doc(
-                                                          //         streamSnapshot
-                                                          //             .data
-                                                          //             ?.docs[
-                                                          //                 index]
-                                                          //             .id)
-                                                          //     .update({
-                                                          //   "volunteer_name":
-                                                          //       "null"
+                                                          //         'USERS_COLLECTION')
+                                                          //     .doc(streamSnapshot
+                                                          //                 .data
+                                                          //                 ?.docs[
+                                                          //             index][
+                                                          //         "chatId_vol"])
+                                                          //     .delete();
+                                                          // setState(() {
+                                                          //   controllerTabBottomVol =
+                                                          //       PersistentTabController(
+                                                          //           initialIndex:
+                                                          //               1);
                                                           // });
-
-                                                          // print(streamSnapshot.data?.docs[index].id);
-                                                          // print(
-                                                          //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
-
-                                                          ID_of_vol_application =
-                                                              streamSnapshot
-                                                                  .data
-                                                                  ?.docs[index]
-                                                                  .id;
-
-                                                          // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
-                                                          //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
-                                                          // });
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'USERS_COLLECTION')
-                                                              .doc(streamSnapshot
-                                                                          .data
-                                                                          ?.docs[
-                                                                      index][
-                                                                  "chatId_vol"])
-                                                              .delete();
-                                                          setState(() {
-                                                            controllerTabBottomVol =
-                                                                PersistentTabController(
-                                                                    initialIndex:
-                                                                        1);
-                                                          });
-                                                          Navigator.of(context,
-                                                                  rootNavigator:
-                                                                      true)
-                                                              .pushReplacement(
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              MainScreen()));
-                                                          // Navigator.push(
-                                                          //   context,
-                                                          //   MaterialPageRoute(
-                                                          //       builder: (context) =>
-                                                          //           ApplicationsOfVolunteer()),
-                                                          // );
+                                                          // Navigator.of(context,
+                                                          //         rootNavigator:
+                                                          //             true)
+                                                          //     .pushReplacement(
+                                                          //         MaterialPageRoute(
+                                                          //             builder:
+                                                          //                 (context) =>
+                                                          //                     MainScreen()));
+                                                          // // Navigator.push(
+                                                          // //   context,
+                                                          // //   MaterialPageRoute(
+                                                          // //       builder: (context) =>
+                                                          // //           ApplicationsOfVolunteer()),
+                                                          // // );
                                                         },
                                                       ),
                                                     ),
@@ -991,7 +996,215 @@ class _SettingsOfApplicationAcceptedState
       ),
     );
   }
+  Future<void> dialogBuilderDeclineApplication(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: const Text('Decline application?'),
+          titleTextStyle: GoogleFonts.raleway(
+            fontSize: 16,
+            color: blueColor,
+          ),
+          content: const Text("You are about to decline this application. If you are ready to do it, refugee will get the notification that you have declined this application and will have to wait until another volunteer accept this application."),
+          contentTextStyle: GoogleFonts.raleway(
+            fontSize: 13,
+            color: blueColor,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonActiveDecoration,
+                    child: TextButton(
+                        child: Text(
+                          'Keep application',
+                          style: textActiveButtonStyle,
+                        ),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        }),
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height *
+                        0.085,
+                    decoration: buttonInactiveDecoration,
+                    child: TextButton(
+                        child: Text(
+                          "Decline application",
+                          style: textInactiveButtonStyle,
+                        ),
+                        onPressed: () async {
+                          sendPushMessage();
+                          // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+                          //
+                          //   print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
+                          //   print(message.sentTime);
+                          // });
+                          // IdOfChatroom = FirebaseFirestore.instance.collection('USERS_COLLECTION').doc().id;
+                          // print("MMMMMMMMMMMMMMnnnnnnnnnnnHHHHHHHHHHHHHHHHHHvvvvvvvvvvvv");
+                          // print(IdOfChatroom);
+                          FirebaseFirestore
+                              .instance
+                              .collection(
+                              'applications')
+                              .doc(
+                              Id_Of_current_application)
+                              .update({
+                            "status": status_declined,
+                            "chatId_vol": "null",
+                            "date": "null",
+                            "token_vol": "null",
+                            "volunteerID": "null",
+                            "volunteer_name": "null",
+                            "application_accepted": false,
+
+
+
+                          });
+
+                          FirebaseFirestore
+                              .instance
+                              .collection(
+                              'applications')
+                              .doc(
+                              Id_Of_current_application)
+                              .update({
+                            "mess_button_visibility_ref":
+                            false
+                          });
+                          FirebaseFirestore
+                              .instance
+                              .collection(
+                              'applications')
+                              .doc(
+                              Id_Of_current_application)
+                              .update({
+                            "mess_button_visibility_vol":
+                            true
+                          });
+                          // FirebaseFirestore
+                          //     .instance
+                          //     .collection(
+                          //         'applications')
+                          //     .doc(
+                          //         streamSnapshot
+                          //             .data
+                          //             ?.docs[
+                          //                 index]
+                          //             .id)
+                          //     .update({
+                          //   "token_vol": "null"
+                          // });
+                          // FirebaseFirestore
+                          //     .instance
+                          //     .collection(
+                          //         'applications')
+                          //     .doc(
+                          //         streamSnapshot
+                          //             .data
+                          //             ?.docs[
+                          //                 index]
+                          //             .id)
+                          //     .update({
+                          //   "volunteerID":
+                          //       "null"
+                          // });
+                          // FirebaseFirestore
+                          //     .instance
+                          //     .collection(
+                          //         'applications')
+                          //     .doc(
+                          //         streamSnapshot
+                          //             .data
+                          //             ?.docs[
+                          //                 index]
+                          //             .id)
+                          //     .update({
+                          //   "volunteer_name":
+                          //       "null"
+                          // });
+
+                          // print(streamSnapshot.data?.docs[index].id);
+                          // print(
+                          //     "AAAAAAAAAAA ${FirebaseFirestore.instance.collection('applications').doc().id}");
+
+                          ID_of_vol_application =
+                              Id_Of_current_application;
+
+                          // FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
+                          //   await myTransaction.delete(streamSnapshot.data?.docs[index]["chatId_vol"]);
+                          // });
+                          FirebaseFirestore
+                              .instance
+                              .collection(
+                              'USERS_COLLECTION')
+                              .doc(chatIdDialog)
+                              .delete();
+                          setState(() {
+                            controllerTabBottomVol =
+                                PersistentTabController(
+                                    initialIndex:
+                                    1);
+                          });
+                          Navigator.of(context,
+                              rootNavigator:
+                              true)
+                              .pushReplacement(
+                              MaterialPageRoute(
+                                  builder:
+                                      (context) =>
+                                      MainScreen()));
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           ApplicationsOfVolunteer()),
+                          // );
+                        }),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height:
+              MediaQuery.of(context).size.height *
+                  0.02,
+            ),
+
+          ],
+        );
+      },
+    );
+  }
 }
+
+
 
 // import 'dart:async';
 // import 'dart:convert';
