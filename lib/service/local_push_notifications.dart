@@ -33,7 +33,7 @@ class LocalNotificationService {
 
         id,
         message.notification!.title,
-        message.notification!.title,
+        message.notification!.body,
         notificationDetails,);
     } on Exception catch (e) {
       print('Error>>>$e');

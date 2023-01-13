@@ -18,12 +18,13 @@ import '../../volunteer/all_applications/new_screen_with_applications.dart';
 
 import '../all_applications/all_app_ref.dart';
 import '../all_applications/application_info.dart';
+import '../all_applications/rating.dart';
 import '../main_screen_ref.dart';
 import 'application_info_accepted.dart';
 
 String applicationIDRefInfo = '';
 String? tokenVolInfoAccepted;
-String card_title_ref = '';
+// String card_title_ref = '';
 String card_category_ref = '';
 String card_comment_ref = '';
 //
@@ -45,6 +46,8 @@ class CategoriesRefState extends State<CategoriesRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
     // foregroundMessage();
   }
 
@@ -167,6 +170,11 @@ class CategoriesRefState extends State<CategoriesRef> {
 
                                           onTap: () {
                                             setState(() {
+                                              IDVolOfApplication =
+                                              streamSnapshot.data
+                                                  ?.docs[index]
+                                              ['volunteerID']
+                                              as String;
                                               applicationIDRef =
                                               "${streamSnapshot.data?.docs[index].id}";
                                               IdApplicationVolInfo =
@@ -185,6 +193,7 @@ class CategoriesRefState extends State<CategoriesRef> {
                                                 "Id": streamSnapshot
                                                     .data?.docs[index].id
                                               });
+
                                               // card_title_ref =
                                               //     streamSnapshot.data?.docs[index]
                                               //         ['title'] as String;

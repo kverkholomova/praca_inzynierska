@@ -22,7 +22,8 @@ class DatabaseService{
         'age': volunteerAge,
         'image': url_image,
         'birth_day': date,
-        "num_ranking": numRating
+        "num_ranking": numRating,
+
 
 
 

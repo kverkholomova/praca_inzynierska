@@ -270,197 +270,197 @@ class _HomeRefState extends State<HomeRef> {
                                                 ),
                                               ),
 
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                        0.02),
-                                                child: Align(
-                                                  alignment: Alignment.topCenter,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    children: [
-                                                      streamSnapshot.data
-                                                          ?.docs[index]
-                                                      ['ranking'] >=
-                                                          1
-                                                          ? Icon(
-                                                        Icons.star,
-                                                        color: Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : streamSnapshot.data
-                                                          ?.docs[
-                                                      index]
-                                                      ['ranking'] ==
-                                                          0.5
-                                                          ? Icon(
-                                                        Icons.star_half,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : Icon(
-                                                        Icons.star_border,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      ),
-                                                      streamSnapshot.data
-                                                          ?.docs[index]
-                                                      ['ranking'] >=
-                                                          2
-                                                          ? Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : streamSnapshot.data
-                                                          ?.docs[
-                                                      index]
-                                                      ['ranking'] ==
-                                                          1.5
-                                                          ? Icon(
-                                                        Icons.star_half,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : Icon(
-                                                        Icons.star_border,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      ),
-                                                      streamSnapshot.data
-                                                          ?.docs[index]
-                                                      ['ranking'] >=
-                                                          3
-                                                          ? Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : streamSnapshot.data
-                                                          ?.docs[
-                                                      index]
-                                                      ['ranking'] ==
-                                                          2.5
-                                                          ? Icon(
-                                                        Icons.star_half,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : Icon(
-                                                        Icons.star_border,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      ),
-                                                      streamSnapshot.data
-                                                          ?.docs[index]
-                                                      ['ranking'] >=
-                                                          4
-                                                          ? Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : streamSnapshot.data
-                                                          ?.docs[
-                                                      index]
-                                                      ['ranking'] ==
-                                                          3.5
-                                                          ? Icon(
-                                                        Icons.star_half,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : Icon(
-                                                        Icons.star_border,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      ),
-                                                      streamSnapshot.data
-                                                          ?.docs[index]
-                                                      ['ranking'] >=
-                                                          5
-                                                          ? Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : streamSnapshot.data
-                                                          ?.docs[
-                                                      index]
-                                                      ['ranking'] ==
-                                                          4.5
-                                                          ? Icon(
-                                                        Icons.star_half,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      )
-                                                          : Icon(
-                                                        Icons.star_border,
-                                                        color:
-                                                        Colors.white,
-                                                        size: MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                            0.06,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
+                                              // Padding(
+                                              //   padding: EdgeInsets.only(
+                                              //       top: MediaQuery.of(context)
+                                              //           .size
+                                              //           .width *
+                                              //           0.02),
+                                              //   child: Align(
+                                              //     alignment: Alignment.topCenter,
+                                              //     child: Row(
+                                              //       mainAxisAlignment:
+                                              //       MainAxisAlignment.center,
+                                              //       children: [
+                                              //         streamSnapshot.data
+                                              //             ?.docs[index]
+                                              //         ['ranking'] >=
+                                              //             1
+                                              //             ? Icon(
+                                              //           Icons.star,
+                                              //           color: Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : streamSnapshot.data
+                                              //             ?.docs[
+                                              //         index]
+                                              //         ['ranking'] ==
+                                              //             0.5
+                                              //             ? Icon(
+                                              //           Icons.star_half,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : Icon(
+                                              //           Icons.star_border,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         ),
+                                              //         streamSnapshot.data
+                                              //             ?.docs[index]
+                                              //         ['ranking'] >=
+                                              //             2
+                                              //             ? Icon(
+                                              //           Icons.star_rate,
+                                              //           color: Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : streamSnapshot.data
+                                              //             ?.docs[
+                                              //         index]
+                                              //         ['ranking'] ==
+                                              //             1.5
+                                              //             ? Icon(
+                                              //           Icons.star_half,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : Icon(
+                                              //           Icons.star_border,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         ),
+                                              //         streamSnapshot.data
+                                              //             ?.docs[index]
+                                              //         ['ranking'] >=
+                                              //             3
+                                              //             ? Icon(
+                                              //           Icons.star_rate,
+                                              //           color: Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : streamSnapshot.data
+                                              //             ?.docs[
+                                              //         index]
+                                              //         ['ranking'] ==
+                                              //             2.5
+                                              //             ? Icon(
+                                              //           Icons.star_half,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : Icon(
+                                              //           Icons.star_border,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         ),
+                                              //         streamSnapshot.data
+                                              //             ?.docs[index]
+                                              //         ['ranking'] >=
+                                              //             4
+                                              //             ? Icon(
+                                              //           Icons.star_rate,
+                                              //           color: Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : streamSnapshot.data
+                                              //             ?.docs[
+                                              //         index]
+                                              //         ['ranking'] ==
+                                              //             3.5
+                                              //             ? Icon(
+                                              //           Icons.star_half,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : Icon(
+                                              //           Icons.star_border,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         ),
+                                              //         streamSnapshot.data
+                                              //             ?.docs[index]
+                                              //         ['ranking'] >=
+                                              //             5
+                                              //             ? Icon(
+                                              //           Icons.star_rate,
+                                              //           color: Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : streamSnapshot.data
+                                              //             ?.docs[
+                                              //         index]
+                                              //         ['ranking'] ==
+                                              //             4.5
+                                              //             ? Icon(
+                                              //           Icons.star_half,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         )
+                                              //             : Icon(
+                                              //           Icons.star_border,
+                                              //           color:
+                                              //           Colors.white,
+                                              //           size: MediaQuery.of(context)
+                                              //               .size
+                                              //               .width *
+                                              //               0.06,
+                                              //         ),
+                                              //       ],
+                                              //     ),
+                                              //   ),
+                                              // ),
 
                                               // Padding(
                                               //   padding: const EdgeInsets.only(top: 15),

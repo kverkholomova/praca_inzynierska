@@ -39,22 +39,22 @@ class _PageOfApplicationState extends State<PageOfApplication> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   // String? token = " ";
-
-  @override
-  void initState() {
-    super.initState();
-
-    // foregroundMessage();
-    // requestPermission();
-    //
-    // loadFCM();
-    //
-    // listenFCM();
-
-    // getToken();
-
-    // FirebaseMessaging.instance.subscribeToTopic("Animal");
-  }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   // foregroundMessage();
+  //   // requestPermission();
+  //   //
+  //   // loadFCM();
+  //   //
+  //   // listenFCM();
+  //
+  //   // getToken();
+  //
+  //   // FirebaseMessaging.instance.subscribeToTopic("Animal");
+  // }
 
   void sendPushMessage() async {
     print(
@@ -78,14 +78,14 @@ class _PageOfApplicationState extends State<PageOfApplication> {
                     'Your application was accepted by the volunteer.',
 
               },
-              "type": "post_like",
+              // "type": "post_like",
               // "data": {
               //   "model":{"id":"dsaflkdskfklgdkgjdksakdk"},
               //   "body": "this is subtitle",
               //   "title": "this is title",
               //   "click_action": "FLUTTER_NOTIFICATION_CLICK"
               // },
-              "priority": "high"
+              // "priority": "high"
             }
 
           //   'notification':
@@ -118,28 +118,28 @@ class _PageOfApplicationState extends State<PageOfApplication> {
 
 
 
-  void requestPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
-    } else {
-      print('User declined or has not accepted permission');
-    }
-  }
+  // void requestPermission() async {
+  //   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  //
+  //   NotificationSettings settings = await messaging.requestPermission(
+  //     alert: true,
+  //     announcement: false,
+  //     badge: true,
+  //     carPlay: false,
+  //     criticalAlert: false,
+  //     provisional: false,
+  //     sound: true,
+  //   );
+  //
+  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+  //     print('User granted permission');
+  //   } else if (settings.authorizationStatus ==
+  //       AuthorizationStatus.provisional) {
+  //     print('User granted provisional permission');
+  //   } else {
+  //     print('User declined or has not accepted permission');
+  //   }
+  // }
 
   // void foregroundMessage(){
   //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {

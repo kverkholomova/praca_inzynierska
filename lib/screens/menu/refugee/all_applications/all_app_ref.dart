@@ -8,6 +8,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
+import 'package:wol_pro_1/screens/menu/refugee/all_applications/rating.dart';
 
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
@@ -202,9 +203,14 @@ class AllApplicationsRefState extends State<AllApplicationsRef> {
                                                   ?.docs[index]
                                               [
                                               "chatId_vol"];
-                                              IdVolInfoAllApp = streamSnapshot
-                                                  .data
-                                                  ?.docs[index]['volunteerID'];
+                                              IDVolOfApplication =
+                                              streamSnapshot.data
+                                                  ?.docs[index]
+                                              ['volunteerID']
+                                              as String;
+                                              // IdVolInfoAllApp = streamSnapshot
+                                              //     .data
+                                              //     ?.docs[index]['volunteerID'];
                                               FirebaseFirestore.instance
                                                   .collection('applications')
                                                   .doc(streamSnapshot

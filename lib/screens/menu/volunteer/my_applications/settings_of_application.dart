@@ -18,6 +18,8 @@ import '../main_screen.dart';
 import '../home_page/home_vol.dart';
 import '../my_applications/applications_vol.dart';
 
+//num_ranking
+
 String roomExist = '';
 bool firstMessage = false;
 
@@ -104,19 +106,23 @@ class _SettingsOfApplicationAcceptedState
           'key = AAAADY1uR1I:APA91bEruiKUQtfsFz0yWjEovi9GAF9nkGYfmW9H2lU6jrtdCGw2C1ZdEczYXvovHMPqQBYSrDnYsbhsyk-kcCBi6Wht_YrGcSKXw4vk0UUNRlwN9UdM_4rhmf_6hd_xyAXbBsgyx12L  ',
         },
         body: jsonEncode(
-          <String, dynamic>{
+         {
             'notification':
+            // {
             {
+
+              "body": 'The application was deleted by refugee, so your help is not necessary anymore.',
               'title': 'Your application was declined by volunteer',
-              'body': 'The application was deleted by refugee, so your help is not necessary anymore.',
             },
             // <String, dynamic>{
               // 'body':
               // 'The volunteer has declined your application.',
 
             // },
+         // "mutable_content": true,
+         // "sound": "Tri-tone",
             'sound': 'default',
-            'priority': 'high',
+            // 'priority': 'high',
             // 'data': {
             //   'title': 'Your application was declined by volunteer',
             //   'body': 'The application was deleted by refugee, so your help is not necessary anymore.',

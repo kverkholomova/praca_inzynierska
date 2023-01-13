@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,6 +28,8 @@ import '../../../../models/categories.dart';
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 
+double ratingSum =0;
+int numberRating = 0;
 String editCategory = '';
 String cTitle = '';
 String cCurrentCategory = '';
@@ -134,11 +139,31 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
     }
   }
 
+  late StreamSubscription<User?> user;
+
+  void setRate(){
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+
+      DocumentSnapshot variable = await FirebaseFirestore.instance.
+      collection('users').
+      doc( IDVolOfApplication).
+      get();
+
+      ratingSum = variable ['ranking'];
+      numberRating = variable['num_ranking'];
+
+      print("Teeeeeeeeeeee Raaaaaaaaaaaaaateeeeeeeeeeeeeee");
+      print(ratingSum);
+      print(numberRating);
+
+    });
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // foregroundMessage();
+
+    setRate();
   }
 
   // void foregroundMessage(){
@@ -1028,11 +1053,17 @@ class _PageOfApplicationRefState extends State<PageOfApplicationRef> {
 
                                                   setState(() {
 
-                                                    IDVolOfApplication =
-                                                        streamSnapshot.data
-                                                                    ?.docs[index]
-                                                                ['volunteerID']
-                                                            as String;
+                                                    // ratingSum = streamSnapshot.data
+                                                    //     ?.docs[index]
+                                                    // ['ranking'];
+                                                    // numberRating = streamSnapshot.data
+                                                    //     ?.docs[index]
+                                                    // ['num_ranking'];
+                                                    // IDVolOfApplication =
+                                                    //     streamSnapshot.data
+                                                    //                 ?.docs[index]
+                                                    //             ['volunteerID']
+                                                    //         as String;
                                                     print(IDVolOfApplication);
                                                     print(
                                                         "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");

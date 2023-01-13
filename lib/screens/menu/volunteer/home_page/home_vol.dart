@@ -661,6 +661,14 @@ class _HomeVolState extends State<HomeVol> {
                                             );
 
                                           case ConnectionState.active:
+                                            print("Raaaaaaaaatiiiiiiiiiiingg");
+                                            print(streamSnapshot.data?.docs[
+                                            index]
+                                            [
+                                            'ranking'] / streamSnapshot.data?.docs[
+                                            index]
+                                            [
+                                            'num_ranking']);
                                             // categoriesVolunteer.add(streamSnapshot
                                             //     .data?.docs[index]['category']);
                                             // print(
@@ -841,9 +849,12 @@ class _HomeVolState extends State<HomeVol> {
                                                                       .center,
                                                               children: [
                                                                 streamSnapshot.data?.docs[
-                                                                                index]
-                                                                            [
-                                                                            'ranking'] >=
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] >=
                                                                         1
                                                                     ? Icon(
                                                                         Icons.star,
@@ -855,9 +866,13 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 .width *
                                                                             0.06,
                                                                       )
-                                                                    : streamSnapshot
-                                                                                .data
-                                                                                ?.docs[index]['ranking'] ==
+                                                                    : streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] ==
                                                                             0.5
                                                                         ? Icon(
                                                                             Icons
@@ -880,9 +895,12 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 0.06,
                                                                           ),
                                                                 streamSnapshot.data?.docs[
-                                                                                index]
-                                                                            [
-                                                                            'ranking'] >=
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] >=
                                                                         2
                                                                     ? Icon(
                                                                         Icons
@@ -895,9 +913,13 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 .width *
                                                                             0.06,
                                                                       )
-                                                                    : streamSnapshot
-                                                                                .data
-                                                                                ?.docs[index]['ranking'] ==
+                                                                    : streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] ==
                                                                             1.5
                                                                         ? Icon(
                                                                             Icons
@@ -920,9 +942,12 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 0.06,
                                                                           ),
                                                                 streamSnapshot.data?.docs[
-                                                                                index]
-                                                                            [
-                                                                            'ranking'] >=
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] >=
                                                                         3
                                                                     ? Icon(
                                                                         Icons
@@ -935,9 +960,13 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 .width *
                                                                             0.06,
                                                                       )
-                                                                    : streamSnapshot
-                                                                                .data
-                                                                                ?.docs[index]['ranking'] ==
+                                                                    : streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] ==
                                                                             2.5
                                                                         ? Icon(
                                                                             Icons
@@ -960,9 +989,12 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 0.06,
                                                                           ),
                                                                 streamSnapshot.data?.docs[
-                                                                                index]
-                                                                            [
-                                                                            'ranking'] >=
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] >=
                                                                         4
                                                                     ? Icon(
                                                                         Icons
@@ -975,9 +1007,13 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 .width *
                                                                             0.06,
                                                                       )
-                                                                    : streamSnapshot
-                                                                                .data
-                                                                                ?.docs[index]['ranking'] ==
+                                                                    : streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] ==
                                                                             3.5
                                                                         ? Icon(
                                                                             Icons
@@ -1000,9 +1036,12 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 0.06,
                                                                           ),
                                                                 streamSnapshot.data?.docs[
-                                                                                index]
-                                                                            [
-                                                                            'ranking'] >=
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] >=
                                                                         5
                                                                     ? Icon(
                                                                         Icons
@@ -1015,9 +1054,13 @@ class _HomeVolState extends State<HomeVol> {
                                                                                 .width *
                                                                             0.06,
                                                                       )
-                                                                    : streamSnapshot
-                                                                                .data
-                                                                                ?.docs[index]['ranking'] ==
+                                                                    : streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'ranking'] / streamSnapshot.data?.docs[
+                                                                index]
+                                                                [
+                                                                'num_ranking'] ==
                                                                             4.5
                                                                         ? Icon(
                                                                             Icons

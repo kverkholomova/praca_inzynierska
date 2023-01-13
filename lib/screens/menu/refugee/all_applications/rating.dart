@@ -385,6 +385,16 @@ class _RatingState extends State<Rating> {
                                                   "voluneer_rating":
                                                   _rating
                                                 });
+                                                FirebaseFirestore
+                                                    .instance
+                                                    .collection(
+                                                    'users')
+                                                    .doc(IDVolOfApplication)
+                                                    .update({
+                                                  "num_ranking": (numberRating +1),
+                                                  "ranking": (ratingSum + _rating),
+                                                });
+
                                                 // FirebaseFirestore
                                                 //     .instance
                                                 //     .collection(

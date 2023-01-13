@@ -902,9 +902,9 @@ class _SettingsVolState extends State<SettingsVol> {
                                             ),
                                             onPressed: () async {
                                               await _auth.signOut();
-                                              SystemNavigator.pop();
-                                              // Navigator.of(context, rootNavigator: true).pushReplacement(
-                                              //     MaterialPageRoute(builder: (context) => const OptionChoose()));
+                                              // SystemNavigator.pop();
+                                              Navigator.of(context, rootNavigator: true).pushReplacement(
+                                                  MaterialPageRoute(builder: (context) => const OptionChoose()));
                                               // Navigator.push(
                                               //     context,
                                               //     MaterialPageRoute(

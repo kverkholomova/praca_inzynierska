@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -41,6 +44,32 @@ class _AcceptedPageOfApplicationRefState
   late AndroidNotificationChannel channel;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
+  late StreamSubscription<User?> user;
+
+  void setRate(){
+    user = FirebaseAuth.instance.authStateChanges().listen((user) async {
+
+      DocumentSnapshot variable = await FirebaseFirestore.instance.
+      collection('users').
+      doc( IDVolOfApplication).
+      get();
+
+      ratingSum = variable ['ranking'];
+      numberRating = variable['num_ranking'];
+
+      print("Teeeeeeeeeeee Raaaaaaaaaaaaaateeeeeeeeeeeeeee");
+      print(ratingSum);
+      print(numberRating);
+
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    setRate();
+  }
   // String? token = " ";
   //
   // @override
@@ -619,7 +648,20 @@ class _AcceptedPageOfApplicationRefState
                                               ),
                                               onPressed: () async {
                                                 // sendPushMessageMarkedAsDone();
-
+                                                // ratingSum = FirebaseFirestore.instance
+                                                //     .collection(
+                                                //         'users')
+                                                //     .doc(streamSnapshot.data
+                                                //     ?.docs[index]
+                                                // ['volunteerID']).get('ranking');
+                                                // numberRating = streamSnapshot.data
+                                                //     ?.docs[index]
+                                                // ['num_ranking'];
+                                                // IDVolOfApplication =
+                                                // streamSnapshot.data
+                                                //     ?.docs[index]
+                                                // ['volunteerID']
+                                                // as String;
                                                 // FirebaseFirestore.instance
                                                 //     .collection(
                                                 //         'applications')
@@ -632,7 +674,11 @@ class _AcceptedPageOfApplicationRefState
                                                 //           initialIndex: 4);
                                                 // });
                                                 setState(() {
-
+                                                  print("Teeeeeeeeeeee Raaaaaaaaaaaaaateeeeeeeeeeeeeee");
+                                                  print(ratingSum);
+                                                  print(numberRating);
+                                                  print(IDVolOfApplication);
+                                                  setRate();
                                                   isAcceptedApplicationRefugee = true;
                                                 });
                                                 Navigator.of(context,
