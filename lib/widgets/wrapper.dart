@@ -27,6 +27,7 @@ class Wrapper extends StatefulWidget {
   State<Wrapper> createState() => _WrapperState();
 }
 bool _isLoading = true;
+bool isLoadingRef = true;
 class _WrapperState extends State<Wrapper> {
 
   loadImageRef() async{
@@ -127,9 +128,14 @@ class _WrapperState extends State<Wrapper> {
       });
 
     });
+    print("Loading reeeeeeeef");
+    print(isLoadingRef);
     Future.delayed(Duration(seconds: 5), () {
       setState(() {
         _isLoading = false;
+        isLoadingRef = false;
+        print("Loaaaaad reeeeeeeeef");
+        print(isLoadingRef);
       });
     });
 
@@ -144,7 +150,7 @@ class _WrapperState extends State<Wrapper> {
     if (user==null){
       return Authenticate();
     } else if(optionRefugee){
-      return signInRef?WelcomeScreenRefugee():OnBoardingRefugee();
+      return signInRef?!isLoadingRef?WelcomeScreenRefugee():LoadingRefugee():OnBoardingRefugee();
     }else if(!optionRefugee){
       // return SettingsHomeVol();
       return registrationVol?ChooseCategory():!_isLoading?WelcomeScreen():Loading();

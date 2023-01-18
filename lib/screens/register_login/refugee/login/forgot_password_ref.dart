@@ -47,7 +47,7 @@ class _ForgotPasswordRefState extends State<ForgotPasswordRef> {
       child: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           appBar: AppBar(
             title: Text(
               "Refugee",
@@ -204,11 +204,11 @@ class _ForgotPasswordRefState extends State<ForgotPasswordRef> {
                     child: Container(
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.085,
-                      decoration: buttonActiveDecoration,
+                      decoration: buttonActiveDecorationRefugee,
                       child: TextButton(
                           child: Text(
                             "Reset password",
-                            style: textActiveButtonStyle,
+                            style: textActiveButtonStyleRefugee,
                           ),
                           onPressed: () async {
 
@@ -239,19 +239,19 @@ class _ForgotPasswordRefState extends State<ForgotPasswordRef> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: backgroundRefugee,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           title: const Text('Set a new password'),
           titleTextStyle: GoogleFonts.raleway(
             fontSize: 16,
-            color: blueColor,
+            color: Colors.black,
           ),
           content: const Text("A letter to reset your password has been sent to your email. Provide a new password and sign in."),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
-            color: blueColor,
+            color: Colors.black,
           ),
           actions: <Widget>[
             Padding(
@@ -263,11 +263,11 @@ class _ForgotPasswordRefState extends State<ForgotPasswordRef> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height *
                         0.085,
-                    decoration: buttonActiveDecoration,
+                    decoration: buttonActiveDecorationRefugee,
                     child: TextButton(
                         child: Text(
                           'Get it',
-                          style: textActiveButtonStyle,
+                          style: textActiveButtonStyleRefugee,
                         ),
                         onPressed: () async {
                           optionRefugee = true;
