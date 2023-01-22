@@ -344,7 +344,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                 streamSnapshot.data?.docs[
                                                 index]
                                                 [
-                                                'ranking'] >=
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] >=
                                                     1
                                                     ? Icon(
                                                   Icons.star,
@@ -355,9 +358,13 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                       .width *
                                                       0.06,
                                                 )
-                                                    : streamSnapshot
-                                                    .data
-                                                    ?.docs[index]['ranking'] ==
+                                                    : streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] ==
                                                     0.5
                                                     ? Icon(
                                                   Icons
@@ -380,7 +387,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                 streamSnapshot.data?.docs[
                                                 index]
                                                 [
-                                                'ranking'] >=
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] >=
                                                     2
                                                     ? Icon(
                                                   Icons
@@ -392,9 +402,13 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                       .width *
                                                       0.06,
                                                 )
-                                                    : streamSnapshot
-                                                    .data
-                                                    ?.docs[index]['ranking'] ==
+                                                    : streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] ==
                                                     1.5
                                                     ? Icon(
                                                   Icons
@@ -417,7 +431,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                 streamSnapshot.data?.docs[
                                                 index]
                                                 [
-                                                'ranking'] >=
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] >=
                                                     3
                                                     ? Icon(
                                                   Icons
@@ -429,9 +446,13 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                       .width *
                                                       0.06,
                                                 )
-                                                    : streamSnapshot
-                                                    .data
-                                                    ?.docs[index]['ranking'] ==
+                                                    : streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] ==
                                                     2.5
                                                     ? Icon(
                                                   Icons
@@ -454,7 +475,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                 streamSnapshot.data?.docs[
                                                 index]
                                                 [
-                                                'ranking'] >=
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] >=
                                                     4
                                                     ? Icon(
                                                   Icons
@@ -466,9 +490,13 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                       .width *
                                                       0.06,
                                                 )
-                                                    : streamSnapshot
-                                                    .data
-                                                    ?.docs[index]['ranking'] ==
+                                                    : streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] ==
                                                     3.5
                                                     ? Icon(
                                                   Icons
@@ -491,7 +519,10 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                 streamSnapshot.data?.docs[
                                                 index]
                                                 [
-                                                'ranking'] >=
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] >=
                                                     5
                                                     ? Icon(
                                                   Icons
@@ -503,9 +534,13 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                       .width *
                                                       0.06,
                                                 )
-                                                    : streamSnapshot
-                                                    .data
-                                                    ?.docs[index]['ranking'] ==
+                                                    : streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'ranking'] / streamSnapshot.data?.docs[
+                                                index]
+                                                [
+                                                'num_ranking'] ==
                                                     4.5
                                                     ? Icon(
                                                   Icons
@@ -535,6 +570,25 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                               .of(context)
                                               .size
                                               .height * 0.015,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              "Volunteer's phone number:",
+                                              style: GoogleFonts.raleway(
+                                                fontSize: 12,
+                                                color:  Colors.black,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                         Align(
                                           alignment: Alignment.topLeft,
