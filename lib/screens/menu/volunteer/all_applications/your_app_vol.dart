@@ -196,7 +196,7 @@ class YourCategoriesState extends State<YourCategories> {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.99,
+                  height: MediaQuery.of(context).size.height * 0.85,
                     child: StreamBuilder(
                       stream:  applications
                           .where("status", isEqualTo: 'Sent to volunteer')

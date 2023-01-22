@@ -557,11 +557,11 @@ class _HomeRefState extends State<HomeRef> {
                             case ConnectionState.waiting:
                               return Column(
                                   children: const [
-                                    SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: CircularProgressIndicator(),
-                                    ),
+                                    // SizedBox(
+                                    //   width: 60,
+                                    //   height: 60,
+                                    //   child: CircularProgressIndicator(),
+                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(top: 16),
                                       child: Text(''),

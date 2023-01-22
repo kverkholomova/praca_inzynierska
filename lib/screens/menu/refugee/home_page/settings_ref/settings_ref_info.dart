@@ -869,9 +869,9 @@ class _SettingsRefState extends State<SettingsRef> {
                                             ),
                                             onPressed: () async {
                                               await _auth.signOut();
-                                              // SystemNavigator.pop();
-                                              Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                  MaterialPageRoute(builder: (context) => OptionChoose()));
+                                              SystemNavigator.pop();
+                                              // Navigator.of(context, rootNavigator: true).pushReplacement(
+                                              //     MaterialPageRoute(builder: (context) => OptionChoose()));
                                               // Navigator.push(
                                               //     context,
                                               //     MaterialPageRoute(

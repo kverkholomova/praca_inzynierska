@@ -10,7 +10,8 @@ List<String> categoriesListAll = [
   "Language assistance",
   "Law consult",
   "Medical assistance",
-  "Other"];
+  // "Other"
+];
 
 List<String> categoriesListAllRefugee = [
   "Accommodation",
@@ -21,7 +22,8 @@ List<String> categoriesListAllRefugee = [
   "Language assistance",
   "Law consult",
   "Medical assistance",
-  "Other"];
+  // "Other"
+];
 
 List dropdownItemList = [
   {

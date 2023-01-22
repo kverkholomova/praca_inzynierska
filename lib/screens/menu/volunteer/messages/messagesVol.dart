@@ -185,7 +185,7 @@ class _MessagesVolState extends State<MessagesVol> {
                      if (snapshot.connectionState ==
                          ConnectionState.waiting) {
                        return Center(
-                         child: CircularProgressIndicator(),
+                         // child: CircularProgressIndicator(),
                        );
                      }
 

@@ -150,11 +150,11 @@ class CategoriesRefState extends State<CategoriesRef> {
                               switch (streamSnapshot.connectionState) {
                                 case ConnectionState.waiting:
                                   return Column(children: [
-                                    SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: CircularProgressIndicator(),
-                                    ),
+                                    // SizedBox(
+                                    //   width: 60,
+                                    //   height: 60,
+                                    //   child: CircularProgressIndicator(),
+                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(top: 16),
                                       child: Text(''),

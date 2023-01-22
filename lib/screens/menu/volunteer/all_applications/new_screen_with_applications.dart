@@ -227,7 +227,7 @@ class CategoriesState extends State<Categories> {
                                 MediaQuery.of(context).size.height *
                                     0.012,
                               ),
-                              CategoryWidget(text: categoriesListAll[9],),
+                              // CategoryWidget(text: categoriesListAll[9],),
 
 
                       // Padding(

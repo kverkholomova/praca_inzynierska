@@ -133,235 +133,237 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                     .height *
                     0.015,
               ),
-              SizedBox(
-                height: MediaQuery.of(context)
-                    .size
-                    .height *
-                    0.9,
-                child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('USERS_COLLECTION')
-                      .where('IdVolunteer', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                      .snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                        // scrollDirection: Axis.vertical,
-                        itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
-                        itemBuilder: (ctx, index) {
-                        if (streamSnapshot.hasData){
-                          switch (streamSnapshot.connectionState){
-                            case ConnectionState.waiting:
-                              return  Column(
-                                children: [
-                                    // SizedBox(
-                                    // width: 60,
-                                    // height: 60,
-                                    // child: CircularProgressIndicator(),
-                                    // ),
-                                    Padding(
-                                    padding: EdgeInsets.only(top: 16),
-                                    child: Text(''),
-                                    )
-                              ]
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.7,
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('USERS_COLLECTION')
+                        .where('IdVolunteer', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                          // scrollDirection: Axis.vertical,
+                          itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
+                          itemBuilder: (ctx, index) {
+                          if (streamSnapshot.hasData){
+                            switch (streamSnapshot.connectionState){
+                              case ConnectionState.waiting:
+                                return  Column(
+                                  children: [
+                                      // SizedBox(
+                                      // width: 60,
+                                      // height: 60,
+                                      // child: CircularProgressIndicator(),
+                                      // ),
+                                      Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Text(''),
+                                      )
+                                ]
 
-                        );
+                          );
 
-                        case ConnectionState.active:
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: padding,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    changeContainerHeight = false;
-                                    // scrollControllerVol.jumpTo(
-                                    //     scrollControllerVol
-                                    //         .positions.last.maxScrollExtent);
-                                    listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
-                                    IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
+                          case ConnectionState.active:
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: padding,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      changeContainerHeight = false;
+                                      // scrollControllerVol.jumpTo(
+                                      //     scrollControllerVol
+                                      //         .positions.last.maxScrollExtent);
+                                      listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
+                                      IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
 
-                                    lastMessageVol = streamSnapshot.data?.docs[index]["last_msg"];
-                                    isVisibleTabBar = false;
-                                    print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
-                                    print(isVisibleTabBar);
+                                      lastMessageVol = streamSnapshot.data?.docs[index]["last_msg"];
+                                      isVisibleTabBar = false;
+                                      print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
+                                      print(isVisibleTabBar);
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           MainScreen()),
+                                      // );
+                                      // print("print ${streamSnapshot.data?.docs[index][id]}");
+                                    });
+                                    Navigator.of(context, rootNavigator: true).pushReplacement(
+                                        MaterialPageRoute(builder: (context) => new SelectedChatroomVol()));
                                     // Navigator.push(
                                     //   context,
                                     //   MaterialPageRoute(
                                     //       builder: (context) =>
-                                    //           MainScreen()),
+                                    //           SelectedChatroomVol()),
                                     // );
-                                    // print("print ${streamSnapshot.data?.docs[index][id]}");
-                                  });
-                                  Navigator.of(context, rootNavigator: true).pushReplacement(
-                                      MaterialPageRoute(builder: (context) => new SelectedChatroomVol()));
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) =>
-                                  //           SelectedChatroomVol()),
-                                  // );
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          15)),
-                                  child: Padding(
-                                    padding: padding,
-                                    child:
-                                        // CircleAvatar(
-                                        //     radius: 25.0,
-                                        //     backgroundImage: NetworkImage(url_image.toString())),
-                                        Align(
-                                          alignment: Alignment.topLeft,
-                                          child: SizedBox(
-                                            width: MediaQuery.of(context).size.width *
-                                                0.9,
-                                            height: MediaQuery.of(context).size.height *
-                                                0.085,
-                                            child:ListTile(
-                                              // mainAxisAlignment: MainAxisAlignment.start,
-                                              // contentPadding:
-                                              // EdgeInsets.symmetric(
-                                              //     vertical: 10),
-                                              title: Text(
-                                                  streamSnapshot.data?.docs[index]['Application_Name']
-                                                  as String,
-                                                  style: GoogleFonts
-                                                      .raleway(
-                                                    fontSize: 14,
-                                                    color: Colors.black,
-                                                  )),
-                                              // Text(
-                                              //     streamSnapshot.data?.docs[index]['category'] as String,
-                                              //     style: TextStyle(color: Colors.grey)),
-                                              // subtitle: Text(
-                                              //   streamSnapshot.data
-                                              //       ?.docs[index]
-                                              //   ['comment']
-                                              //   as String,
-                                              //   style:
-                                              //   GoogleFonts.raleway(
-                                              //     fontSize: 12,
-                                              //     color: Colors.black
-                                              //         .withOpacity(0.5),
-                                              //   ),
-                                              // ),
-                                            ),),
-                                        )
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            15)),
+                                    child: Padding(
+                                      padding: padding,
+                                      child:
+                                          // CircleAvatar(
+                                          //     radius: 25.0,
+                                          //     backgroundImage: NetworkImage(url_image.toString())),
+                                          Align(
+                                            alignment: Alignment.topLeft,
+                                            child: SizedBox(
+                                              width: MediaQuery.of(context).size.width *
+                                                  0.9,
+                                              height: MediaQuery.of(context).size.height *
+                                                  0.085,
+                                              child:ListTile(
+                                                // mainAxisAlignment: MainAxisAlignment.start,
+                                                // contentPadding:
+                                                // EdgeInsets.symmetric(
+                                                //     vertical: 10),
+                                                title: Text(
+                                                    streamSnapshot.data?.docs[index]['Application_Name']
+                                                    as String,
+                                                    style: GoogleFonts
+                                                        .raleway(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                    )),
+                                                // Text(
+                                                //     streamSnapshot.data?.docs[index]['category'] as String,
+                                                //     style: TextStyle(color: Colors.grey)),
+                                                // subtitle: Text(
+                                                //   streamSnapshot.data
+                                                //       ?.docs[index]
+                                                //   ['comment']
+                                                //   as String,
+                                                //   style:
+                                                //   GoogleFonts.raleway(
+                                                //     fontSize: 12,
+                                                //     color: Colors.black
+                                                //         .withOpacity(0.5),
+                                                //   ),
+                                                // ),
+                                              ),),
+                                          )
 
+                                    ),
                                   ),
+                                  // Stack(
+                                  //   children: [
+                                  //     //streamSnapshot.data?.docs[index]['title']==null ?
+                                  //
+                                  //     const Padding(
+                                  //       padding: EdgeInsets.all(8.0),
+                                  //       child: Align(
+                                  //         alignment: Alignment.topLeft,
+                                  //         child: CircleAvatar(
+                                  //           radius: 25,
+                                  //           backgroundColor: Colors.lightBlue,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+
+                                      // Align(
+                                      //   alignment: Alignment.centerLeft,
+                                      //     child: Padding(
+                                      //       padding: const EdgeInsets.only(top: 23, left: 70,bottom: 8,),
+                                      //       child: Text(streamSnapshot.data?.docs[index]['Refugee_Name'], style: TextStyle(fontSize: 18),),
+                                      //     )),
+
+                                      // StreamBuilder(
+                                      //   stream: FirebaseFirestore.instance
+                                      //       .collection('USERS_COLLECTION')
+                                      //       .doc()
+                                      //       .collection("CHATROOMS_COLLECTION")
+                                      //       // .where(field)
+                                      //
+                                      //       .where('chatId', isEqualTo: IdOfChatroomVol)
+                                      //       .where('time', isGreaterThan: FirebaseFirestore.instance
+                                      //       .collection('USERS_COLLECTION')
+                                      //       .doc()
+                                      //       .collection("CHATROOMS_COLLECTION")
+                                      //       .where('chatId', isEqualTo: IdOfChatroomVol))
+                                      //       .snapshots(),
+                                      //   builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
+                                      //     return Container(
+                                      //
+                                      //       height: double.infinity,
+                                      //       child: ListView.builder(
+                                      //
+                                      //           shrinkWrap: true,
+                                      //           scrollDirection: Axis.vertical,
+                                      //           itemCount: streamSnapshot.data?.docs.length,
+                                      //           itemBuilder: (ctx, index) =>
+                                      //               Column(
+                                      //                 mainAxisSize: MainAxisSize.max,
+                                      //                 children: [
+                                      //                   Padding(
+                                      //                     padding: const EdgeInsets.all(8.0),
+                                      //                     child: Align(
+                                      //                       alignment: Alignment.topLeft,
+                                      //                       child: Text(streamSnapshot.data?.docs[index]['message'], style: TextStyle(fontSize: 16),
+                                      //                       ),
+                                      //                     ),
+                                      //                   ),
+                                      //
+                                      //                 ],
+                                      //               )),
+                                      //     );
+                                      //   },
+                                      // ),
+
+                                      // Align(
+                                      //     alignment: Alignment.centerLeft,
+                                      //     child: Padding(
+                                      //       padding: const EdgeInsets.only(top: 8, left: 70,bottom: 8,),
+                                      //       child: Text(last_message!, style: TextStyle(fontSize: 16),),
+                                      //     )
+                                      // ),
+                                  //   ],
+                                  // ),
                                 ),
-                                // Stack(
-                                //   children: [
-                                //     //streamSnapshot.data?.docs[index]['title']==null ?
-                                //
-                                //     const Padding(
-                                //       padding: EdgeInsets.all(8.0),
-                                //       child: Align(
-                                //         alignment: Alignment.topLeft,
-                                //         child: CircleAvatar(
-                                //           radius: 25,
-                                //           backgroundColor: Colors.lightBlue,
-                                //         ),
-                                //       ),
-                                //     ),
-
-                                    // Align(
-                                    //   alignment: Alignment.centerLeft,
-                                    //     child: Padding(
-                                    //       padding: const EdgeInsets.only(top: 23, left: 70,bottom: 8,),
-                                    //       child: Text(streamSnapshot.data?.docs[index]['Refugee_Name'], style: TextStyle(fontSize: 18),),
-                                    //     )),
-
-                                    // StreamBuilder(
-                                    //   stream: FirebaseFirestore.instance
-                                    //       .collection('USERS_COLLECTION')
-                                    //       .doc()
-                                    //       .collection("CHATROOMS_COLLECTION")
-                                    //       // .where(field)
-                                    //
-                                    //       .where('chatId', isEqualTo: IdOfChatroomVol)
-                                    //       .where('time', isGreaterThan: FirebaseFirestore.instance
-                                    //       .collection('USERS_COLLECTION')
-                                    //       .doc()
-                                    //       .collection("CHATROOMS_COLLECTION")
-                                    //       .where('chatId', isEqualTo: IdOfChatroomVol))
-                                    //       .snapshots(),
-                                    //   builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
-                                    //     return Container(
-                                    //
-                                    //       height: double.infinity,
-                                    //       child: ListView.builder(
-                                    //
-                                    //           shrinkWrap: true,
-                                    //           scrollDirection: Axis.vertical,
-                                    //           itemCount: streamSnapshot.data?.docs.length,
-                                    //           itemBuilder: (ctx, index) =>
-                                    //               Column(
-                                    //                 mainAxisSize: MainAxisSize.max,
-                                    //                 children: [
-                                    //                   Padding(
-                                    //                     padding: const EdgeInsets.all(8.0),
-                                    //                     child: Align(
-                                    //                       alignment: Alignment.topLeft,
-                                    //                       child: Text(streamSnapshot.data?.docs[index]['message'], style: TextStyle(fontSize: 16),
-                                    //                       ),
-                                    //                     ),
-                                    //                   ),
-                                    //
-                                    //                 ],
-                                    //               )),
-                                    //     );
-                                    //   },
-                                    // ),
-
-                                    // Align(
-                                    //     alignment: Alignment.centerLeft,
-                                    //     child: Padding(
-                                    //       padding: const EdgeInsets.only(top: 8, left: 70,bottom: 8,),
-                                    //       child: Text(last_message!, style: TextStyle(fontSize: 16),),
-                                    //     )
-                                    // ),
-                                //   ],
-                                // ),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context)
+                                    .size
+                                    .height *
+                                    0.015,
+                              ),
+                            ],
+                          );}}
+                          return Center(
+                            child: Padding(padding: EdgeInsets.only(top: 100),
+                              child: Column(
+                                children: [
+                                  // SpinKitChasingDots(
+                                  //   color: Colors.brown,
+                                  //   size: 50.0,
+                                  // ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+                                    ),
+                                  ),
+                                  Padding(padding: EdgeInsets.only(top: 20),)
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              height: MediaQuery.of(context)
-                                  .size
-                                  .height *
-                                  0.015,
-                            ),
-                          ],
-                        );}}
-                        return Center(
-                          child: Padding(padding: EdgeInsets.only(top: 100),
-                            child: Column(
-                              children: [
-                                // SpinKitChasingDots(
-                                //   color: Colors.brown,
-                                //   size: 50.0,
-                                // ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                      "",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(top: 20),)
-                              ],
-                            ),
-                          ),
-                        );
-                      });
-                  },
+                          );
+                        });
+                    },
+                  ),
                 ),
               ),
               SizedBox(
