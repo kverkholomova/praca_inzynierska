@@ -21,6 +21,7 @@ import '../../volunteer/main_screen.dart';
 import '../home_page/home_ref.dart';
 import 'all_app_ref.dart';
 import 'application_info.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 
 final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -600,13 +601,21 @@ class _InfoVolforRefState extends State<InfoVolforRef> {
                                                   .height *
                                                   0.005,
                                             ),
-                                            child: Text(
-                                              streamSnapshot.data?.docs[index]
-                                              ['phone_number'],
-                                              style: GoogleFonts.raleway(
-                                                fontSize: 14,
-                                                color:  Colors.black,
-                                              ),
+                                            child: Row(
+                                              children: [
+                                                IconButton(onPressed: (){
+                                                  UrlLauncher.launch("tel://${streamSnapshot.data?.docs[index]
+                                                  ['phone_number']}");
+                                                }, icon: Icon(Icons.phone)),
+                                                Text(
+                                                  streamSnapshot.data?.docs[index]
+                                                  ['phone_number'],
+                                                  style: GoogleFonts.raleway(
+                                                    fontSize: 14,
+                                                    color:  Colors.black,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
