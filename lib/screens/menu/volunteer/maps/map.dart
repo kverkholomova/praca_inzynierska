@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,23 +33,6 @@ class _HomeMapState extends State<HomeMap> {
   LatLng? endLocation;
 
 
-
-  // void foregroundMessage(){
-  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //
-  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
-  //     print(message.sentTime);
-  //   });
-  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //   //   print('Got a message whilst in the foreground!');
-  //   //   print('Message data: ${message.data}');
-  //   //
-  //   //   if (message.notification != null) {
-  //   //     print('Message also contained a notification: ${message.notification}');
-  //   //   }
-  //   // });
-  //
-  // }
   @override
   void dispose() {
     _customInfoWindowController.dispose();
@@ -69,62 +50,17 @@ class _HomeMapState extends State<HomeMap> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          // SystemNavigator.pop();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeVol()),
           );
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const OptionChoose()),
-          // );
+
           return true;
         },child: SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
-            // ClipPath(
-            //   clipper: OvalBottomBorderClipper(),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: blueColor,
-            //       boxShadow: const <BoxShadow>[
-            //         BoxShadow(
-            //           color: Colors.black,
-            //           blurRadius: 5,
-            //         ),
-            //       ],
-            //     ),
-            //     height: MediaQuery.of(context).size.height * 0.15,
-            //     child: Padding(
-            //       padding: const EdgeInsets.symmetric(vertical: 20),
-            //       child: Align(
-            //           alignment: Alignment.center,
-            //           child: Column(
-            //             children: [
-            //               Text(
-            //                 "Volunteer centers",
-            //                 style:  GoogleFonts.raleway(
-            //                   fontSize: 24,
-            //                   color: Colors.white,
-            //                 ),
-            //               ),
-            //
-            //               Padding(
-            //                 padding: const EdgeInsets.all(5.0),
-            //                 child: Text(
-            //                   "Find the nearest volunteer center",
-            //                   style: GoogleFonts.raleway(
-            //                     fontSize: 16,
-            //                     color: Colors.white,
-            //                   ),
-            //                 ),
-            //               ),
-            //             ],
-            //           )),
-            //     ),
-            //   ),
-            // ),
+
             GoogleMap(
               mapToolbarEnabled: false,
               myLocationButtonEnabled: false,
@@ -315,52 +251,6 @@ class _HomeMapState extends State<HomeMap> {
               ),),
           ),
 
-          // ElevatedButton(
-          //     style: ElevatedButton.styleFrom(
-          //       primary: Colors.white,
-          //       shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.all(
-          //             Radius.circular(18),
-          //           )),
-          //       minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
-          //       // NEW
-          //     ),
-          //     onPressed: () async {
-          //       isVisible = true;
-          //       await getDirections(point);
-          //       _customInfoWindowController.addInfoWindow!(
-          //         Container(
-          //           decoration: BoxDecoration(
-          //             color: blueColor,
-          //             borderRadius: BorderRadius.circular(18),
-          //           ),
-          //           width: double.infinity,
-          //           height: double.infinity,
-          //           child: FittedBox(
-          //             fit: BoxFit.fitWidth,
-          //             child: Padding(
-          //               padding: const EdgeInsets.symmetric(horizontal: 20),
-          //               child: Text(
-          //                 ("Total Distance: ${distance.toStringAsFixed(2)} KM"),
-          //                 softWrap: true,
-          //                 style: GoogleFonts.raleway(
-          //                   fontSize: 22,
-          //                   color: Colors.white,
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //         LatLng(point.latitude, point.longitude),
-          //       );
-          //       setState(() {
-          //         Navigator.pop(context);
-          //       });
-          //     },
-          //     child: Text(
-          //       "Directions",
-          //       style: textActiveButtonStyle,
-          //     )),
         )
       ],
     );
@@ -496,9 +386,6 @@ class _HomeMapState extends State<HomeMap> {
         markerId: MarkerId(latLng.toString()),
         position: latLng,
         infoWindow: const InfoWindow(
-          //popup info
-          // title: "Regionalne Centrum Wolontariatu",
-          // snippet: "aleja Henryka Sienkiewicza 6, 76-200 Słupsk",
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(
           BitmapDescriptor.hueBlue

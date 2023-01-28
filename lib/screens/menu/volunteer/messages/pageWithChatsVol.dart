@@ -1,23 +1,15 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/volunteer/messages/messagesVol.dart';
 
-import '../home_page/home_vol.dart';
-import '../home_page/settings/upload_photo.dart';
 import '../main_screen.dart';
 
-// ScrollController scrollControllerVolMessages = ScrollController();
 ScrollController scrollControllerVol = ScrollController();
-
 
 class ListofChatroomsVol extends StatefulWidget {
   const ListofChatroomsVol({Key? key}) : super(key: key);
@@ -25,63 +17,28 @@ class ListofChatroomsVol extends StatefulWidget {
   @override
   State<ListofChatroomsVol> createState() => _ListofChatroomsVolState();
 }
+
 String? IdOfChatroomVol = '';
 List<String?> listOfRefugeesVol_ = [];
-class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
 
-@override
+class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // foregroundMessage();
   }
 
-
-// void foregroundMessage(){
-//   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-//
-//     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
-//     print(message.sentTime);
-//   });
-//   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-//   //   print('Got a message whilst in the foreground!');
-//   //   print('Message data: ${message.data}');
-//   //
-//   //   if (message.notification != null) {
-//   //     print('Message also contained a notification: ${message.notification}');
-//   //   }
-//   // });
-//
-// }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => HomeVol()),
-        // );
+
         return true;
       },
       child: Scaffold(
         backgroundColor: background,
-        // appBar: AppBar(
-        //   title: const Text('Chats'),
-        //   backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
-        //   elevation: 0.0,
-        //   leading: IconButton(
-        //     icon: const Icon(Icons.arrow_back,color: Colors.white,),
-        //     onPressed: () async {
-        //       // await _auth.signOut();
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => SettingsHomeVol()),
-        //       );
-        //     },
-        //   ),
-        // ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -106,12 +63,11 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                           children: [
                             Text(
                               "Messages",
-                              style:  GoogleFonts.raleway(
+                              style: GoogleFonts.raleway(
                                 fontSize: 24,
                                 color: Colors.white,
                               ),
                             ),
-
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
@@ -128,249 +84,140 @@ class _ListofChatroomsVolState extends State<ListofChatroomsVol> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context)
-                    .size
-                    .height *
-                    0.015,
+                height: MediaQuery.of(context).size.height * 0.015,
               ),
               SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.of(context)
-                      .size
-                      .height *
-                      0.7,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('USERS_COLLECTION')
-                        .where('IdVolunteer', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                        .where('IdVolunteer',
+                            isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                         .snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
+                    builder: (context,
+                        AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
                       return ListView.builder(
-                        shrinkWrap: true,
+                          shrinkWrap: true,
                           // scrollDirection: Axis.vertical,
-                          itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
+                          itemCount: !streamSnapshot.hasData
+                              ? 1
+                              : streamSnapshot.data?.docs.length,
                           itemBuilder: (ctx, index) {
-                          if (streamSnapshot.hasData){
-                            switch (streamSnapshot.connectionState){
-                              case ConnectionState.waiting:
-                                return  Column(
-                                  children: [
-                                      // SizedBox(
-                                      // width: 60,
-                                      // height: 60,
-                                      // child: CircularProgressIndicator(),
-                                      // ),
-                                      Padding(
+                            if (streamSnapshot.hasData) {
+                              switch (streamSnapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return Column(children: const [
+                                    Padding(
                                       padding: EdgeInsets.only(top: 16),
                                       child: Text(''),
-                                      )
-                                ]
+                                    )
+                                  ]);
 
-                          );
+                                case ConnectionState.active:
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: padding,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              changeContainerHeight = false;
 
-                          case ConnectionState.active:
-                          return Column(
-                            children: [
-                              Padding(
-                                padding: padding,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      changeContainerHeight = false;
-                                      // scrollControllerVol.jumpTo(
-                                      //     scrollControllerVol
-                                      //         .positions.last.maxScrollExtent);
-                                      listOfRefugeesVol_.add(streamSnapshot.data?.docs[index]["IdRefugee"]);
-                                      IdOfChatroomVol = streamSnapshot.data?.docs[index]["chatId"];
+                                              listOfRefugeesVol_.add(
+                                                  streamSnapshot
+                                                          .data?.docs[index]
+                                                      ["IdRefugee"]);
+                                              IdOfChatroomVol = streamSnapshot
+                                                  .data?.docs[index]["chatId"];
 
-                                      lastMessageVol = streamSnapshot.data?.docs[index]["last_msg"];
-                                      isVisibleTabBar = false;
-                                      print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLL");
-                                      print(isVisibleTabBar);
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           MainScreen()),
-                                      // );
-                                      // print("print ${streamSnapshot.data?.docs[index][id]}");
-                                    });
-                                    Navigator.of(context, rootNavigator: true).pushReplacement(
-                                        MaterialPageRoute(builder: (context) => new SelectedChatroomVol()));
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           SelectedChatroomVol()),
-                                    // );
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                        BorderRadius.circular(
-                                            15)),
-                                    child: Padding(
-                                      padding: padding,
-                                      child:
-                                          // CircleAvatar(
-                                          //     radius: 25.0,
-                                          //     backgroundImage: NetworkImage(url_image.toString())),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: SizedBox(
-                                              width: MediaQuery.of(context).size.width *
-                                                  0.9,
-                                              height: MediaQuery.of(context).size.height *
-                                                  0.085,
-                                              child:ListTile(
-                                                // mainAxisAlignment: MainAxisAlignment.start,
-                                                // contentPadding:
-                                                // EdgeInsets.symmetric(
-                                                //     vertical: 10),
-                                                title: Text(
-                                                    streamSnapshot.data?.docs[index]['Application_Name']
-                                                    as String,
-                                                    style: GoogleFonts
-                                                        .raleway(
-                                                      fontSize: 14,
-                                                      color: Colors.black,
-                                                    )),
-                                                // Text(
-                                                //     streamSnapshot.data?.docs[index]['category'] as String,
-                                                //     style: TextStyle(color: Colors.grey)),
-                                                // subtitle: Text(
-                                                //   streamSnapshot.data
-                                                //       ?.docs[index]
-                                                //   ['comment']
-                                                //   as String,
-                                                //   style:
-                                                //   GoogleFonts.raleway(
-                                                //     fontSize: 12,
-                                                //     color: Colors.black
-                                                //         .withOpacity(0.5),
-                                                //   ),
-                                                // ),
-                                              ),),
-                                          )
-
+                                              lastMessageVol = streamSnapshot
+                                                  .data
+                                                  ?.docs[index]["last_msg"];
+                                              isVisibleTabBar = false;
+                                            });
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pushReplacement(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const SelectedChatroomVol()));
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Padding(
+                                                padding: padding,
+                                                child: Align(
+                                                  alignment: Alignment.topLeft,
+                                                  child: SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.085,
+                                                    child: ListTile(
+                                                      title: Text(
+                                                          streamSnapshot.data
+                                                                      ?.docs[index]
+                                                                  [
+                                                                  'Application_Name']
+                                                              as String,
+                                                          style: GoogleFonts
+                                                              .raleway(
+                                                            fontSize: 14,
+                                                            color: Colors.black,
+                                                          )),
+                                                    ),
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.015,
+                                      ),
+                                    ],
+                                  );
+                              }
+                            }
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 100),
+                                child: Column(
+                                  children: const [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text("",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24,
+                                            color: Colors.black,
+                                          )),
                                     ),
-                                  ),
-                                  // Stack(
-                                  //   children: [
-                                  //     //streamSnapshot.data?.docs[index]['title']==null ?
-                                  //
-                                  //     const Padding(
-                                  //       padding: EdgeInsets.all(8.0),
-                                  //       child: Align(
-                                  //         alignment: Alignment.topLeft,
-                                  //         child: CircleAvatar(
-                                  //           radius: 25,
-                                  //           backgroundColor: Colors.lightBlue,
-                                  //         ),
-                                  //       ),
-                                  //     ),
-
-                                      // Align(
-                                      //   alignment: Alignment.centerLeft,
-                                      //     child: Padding(
-                                      //       padding: const EdgeInsets.only(top: 23, left: 70,bottom: 8,),
-                                      //       child: Text(streamSnapshot.data?.docs[index]['Refugee_Name'], style: TextStyle(fontSize: 18),),
-                                      //     )),
-
-                                      // StreamBuilder(
-                                      //   stream: FirebaseFirestore.instance
-                                      //       .collection('USERS_COLLECTION')
-                                      //       .doc()
-                                      //       .collection("CHATROOMS_COLLECTION")
-                                      //       // .where(field)
-                                      //
-                                      //       .where('chatId', isEqualTo: IdOfChatroomVol)
-                                      //       .where('time', isGreaterThan: FirebaseFirestore.instance
-                                      //       .collection('USERS_COLLECTION')
-                                      //       .doc()
-                                      //       .collection("CHATROOMS_COLLECTION")
-                                      //       .where('chatId', isEqualTo: IdOfChatroomVol))
-                                      //       .snapshots(),
-                                      //   builder: (context, AsyncSnapshot<QuerySnapshot?> streamSnapshot) {
-                                      //     return Container(
-                                      //
-                                      //       height: double.infinity,
-                                      //       child: ListView.builder(
-                                      //
-                                      //           shrinkWrap: true,
-                                      //           scrollDirection: Axis.vertical,
-                                      //           itemCount: streamSnapshot.data?.docs.length,
-                                      //           itemBuilder: (ctx, index) =>
-                                      //               Column(
-                                      //                 mainAxisSize: MainAxisSize.max,
-                                      //                 children: [
-                                      //                   Padding(
-                                      //                     padding: const EdgeInsets.all(8.0),
-                                      //                     child: Align(
-                                      //                       alignment: Alignment.topLeft,
-                                      //                       child: Text(streamSnapshot.data?.docs[index]['message'], style: TextStyle(fontSize: 16),
-                                      //                       ),
-                                      //                     ),
-                                      //                   ),
-                                      //
-                                      //                 ],
-                                      //               )),
-                                      //     );
-                                      //   },
-                                      // ),
-
-                                      // Align(
-                                      //     alignment: Alignment.centerLeft,
-                                      //     child: Padding(
-                                      //       padding: const EdgeInsets.only(top: 8, left: 70,bottom: 8,),
-                                      //       child: Text(last_message!, style: TextStyle(fontSize: 16),),
-                                      //     )
-                                      // ),
-                                  //   ],
-                                  // ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 20),
+                                    )
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                height: MediaQuery.of(context)
-                                    .size
-                                    .height *
-                                    0.015,
-                              ),
-                            ],
-                          );}}
-                          return Center(
-                            child: Padding(padding: EdgeInsets.only(top: 100),
-                              child: Column(
-                                children: [
-                                  // SpinKitChasingDots(
-                                  //   color: Colors.brown,
-                                  //   size: 50.0,
-                                  // ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                        "",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(top: 20),)
-                                ],
-                              ),
-                            ),
-                          );
-                        });
+                            );
+                          });
                     },
                   ),
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context)
-                    .size
-                    .height *
-                    0.015,
+                height: MediaQuery.of(context).size.height * 0.015,
               ),
             ],
           ),

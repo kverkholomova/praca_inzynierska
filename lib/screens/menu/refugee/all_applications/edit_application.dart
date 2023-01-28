@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,27 +8,24 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/constants.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/all_app_ref.dart';
 import 'package:wol_pro_1/screens/menu/refugee/all_applications/application_info.dart';
-import 'package:wol_pro_1/services/auth.dart';
 import '../../../../../models/categories.dart';
 import '../main_screen_ref.dart';
 
-
 int numChartEdit = 0;
+
 class EditApplication extends StatefulWidget {
+  const EditApplication({Key? key}) : super(key: key);
+
   @override
   State<EditApplication> createState() => _EditApplicationState();
 }
 
 class _EditApplicationState extends State<EditApplication> {
-  var id;
-  var ID;
-
   String changedTitle = '';
   String changedCurrentCategory = '';
   String changedComment = '';
 
   final height = 100;
-  final AuthService _auth = AuthService();
 
   String valueChosen = dropdownItemList[3]["value"];
   late StreamSubscription<User?> user;
@@ -39,37 +35,15 @@ class _EditApplicationState extends State<EditApplication> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // foregroundMessage();
   }
-
-  // void foregroundMessage(){
-  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //
-  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
-  //     print(message.sentTime);
-  //   });
-  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //   //   print('Got a message whilst in the foreground!');
-  //   //   print('Message data: ${message.data}');
-  //   //
-  //   //   if (message.notification != null) {
-  //   //     print('Message also contained a notification: ${message.notification}');
-  //   //   }
-  //   // });
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // currentCategory='';
-        // title = '';
-        // comment = '';
-        // numChart = 0;
         controllerTabBottomRef = PersistentTabController(initialIndex: 2);
         Navigator.of(context, rootNavigator: true).pushReplacement(
-            MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+            MaterialPageRoute(builder: (context) => MainScreenRefugee()));
         return true;
       },
       child: Scaffold(
@@ -90,76 +64,45 @@ class _EditApplicationState extends State<EditApplication> {
               color: redColor,
             ),
             onPressed: () {
-              // currentCategory='';
-              // title = '';
-              // comment = '';
-              // numChart = 0;
               controllerTabBottomRef = PersistentTabController(initialIndex: 2);
               Navigator.of(context, rootNavigator: true).pushReplacement(
-                  MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
+                  MaterialPageRoute(builder: (context) => MainScreenRefugee()));
             },
           ),
         ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        // floatingActionButton: ,
         backgroundColor: backgroundRefugee,
         resizeToAvoidBottomInset: false,
-
         body: SingleChildScrollView(
           child: Column(
             children: [
-
               SizedBox(
-                height: MediaQuery.of(context).size.height *
-                    0.99,
+                height: MediaQuery.of(context).size.height * 0.99,
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('applications')
                       .where('Id', isEqualTo: applicationIDRef)
                       .snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  builder:
+                      (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                     return ListView.builder(
                         itemCount: streamSnapshot.data?.docs.length,
                         itemBuilder: (ctx, index) {
-                          print("EEEEEEEEEEdiiiiiiiiiiiiiiit");
-                          print(editCategory == categoriesListAll[6]);
-                          print(editCategory);
-                          print( categoriesListAll[6]);
-                          print(editCategory == categoriesListAll[1]
-                              ?dropdownItemList[0]
-                              :editCategory == categoriesListAll[2]
-                              ?dropdownItemList[1]
-                              :editCategory == categoriesListAll[3]
-                              ?dropdownItemList[2]
-                              :editCategory == categoriesListAll[4]
-                              ?dropdownItemList[3]
-                              :editCategory == categoriesListAll[5]
-                              ?dropdownItemList[4]
-                              :editCategory == categoriesListAll[6]
-                              ?dropdownItemList[5]
-                              :editCategory == categoriesListAll[7]
-                              ?dropdownItemList[6]
-                              :editCategory == categoriesListAll[8]
-                              ?dropdownItemList[7]
-                              :dropdownItemList[6]);
-                          // categories_user = streamSnapshot.data?.docs[index]['category'];
-                          // token_vol = streamSnapshot.data?.docs[index]['token'];
-                          // current_name_Vol = streamSnapshot.data?.docs[index]['user_name'];
                           return SingleChildScrollView(
                             child: Padding(
                               padding: padding,
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.03,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.03,
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Padding(
                                       padding: EdgeInsets.only(
-                                        bottom: MediaQuery.of(context).size.height *
-                                            0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                       ),
                                       child: Text(
                                         "Edit the title of your application",
@@ -168,40 +111,42 @@ class _EditApplicationState extends State<EditApplication> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.085,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.085,
                                     child: TextFormField(
                                       onChanged: (val) {
                                         changedTitle = val;
                                       },
-                                      // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['user_name']),
                                       decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorStyle:
-                                        const TextStyle(color: Colors.red),
+                                            const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: redColor,
-                                            // color: Color.fromRGBO(2, 62, 99, 20),
                                             width: 1.5,
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -209,23 +154,23 @@ class _EditApplicationState extends State<EditApplication> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        hintText: streamSnapshot.data?.docs[index]
-                                        ['title'],
+                                        hintText: streamSnapshot
+                                            .data?.docs[index]['title'],
                                         hintStyle: hintStyleText,
                                       ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height *
+                                    height: MediaQuery.of(context).size.height *
                                         0.015,
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Padding(
                                       padding: EdgeInsets.only(
-                                        bottom: MediaQuery.of(context).size.height *
-                                            0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                       ),
                                       child: Text(
                                         "Choose category that refers to your application",
@@ -236,21 +181,25 @@ class _EditApplicationState extends State<EditApplication> {
                                   Align(
                                     alignment: Alignment.center,
                                     child: CoolDropdown(
-                                      resultMainAxis:MainAxisAlignment.start,
+                                      resultMainAxis: MainAxisAlignment.start,
                                       unselectedItemTS: const TextStyle(
                                           color: Colors.black, fontSize: 14),
                                       dropdownItemPadding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 20),
                                       isTriangle: false,
                                       gap: -30,
                                       dropdownItemReverse: true,
-                                      dropdownItemMainAxis:MainAxisAlignment.start,
-                                      resultHeight: MediaQuery.of(context).size.height * 0.09,
+                                      dropdownItemMainAxis:
+                                          MainAxisAlignment.start,
+                                      resultHeight:
+                                          MediaQuery.of(context).size.height *
+                                              0.09,
                                       resultBD: BoxDecoration(
                                           color: backgroundRefugee,
                                           borderRadius: borderRadiusApplication,
-                                          border:
-                                          Border.all(width: 0.5, color: redColor)),
+                                          border: Border.all(
+                                              width: 0.5, color: redColor)),
                                       resultTS: TextStyle(
                                           color: redColor, fontSize: 14),
                                       placeholderTS: TextStyle(
@@ -265,7 +214,8 @@ class _EditApplicationState extends State<EditApplication> {
                                         borderRadius: borderRadiusApplication,
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black.withOpacity(0.1),
+                                            color:
+                                                Colors.black.withOpacity(0.1),
                                             spreadRadius: 1,
                                             blurRadius: 10,
                                             offset: const Offset(0, 1),
@@ -273,7 +223,9 @@ class _EditApplicationState extends State<EditApplication> {
                                         ],
                                       ),
                                       resultWidth: double.infinity,
-                                      dropdownWidth: MediaQuery.of(context).size.width * 0.8,
+                                      dropdownWidth:
+                                          MediaQuery.of(context).size.width *
+                                              0.8,
                                       dropdownList: dropdownItemList,
                                       onChange: (newVal) {
                                         setState(() {
@@ -282,39 +234,54 @@ class _EditApplicationState extends State<EditApplication> {
                                         });
                                         // valueIcon = newVal["icon"].toString();
                                       },
-                                      defaultValue: editCategory == categoriesListAll[1]
-                                          ?dropdownItemList[0]
-                                      :editCategory == categoriesListAll[2]
-                                      ?dropdownItemList[1]
-                                      :editCategory == categoriesListAll[3]
-                                      ?dropdownItemList[2]
-                                          :editCategory == categoriesListAll[4]
-                                          ?dropdownItemList[3]
-                                          :editCategory == categoriesListAll[5]
-                                          ?dropdownItemList[4]
-                                          :editCategory == categoriesListAll[6]
-                                          ?dropdownItemList[5]
-                                          :editCategory == categoriesListAll[7]
-                                          ?dropdownItemList[6]
-                                          :editCategory == categoriesListAll[8]
-                                          ?dropdownItemList[7]
-                                          :dropdownItemList[6],
+                                      defaultValue: editCategory ==
+                                              categoriesListAll[1]
+                                          ? dropdownItemList[0]
+                                          : editCategory == categoriesListAll[2]
+                                              ? dropdownItemList[1]
+                                              : editCategory ==
+                                                      categoriesListAll[3]
+                                                  ? dropdownItemList[2]
+                                                  : editCategory ==
+                                                          categoriesListAll[4]
+                                                      ? dropdownItemList[3]
+                                                      : editCategory ==
+                                                              categoriesListAll[
+                                                                  5]
+                                                          ? dropdownItemList[4]
+                                                          : editCategory ==
+                                                                  categoriesListAll[
+                                                                      6]
+                                                              ? dropdownItemList[
+                                                                  5]
+                                                              : editCategory ==
+                                                                      categoriesListAll[
+                                                                          7]
+                                                                  ? dropdownItemList[
+                                                                      6]
+                                                                  : editCategory ==
+                                                                          categoriesListAll[
+                                                                              8]
+                                                                      ? dropdownItemList[
+                                                                          7]
+                                                                      : dropdownItemList[
+                                                                          6],
                                     ),
                                   ),
-
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.015,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.015,
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Padding(
                                       padding: EdgeInsets.only(
-                                        bottom: MediaQuery.of(context).size.height *
-                                            0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                       ),
                                       child: Text(
-                                        "Edit description to your application \n(min 30 signs) ${numChartEdit}/30",
+                                        "Edit description to your application \n(min 30 signs) $numChartEdit/30",
                                         style: textLabelSeparated,
                                       ),
                                     ),
@@ -327,34 +294,36 @@ class _EditApplicationState extends State<EditApplication> {
                                       });
                                       changedComment = val;
                                     },
-                                    // controller: TextEditingController(text: streamSnapshot.data?.docs[index]['phone_number']),
                                     decoration: InputDecoration(
                                         focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.red,
                                             width: 1.5,
                                           ),
                                         ),
                                         errorStyle:
-                                        const TextStyle(color: Colors.red),
+                                            const TextStyle(color: Colors.red),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: BorderSide(
                                             color: redColor,
-                                            // color: Color.fromRGBO(2, 62, 99, 20),
                                             width: 1.5,
                                           ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           borderSide: const BorderSide(
                                             color: Colors.white,
                                             width: 0,
@@ -362,84 +331,56 @@ class _EditApplicationState extends State<EditApplication> {
                                         ),
                                         filled: true,
                                         fillColor: Colors.white,
-                                        hintText: streamSnapshot.data?.docs[index]
-                                        ['comment'],
-                                        hintStyle: hintStyleText
-                                      // labelStyle: GoogleFonts.raleway(
-                                      //   fontSize: 14,
-                                      //   color: Colors.black.withOpacity(0.7),
-                                      // ),
-                                    ),
+                                        hintText: streamSnapshot
+                                            .data?.docs[index]['comment'],
+                                        hintStyle: hintStyleText),
                                   ),
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.015,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.015,
                                   ),
                                   Divider(color: redColor),
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.03,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.03,
                                   ),
-
                                   Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Center(
                                       child: Container(
                                         width: double.infinity,
-                                        height: MediaQuery.of(context).size.height *
-                                            0.085,
-                                        decoration: buttonActiveDecorationRefugee,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.085,
+                                        decoration:
+                                            buttonActiveDecorationRefugee,
                                         child: TextButton(
                                             child: Text(
                                               "Save changes",
-                                              style: textActiveButtonStyleRefugee,
+                                              style:
+                                                  textActiveButtonStyleRefugee,
                                             ),
                                             onPressed: () async {
-                                              if(changedTitle==''&&changedComment==''&&changedCurrentCategory == ''){
-                                                print("EEEEEEEEEmptyyyyyyyyy");
+                                              if (changedTitle == '' &&
+                                                  changedComment == '' &&
+                                                  changedCurrentCategory ==
+                                                      '') {
                                                 dialogBuilderEmpty(context);
-                                              }else if(changedComment!=""&&numChartEdit< 30){
-                                                print("Leeeeeeengthhhhhhh");
+                                              } else if (changedComment != "" &&
+                                                  numChartEdit < 30) {
                                                 dialogBuilderLength(context);
+                                              } else {
+                                                dialogBuilderSaveChanges(
+                                                    context);
                                               }
-                                              else{
-                                                print("Saaaaaaaaaveeeeeeeeeee");
-                                                print(".${changedTitle}.");
-                                                print("object");
-                                                print(changedComment);
-                                                print("object");
-                                                print(changedCurrentCategory);
-                                                print("object");
-                                                dialogBuilderSaveChanges(context);
-                                              }
-                                              // setState(() {
-                                              //   FirebaseFirestore.instance
-                                              //       .collection('users')
-                                              //       .doc(streamSnapshot
-                                              //       .data?.docs[index].id)
-                                              //       .update({
-                                              //     "category": changedCategories!=[]?changedCategories:streamSnapshot
-                                              //         .data?.docs[index]['category'],
-                                              //     "user_name": changedName!=""?changedName:streamSnapshot
-                                              //         .data?.docs[index]['user_name'],
-                                              //     "age": currentAgeRefugee!=0?currentAgeRefugee:streamSnapshot
-                                              //         .data?.docs[index]['age'],
-                                              //     "phone_number": changedPhone!=""?changedPhone:streamSnapshot
-                                              //         .data?.docs[index]['phone_number']
-                                              //   });
-                                              // });
-                                              // Navigator.of(context, rootNavigator: true).pushReplacement(
-                                              //     MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
                                             }),
                                       ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height:
-                                    MediaQuery.of(context).size.height * 0.015,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.015,
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -451,11 +392,10 @@ class _EditApplicationState extends State<EditApplication> {
             ],
           ),
         ),
-
-
       ),
     );
   }
+
   Future<void> dialogBuilderEmpty(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -470,7 +410,8 @@ class _EditApplicationState extends State<EditApplication> {
             fontSize: 16,
             color: redColor,
           ),
-          content: const Text("You haven't provide any changes, please change something if you want to change data"),
+          content: const Text(
+              "You haven't provide any changes, please change something if you want to change data"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
             color: redColor,
@@ -483,12 +424,10 @@ class _EditApplicationState extends State<EditApplication> {
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
+                    height: MediaQuery.of(context).size.height * 0.085,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        borderRadiusApplication),
+                        borderRadius: borderRadiusApplication),
                     child: TextButton(
                         child: Text(
                           'Change the data',
@@ -504,19 +443,8 @@ class _EditApplicationState extends State<EditApplication> {
                 ),
               ),
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Choose category'),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
             SizedBox(
-              height:
-              MediaQuery.of(context).size.height *
-                  0.01,
+              height: MediaQuery.of(context).size.height * 0.01,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -525,12 +453,10 @@ class _EditApplicationState extends State<EditApplication> {
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
+                    height: MediaQuery.of(context).size.height * 0.085,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(15)),
+                        borderRadius: BorderRadius.circular(15)),
                     child: TextButton(
                         child: Text(
                           "Leave previous data",
@@ -538,91 +464,31 @@ class _EditApplicationState extends State<EditApplication> {
                             fontSize: 16,
                             color: redColor,
                           ),
-
                         ),
                         onPressed: () async {
                           changedTitle = '';
                           changedComment = '';
                           numChartEdit = 0;
-                          Future.delayed(Duration(milliseconds: 500),
-                                      () {
-
-                                    // controllerTabBottomRef = PersistentTabController(initialIndex: 2);
-                                    Navigator.of(context, rootNavigator: true).pushReplacement(
-                                        MaterialPageRoute(builder: (context) => PageOfApplicationRef()));
-                                  });
-                          // currentCategory='';
-                          // title = '';
-                          // comment = '';
-                          // numChart = 0;
-                          // Future.delayed(Duration(seconds: 1),
-                          //         () {
-                          //       controllerTabBottomRef = PersistentTabController(initialIndex: 2);
-                          //       Navigator.of(context, rootNavigator: true).pushReplacement(
-                          //           MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
-                          //     });
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => MainScreen()),
-                          // if(chosenCategoryList==[]){
-                          //   dialogBuilder(context);
-                          // }
-                          // else if(chosenCategoryList!=[]){
-                          // FirebaseFirestore.instance
-                          //     .collection('users')
-                          //     .doc(streamSnapshot
-                          //     .data?.docs[index].id)
-                          //     .update({
-                          //   "category": chosenCategoryList
-                          // });
-                          // categoriesVolunteer =
-                          //     chosenCategoryList;
-                          // }
-                          // Future.delayed(Duration(seconds: 1),
-                          //         () {
-                          //   if(chosenCategoryList == []){
-                          //     dialogBuilder(context);
-                          //     print("IIIIIIIIIIIIII");
-                          //   }
-                          //   else {
-                          //     print("SSSSSSSSSSSSSSS");
-                          //     print(chosenCategoryList);
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (
-                          //                 context) =>
-                          //             const HomeVol()));
-                          //   }
-                          //     });
-                          // );
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PageOfApplicationRef()));
+                          });
                         }),
                   ),
                 ),
               ),
             ),
             SizedBox(
-              height:
-              MediaQuery.of(context).size.height *
-                  0.02,
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Leave my categories'),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const HomeVol()),
-            //     );
-            //   },
-            // ),
           ],
         );
       },
     );
   }
+
   Future<void> dialogBuilderLength(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -637,7 +503,8 @@ class _EditApplicationState extends State<EditApplication> {
             fontSize: 16,
             color: redColor,
           ),
-          content: const Text("You haven't filled the comment form properly, please supply more characters to detail your application"),
+          content: const Text(
+              "You haven't filled the comment form properly, please supply more characters to detail your application"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
             color: redColor,
@@ -650,12 +517,10 @@ class _EditApplicationState extends State<EditApplication> {
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
+                    height: MediaQuery.of(context).size.height * 0.085,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        borderRadiusApplication),
+                        borderRadius: borderRadiusApplication),
                     child: TextButton(
                         child: Text(
                           'Supply the data',
@@ -671,38 +536,15 @@ class _EditApplicationState extends State<EditApplication> {
                 ),
               ),
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Choose category'),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
-
             SizedBox(
-              height:
-              MediaQuery.of(context).size.height *
-                  0.02,
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Leave my categories'),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const HomeVol()),
-            //     );
-            //   },
-            // ),
           ],
         );
       },
     );
   }
+
   Future<void> dialogBuilderSaveChanges(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -717,7 +559,8 @@ class _EditApplicationState extends State<EditApplication> {
             fontSize: 16,
             color: redColor,
           ),
-          content: const Text("You have provided some changes. Would you like to save these changes?"),
+          content: const Text(
+              "You have provided some changes. Would you like to save these changes?"),
           contentTextStyle: GoogleFonts.raleway(
             fontSize: 14,
             color: redColor,
@@ -730,12 +573,10 @@ class _EditApplicationState extends State<EditApplication> {
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
+                    height: MediaQuery.of(context).size.height * 0.085,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        borderRadiusApplication),
+                        borderRadius: borderRadiusApplication),
                     child: TextButton(
                         child: Text(
                           'Leave previous data',
@@ -750,31 +591,21 @@ class _EditApplicationState extends State<EditApplication> {
                             changedComment = '';
                             numChartEdit = 0;
                           });
-                          Future.delayed(Duration(milliseconds: 500),
-                                  () {
-                                // controllerTabBottomRef = PersistentTabController(initialIndex: 2);
-                                Navigator.of(context, rootNavigator: true).pushReplacement(
-                                    MaterialPageRoute(builder: (context) => PageOfApplicationRef()));
-                              });
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            // controllerTabBottomRef = PersistentTabController(initialIndex: 2);
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PageOfApplicationRef()));
+                          });
                           // Navigator.of(context).pop();
                         }),
                   ),
                 ),
               ),
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Choose category'),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
             SizedBox(
-              height:
-              MediaQuery.of(context).size.height *
-                  0.01,
+              height: MediaQuery.of(context).size.height * 0.01,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -783,12 +614,10 @@ class _EditApplicationState extends State<EditApplication> {
                 child: Center(
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height *
-                        0.085,
+                    height: MediaQuery.of(context).size.height * 0.085,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(15)),
+                        borderRadius: BorderRadius.circular(15)),
                     child: TextButton(
                         child: Text(
                           "Save changes",
@@ -798,95 +627,40 @@ class _EditApplicationState extends State<EditApplication> {
                           ),
                         ),
                         onPressed: () async {
-
                           setState(() {
                             FirebaseFirestore.instance
                                 .collection('applications')
                                 .doc(applicationIDRef)
                                 .update({
-                              "title": changedTitle!=''?changedTitle:cTitle,
-                              "comment": changedComment!=''?changedComment:cComment,
-                              "category": changedCurrentCategory!=''?changedCurrentCategory:editCategory
+                              "title":
+                                  changedTitle != '' ? changedTitle : cTitle,
+                              "comment": changedComment != ''
+                                  ? changedComment
+                                  : cComment,
+                              "category": changedCurrentCategory != ''
+                                  ? changedCurrentCategory
+                                  : editCategory
                             });
                           });
-                          Future.delayed(Duration(milliseconds: 500),
-                                  () {
-                                    setState(() {
-                                      changedTitle = '';
-                                      changedComment = '';
-                                      numChartEdit = 0;
-                                    });
-                                // controllerTabBottomRef = PersistentTabController(initialIndex: 2);
-                                Navigator.of(context, rootNavigator: true).pushReplacement(
-                                    MaterialPageRoute(builder: (context) => PageOfApplicationRef()));
-                              });
-                          // currentCategory='';
-                          // title = '';
-                          // comment = '';
-                          // numChart = 0;
-                          // Future.delayed(Duration(seconds: 1),
-                          //         () {
-                          //       controllerTabBottomRef = PersistentTabController(initialIndex: 2);
-                          //       Navigator.of(context, rootNavigator: true).pushReplacement(
-                          //           MaterialPageRoute(builder: (context) => new MainScreenRefugee()));
-                          //     });
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => MainScreen()),
-                          // if(chosenCategoryList==[]){
-                          //   dialogBuilder(context);
-                          // }
-                          // else if(chosenCategoryList!=[]){
-                          // FirebaseFirestore.instance
-                          //     .collection('users')
-                          //     .doc(streamSnapshot
-                          //     .data?.docs[index].id)
-                          //     .update({
-                          //   "category": chosenCategoryList
-                          // });
-                          // categoriesVolunteer =
-                          //     chosenCategoryList;
-                          // }
-                          // Future.delayed(Duration(seconds: 1),
-                          //         () {
-                          //   if(chosenCategoryList == []){
-                          //     dialogBuilder(context);
-                          //     print("IIIIIIIIIIIIII");
-                          //   }
-                          //   else {
-                          //     print("SSSSSSSSSSSSSSS");
-                          //     print(chosenCategoryList);
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (
-                          //                 context) =>
-                          //             const HomeVol()));
-                          //   }
-                          //     });
-                          // );
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            setState(() {
+                              changedTitle = '';
+                              changedComment = '';
+                              numChartEdit = 0;
+                            });
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PageOfApplicationRef()));
+                          });
                         }),
                   ),
                 ),
               ),
             ),
             SizedBox(
-              height:
-              MediaQuery.of(context).size.height *
-                  0.02,
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
-            // TextButton(
-            //   style: TextButton.styleFrom(
-            //     textStyle: Theme.of(context).textTheme.labelLarge,
-            //   ),
-            //   child: const Text('Leave my categories'),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const HomeVol()),
-            //     );
-            //   },
-            // ),
           ],
         );
       },

@@ -56,8 +56,7 @@ class _DatePickerState extends State<DatePicker> {
          bDate = month.indexOf(element)+1;
 
         }});
-        print(currentDate);
-        print(bDate);
+
         if(bDate<currentDate){
           currentAgeVolunteer = int.parse(DateFormat('yyyy').format(DateTime.now())) - int.parse(DateFormat('yyyy').format(details.date!));
           print(currentAgeVolunteer);
@@ -96,19 +95,10 @@ class _DatePickerState extends State<DatePicker> {
             SfCalendar(
               onSelectionChanged: selectionChanged,
               appointmentTextStyle: TextStyle(color: blueColor),
-          // headerStyle: CalendarHeaderStyle(
-          //     textAlign: TextAlign.center,
-          //     backgroundColor: Color(0xFF7fcd91),
-          //     textStyle: TextStyle(
-          //         fontSize: 25,
-          //         fontStyle: FontStyle.normal,
-          //         letterSpacing: 5,
-          //         color: Color(0xFFff5eaea),
-          //         fontWeight: FontWeight.w500)),
 
               viewHeaderStyle: ViewHeaderStyle(
-                  dateTextStyle: TextStyle(color: Colors.white),
-                  dayTextStyle: TextStyle(
+                  dateTextStyle: const TextStyle(color: Colors.white),
+                  dayTextStyle: const TextStyle(
                     color: Colors.white,
                   ),
                   backgroundColor: blueColor),
@@ -137,20 +127,7 @@ class _DatePickerState extends State<DatePicker> {
               cellBorderColor: blueColor,
               view: CalendarView.month,
             ),
-            // Padding(
-            //   padding:
-            //   EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
-            //   child: IconButton(
-            //     icon: Icon(Icons.close),
-            //     onPressed: () {
-            //       // userInput = '0.00';
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => SettingsVol()),
-            //       );
-            //     },
-            //   ),
-            // ),
+
           ],
         ));
   }

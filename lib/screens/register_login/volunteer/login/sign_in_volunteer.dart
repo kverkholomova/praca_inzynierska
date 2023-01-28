@@ -5,7 +5,6 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/auth.dart';
 import 'package:wol_pro_1/widgets/loading.dart';
-import 'package:wol_pro_1/widgets/wrapper.dart';
 
 import '../../../../../widgets/text_form_field.dart';
 import 'forgot_password.dart';
@@ -33,23 +32,22 @@ class _SignInVolState extends State<SignInVol> {
   String error = '';
   bool loading = false;
 
-
   @override
   Widget build(BuildContext context) {
     return loading
         ? Loading()
         : WillPopScope(
-      onWillPop: () async {
-        controllerTextFieldEmailVol.clear();
-        controllerTextFieldPasswordVol.clear();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const OptionChoose()),
-        );
-        return true;
-      },
-          child: SafeArea(
-            child: Scaffold(
+            onWillPop: () async {
+              controllerTextFieldEmailVol.clear();
+              controllerTextFieldPasswordVol.clear();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const OptionChoose()),
+              );
+              return true;
+            },
+            child: SafeArea(
+              child: Scaffold(
                 resizeToAvoidBottomInset: true,
                 backgroundColor: background,
                 appBar: AppBar(
@@ -58,22 +56,25 @@ class _SignInVolState extends State<SignInVol> {
                     style: GoogleFonts.sairaStencilOne(
                       fontSize: 25,
                       color: Colors.black.withOpacity(0.7),
-
                     ),
                     textAlign: TextAlign.center,
                   ),
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   leading: IconButton(
-                      onPressed: (){
+                      onPressed: () {
                         controllerTextFieldEmailVol.clear();
                         controllerTextFieldPasswordVol.clear();
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const OptionChoose()),
+                          MaterialPageRoute(
+                              builder: (context) => const OptionChoose()),
                         );
                       },
-                      icon: Icon(Icons.arrow_back_ios_new_rounded, color: blueColor,)),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: blueColor,
+                      )),
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
@@ -81,7 +82,9 @@ class _SignInVolState extends State<SignInVol> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.08),
+                          padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.08),
                           child: Column(
                             children: [
                               Align(
@@ -134,7 +137,7 @@ class _SignInVolState extends State<SignInVol> {
                                 color: Colors.transparent,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: borderRadiusApplication),
-                                elevation: errorEmpty==true? 0:5,
+                                elevation: errorEmpty == true ? 0 : 5,
                                 child: CustomTextFormField(
                                   customHintText: 'Email',
                                   customErrorText: 'Enter an email',
@@ -147,8 +150,9 @@ class _SignInVolState extends State<SignInVol> {
                                   alignment: Alignment.topLeft,
                                   child: Padding(
                                     padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context).size.height *
-                                          0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
                                     ),
                                     child: Text(
                                       "Your email should contain @gmail.com",
@@ -160,15 +164,18 @@ class _SignInVolState extends State<SignInVol> {
                                   ),
                                 ),
                               ),
-                          SizedBox(height: !errorEmpty
-                                  ?MediaQuery.of(context).size.height * 0.02
-                              :MediaQuery.of(context).size.height * 0.015,),
+                              SizedBox(
+                                height: !errorEmpty
+                                    ? MediaQuery.of(context).size.height * 0.02
+                                    : MediaQuery.of(context).size.height *
+                                        0.015,
+                              ),
                               Material(
                                 color: Colors.transparent,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: borderRadiusApplication,
-                                    ),
-                                elevation: errorEmpty==true? 0:5,
+                                  borderRadius: borderRadiusApplication,
+                                ),
+                                elevation: errorEmpty == true ? 0 : 5,
                                 child: CustomTextFormField(
                                   customHintText: 'Password',
                                   customErrorText: 'Enter a password',
@@ -184,8 +191,8 @@ class _SignInVolState extends State<SignInVol> {
                             alignment: Alignment.topLeft,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                bottom: MediaQuery.of(context).size.height *
-                                    0.005,
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.005,
                               ),
                               child: Text(
                                 "Your password should contain 9 signs or more",
@@ -203,8 +210,8 @@ class _SignInVolState extends State<SignInVol> {
                         Padding(
                           padding: EdgeInsets.only(
                               top: !errorEmpty
-                              ?MediaQuery.of(context).size.height * 0.17
-                          : MediaQuery.of(context).size.height * 0.02),
+                                  ? MediaQuery.of(context).size.height * 0.17
+                                  : MediaQuery.of(context).size.height * 0.02),
                           child: Container(
                             width: double.infinity,
                             height: MediaQuery.of(context).size.height * 0.085,
@@ -216,24 +223,23 @@ class _SignInVolState extends State<SignInVol> {
                                 ),
                                 onPressed: () async {
                                   registrationVol = false;
-                                  if (controllerTextFieldEmailVol.text.isEmpty) {
+                                  if (controllerTextFieldEmailVol
+                                      .text.isEmpty) {
                                     setState(() {
                                       errorEmpty = true;
-
                                     });
                                   }
-                                  if (controllerTextFieldPasswordVol.text.isEmpty) {
+                                  if (controllerTextFieldPasswordVol
+                                      .text.isEmpty) {
                                     setState(() {
                                       errorEmpty = true;
-
                                     });
                                   }
                                   if (_formKey.currentState!.validate()) {
                                     setState(() => loading = true);
-                                    dynamic result =
-                                        await _auth.signInWithEmailAndPasswordVol(
+                                    dynamic result = await _auth
+                                        .signInWithEmailAndPasswordVol(
                                             emailVolLog, passwordVolLog);
-
 
                                     if (result == null) {
                                       setState(() {
@@ -243,14 +249,10 @@ class _SignInVolState extends State<SignInVol> {
                                         error =
                                             'Could not sign in with those credentials';
                                       });
-                                    } else{
+                                    } else {
                                       controllerTextFieldEmailVol.clear();
                                       controllerTextFieldPasswordVol.clear();
                                       justSignedIn = true;
-    // Future.delayed(const Duration(milliseconds: 500), () {
-    //                                   Navigator.of(context, rootNavigator: true).pushReplacement(
-    //                                       MaterialPageRoute(builder: (context) => Wrapper()));
-    // });
                                     }
                                   }
                                 }),
@@ -273,8 +275,10 @@ class _SignInVolState extends State<SignInVol> {
                                 )),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pushReplacement(
-                                                                            MaterialPageRoute(builder: (context) => ForgotPasswordVol()));
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pushReplacement(MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgotPasswordVol()));
                                 },
                                 child: Text(
                                   "Forgot password",
@@ -290,59 +294,7 @@ class _SignInVolState extends State<SignInVol> {
                   ),
                 ),
               ),
-          ),
-        );
+            ),
+          );
   }
 }
-
-//
-// class CustomButton extends StatelessWidget {
-//   final String buttonName;
-//   const CustomButton({
-//     Key? key, required this.buttonName
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: padding,
-//       child: Container(
-//         width: double.infinity,
-//         height: MediaQuery.of(context).size.height * 0.085,
-//         decoration: buttonDecoration,
-//         child: TextButton(
-//
-//           child: Text(buttonName,
-//             style: textButtonStyle,
-//           ),
-//           onPressed: () async{
-//
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-// class CustomButton extends StatelessWidget {
-//   final String buttonName;
-//
-//   const CustomButton({Key? key, required this.buttonName}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.infinity,
-//       height: MediaQuery.of(context).size.height * 0.085,
-//       decoration: buttonDecoration,
-//       child: TextButton(
-//         child: Text(
-//           buttonName,
-//           style: textButtonStyle
-//         ),
-//         onPressed: () async {
-//           // Navigator.push(context, MaterialPageRoute(builder: (context) => const Wrapper()));
-//         },
-//       ),
-//     );
-//   }
-// }

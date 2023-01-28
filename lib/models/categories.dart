@@ -10,7 +10,7 @@ List<String> categoriesListAll = [
   "Language assistance",
   "Law consult",
   "Medical assistance",
-  // "Other"
+
 ];
 
 List<String> categoriesListAllRefugee = [
@@ -22,7 +22,7 @@ List<String> categoriesListAllRefugee = [
   "Language assistance",
   "Law consult",
   "Medical assistance",
-  // "Other"
+
 ];
 
 List dropdownItemList = [

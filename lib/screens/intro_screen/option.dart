@@ -61,19 +61,6 @@ class _OptionChooseState extends State<OptionChoose> {
               ),
             ),
           ),
-
-          // Padding(
-          //   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
-          //   child: Align(
-          //     alignment: Alignment.topCenter,
-          //     child: Text("Helpmate ",
-          //       style: GoogleFonts.sairaStencilOne(
-          //         fontSize: 50,
-          //         color: background,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.38),
             child: Align(

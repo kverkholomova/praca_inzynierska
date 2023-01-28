@@ -13,7 +13,6 @@ bool emailErrorSignInVol = false;
 bool passwordErrorSignInRef = false;
 bool passwordErrorSignInVol = false;
 
-
 // String errorTxt = "";
 
 class CustomTextFormField extends StatefulWidget {
@@ -21,7 +20,11 @@ class CustomTextFormField extends StatefulWidget {
   final String customErrorText;
   bool hide;
 
-  CustomTextFormField({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
+  CustomTextFormField(
+      {Key? key,
+      required this.customHintText,
+      required this.customErrorText,
+      required this.hide})
       : super(key: key);
 
   @override
@@ -41,196 +44,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        controller: widget.customHintText == "Email"
-            ?optionRefugee
-            ?controllerTextFieldEmailRef
-            :controllerTextFieldEmailVol
-            :optionRefugee
-            ?controllerTextFieldPasswordRef
-            :controllerTextFieldPasswordVol,
-        obscureText: widget.hide ==true?true:false,
-        decoration: InputDecoration(
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 1.5,
-              ),
-            ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1.5,
-            ),
-          ),
-          errorStyle: const TextStyle(
-            color: Colors.red
-          ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(
-                color: Colors.black.withOpacity(0.7),
-                width: 1.5,
-              ),
-            ),
-
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                color: Colors.white,
-                width: 0,
-              ),
-            ),
-            filled: true,
-            fillColor: Colors.white,
-            hintStyle: GoogleFonts.raleway(
-              fontSize: 16,
-              color: Colors.black.withOpacity(0.5),
-            ),
-          labelText: widget.customHintText,
-          labelStyle: GoogleFonts.raleway(
-            fontSize: 16,
-            color: Colors.black.withOpacity(0.7),
-          ),
-            // hintText: widget.customHintText,
-          suffixIcon: widget.customHintText=="Password"?IconButton(
-            icon: Icon(
-              // Based on passwordVisible state choose the icon
-              passwordVisible
-                  ? Icons.visibility
-                  : Icons.visibility_off,
-              color: const Color.fromRGBO(2, 62, 99, 20),
-            ),
-            onPressed: () {
-
-              // Update the state i.e. toogle the state of passwordVisible variable
-              setState(() {
-                widget.hide = passwordVisible;
-                passwordVisible = !passwordVisible;
-              });
-            },
-          ):null,
-        ),
-        validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
-        onChanged: (val) {
-
-          if( widget.customHintText == "Email"){
-              if (!val.contains("@gmail.com")){
-                setState(() {
-                  emailErrorSignInVol = true;
-                });
-              } else{
-                setState(() {
-                  emailErrorSignInVol = false;
-                });
-                emailVolLog = val;
-              }
-              // emailVolLog = val;
-
-          } else if(widget.customHintText == "Password"){
-
-              if (val.length<=8){
-                setState(() {
-                  passwordErrorSignInVol = true;
-                });
-              } else{
-                setState(() {
-                  passwordErrorSignInVol = false;
-                });
-                passwordVolLog = val;
-              }
-              // passwordVolLog = val;
-
-          }
-
-          // setState(() {
-          //   if( widget.customHintText == "Email"){
-          //     if(optionRefugee){
-          //
-          //         emailRefLog = val;
-          //
-          //     } else {
-          //       emailVolLog = val;
-          //     }
-          //   } else if(widget.customHintText == "Password"){
-          //     if(optionRefugee){
-          //
-          //         passwordRefLog = val;
-          //
-          //   //   if(optionRefugee){
-          //   //     if (!(val.contains('@gmail.com'))){
-          //   //       setState(() {
-          //   //         emailErrorSignInRef = true;
-          //   //       });
-          //   //     } else if (val.contains('@gmail.com')){
-          //   //       setState(() {
-          //   //         emailErrorSignInRef = false;
-          //   //       });
-          //   //       emailRefLog = val;
-          //   //     }
-          //   //
-          //   //   } else {
-          //   //     emailVolLog = val;
-          //   //   }
-          //   // } else if(widget.customHintText == "Password"){
-          //   //   if(optionRefugee){
-          //   //     if(val.length<=8){
-          //   //       setState(() {
-          //   //         passwordErrorSignInRef=true;
-          //   //       });
-          //   //     } else{
-          //   //       setState(() {
-          //   //         passwordErrorSignInRef=false;
-          //   //       });
-          //   //       passwordRefLog = val;
-          //   //     }
-          //
-          //     } else {
-          //       passwordVolLog = val;
-          //     }
-          //   }
-          // });
-          // setState(() => email = val);
-        },
-
-      );
-  }
-}
-
-class CustomTextFormFieldRefugee extends StatefulWidget {
-  final String customHintText;
-  final String customErrorText;
-  bool hide;
-
-  CustomTextFormFieldRefugee({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
-      : super(key: key);
-
-  @override
-  State<CustomTextFormFieldRefugee> createState() => _CustomTextFormFieldRefugeeState();
-}
-
-class _CustomTextFormFieldRefugeeState extends State<CustomTextFormFieldRefugee> {
-  bool passwordVisible = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    passwordVisible = false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
       controller: widget.customHintText == "Email"
-          ?optionRefugee
-          ?controllerTextFieldEmailRef
-          :controllerTextFieldEmailVol
-          :optionRefugee
-          ?controllerTextFieldPasswordRef
-          :controllerTextFieldPasswordVol,
-      obscureText: widget.hide ==true?true:false,
+          ? optionRefugee
+              ? controllerTextFieldEmailRef
+              : controllerTextFieldEmailVol
+          : optionRefugee
+              ? controllerTextFieldPasswordRef
+              : controllerTextFieldPasswordVol,
+      obscureText: widget.hide == true ? true : false,
       decoration: InputDecoration(
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
@@ -246,9 +67,7 @@ class _CustomTextFormFieldRefugeeState extends State<CustomTextFormFieldRefugee>
             width: 1.5,
           ),
         ),
-        errorStyle: const TextStyle(
-            color: Colors.red
-        ),
+        errorStyle: const TextStyle(color: Colors.red),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
@@ -276,117 +95,74 @@ class _CustomTextFormFieldRefugeeState extends State<CustomTextFormFieldRefugee>
           color: Colors.black.withOpacity(0.7),
         ),
         // hintText: widget.customHintText,
-        suffixIcon: widget.customHintText=="Password"?IconButton(
-          icon: Icon(
-            // Based on passwordVisible state choose the icon
-            passwordVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
-            color: redColor,
-          ),
-          onPressed: () {
-            // Update the state i.e. toogle the state of passwordVisible variable
-            setState(() {
-              widget.hide = passwordVisible;
-              passwordVisible = !passwordVisible;
-            });
-          },
-        ):null,
+        suffixIcon: widget.customHintText == "Password"
+            ? IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: const Color.fromRGBO(2, 62, 99, 20),
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    widget.hide = passwordVisible;
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+              )
+            : null,
       ),
-      validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
+      validator: (val) => val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
-        setState(() {
-    // if(optionRefugee){
-    // if (!(val.contains('@gmail.com'))){
-    // setState(() {
-    // emailErrorSignInRef = true;
-    // });
-    // } else if (val.contains('@gmail.com')){
-    // setState(() {
-    // emailErrorSignInRef = false;
-    // });
-    // emailRefLog = val;
-    // }
-    //
-    // } else {
-    // emailVolLog = val;
-    // }
-    // } else if(widget.customHintText == "Password"){
-    // if(optionRefugee){
-    // if(val.length<=8){
-    // setState(() {
-    // passwordErrorSignInRef=true;
-    // });
-    // } else{
-    // setState(() {
-    // passwordErrorSignInRef=false;
-    // });
-    // passwordRefLog = val;
-    // }
-          if( widget.customHintText == "Email"){
-            if(optionRefugee){
-              if (!val.contains("@gmail.com")){
-                 setState(() {
-                   emailErrorSignInRef = true;
-                 });
-              } else{
-                setState(() {
-                  emailErrorSignInRef = false;
-                });
-                emailRefLog = val;
-              }
-
-            } else {
-              emailVolLog = val;
-            }
-          } else if(widget.customHintText == "Password"){
-            if(optionRefugee){
-              if (val.length<=8){
-                setState(() {
-                  passwordErrorSignInRef = true;
-                });
-              } else{
-                setState(() {
-                  passwordErrorSignInRef = false;
-                });
-                passwordRefLog = val;
-              }
-
-            } else {
-              passwordVolLog = val;
-            }
+        if (widget.customHintText == "Email") {
+          if (!val.contains("@gmail.com")) {
+            setState(() {
+              emailErrorSignInVol = true;
+            });
+          } else {
+            setState(() {
+              emailErrorSignInVol = false;
+            });
+            emailVolLog = val;
           }
-        });
-        // setState(() => email = val);
+          // emailVolLog = val;
+        } else if (widget.customHintText == "Password") {
+          if (val.length <= 8) {
+            setState(() {
+              passwordErrorSignInVol = true;
+            });
+          } else {
+            setState(() {
+              passwordErrorSignInVol = false;
+            });
+            passwordVolLog = val;
+          }
+          // passwordVolLog = val;
+        }
       },
-
     );
   }
 }
 
-String emailRegisterVol = '';
-String passwordRegisterVol = '';
-String emailRegisterRef = '';
-String passwordRegisterRef = '';
-bool errorEmptyRegister = false;
-
-
-class CustomTextFormFieldRegister extends StatefulWidget {
+class CustomTextFormFieldRefugee extends StatefulWidget {
   final String customHintText;
   final String customErrorText;
   bool hide;
-  // final Function() setData;
 
-
-
-  CustomTextFormFieldRegister({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
+  CustomTextFormFieldRefugee(
+      {Key? key,
+      required this.customHintText,
+      required this.customErrorText,
+      required this.hide})
       : super(key: key);
 
   @override
-  State<CustomTextFormFieldRegister> createState() => _CustomTextFormFieldRegisterState();
+  State<CustomTextFormFieldRefugee> createState() =>
+      _CustomTextFormFieldRefugeeState();
 }
 
-class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegister> {
+class _CustomTextFormFieldRefugeeState
+    extends State<CustomTextFormFieldRefugee> {
   bool passwordVisible = false;
 
   @override
@@ -399,16 +175,14 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: widget.customHintText == "Name"
-          ?controllerTextFieldNameVol
-          : widget.customHintText == "Phone number"
-          ?controllerTextFieldPhoneNumberVol
-          : widget.customHintText == "Email"
-          ?controllerTextFieldEmailVolRegistration
-          :widget.customHintText == "Password"
-          ?controllerTextFieldPasswordVolRegistration
-          :null,
-      obscureText: widget.hide ==true?true:false,
+      controller: widget.customHintText == "Email"
+          ? optionRefugee
+              ? controllerTextFieldEmailRef
+              : controllerTextFieldEmailVol
+          : optionRefugee
+              ? controllerTextFieldPasswordRef
+              : controllerTextFieldPasswordVol,
+      obscureText: widget.hide == true ? true : false,
       decoration: InputDecoration(
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
@@ -424,9 +198,157 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
             width: 1.5,
           ),
         ),
-        errorStyle: const TextStyle(
-            color: Colors.red
+        errorStyle: const TextStyle(color: Colors.red),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Colors.black.withOpacity(0.7),
+            width: 1.5,
+          ),
         ),
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 0,
+          ),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        hintStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.5),
+        ),
+        labelText: widget.customHintText,
+        labelStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          color: Colors.black.withOpacity(0.7),
+        ),
+        // hintText: widget.customHintText,
+        suffixIcon: widget.customHintText == "Password"
+            ? IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: redColor,
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    widget.hide = passwordVisible;
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+              )
+            : null,
+      ),
+      validator: (val) => val!.isEmpty ? widget.customErrorText : null,
+      onChanged: (val) {
+        setState(() {
+          if (widget.customHintText == "Email") {
+            if (optionRefugee) {
+              if (!val.contains("@gmail.com")) {
+                setState(() {
+                  emailErrorSignInRef = true;
+                });
+              } else {
+                setState(() {
+                  emailErrorSignInRef = false;
+                });
+                emailRefLog = val;
+              }
+            } else {
+              emailVolLog = val;
+            }
+          } else if (widget.customHintText == "Password") {
+            if (optionRefugee) {
+              if (val.length <= 8) {
+                setState(() {
+                  passwordErrorSignInRef = true;
+                });
+              } else {
+                setState(() {
+                  passwordErrorSignInRef = false;
+                });
+                passwordRefLog = val;
+              }
+            } else {
+              passwordVolLog = val;
+            }
+          }
+        });
+        // setState(() => email = val);
+      },
+    );
+  }
+}
+
+String emailRegisterVol = '';
+String passwordRegisterVol = '';
+String emailRegisterRef = '';
+String passwordRegisterRef = '';
+bool errorEmptyRegister = false;
+
+class CustomTextFormFieldRegister extends StatefulWidget {
+  final String customHintText;
+  final String customErrorText;
+  bool hide;
+
+  // final Function() setData;
+
+  CustomTextFormFieldRegister(
+      {Key? key,
+      required this.customHintText,
+      required this.customErrorText,
+      required this.hide})
+      : super(key: key);
+
+  @override
+  State<CustomTextFormFieldRegister> createState() =>
+      _CustomTextFormFieldRegisterState();
+}
+
+class _CustomTextFormFieldRegisterState
+    extends State<CustomTextFormFieldRegister> {
+  bool passwordVisible = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    passwordVisible = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.customHintText == "Name"
+          ? controllerTextFieldNameVol
+          : widget.customHintText == "Phone number"
+              ? controllerTextFieldPhoneNumberVol
+              : widget.customHintText == "Email"
+                  ? controllerTextFieldEmailVolRegistration
+                  : widget.customHintText == "Password"
+                      ? controllerTextFieldPasswordVolRegistration
+                      : null,
+      obscureText: widget.hide == true ? true : false,
+      decoration: InputDecoration(
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.5,
+          ),
+        ),
+        errorStyle: const TextStyle(color: Colors.red),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
@@ -449,121 +371,88 @@ class _CustomTextFormFieldRegisterState extends State<CustomTextFormFieldRegiste
         ),
         filled: true,
         fillColor: Colors.white,
-        // hintStyle: GoogleFonts.raleway(
-        //   fontSize: 16,
-        //   color: Colors.black.withOpacity(0.5),
-        // ),
-        // hintText: widget.customHintText,
-        suffixIcon: widget.customHintText=="Password"?IconButton(
-          icon: Icon(
-            // Based on passwordVisible state choose the icon
-            passwordVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
-            color: const Color.fromRGBO(2, 62, 99, 20),
-          ),
-          onPressed: () {
-            // Update the state i.e. toogle the state of passwordVisible variable
-            setState(() {
-              widget.hide = passwordVisible;
-              passwordVisible = !passwordVisible;
-            });
-          },
-        ):null,
+        suffixIcon: widget.customHintText == "Password"
+            ? IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: const Color.fromRGBO(2, 62, 99, 20),
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    widget.hide = passwordVisible;
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+              )
+            : null,
       ),
-      validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
+      validator: (val) => val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
         setState(() {
-
           // userNameVol = val;
 
-          if(widget.customHintText=="Name"){
-
-            if (val.contains(RegExp(r'[0-9]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+          if (widget.customHintText == "Name") {
+            if (val.contains(RegExp(r'[0-9]')) ||
+                val.contains(RegExp(r'[#?!@$%^&*-]'))) {
               setState(() {
-                nameVol= true;
-                print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-                print(nameVol);
-              });}
-            else {
+                nameVol = true;
+              });
+            } else {
               setState(() {
                 nameVol = false;
-                print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-                print(nameVol);
               });
               userName = val;
               // userNameVol = val;
             }
-          }
-          else if( widget.customHintText == "Phone number"){
-
-            if (val.contains(RegExp(r'[A-Z]'))||val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+          } else if (widget.customHintText == "Phone number") {
+            if (val.contains(RegExp(r'[A-Z]')) ||
+                val.contains(RegExp(r'[a-z]')) ||
+                val.contains(RegExp(r'[#?!@$%^&*-]'))) {
               setState(() {
-                phoneVol= true;
-                print("Phoooooneeeeeee");
-                print(phoneVol);
-              });}
-            else {
-              if(val.length==9){
+                phoneVol = true;
+              });
+            } else {
+              if (val.length == 9) {
                 setState(() {
                   phoneVol = false;
-                  print("Phooooneeeeeeee");
-                  print(phoneVol);
                 });
                 phoneNumber = val;
               } else {
                 setState(() {
                   phoneLengthVol = true;
                   phoneVol = true;
-                  print("Phooooneeeeeeee");
-                  print(phoneVol);
                 });
               }
               // userNameRef = val;
             }
 
             // phoneNumberRef = val;
-          } else if( widget.customHintText == "Email"){
-
-            if(!val.contains("@gmail.com")){
+          } else if (widget.customHintText == "Email") {
+            if (!val.contains("@gmail.com")) {
               setState(() {
-                emailVol=true;
+                emailVol = true;
               });
-            } else{
+            } else {
               setState(() {
                 emailVol = false;
               });
               emailRegisterVol = val;
             }
-
-
-          } else if(widget.customHintText == "Password"){
-            if(val.length<=8){
+          } else if (widget.customHintText == "Password") {
+            if (val.length <= 8) {
               setState(() {
                 passwordVol = true;
               });
-            } else{
+            } else {
               setState(() {
                 passwordVol = false;
               });
               passwordRegisterVol = val;
             }
-
           }
         });
-        // setState(() {
-        //  if(widget.customHintText=="Name"){
-        //
-        //    userName = val;
-        //  } else if( widget.customHintText == "Phone number"){
-        //    phoneNumber = val;
-        //  } else if( widget.customHintText == "Email"){
-        //    emailRegisterVol = val;
-        //  } else if(widget.customHintText == "Password"){
-        //    passwordRegisterVol = val;
-        //  }
-        // });
-
       },
     );
   }
@@ -573,18 +462,23 @@ class CustomTextFormFieldRegisterRef extends StatefulWidget {
   final String customHintText;
   final String customErrorText;
   bool hide;
+
   // final Function() setData;
 
-
-
-  CustomTextFormFieldRegisterRef({Key? key, required this.customHintText, required this.customErrorText, required this.hide})
+  CustomTextFormFieldRegisterRef(
+      {Key? key,
+      required this.customHintText,
+      required this.customErrorText,
+      required this.hide})
       : super(key: key);
 
   @override
-  State<CustomTextFormFieldRegisterRef> createState() => _CustomTextFormFieldRegisterRefState();
+  State<CustomTextFormFieldRegisterRef> createState() =>
+      _CustomTextFormFieldRegisterRefState();
 }
 
-class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegisterRef> {
+class _CustomTextFormFieldRegisterRefState
+    extends State<CustomTextFormFieldRegisterRef> {
   bool passwordVisible = false;
 
   @override
@@ -597,44 +491,16 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
-      // onFieldSubmitted: (val){
-      //   if(widget.customHintText=="Name"){
-      //
-      //     if(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]'))){
-      //       setState(() {
-      //         nameRef = false;
-      //         print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-      //         print(nameRef);
-      //       });
-      //       userNameRef = val;
-      //     }
-      //     else if (!(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]')))){
-      //       setState(() {
-      //         nameRef= true;
-      //         print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-      //         print(nameRef);
-      //       });}
-      //
-      //
-      //   } else if( widget.customHintText == "Phone number"){
-      //     phoneNumberRef = val;
-      //   } else if( widget.customHintText == "Email"){
-      //     emailRegisterRef = val;
-      //   } else if(widget.customHintText == "Password"){
-      //     passwordRegisterRef = val;
-      //   }
-      // },
       controller: widget.customHintText == "Name"
-          ?controllerTextFieldNameRef
+          ? controllerTextFieldNameRef
           : widget.customHintText == "Phone number"
-          ?controllerTextFieldPhoneNumberRef
-          : widget.customHintText == "Email"
-          ?controllerTextFieldEmailRefRegistration
-          :widget.customHintText == "Password"
-          ?controllerTextFieldPasswordRefRegistration
-          :null,
-      obscureText: widget.hide ==true?true:false,
+              ? controllerTextFieldPhoneNumberRef
+              : widget.customHintText == "Email"
+                  ? controllerTextFieldEmailRefRegistration
+                  : widget.customHintText == "Password"
+                      ? controllerTextFieldPasswordRefRegistration
+                      : null,
+      obscureText: widget.hide == true ? true : false,
       decoration: InputDecoration(
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
@@ -650,9 +516,7 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
             width: 1.5,
           ),
         ),
-        errorStyle: const TextStyle(
-            color: Colors.red
-        ),
+        errorStyle: const TextStyle(color: Colors.red),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
@@ -675,125 +539,86 @@ class _CustomTextFormFieldRegisterRefState extends State<CustomTextFormFieldRegi
         ),
         filled: true,
         fillColor: Colors.white,
-        // hintStyle: GoogleFonts.raleway(
-        //   fontSize: 16,
-        //   color: Colors.black.withOpacity(0.5),
-        // ),
-        // hintText: widget.customHintText,
-        suffixIcon: widget.customHintText=="Password"?IconButton(
-          icon: Icon(
-            // Based on passwordVisible state choose the icon
-            passwordVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
-            color: redColor,
-          ),
-          onPressed: () {
-            // Update the state i.e. toogle the state of passwordVisible variable
-            setState(() {
-              widget.hide = passwordVisible;
-              passwordVisible = !passwordVisible;
-            });
-          },
-        ):null,
+        suffixIcon: widget.customHintText == "Password"
+            ? IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: redColor,
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    widget.hide = passwordVisible;
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+              )
+            : null,
       ),
-      validator: (val) =>val!.isEmpty ? widget.customErrorText : null,
+      validator: (val) => val!.isEmpty ? widget.customErrorText : null,
       onChanged: (val) {
         setState(() {
-          // if(widget.customHintText=="Name"){
+          if (widget.customHintText == "Name") {
+            if (val.contains(RegExp(r'[0-9]')) ||
+                val.contains(RegExp(r'[#?!@$%^&*-]'))) {
+              setState(() {
+                nameRef = true;
+              });
+            } else {
+              setState(() {
+                nameRef = false;
 
-            // if(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]'))){
-            // setState(() {
-            // nameRef = false;
-            // print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-            // print(nameRef);
-            // });
-            // userNameRef = val;
-            // }
-            // else if (!(val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[A-Z]')))){
-            // setState(() {
-            // nameRef= true;
-            // print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-            // print(nameRef);
-            // });}
-
-
-          // }
-            if(widget.customHintText=="Name"){
-
-              if (val.contains(RegExp(r'[0-9]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
-                setState(() {
-                  nameRef= true;
-                  print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-                  print(nameRef);
-                });}
-              else {
-                setState(() {
-                  nameRef = false;
-                  print("Naaaaaaaaaaameeeeeeeeeeeeeeeeeee");
-                  print(nameRef);
-                  userNameRef = val;
-                });
-
-              }
+                userNameRef = val;
+              });
             }
-          else if( widget.customHintText == "Phone number"){
-
-              if (val.contains(RegExp(r'[A-Z]'))||val.contains(RegExp(r'[a-z]'))||val.contains(RegExp(r'[#?!@$%^&*-]'))){
+          } else if (widget.customHintText == "Phone number") {
+            if (val.contains(RegExp(r'[A-Z]')) ||
+                val.contains(RegExp(r'[a-z]')) ||
+                val.contains(RegExp(r'[#?!@$%^&*-]'))) {
+              setState(() {
+                phoneRef = true;
+              });
+            } else {
+              if (val.length == 9) {
                 setState(() {
-                  phoneRef= true;
-                  print("Phoooooneeeeeee");
-                  print(phoneRef);
-                });}
-              else {
-                if(val.length==9){
-                  setState(() {
-                    phoneRef = false;
-                    print("Phooooneeeeeeee");
-                    print(phoneRef);
-                  });
-                  phoneNumberRef = val;
-                } else {
-                  setState(() {
-                    phoneLength = true;
-                    phoneRef = true;
-                    print("Phooooneeeeeeee");
-                    print(phoneRef);
-                  });
-                }
-                // userNameRef = val;
+                  phoneRef = false;
+                });
+                phoneNumberRef = val;
+              } else {
+                setState(() {
+                  phoneLength = true;
+                  phoneRef = true;
+                });
               }
+              // userNameRef = val;
+            }
 
             // phoneNumberRef = val;
-          } else if( widget.customHintText == "Email"){
-
-            if(!val.contains("@gmail.com")){
+          } else if (widget.customHintText == "Email") {
+            if (!val.contains("@gmail.com")) {
               setState(() {
-                emailRef=true;
+                emailRef = true;
               });
-            } else{
+            } else {
               setState(() {
                 emailRef = false;
               });
               emailRegisterRef = val;
             }
-
-
-          } else if(widget.customHintText == "Password"){
-            if(val.length<=8){
+          } else if (widget.customHintText == "Password") {
+            if (val.length <= 8) {
               setState(() {
                 passwordRef = true;
               });
-            } else{
+            } else {
               setState(() {
                 passwordRef = false;
               });
               passwordRegisterRef = val;
             }
-
           }
         });
-
       },
     );
   }

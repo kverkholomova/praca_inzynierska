@@ -8,7 +8,6 @@ import 'package:wol_pro_1/screens/register_login/refugee/register/register_refug
 import 'package:wol_pro_1/screens/register_login/volunteer/register/register_volunteer_1.dart';
 import 'package:wol_pro_1/services/database.dart';
 import 'package:http/http.dart' as http;
-import '../screens/register_login/volunteer/login/sign_in_volunteer.dart';
 
 enum AuthStatus {
   successful,
@@ -40,6 +39,7 @@ class AuthExceptionHandler {
     }
     return status;
   }
+
   static String generateErrorMessage(error) {
     String errorMessage;
     switch (error) {
@@ -54,7 +54,7 @@ class AuthExceptionHandler {
         break;
       case AuthStatus.emailAlreadyExists:
         errorMessage =
-        "The email address is already in use by another account.";
+            "The email address is already in use by another account.";
         break;
       default:
         errorMessage = "An error occured. Please try again later.";
@@ -64,7 +64,6 @@ class AuthExceptionHandler {
 }
 
 class AuthService {
-
   static late AuthStatus status;
   String? tokenFirst;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -76,9 +75,10 @@ class AuthService {
 
   // auth change user stream
   Stream<Users?> get user {
-    return _auth.authStateChanges().map((User? user) => _userFromCredUser(user));
+    return _auth
+        .authStateChanges()
+        .map((User? user) => _userFromCredUser(user));
     //.map((FirebaseUser user) => _userFromFirebaseUser(user));
-
   }
 
   // sign in anon
@@ -95,9 +95,9 @@ class AuthService {
 
 // sign in with email and password refugee
   Future signInWithEmailAndPasswordRef(String email, String password) async {
-
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       return user;
     } catch (error) {
@@ -109,7 +109,8 @@ class AuthService {
   // sign in with email and password volunteer
   Future signInWithEmailAndPasswordVol(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       return user;
     } catch (error) {
@@ -121,10 +122,12 @@ class AuthService {
 // register with email and password refugee
   Future registerWithEmailAndPasswordRef(String email, String password) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New refugee','2', userNameRef, phoneNumberRef,[], user.uid, 0, 0, '', "", 0);
+      await DatabaseService(uid: user!.uid).updateUserData('New refugee', '2',
+          userNameRef, phoneNumberRef, [], user.uid, 0, 0, '', "", 0);
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());
@@ -135,10 +138,22 @@ class AuthService {
 // register with email and password volunteer
   Future registerWithEmailAndPasswordVol(String email, String password) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       // create a new document for the user with the uid
-      await DatabaseService(uid: user!.uid).updateUserData('New volunteer','1', userName, phoneNumber, chosenCategoryListChanges, user.uid, volunteerRate, volunteerAge, image_url_volunteer, "", 1);
+      await DatabaseService(uid: user!.uid).updateUserData(
+          'New volunteer',
+          '1',
+          userName,
+          phoneNumber,
+          chosenCategoryListChanges,
+          user.uid,
+          volunteerRate,
+          volunteerAge,
+          image_url_volunteer,
+          "",
+          1);
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());
@@ -146,12 +161,12 @@ class AuthService {
     }
   }
 
-
   Future<void> changePassword(String newPassword) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    print(newPassword);
+
     tokenFirst = sharedPreferences.getString("token");
-    final url = "https://identitytoolkit.googleapis.com/v1/accounts:update?key='AIzaSyDxovtIAVt8ka_uAA9UrrypBBBLlrbev-w";
+    final url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key='AIzaSyDxovtIAVt8ka_uAA9UrrypBBBLlrbev-w";
     try {
       await http.post(
         Uri.parse(url),
@@ -169,15 +184,13 @@ class AuthService {
   }
 
 // sign out
-Future signOut() async{
-    try{
-
+  Future signOut() async {
+    try {
       return await _auth.signOut();
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
-}
+  }
 
   Future resetPassword({required String email}) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' show cos, sqrt, asin;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,7 +15,6 @@ import '../../../../utils/map_style.dart';
 
 const LatLng _center = LatLng(54.4641, 17.0287);
 
-
 class HomeMapRef extends StatefulWidget {
   const HomeMapRef({Key? key}) : super(key: key);
 
@@ -26,7 +24,7 @@ class HomeMapRef extends StatefulWidget {
 
 class _HomeMapRefState extends State<HomeMapRef> {
   final CustomInfoWindowController _customInfoWindowController =
-  CustomInfoWindowController();
+      CustomInfoWindowController();
   bool isVisible = false;
   PolylinePoints polylinePoints = PolylinePoints();
   Map<PolylineId, Polyline> polylines = {};
@@ -46,80 +44,17 @@ class _HomeMapRefState extends State<HomeMapRef> {
   String mapStyle = '';
   Position? _currentPosition;
 
-
-  // void foregroundMessage(){
-  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //
-  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLL");
-  //     print(message.sentTime);
-  //   });
-  //   // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //   //   print('Got a message whilst in the foreground!');
-  //   //   print('Message data: ${message.data}');
-  //   //
-  //   //   if (message.notification != null) {
-  //   //     print('Message also contained a notification: ${message.notification}');
-  //   //   }
-  //   // });
-  //
-  // }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const OptionChoose()),
-        // );
+
         return true;
       },
       child: Scaffold(
         body: Stack(
           children: [
-            // ClipPath(
-            //   clipper: OvalBottomBorderClipper(),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: blueColor,
-            //       boxShadow: const <BoxShadow>[
-            //         BoxShadow(
-            //           color: Colors.black,
-            //           blurRadius: 5,
-            //         ),
-            //       ],
-            //     ),
-            //     height: MediaQuery.of(context).size.height * 0.15,
-            //     child: Padding(
-            //       padding: const EdgeInsets.symmetric(vertical: 20),
-            //       child: Align(
-            //           alignment: Alignment.center,
-            //           child: Column(
-            //             children: [
-            //               Text(
-            //                 "Volunteer centers",
-            //                 style:  GoogleFonts.raleway(
-            //                   fontSize: 24,
-            //                   color: Colors.white,
-            //                 ),
-            //               ),
-            //
-            //               Padding(
-            //                 padding: const EdgeInsets.all(5.0),
-            //                 child: Text(
-            //                   "Find the nearest volunteer center",
-            //                   style: GoogleFonts.raleway(
-            //                     fontSize: 16,
-            //                     color: Colors.white,
-            //                   ),
-            //                 ),
-            //               ),
-            //             ],
-            //           )),
-            //     ),
-            //   ),
-            // ),
             GoogleMap(
               mapToolbarEnabled: false,
               myLocationButtonEnabled: false,
@@ -238,23 +173,30 @@ class _HomeMapRefState extends State<HomeMapRef> {
           ),
         ),
         ListTile(
-          title: Text(name, style: GoogleFonts.raleway(
-            fontSize: 18,
-            color: Colors.black,
-          ),),
-          subtitle: Text(address,style: GoogleFonts.raleway(
-            fontSize: 13,
-            color: Colors.black45,)
+          title: Text(
+            name,
+            style: GoogleFonts.raleway(
+              fontSize: 18,
+              color: Colors.black,
+            ),
           ),
+          subtitle: Text(address,
+              style: GoogleFonts.raleway(
+                fontSize: 13,
+                color: Colors.black45,
+              )),
         ),
         Padding(
           padding: padding,
           child: Align(
               alignment: Alignment.topLeft,
-              child: Text("Work hours: $workHours", style: GoogleFonts.raleway(
-                fontSize: 15,
-                color: Colors.black,
-              ),)),
+              child: Text(
+                "Work hours: $workHours",
+                style: GoogleFonts.raleway(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              )),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.015,
@@ -262,14 +204,14 @@ class _HomeMapRefState extends State<HomeMapRef> {
         Padding(
           padding: padding,
           child: ElevatedButton(
-
               style: ElevatedButton.styleFrom(
                 primary: redColor,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(15),
-                    )),
-                minimumSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
+                  Radius.circular(15),
+                )),
+                minimumSize:
+                    Size.fromHeight(MediaQuery.of(context).size.height * 0.085),
                 // NEW
               ),
               onPressed: () async {
@@ -442,14 +384,8 @@ class _HomeMapRefState extends State<HomeMapRef> {
     return Marker(
         markerId: MarkerId(latLng.toString()),
         position: latLng,
-        infoWindow: const InfoWindow(
-          //popup info
-          // title: "Regionalne Centrum Wolontariatu",
-          // snippet: "aleja Henryka Sienkiewicza 6, 76-200 Słupsk",
-        ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueOrange
-        ),
+        infoWindow: const InfoWindow(),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         onTap: () {
           showModalBottomSheet(
               isScrollControlled: true,
@@ -464,6 +400,6 @@ class _HomeMapRefState extends State<HomeMapRef> {
                 ]);
               });
         } //Icon for Marker
-    );
+        );
   }
 }

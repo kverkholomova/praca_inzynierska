@@ -116,14 +116,14 @@ class _OnBoardingRefugeeState extends State<OnBoardingRefugee> {
                 onDotClicked: (index){
                   controllerPageView.animateToPage(
                       index,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut);
                 },
               ),
             ),
             TextButton(onPressed: (){
               controllerPageView.nextPage(
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut);
             }, child: Text("Next", style: textInactiveButtonStyleRefugee,)),
           ],

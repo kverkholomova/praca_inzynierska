@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:wol_pro_1/constants.dart';
-import 'package:wol_pro_1/screens/menu/volunteer/home_page/settings/settings_vol_info.dart';
 
 import '../screens/menu/refugee/home_page/settings_ref/settings_ref_info.dart';
 
@@ -46,9 +45,7 @@ class _DatePickerRefugeeState extends State<DatePickerRefugee> {
     setState(() {
       var currentDate;
       var bDate;
-      print("Your BDay");
-      print(DateFormat('yyyy').format(details.date!));
-      print(DateFormat('MMMM').format(DateTime.now()));
+
       month.forEach((element) {
         if(element == DateFormat('MMMM').format(DateTime.now())){
           currentDate=month.indexOf(element)+1;
@@ -58,8 +55,7 @@ class _DatePickerRefugeeState extends State<DatePickerRefugee> {
          bDate = month.indexOf(element)+1;
 
         }});
-        print(currentDate);
-        print(bDate);
+
         if(bDate<currentDate){
           currentAgeRefugee = int.parse(DateFormat('yyyy').format(DateTime.now())) - int.parse(DateFormat('yyyy').format(details.date!));
           print(currentAgeRefugee);
@@ -112,15 +108,6 @@ class _DatePickerRefugeeState extends State<DatePickerRefugee> {
               SfCalendar(
                 onSelectionChanged: selectionChanged,
                 appointmentTextStyle: TextStyle(color: redColor),
-            // headerStyle: CalendarHeaderStyle(
-            //     textAlign: TextAlign.center,
-            //     backgroundColor: Color(0xFF7fcd91),
-            //     textStyle: TextStyle(
-            //         fontSize: 25,
-            //         fontStyle: FontStyle.normal,
-            //         letterSpacing: 5,
-            //         color: Color(0xFFff5eaea),
-            //         fontWeight: FontWeight.w500)),
 
                 viewHeaderStyle: ViewHeaderStyle(
                     dateTextStyle: TextStyle(color: Colors.white),
@@ -153,20 +140,7 @@ class _DatePickerRefugeeState extends State<DatePickerRefugee> {
                 cellBorderColor: redColor,
                 view: CalendarView.month,
               ),
-              // Padding(
-              //   padding:
-              //   EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
-              //   child: IconButton(
-              //     icon: Icon(Icons.close),
-              //     onPressed: () {
-              //       // userInput = '0.00';
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(builder: (context) => SettingsVol()),
-              //       );
-              //     },
-              //   ),
-              // ),
+
             ],
           )),
     );
