@@ -11,6 +11,8 @@ import '../main_screen.dart';
 import 'page_of_application_vol.dart';
 import 'new_screen_with_applications.dart';
 
+String idCurrentApplicationInfo = '';
+
 class ChosenCategory extends StatefulWidget {
   const ChosenCategory({Key? key}) : super(key: key);
 
@@ -110,15 +112,27 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                       setState(() {
                                         myCategories = false;
 
+                                        FirebaseFirestore.instance
+                                            .collection('applications')
+                                            .doc(streamSnapshot
+                                            .data?.docs[index].id)
+                                            .update({
+                                          "Id": streamSnapshot
+                                              .data!.docs[index].id,
+                                        });
                                         tokenRefNotification = streamSnapshot
                                             .data?.docs[index]['token_ref'];
 
-                                        cardTitleVol = streamSnapshot
-                                            .data?.docs[index]['title'];
-                                        cardCategoryVol = streamSnapshot
-                                            .data?.docs[index]['category'];
-                                        cardCommentVol = streamSnapshot
-                                            .data?.docs[index]['comment'];
+                                        idCurrentApplicationInfo = streamSnapshot
+                                            .data!.docs[index].id;
+                                        print("Tatatatata");
+                                        print(idCurrentApplicationInfo);
+                                        // cardTitleVol = streamSnapshot
+                                        //     .data?.docs[index]['title'];
+                                        // cardCategoryVol = streamSnapshot
+                                        //     .data?.docs[index]['category'];
+                                        // cardCommentVol = streamSnapshot
+                                        //     .data?.docs[index]['comment'];
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -186,7 +200,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.65,
+                                                0.75,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -218,7 +232,7 @@ class ChosenCategoryState extends State<ChosenCategory> {
                                                           .symmetric(
                                                       horizontal: 12),
                                                   child: Text(
-                                                    "${"${streamSnapshot.data?.docs[index]['comment']}".substring(0, 30)}...",
+                                                    "${"${streamSnapshot.data?.docs[index]['comment']}".substring(0, 22)}...",
                                                     style: GoogleFonts.raleway(
                                                       fontSize: 12,
                                                       color: Colors.black

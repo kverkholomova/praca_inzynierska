@@ -361,12 +361,12 @@ class _EditApplicationState extends State<EditApplication> {
                                                   textActiveButtonStyleRefugee,
                                             ),
                                             onPressed: () async {
-                                              if (changedTitle == '' &&
-                                                  changedComment == '' &&
-                                                  changedCurrentCategory ==
+                                              if (changedTitle.trim() == '' &&
+                                                  changedComment.trim() == '' &&
+                                                  changedCurrentCategory.trim() ==
                                                       '') {
                                                 dialogBuilderEmpty(context);
-                                              } else if (changedComment != "" &&
+                                              } else if (changedComment.trim() != "" &&
                                                   numChartEdit < 30) {
                                                 dialogBuilderLength(context);
                                               } else {

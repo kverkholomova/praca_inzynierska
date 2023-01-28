@@ -127,7 +127,7 @@ class _SettingsRefState extends State<SettingsRef> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ImageUploads()));
+                                                  ImageUploadsRef()));
                                     },
                                     child: SizedBox(
                                         height:

@@ -67,6 +67,8 @@ class _PageOfApplicationState extends State<PageOfApplication> {
 
   @override
   Widget build(BuildContext context) {
+    print("Lalololoollololol");
+    print(idCurrentApplicationInfo);
     return WillPopScope(
       onWillPop: () async {
         // setState(() {
@@ -121,13 +123,11 @@ class _PageOfApplicationState extends State<PageOfApplication> {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.99,
+                height: MediaQuery.of(context).size.height * 0.85,
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('applications')
-                      .where('title', isEqualTo: cardTitleVol)
-                      .where('category', isEqualTo: cardCategoryVol)
-                      .where('comment', isEqualTo: cardCommentVol)
+                      .where('Id', isEqualTo: idCurrentApplicationInfo)
                       .snapshots(),
                   builder:
                       (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {

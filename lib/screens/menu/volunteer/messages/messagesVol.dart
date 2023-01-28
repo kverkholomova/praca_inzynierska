@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wol_pro_1/app.dart';
 import 'package:wol_pro_1/constants.dart';
@@ -125,7 +126,7 @@ class _MessagesVolState extends State<MessagesVol> {
                         .collection("USERS_COLLECTION")
                         .doc(IdOfChatroomVol)
                         .collection("CHATROOMS_COLLECTION")
-                        .orderBy('time')
+                        .orderBy('time_to_sort')
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -140,6 +141,7 @@ class _MessagesVolState extends State<MessagesVol> {
                           itemCount: snapshot.data!.docs.length,
                           shrinkWrap: true,
                           itemBuilder: (_, index) {
+
                             snapshot.data!.docs[snapshot.data!.docs.length - 1]
                                         ["id_user"] !=
                                     FirebaseAuth.instance.currentUser!.uid
@@ -199,9 +201,7 @@ class _MessagesVolState extends State<MessagesVol> {
                                             ),
                                           ),
                                           Text(
-                                            DateTime.now()
-                                                .toString()
-                                                .substring(10, 16),
+                            snapshot.data!.docs[index]["time"],
                                           )
                                         ],
                                       ),
@@ -287,8 +287,9 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
         .collection("CHATROOMS_COLLECTION")
         .doc()
         .set({
+      'time_to_sort':DateTime.now(),
       'message': message.text.trim(),
-      'time': DateTime.now(),
+      'time': DateTime.now().toString().substring(10, 16),
       'name': currentNameVol,
       'id_message': "null",
       "id_user": FirebaseAuth.instance.currentUser?.uid,
@@ -317,8 +318,9 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
           .collection("CHATROOMS_COLLECTION")
           .doc()
           .set({
+        'time_to_sort':DateTime.now(),
         'message': "Hello👋",
-        'time': DateTime.now(),
+        'time': DateTime.now().toString().substring(10, 16),
         'name': currentNameVol,
         'id_message': "null",
         "id_user": FirebaseAuth.instance.currentUser?.uid,
@@ -447,7 +449,12 @@ class _SelectedChatroomVolState extends State<SelectedChatroomVol> {
                               onPressed: () async {
                                 if (message.text.isNotEmpty) {
                                   setState(() {
-                                    writeMessages();
+                                    if (message.text.trim() == ""){
+
+                                    } else{
+                                      writeMessages();
+                                    }
+                                    // writeMessages();
                                   });
 
                                   await Future.delayed(

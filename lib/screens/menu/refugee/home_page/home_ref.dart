@@ -64,6 +64,7 @@ class _HomeRefState extends State<HomeRef> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     // foregroundMessage();
     loadImageRef();
     storeNotificationToken();

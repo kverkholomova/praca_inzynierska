@@ -7,6 +7,7 @@ import 'package:wol_pro_1/screens/intro_screen/option.dart';
 
 import '../../../../models/categories.dart';
 import '../main_screen.dart';
+import 'chosen_category_applications.dart';
 import 'new_screen_with_applications.dart';
 import '../home_page/home_vol.dart';
 import 'page_of_application_vol.dart';
@@ -115,24 +116,36 @@ class YourCategoriesState extends State<YourCategories> {
                                         child: GestureDetector(
                                           onTap: () {
                                             setState(() {
+                                              FirebaseFirestore.instance
+                                                  .collection('applications')
+                                                  .doc(streamSnapshot
+                                                  .data?.docs[index].id)
+                                                  .update({
+                                                "Id": streamSnapshot
+                                                    .data!.docs[index].id,
+                                              });
                                               tokenRefNotification =
                                                   streamSnapshot
                                                           .data?.docs[index]
                                                       ['token_ref'];
                                               myCategories = true;
-                                              cardTitleVol = streamSnapshot
-                                                      .data?.docs[index]
-                                                  ['title'] as String;
-                                              cardCategoryVol = streamSnapshot
-                                                      .data?.docs[index]
-                                                  ['category'] as String;
-                                              cardCommentVol = streamSnapshot
-                                                      .data?.docs[index]
-                                                  ['comment'] as String;
+                                              idCurrentApplicationInfo = streamSnapshot
+                                                  .data!.docs[index].id;
+                                              print("Tatatatatawawawawawa");
+                                              print(idCurrentApplicationInfo);
+                                              // cardTitleVol = streamSnapshot
+                                              //         .data?.docs[index]
+                                              //     ['title'] as String;
+                                              // cardCategoryVol = streamSnapshot
+                                              //         .data?.docs[index]
+                                              //     ['category'] as String;
+                                              // cardCommentVol = streamSnapshot
+                                              //         .data?.docs[index]
+                                              //     ['comment'] as String;
 
-                                              Id_Of_current_application =
-                                                  streamSnapshot
-                                                      .data?.docs[index].id;
+                                              // Id_Of_current_application =
+                                              //     streamSnapshot
+                                              //         .data?.docs[index].id;
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -200,7 +213,7 @@ class YourCategoriesState extends State<YourCategories> {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.65,
+                                                      0.75,
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *

@@ -127,7 +127,7 @@ class _MessagesRefState extends State<MessagesRef> {
                         .collection("USERS_COLLECTION")
                         .doc(iIdOfChatroomRef)
                         .collection("CHATROOMS_COLLECTION")
-                        .orderBy('time')
+                        .orderBy('time_to_sort')
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -155,8 +155,7 @@ class _MessagesRefState extends State<MessagesRef> {
 
                             QueryDocumentSnapshot qs =
                                 snapshot.data!.docs[index];
-                            Timestamp t = qs['time'];
-                            DateTime d = t.toDate();
+
                             final dataKey = GlobalKey();
                             return Padding(
                               padding: EdgeInsets.only(
@@ -205,9 +204,7 @@ class _MessagesRefState extends State<MessagesRef> {
                                             ),
                                           ),
                                           Text(
-                                            DateTime.now()
-                                                .toString()
-                                                .substring(10, 16),
+                                            snapshot.data!.docs[index]["time"],
                                           )
                                         ],
                                       ),
@@ -264,8 +261,9 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
         .collection("CHATROOMS_COLLECTION")
         .doc()
         .set({
+      'time_to_sort':DateTime.now(),
       'message': message.text.trim(),
-      'time': DateTime.now(),
+      'time': DateTime.now().toString().substring(10, 16),
       'name': currentNameRef,
       'id_message': "null",
       "id_user": FirebaseAuth.instance.currentUser?.uid,
@@ -420,7 +418,12 @@ class _SelectedChatroomRefState extends State<SelectedChatroomRef> {
                               onPressed: () async {
                                 if (message.text.isNotEmpty) {
                                   setState(() {
-                                    writeMessages();
+                                    if (message.text.trim() == ""){
+
+                                    } else{
+                                      writeMessages();
+                                    }
+
                                   });
 
                                   await Future.delayed(

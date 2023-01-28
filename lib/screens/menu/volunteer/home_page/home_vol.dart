@@ -74,7 +74,8 @@ class _HomeVolState extends State<HomeVol> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    // print("TTTTTime");
+    // print(DateTime.now().toString());
     loadImage();
     // scrollControllerVol.jumpTo(scrollControllerVol.positions.last.maxScrollExtent);
     scrollController.addListener(scrollListener);

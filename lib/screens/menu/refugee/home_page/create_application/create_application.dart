@@ -299,7 +299,7 @@ class _ApplicationState extends State<Application> {
                           style: textActiveButtonStyleRefugee,
                         ),
                         onPressed: () async {
-                          if ((title == '') || (comment == '')) {
+                          if ((title.trim() == '') || (comment.trim() == '')) {
                             dialogBuilderEmpty(context);
                           } else if ((comment.length < 30)) {
                             dialogBuilderLength(context);
