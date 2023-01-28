@@ -26,7 +26,7 @@ class Rating extends StatefulWidget {
 }
 
 class _RatingState extends State<Rating> {
-  late double _rating;
+  late double _rating = 5.0;
 
   double _initialRating = 5.0;
   bool _isVertical = false;
