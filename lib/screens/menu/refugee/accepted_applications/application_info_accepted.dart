@@ -361,39 +361,7 @@ class _AcceptedPageOfApplicationRefState
                                   Visibility(
                                     visible: streamSnapshot.data?.docs[index]
                                         ['application_accepted'],
-                                    child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Center(
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.085,
-                                          decoration:
-                                              buttonActiveDecorationRefugee,
-                                          child: TextButton(
-                                              child: Text(
-                                                "Mark application as done",
-                                                style:
-                                                    textActiveButtonStyleRefugee,
-                                              ),
-                                              onPressed: () async {
-                                                setState(() {
-                                                  setRate();
-                                                  isAcceptedApplicationRefugee =
-                                                      true;
-                                                });
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const Rating()));
-                                              }),
-                                        ),
-                                      ),
-                                    ),
+                                    child: buildButtonMarkApplicationAsDone(context),
                                   ),
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
@@ -418,6 +386,42 @@ class _AcceptedPageOfApplicationRefState
         ),
       ),
     );
+  }
+
+  Align buildButtonMarkApplicationAsDone(BuildContext context) {
+    return Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Center(
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                            0.085,
+                                        decoration:
+                                            buttonActiveDecorationRefugee,
+                                        child: TextButton(
+                                            child: Text(
+                                              "Mark application as done",
+                                              style:
+                                                  textActiveButtonStyleRefugee,
+                                            ),
+                                            onPressed: () async {
+                                              setState(() {
+                                                setRate();
+                                                isAcceptedApplicationRefugee =
+                                                    true;
+                                              });
+                                              Navigator.of(context,
+                                                      rootNavigator: true)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const Rating()));
+                                            }),
+                                      ),
+                                    ),
+                                  );
   }
 
   Future<void> dialogBuilderDeleteApplication(BuildContext context) {
